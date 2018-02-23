@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableRow
+            <LinearLayout
                 android:id="@+id/foods_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,65 +29,61 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-                <LinearLayout
-                    android:id="@+id/foods_header"
-                    android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/foods_text"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/foods_text"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:text="@string/comidas_hoy"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                    <LinearLayout
-                        android:id="@+id/foods_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                </LinearLayout>
-            </TableRow>
-            <TableRow
-                android:id="@+id/train_row"
+                    android:layout_width="match_parent"
+                    android:text="@string/comidas_hoy"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+                <LinearLayout
+                    android:id="@+id/foods_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/colorCotent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/train_row"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorRow"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/train_text"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorRow"
+                android:text="@string/tablas_entrenamiento"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-                <LinearLayout
-                    android:id="@+id/train_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/train_text"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:text="@string/tablas_entrenamiento"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                    <LinearLayout
-                        android:id="@+id/train_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                </LinearLayout>
-            </TableRow>
-            <TableRow
+                android:layout_marginRight="5dp"/>
+            <LinearLayout
+                android:id="@+id/train_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/colorCotent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"/>
+        </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/events_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -95,32 +91,30 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-                <LinearLayout
-                    android:id="@+id/events_header"
-                    android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/events_text"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/events_text"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:text="@string/proximos_eventos"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                    <LinearLayout
-                        android:id="@+id/events_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                </LinearLayout>
-            </TableRow>
-            <TableRow
+                    android:layout_width="match_parent"
+                    android:text="@string/proximos_eventos"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+                <LinearLayout
+                    android:id="@+id/events_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/colorCotent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/achievements_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -128,31 +122,28 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-                <LinearLayout
-                    android:id="@+id/achievements_header"
-                    android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/achievements_text"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/achievements_text"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:text="@string/ultimos_logros"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                    <LinearLayout
-                        android:id="@+id/achievements_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-                </LinearLayout>
-            </TableRow>
+                    android:layout_width="match_parent"
+                    android:text="@string/ultimos_logros"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+                <LinearLayout
+                    android:id="@+id/achievements_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/colorCotent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
 
         </TableLayout>
     </ScrollView>
