@@ -3,6 +3,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <string name="tablas_entrenamiento">Tablas de entrenamiento</string>
+    <string name="comidas_hoy">Comidas de hoy</string>
+    <string name="proximos_eventos">Próximos eventos</string>
+    <string name="ultimos_logros">Últimos logros conseguidos</string>
 </resources>
