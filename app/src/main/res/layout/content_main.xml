@@ -11,15 +11,18 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/init_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TableLayout
+            android:id="@+id/init_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TableRow
+                android:id="@+id/foods_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorRow"
@@ -28,12 +31,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp">
                 <LinearLayout
-                    android:id="@+id/encabezado1"
+                    android:id="@+id/foods_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/texto_encabezado1"
+                        android:id="@+id/foods_text"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:text="@string/comidas_hoy"
@@ -42,6 +45,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <LinearLayout
+                        android:id="@+id/foods_content"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="5dp"
@@ -51,6 +55,7 @@
                 </LinearLayout>
             </TableRow>
             <TableRow
+                android:id="@+id/train_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorRow"
@@ -59,12 +64,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp">
                 <LinearLayout
-                    android:id="@+id/encabezado2"
+                    android:id="@+id/train_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/texto_encabezado2"
+                        android:id="@+id/train_text"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:text="@string/tablas_entrenamiento"
@@ -73,6 +78,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <LinearLayout
+                        android:id="@+id/train_content"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="5dp"
@@ -82,6 +88,7 @@
                 </LinearLayout>
             </TableRow>
             <TableRow
+                android:id="@+id/events_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorRow"
@@ -90,12 +97,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp">
                 <LinearLayout
-                    android:id="@+id/encabezado3"
+                    android:id="@+id/events_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/texto_encabezado3"
+                        android:id="@+id/events_text"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:text="@string/proximos_eventos"
@@ -104,6 +111,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <LinearLayout
+                        android:id="@+id/events_content"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="5dp"
@@ -113,6 +121,7 @@
                 </LinearLayout>
             </TableRow>
             <TableRow
+                android:id="@+id/achievements_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorRow"
@@ -121,12 +130,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp">
                 <LinearLayout
-                    android:id="@+id/encabezado4"
+                    android:id="@+id/achievements_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/texto_encabezado4"
+                        android:id="@+id/achievements_text"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:text="@string/ultimos_logros"
@@ -135,6 +144,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <LinearLayout
+                        android:id="@+id/achievements_content"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="5dp"
