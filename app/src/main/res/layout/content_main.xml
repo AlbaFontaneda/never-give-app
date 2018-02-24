@@ -21,29 +21,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--- VISTA COMIDAS -->
             <LinearLayout
                 android:id="@+id/foods_row"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorRow"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
+                style="@style/InitRows">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
+                    android:id="@+id/foods_header"
+                    style="@style/InitHeaders">
                     <TextView
                         android:id="@+id/foods_text"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        style="@style/InitText"
                         android:text="@string/comidas_hoy" />
                     <!---  ADDED SPACER VIEW -->
                     <View
@@ -53,119 +40,95 @@
                         />
                     <!--- /ADDED SPACER VIEW -->
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:src="@drawable/ic_options_5dp"/>
+                        android:id="@+id/foods_options"
+                        style="@style/InitOptionsButton"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/foods_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@color/colorCotent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="horizontal"/>
+                    style="@style/InitContent"/>
             </LinearLayout>
-
+            <!--- /VISTA COMIDAS -->
+            <!--- VISTA TABLAS ENTRENAMIENTO -->
             <LinearLayout
             android:id="@+id/train_row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorRow"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/train_text"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="@string/tablas_entrenamiento"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"/>
+            style="@style/InitRows">
+                <LinearLayout
+                    android:id="@+id/train_header"
+                    style="@style/InitHeaders">
+                    <TextView
+                        android:id="@+id/train_text"
+                        style="@style/InitText"
+                        android:text="@string/tablas_entrenamiento" />
+                    <!---  ADDED SPACER VIEW -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                    <!--- /ADDED SPACER VIEW -->
+                    <ImageButton
+                        android:id="@+id/train_options"
+                        style="@style/InitOptionsButton"/>
+                </LinearLayout>
             <LinearLayout
                 android:id="@+id/train_content"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@color/colorCotent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal"/>
-        </LinearLayout>
-
+                style="@style/InitContent"/>
+            </LinearLayout>
+            <!--- /VISTA TABLAS ENTRENAMIENTO -->
+            <!--- VISTA EVENTOS -->
             <LinearLayout
                 android:id="@+id/events_row"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorRow"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/events_text"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="@string/proximos_eventos"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"/>
+                style="@style/InitRows">
+                <LinearLayout
+                    android:id="@+id/events_header"
+                    style="@style/InitHeaders">
+                    <TextView
+                        android:id="@+id/events_text"
+                        style="@style/InitText"
+                        android:text="@string/proximos_eventos" />
+                    <!---  ADDED SPACER VIEW -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                    <!--- /ADDED SPACER VIEW -->
+                    <ImageButton
+                        android:id="@+id/events_options"
+                        style="@style/InitOptionsButton"/>
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/events_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@color/colorCotent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="horizontal"/>
+                    style="@style/InitContent"/>
             </LinearLayout>
-
+            <!--- /VISTA EVENTOS -->
+            <!--- VISTA LOGROS -->
             <LinearLayout
                 android:id="@+id/achievements_row"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorRow"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/achievements_text"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="@string/ultimos_logros"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"/>
+                style="@style/InitRows">
+                <LinearLayout
+                    android:id="@+id/achievements_header"
+                    style="@style/InitHeaders">
+                    <TextView
+                        android:id="@+id/achievements_text"
+                        style="@style/InitText"
+                        android:text="@string/ultimos_logros" />
+                    <!---  ADDED SPACER VIEW -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                    <!--- /ADDED SPACER VIEW -->
+                    <ImageButton
+                        android:id="@+id/achievements_options"
+                        style="@style/InitOptionsButton"/>
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/achievements_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@color/colorCotent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="horizontal"/>
+                    style="@style/InitContent"/>
             </LinearLayout>
-
+            <!--- /VISTA LOGROS -->
         </TableLayout>
     </ScrollView>
 </LinearLayout>
