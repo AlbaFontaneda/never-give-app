@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.widget.PopupMenu;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +37,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
+        registerForContextMenu(foodsOptions);
+        foodsOptions.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+                if(v==foodsOptions) {
+                    showMenu(v);
+                }
+            }
+
+        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("LUNES"));
@@ -52,6 +69,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this,v);
+        //popup.setOnMenuItemClickListener(this);// to implement on click event on items of menu
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_init_elements, popup.getMenu());
+        popup.show();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
