@@ -1,5 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.widget.PopupMenu;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,7 +38,20 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+        //Menues de la pantalla de inicio para cada elemento
+        final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
+        registerForContextMenu(foodsOptions);
+        foodsOptions.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+                if(v==foodsOptions) {
+                    showMenu(v);
+                }
+            }
+        });
+        //Tabs de la ventana de inicio
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("LUNES"));
@@ -52,6 +71,26 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //MenuItem openFoods = (MenuItem) findViewById(R.id.open_foods);
+                Toast.makeText(getApplicationContext(),
+                        item.getTitle(), Toast.LENGTH_SHORT).show();
+                if(item.getItemId()==R.id.open_foods) {
+                    Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
+                    startActivity(intent);
+                }
+
+                return true;
+            }
+        });// to implement on click event on items of menu
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_init_elements, popup.getMenu());
+        popup.show();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,6 +117,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(MainActivity.this,
+                    "Settings pulsado", Toast.LENGTH_LONG).show();
             return true;
         }
 
