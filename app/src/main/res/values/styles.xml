@@ -7,30 +7,35 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- ESTILOS VENTANA DE INICIO -->
     <style name="InitRows">
-      <item name="android:layout_width">match_parent</item>
-      <item name="android:layout_height">match_parent</item>
-      <item name="android:background">@color/colorRow</item>
-      <item name="android:layout_marginTop">5dp</item>
-      <item name="android:layout_marginBottom">5dp</item>
-      <item name="android:layout_marginLeft">5dp</item>
-      <item name="android:layout_marginRight">5dp</item>
-      <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorRow</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
+
     <style name="InitHeaders">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorHeader</item>
         <item name="android:orientation">horizontal</item>
     </style>
+
     <style name="InitText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -42,6 +47,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20dp</item>
     </style>
+
     <style name="InitOptionsButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -52,6 +58,7 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:src">@drawable/ic_options_24dp</item>
     </style>
+
     <style name="InitContent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">120dp</item>

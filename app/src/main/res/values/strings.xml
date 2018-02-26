@@ -8,4 +8,5 @@
     <string name="comidas_hoy">Comidas de hoy</string>
     <string name="proximos_eventos">Próximos eventos</string>
     <string name="ultimos_logros">Últimos logros conseguidos</string>
+    <string name="title_activity_foods">FoodsActivity</string>
 </resources>
