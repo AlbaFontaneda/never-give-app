@@ -41,7 +41,7 @@ public class FoodsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+        //Tabs de las comidas
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("LUNES"));
         tabs.addTab(tabs.newTab().setText("MARTES"));

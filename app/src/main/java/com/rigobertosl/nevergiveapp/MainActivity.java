@@ -121,24 +121,26 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_entrenamiento) {
-            // Handle the camera action
+        if (id == R.id.nav_inicio) {
+        } else if (id == R.id.nav_entrenamiento) {
+            Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_calendario) {
-
+            Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_eventos) {
-
+            //HACER ACTIVIDAD EVENTOS
         } else if (id == R.id.nav_logros) {
-
+            //HACER ACTIVIDAD LOGROS
         } else if (id == R.id.nav_compartir) {
 
         } else if (id == R.id.nav_report) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

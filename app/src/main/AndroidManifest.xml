@@ -26,7 +26,11 @@
         <activity
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AchievementsActivity"
+            android:label="@string/title_activity_achievements"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
