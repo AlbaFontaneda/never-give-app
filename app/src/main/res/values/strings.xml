@@ -9,4 +9,16 @@
     <string name="proximos_eventos">Próximos eventos</string>
     <string name="ultimos_logros">Últimos logros conseguidos</string>
     <string name="title_activity_foods">FoodsActivity</string>
+    <string name="lunes">LUNES</string>
+    <string name="martes">MARTES</string>
+    <string name="miercoles">MIÉRCOLES</string>
+    <string name="jueves">JUEVES</string>
+    <string name="viernes">VIERNES</string>
+    <string name="sabado">SÁBADO</string>
+    <string name="domingo">DOMINGO</string>
+    <string name="desayuno">DESAYUNO</string>
+    <string name="tentempie">TENTEMPIÉ</string>
+    <string name="comida">COMIDA</string>
+    <string name="merienda">MERIENDA</string>
+    <string name="cena">CENA</string>
 </resources>
