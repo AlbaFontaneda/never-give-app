@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                //MenuItem openFoods = (MenuItem) findViewById(R.id.open_foods);
                 Toast.makeText(getApplicationContext(),
                         item.getTitle(), Toast.LENGTH_SHORT).show();
-                if(item.getItemId()==R.id.open_foods) {
+                //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
+                /*if(item.getItemId()==R.id.open_foods) {
                     Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
                     startActivity(intent);
-                }
+                }*/
 
                 return true;
             }
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_inicio) {
         } else if (id == R.id.nav_entrenamiento) {
-            Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
+            Intent intent = new Intent(MainActivity.this, TrainingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_calendario) {
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
@@ -135,7 +135,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_eventos) {
             //HACER ACTIVIDAD EVENTOS
         } else if (id == R.id.nav_logros) {
-            //HACER ACTIVIDAD LOGROS
+            Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_compartir) {
 
         } else if (id == R.id.nav_report) {
