@@ -21,4 +21,5 @@
     <string name="comida">COMIDA</string>
     <string name="merienda">MERIENDA</string>
     <string name="cena">CENA</string>
+    <string name="title_activity_training">TrainingActivity</string>
 </resources>
