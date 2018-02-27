@@ -29,15 +29,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        
         //Menues de la pantalla de inicio para cada elemento
         final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
         registerForContextMenu(foodsOptions);
@@ -51,6 +43,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
         //Tabs de la ventana de inicio
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
