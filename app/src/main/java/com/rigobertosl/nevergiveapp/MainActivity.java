@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
         //Tabs de la ventana de inicio
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
