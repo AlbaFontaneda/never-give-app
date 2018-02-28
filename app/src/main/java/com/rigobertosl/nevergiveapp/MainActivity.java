@@ -154,6 +154,26 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         Toast.makeText(MainActivity.this,
                 "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-        showMenu(v);
+        switch (v.getId()) {
+            case R.id.foods_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.train_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.events_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.achievements_options: {
+                showMenu(v);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 }
