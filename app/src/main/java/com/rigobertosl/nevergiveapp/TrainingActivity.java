@@ -25,10 +25,10 @@ public class TrainingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(TrainingActivity.this, MainActivity.class);
-                //Para leer la nueva actividad (volver al main)
-                startActivity(intent);
                 //Para matar la actividad anterior
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //Para leer la nueva actividad (volver al main)
+                startActivity(intent);
             }
         });
 

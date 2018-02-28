@@ -7,4 +7,6 @@
     <color name="colorRow">#a9a8a8</color>
     <color name="colorCotent">#FF1E7881</color>
     <color name="colorHeader">#1c8f31</color>
+    <color name="buttonPressed">#c951ab</color>
+    <color name="buttonPressedStroke">#99207b</color>
 </resources>

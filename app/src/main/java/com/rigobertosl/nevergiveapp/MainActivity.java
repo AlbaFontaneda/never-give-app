@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +52,19 @@ public class MainActivity extends AppCompatActivity
         //Menues de la pantalla de inicio para cada elemento
         final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
         registerForContextMenu(foodsOptions);
-        foodsOptions.setOnClickListener(new ImageButton.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-                if(v==foodsOptions) {
-                    showMenu(v);
-                }
-            }
-        });
+        foodsOptions.setOnClickListener(this);
+
+        final ImageButton trainOptions = (ImageButton) findViewById(R.id.train_options);
+        registerForContextMenu(trainOptions);
+        trainOptions.setOnClickListener(this);
+
+        final ImageButton eventsOptions = (ImageButton) findViewById(R.id.events_options);
+        registerForContextMenu(eventsOptions);
+        eventsOptions.setOnClickListener(this);
+
+        final ImageButton achievementsOptions = (ImageButton) findViewById(R.id.achievements_options);
+        registerForContextMenu(achievementsOptions);
+        achievementsOptions.setOnClickListener(this);
 
     }
     /*********** FUNCIONES DE LA PANTALLA DE INICIO ******************/
@@ -145,5 +148,12 @@ public class MainActivity extends AppCompatActivity
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(MainActivity.this,
+                "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+        showMenu(v);
     }
 }
