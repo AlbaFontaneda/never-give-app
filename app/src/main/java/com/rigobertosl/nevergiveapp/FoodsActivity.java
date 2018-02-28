@@ -19,9 +19,14 @@ public class FoodsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foods);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Finds ID
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab); //Boton flotante de la actividad
+
         setSupportActionBar(toolbar);
 
+        //Función para volver a la pantalla anterior
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -33,7 +38,16 @@ public class FoodsActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //Tabs de las comidas
+        tabs.addTab(tabs.newTab().setText(R.string.lunes));
+        tabs.addTab(tabs.newTab().setText(R.string.martes));
+        tabs.addTab(tabs.newTab().setText(R.string.miercoles));
+        tabs.addTab(tabs.newTab().setText(R.string.jueves));
+        tabs.addTab(tabs.newTab().setText(R.string.viernes));
+        tabs.addTab(tabs.newTab().setText(R.string.sabado));
+        tabs.addTab(tabs.newTab().setText(R.string.domingo));
+
+        //Función para dar funcionalidad al boton flotante
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,31 +55,23 @@ public class FoodsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        //Tabs de las comidas
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("LUNES"));
-        tabs.addTab(tabs.newTab().setText("MARTES"));
-        tabs.addTab(tabs.newTab().setText("MIERCOLES"));
-        tabs.addTab(tabs.newTab().setText("JUEVES"));
-        tabs.addTab(tabs.newTab().setText("VIERNES"));
-        tabs.addTab(tabs.newTab().setText("SABADO"));
-        tabs.addTab(tabs.newTab().setText("DOMINGO"));
     }
-
+    /*********** FUNCIONES DE LA PANTALLA DE COMIDAS ******************/
+    //Función para abrir el menu de opciones del app bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_foods, menu);
         return true;
     }
+    //Función para dar funcionalidades a cada item del menu del app bar
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.foods_visual) {
             Toast.makeText(FoodsActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
             return true;
