@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
-public class FoodsActivity extends AppCompatActivity {
+public class FoodsActivity extends MainActivity
+        implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +34,10 @@ public class FoodsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(FoodsActivity.this, MainActivity.class);
-                //Para leer la nueva actividad (volver al main)
-                startActivity(intent);
                 //Para matar la actividad anterior
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //Para leer la nueva actividad (volver al main)
+                startActivity(intent);
             }
         });
 
@@ -55,6 +58,27 @@ public class FoodsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        //Menues de la pantalla de inicio para cada elemento
+        final ImageButton desayunoOptions = (ImageButton) findViewById(R.id.desayuno_options);
+        registerForContextMenu(desayunoOptions);
+        desayunoOptions.setOnClickListener(this);
+
+        final ImageButton tentempieOptions = (ImageButton) findViewById(R.id.tentempie_options);
+        registerForContextMenu(tentempieOptions);
+        tentempieOptions.setOnClickListener(this);
+
+        final ImageButton comidaOptions = (ImageButton) findViewById(R.id.comida_options);
+        registerForContextMenu(comidaOptions);
+        comidaOptions.setOnClickListener(this);
+
+        final ImageButton meriendaOptions = (ImageButton) findViewById(R.id.merienda_options);
+        registerForContextMenu(meriendaOptions);
+        meriendaOptions.setOnClickListener(this);
+
+        final ImageButton cenaOptions = (ImageButton) findViewById(R.id.cena_options);
+        registerForContextMenu(cenaOptions);
+        cenaOptions.setOnClickListener(this);
+
     }
     /*********** FUNCIONES DE LA PANTALLA DE COMIDAS ******************/
     //Función para abrir el menu de opciones del app bar
@@ -77,5 +101,36 @@ public class FoodsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(FoodsActivity.this,
+                "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+        switch (v.getId()) {
+            case R.id.desayuno_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.tentempie_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.comida_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.merienda_options: {
+                showMenu(v);
+                break;
+            }
+            case R.id.cena_options: {
+                showMenu(v);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 }

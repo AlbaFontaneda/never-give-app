@@ -18,6 +18,7 @@
     <string name="viernes">VIERNES</string>
     <string name="sabado">SÁBADO</string>
     <string name="domingo">DOMINGO</string>
+    <string name="inicio">INICIO</string>
     <string name="foods_tab">COMIDAS</string>
     <string name="training_tab">ENTRENAMIENTO</string>
     <string name="events_tab">EVENTOS</string>

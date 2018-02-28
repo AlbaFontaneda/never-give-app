@@ -35,7 +35,7 @@
                     <!---  ADDED SPACER VIEW -->
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="fill_parent"
                         android:layout_weight="1"
                         />
                     <!--- /ADDED SPACER VIEW -->
@@ -62,7 +62,7 @@
                     <!---  ADDED SPACER VIEW -->
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="fill_parent"
                         android:layout_weight="1"
                         />
                     <!--- /ADDED SPACER VIEW -->
@@ -89,7 +89,7 @@
                     <!---  ADDED SPACER VIEW -->
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="fill_parent"
                         android:layout_weight="1"
                         />
                     <!--- /ADDED SPACER VIEW -->
@@ -116,7 +116,7 @@
                     <!---  ADDED SPACER VIEW -->
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="fill_parent"
                         android:layout_weight="1"
                         />
                     <!--- /ADDED SPACER VIEW -->

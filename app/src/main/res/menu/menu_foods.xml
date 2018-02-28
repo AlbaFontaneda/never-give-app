@@ -8,4 +8,14 @@
         android:orderInCategory="1"
         android:title="Visualización"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="1"
+        android:title="Opciones"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/edit_foods"
+        android:orderInCategory="1"
+        android:title="Editar"
+        app:showAsAction="never"/>
 </menu>
