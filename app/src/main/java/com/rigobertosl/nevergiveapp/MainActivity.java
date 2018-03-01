@@ -113,7 +113,11 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_init_settings) {
+            // Se debería poner de esta manera:
+            /*Toast.makeText(getApplicationContext(),
+                    item.getTitle(), Toast.LENGTH_SHORT).show();
+            */
             Toast.makeText(MainActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
             return true;

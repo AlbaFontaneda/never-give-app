@@ -6,12 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
@@ -81,6 +83,27 @@ public class FoodsActivity extends MainActivity
 
     }
     /*********** FUNCIONES DE LA PANTALLA DE COMIDAS ******************/
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(getApplicationContext(),
+                        item.getTitle(), Toast.LENGTH_SHORT).show();
+                //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
+                /*if(item.getItemId()==R.id.open_foods) {
+                    Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
+                    startActivity(intent);
+                }*/
+                return true;
+            }
+        });// to implement on click event on items of menu
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_foods_elements, popup.getMenu());
+        popup.show();
+    }
+
     //Función para abrir el menu de opciones del app bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,9 +118,9 @@ public class FoodsActivity extends MainActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.foods_visual) {
-            Toast.makeText(FoodsActivity.this,
-                    "Settings pulsado", Toast.LENGTH_LONG).show();
+        if (id == R.id.menu_foods_visual | id == R.id.menu_foods_settings | id == R.id.menu_foods_edit) {
+            Toast.makeText(getApplicationContext(),
+                    item.getTitle(), Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

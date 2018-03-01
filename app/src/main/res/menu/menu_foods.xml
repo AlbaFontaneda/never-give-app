@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="in.amzbizsol.vts.FoodsActivity">
     <item
-        android:id="@+id/foods_visual"
+        android:id="@+id/menu_foods_visual"
         android:orderInCategory="1"
-        android:title="Visualización"
+        android:title="@string/visualizacion"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_foods_settings"
         android:orderInCategory="1"
-        android:title="Opciones"
+        android:title="@string/opciones"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/edit_foods"
+        android:id="@+id/menu_foods_edit"
         android:orderInCategory="1"
-        android:title="Editar"
+        android:title="@string/editar"
         app:showAsAction="never"/>
 </menu>
