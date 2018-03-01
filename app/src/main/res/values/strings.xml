@@ -55,5 +55,6 @@
     <string name="tab_text_3">Tab 3</string>
 
     <string name="title_activity_foods_antiguo">FoodsAntiguo</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

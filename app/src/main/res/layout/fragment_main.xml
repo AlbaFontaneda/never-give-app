@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.MainActivity$PlaceholderFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
-    tools:context="com.rigobertosl.nevergiveapp.MainActivity"
     android:orientation="vertical">
 
     <ScrollView
@@ -50,8 +49,8 @@
             <!--- /VISTA COMIDAS -->
             <!--- VISTA TABLAS ENTRENAMIENTO -->
             <LinearLayout
-            android:id="@+id/train_row"
-            style="@style/InitRows">
+                android:id="@+id/train_row"
+                style="@style/InitRows">
                 <LinearLayout
                     android:id="@+id/train_header"
                     style="@style/InitHeaders">
@@ -70,9 +69,9 @@
                         android:id="@+id/train_options"
                         style="@style/InitOptionsButton"/>
                 </LinearLayout>
-            <LinearLayout
-                android:id="@+id/train_content"
-                style="@style/InitContent"/>
+                <LinearLayout
+                    android:id="@+id/train_content"
+                    style="@style/InitContent"/>
             </LinearLayout>
             <!--- /VISTA TABLAS ENTRENAMIENTO -->
             <!--- VISTA EVENTOS -->
@@ -131,4 +130,5 @@
             <!--- /VISTA LOGROS -->
         </TableLayout>
     </ScrollView>
+
 </LinearLayout>
