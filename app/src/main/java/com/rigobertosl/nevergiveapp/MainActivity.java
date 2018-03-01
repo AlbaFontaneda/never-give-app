@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_achievements); //Layout donde aparece el nombre de cada activity y las acciones
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs_main); //Layout donde ponemos los tabs
 
         setSupportActionBar(toolbar);
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
                         item.getTitle(), Toast.LENGTH_SHORT).show();
                 //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
                 /*if(item.getItemId()==R.id.open_foods) {
-                    Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
+                    Intent intent = new Intent(MainActivity.this, FoodsActivityAntiguo.class);
                     startActivity(intent);
                 }*/
                 return true;

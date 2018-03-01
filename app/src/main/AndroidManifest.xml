@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FoodsActivity"
-            android:label="@string/title_activity_foods"
+            android:name=".FoodsActivityAntiguo"
+            android:label="@string/title_activity_foods_antiguo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TrainingActivity"
@@ -30,6 +30,10 @@
         <activity
             android:name=".AchievementsActivity"
             android:label="@string/title_activity_achievements"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FoodsActivity"
+            android:label="@string/title_activity_foods"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
