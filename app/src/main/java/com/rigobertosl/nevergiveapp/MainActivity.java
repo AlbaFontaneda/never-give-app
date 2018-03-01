@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_achievements); //Layout donde aparece el nombre de cada activity y las acciones
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs_main); //Layout donde ponemos los tabs
 
         setSupportActionBar(toolbar);
 
@@ -39,15 +39,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        //Tabs de la ventana de inicio
-        tabs.addTab(tabs.newTab().setText(R.string.lunes));
-        tabs.addTab(tabs.newTab().setText(R.string.martes));
-        tabs.addTab(tabs.newTab().setText(R.string.miercoles));
-        tabs.addTab(tabs.newTab().setText(R.string.jueves));
-        tabs.addTab(tabs.newTab().setText(R.string.viernes));
-        tabs.addTab(tabs.newTab().setText(R.string.sabado));
-        tabs.addTab(tabs.newTab().setText(R.string.domingo));
 
         //Menues de la pantalla de inicio para cada elemento
         final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
@@ -113,7 +104,11 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_init_settings) {
+            // Se debería poner de esta manera:
+            /*Toast.makeText(getApplicationContext(),
+                    item.getTitle(), Toast.LENGTH_SHORT).show();
+            */
             Toast.makeText(MainActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
             return true;
@@ -177,3 +172,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+
+//Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
+//Todo: arreglar el transito entre pantallas porque se cuelga caundo pulsas el botón de "atrás" del propio móvil en las pantallas de FoodsActivity y AchievementsActivity

@@ -6,25 +6,25 @@
     <item
         android:id="@+id/nav_inicio"
         android:icon="@drawable/ic_inicio"
-        android:title="Inicio" />
+        android:title="@string/init_tab" />
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_entrenamiento"
             android:icon="@drawable/ic_entrenamiento"
-            android:title="Tablas de entrenamiento"/>
+            android:title="@string/tablas_entrenamiento" />
         <item
             android:id="@+id/nav_calendario"
             android:icon="@drawable/ic_calendario"
-            android:title="Calendario de comidas" />
+            android:title="@string/calendario_comidas" />
         <item
             android:id="@+id/nav_eventos"
             android:icon="@drawable/ic_eventos"
-            android:title="Eventos" />
+            android:title="@string/eventos" />
         <item
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logros"
-            android:title="Logros" />
+            android:title="@string/logros" />
     </group>
 
     <item android:title="Communicate">
@@ -32,11 +32,11 @@
             <item
                 android:id="@+id/nav_compartir"
                 android:icon="@drawable/ic_compartir"
-                android:title="Compartir" />
+                android:title="@string/compartir" />
             <item
                 android:id="@+id/nav_report"
                 android:icon="@drawable/ic_report"
-                android:title="Reports"/>
+                android:title="@string/reports" />
         </menu>
     </item>
 

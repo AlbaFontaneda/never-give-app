@@ -36,5 +36,24 @@
     <string name="merienda">MERIENDA</string>
     <string name="cena">CENA</string>
 
+    //Menús
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="visualizacion">Visualización</string>
+    <string name="opciones">Opciones</string>
+
+
+    <string name="init_tab">Inicio</string>
+    <string name="calendario_comidas">Calendario de comidas</string>
+    <string name="eventos">Eventos</string>
+    <string name="logros">Logros</string>
+    <string name="compartir">Compartir</string>
+    <string name="reports">Reports</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+
+    <string name="title_activity_foods_antiguo">FoodsAntiguo</string>
 
 </resources>
