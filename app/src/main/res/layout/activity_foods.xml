@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_foods"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,11 +20,55 @@
             app:navigationIcon="?attr/homeAsUpIndicator"/>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabs_foods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabMode="scrollable"/>
+            app:tabMode="scrollable">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_lunes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lunes" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_martes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/martes" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_miercoles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/miercoles" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_jueves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jueves" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_viernes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/viernes" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_sabado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sabado" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_domingo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/domingo" />
+
+        </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
 

@@ -6,7 +6,7 @@
     <item
         android:id="@+id/nav_inicio"
         android:icon="@drawable/ic_inicio"
-        android:title="@string/inicio_lower" />
+        android:title="@string/init_tab" />
 
     <group android:checkableBehavior="single">
         <item

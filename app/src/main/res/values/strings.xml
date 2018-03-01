@@ -43,11 +43,12 @@
     <string name="opciones">Opciones</string>
 
 
-    <string name="inicio_lower">Inicio</string>
+    <string name="init_tab">Inicio</string>
     <string name="calendario_comidas">Calendario de comidas</string>
     <string name="eventos">Eventos</string>
     <string name="logros">Logros</string>
     <string name="compartir">Compartir</string>
     <string name="reports">Reports</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

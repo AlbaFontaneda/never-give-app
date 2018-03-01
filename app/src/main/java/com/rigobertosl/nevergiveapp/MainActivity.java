@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_achievements); //Layout donde aparece el nombre de cada activity y las acciones
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
 
         setSupportActionBar(toolbar);
@@ -40,14 +40,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Tabs de la ventana de inicio
-        tabs.addTab(tabs.newTab().setText(R.string.lunes));
-        tabs.addTab(tabs.newTab().setText(R.string.martes));
-        tabs.addTab(tabs.newTab().setText(R.string.miercoles));
-        tabs.addTab(tabs.newTab().setText(R.string.jueves));
-        tabs.addTab(tabs.newTab().setText(R.string.viernes));
-        tabs.addTab(tabs.newTab().setText(R.string.sabado));
-        tabs.addTab(tabs.newTab().setText(R.string.domingo));
 
         //Menues de la pantalla de inicio para cada elemento
         final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);

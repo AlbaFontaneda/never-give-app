@@ -15,7 +15,7 @@ public class TrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
         //Finds ID
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_achievements);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         setSupportActionBar(toolbar);

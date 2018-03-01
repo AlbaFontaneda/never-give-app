@@ -3,14 +3,12 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -25,7 +23,7 @@ public class FoodsActivity extends MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foods);
         //Finds ID
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_foods); //Layout donde aparece el nombre de cada activity y las acciones
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab); //Boton flotante de la actividad
 
@@ -42,15 +40,6 @@ public class FoodsActivity extends MainActivity
                 startActivity(intent);
             }
         });
-
-        //Tabs de las comidas
-        tabs.addTab(tabs.newTab().setText(R.string.lunes));
-        tabs.addTab(tabs.newTab().setText(R.string.martes));
-        tabs.addTab(tabs.newTab().setText(R.string.miercoles));
-        tabs.addTab(tabs.newTab().setText(R.string.jueves));
-        tabs.addTab(tabs.newTab().setText(R.string.viernes));
-        tabs.addTab(tabs.newTab().setText(R.string.sabado));
-        tabs.addTab(tabs.newTab().setText(R.string.domingo));
 
         //Función para dar funcionalidad al boton flotante
         fab.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +117,9 @@ public class FoodsActivity extends MainActivity
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(FoodsActivity.this,
+        /*Toast.makeText(FoodsActivity.this,
                 "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+        */
         switch (v.getId()) {
             case R.id.desayuno_options: {
                 showMenu(v);
