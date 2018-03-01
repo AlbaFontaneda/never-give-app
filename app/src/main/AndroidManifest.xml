@@ -20,10 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FoodsActivityAntiguo"
-            android:label="@string/title_activity_foods_antiguo"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
             android:theme="@style/AppTheme.NoActionBar" />
