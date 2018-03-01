@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
                         item.getTitle(), Toast.LENGTH_SHORT).show();
                 //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
                 /*if(item.getItemId()==R.id.open_foods) {
-                    Intent intent = new Intent(MainActivity.this, FoodsActivityAntiguo.class);
+                    Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
                     startActivity(intent);
                 }*/
                 return true;
