@@ -19,19 +19,17 @@
             android:id="@+id/toolbar_achievements"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name"
-            app:navigationIcon="?attr/homeAsUpIndicator">
-
-        </android.support.v7.widget.Toolbar>
+            app:navigationIcon="?attr/homeAsUpIndicator" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabs_achievements"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="scrollable">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_inicio"

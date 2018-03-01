@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
         //Menues de la pantalla de inicio para cada elemento
         final ImageButton foodsOptions = (ImageButton) findViewById(R.id.foods_options);
         registerForContextMenu(foodsOptions);
@@ -173,3 +172,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+
+//Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
+//Todo: arreglar el transito entre pantallas porque se cuelga caundo pulsas el botón de "atrás" del propio móvil en las pantallas de FoodsActivity y AchievementsActivity
