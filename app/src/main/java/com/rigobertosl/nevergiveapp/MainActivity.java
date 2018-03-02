@@ -229,7 +229,8 @@ public class MainActivity extends AppCompatActivity
     }
 }
 
-
+//Todo: HACER PANTALLA DE FRAGMENTS
 //Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
 //Todo: arreglar el transito entre pantallas. Cerrar fragments
+//Todo: Arreglar posicionamiento de tabs al girar pantalla
 //Todo: HACER ACTIVIDAD EVENTOS
