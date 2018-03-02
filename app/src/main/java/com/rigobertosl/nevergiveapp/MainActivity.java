@@ -77,18 +77,13 @@ public class MainActivity extends AppCompatActivity
     //Función para abrir el menu de opciones del app bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
     //Función para dar funcionalidades a cada item del menu del app bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Toast.makeText(MainActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
@@ -104,7 +99,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_inicio) {
         } else if (id == R.id.nav_entrenamiento) {
             Intent intent = new Intent(MainActivity.this, TrainingActivity.class);
@@ -172,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
-                if(item.getItemId()==R.id.menu_init_elements_settings) {
+                if(item.getItemId()==R.id.menu_init_element_settings) {
                     Toast.makeText(getActivity(),item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
                     return true;
@@ -238,3 +232,4 @@ public class MainActivity extends AppCompatActivity
 
 //Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
 //Todo: arreglar el transito entre pantallas. Cerrar fragments
+//Todo: HACER ACTIVIDAD EVENTOS

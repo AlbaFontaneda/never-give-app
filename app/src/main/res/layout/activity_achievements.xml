@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_achievements"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -25,17 +25,16 @@
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs_achievements"
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
             app:tabMode="scrollable">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_inicio"
+                android:id="@+id/tab_puntos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/init_tab" />
+                android:text="@string/puntos_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_comidas"

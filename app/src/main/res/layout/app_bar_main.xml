@@ -10,7 +10,7 @@
     tools:context="com.rigobertosl.nevergiveapp.MainActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/init_appBar"
+        android:id="@+id/appbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -35,43 +35,43 @@
                 android:id="@+id/tab_lunes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lunes" />
+                android:text="@string/lunes_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_martes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/martes" />
+                android:text="@string/martes_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_miercoles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/miercoles" />
+                android:text="@string/miercoles_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_jueves"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/jueves" />
+                android:text="@string/jueves_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_viernes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/viernes" />
+                android:text="@string/viernes_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_sabado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sabado" />
+                android:text="@string/sabado_tab" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_domingo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/domingo" />
+                android:text="@string/domingo_tab" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

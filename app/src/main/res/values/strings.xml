@@ -1,31 +1,52 @@
 <resources>
-    <string name="app_name">NeverGiveApp</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
-
     //Actividades
-    <string name="title_activity_achievements">Logros</string>
-    <string name="title_activity_training">Entrenamiento</string>
     <string name="title_activity_foods">Comidas</string>
+    <string name="title_activity_training">Entrenamiento</string>
+    <string name="title_activity_achievements">Logros</string>
+
+    //AppBar (Toolbar)
+    <string name="app_name">NeverGiveApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_view">Visualización</string>
 
     //Tabs
-    <string name="lunes">LUNES</string>
-    <string name="martes">MARTES</string>
-    <string name="miercoles">MIÉRCOLES</string>
-    <string name="jueves">JUEVES</string>
-    <string name="viernes">VIERNES</string>
-    <string name="sabado">SÁBADO</string>
-    <string name="domingo">DOMINGO</string>
-    <string name="inicio">INICIO</string>
+            <!-- COMIDAS E INICIO -->
+    <string name="lunes_tab">LUNES</string>
+    <string name="martes_tab">MARTES</string>
+    <string name="miercoles_tab">MIÉRCOLES</string>
+    <string name="jueves_tab">JUEVES</string>
+    <string name="viernes_tab">VIERNES</string>
+    <string name="sabado_tab">SÁBADO</string>
+    <string name="domingo_tab">DOMINGO</string>
+            <!-- ENTRENAMIENTO -->
+    <string name="mis_tablas_tab">MIS TABLAS</string>
+    <string name="default_tablas_tab">TABLAS PREDEFINIDAS</string>
+            <!-- LOGROS -->
+    <string name="puntos_tab">PUNTOS DE LOGRO</string>
     <string name="foods_tab">COMIDAS</string>
     <string name="training_tab">ENTRENAMIENTO</string>
     <string name="events_tab">EVENTOS</string>
 
+    //Menu desplegable
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="inicio">Inicio</string>
+    <string name="calendario_comidas">Calendario de comidas</string>
+    <!--<string name="tablas_entrenamiento">Tablas de entrenamiento</string>-->
+    <string name="eventos">Eventos</string>
+    <string name="logros">Logros</string>
+    <string name="compartir">Compartir</string>
+    <string name="reports">Reports</string>
+
+    //Menús de los elementos de cada actividad
+    <string name="element_settings">Opciones</string>
+    <string name="element_edit">Editar</string>
+    <string name="element_delete">Eliminar</string>
+
     //Pantalla de inicio
-    <string name="tablas_entrenamiento">Tablas de entrenamiento</string>
     <string name="comidas_hoy">Comidas de hoy</string>
+    <string name="tablas_entrenamiento">Tablas de entrenamiento</string>
     <string name="proximos_eventos">Próximos eventos</string>
     <string name="ultimos_logros">Últimos logros conseguidos</string>
 
@@ -36,25 +57,9 @@
     <string name="merienda">MERIENDA</string>
     <string name="cena">CENA</string>
 
-    //Menús
-    <string name="eliminar">Eliminar</string>
-    <string name="editar">Editar</string>
-    <string name="visualizacion">Visualización</string>
-    <string name="opciones">Opciones</string>
-
-    <string name="init_tab">Inicio</string>
-    <string name="calendario_comidas">Calendario de comidas</string>
-    <string name="eventos">Eventos</string>
-    <string name="logros">Logros</string>
 
     <string name="section_format">Hello World from section: %1$d</string>
 
-    //Menu desplegable
-    <string name="compartir">Compartir</string>
-    <string name="reports">Reports</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
 
 
 </resources>

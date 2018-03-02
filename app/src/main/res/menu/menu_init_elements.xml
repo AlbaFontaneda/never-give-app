@@ -2,12 +2,12 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_init_elements_settings"
-        android:title="@string/opciones"
+    <item android:id="@+id/menu_init_element_settings"
+        android:title="@string/element_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <item android:id="@+id/menu_init_elements_edit"
-        android:title="@string/editar"
+    <item android:id="@+id/menu_init_element_edit"
+        android:title="@string/element_edit"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

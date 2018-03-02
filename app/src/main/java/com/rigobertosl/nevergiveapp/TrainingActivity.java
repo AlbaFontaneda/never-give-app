@@ -125,7 +125,7 @@ public class TrainingActivity extends MainActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 }

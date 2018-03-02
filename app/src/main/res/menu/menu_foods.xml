@@ -6,16 +6,16 @@
     <item
         android:id="@+id/menu_foods_visual"
         android:orderInCategory="1"
-        android:title="@string/visualizacion"
+        android:title="@string/action_view"
         app:showAsAction="never"/>
     <item
         android:id="@+id/menu_foods_settings"
         android:orderInCategory="1"
-        android:title="@string/opciones"
+        android:title="@string/action_settings"
         app:showAsAction="never"/>
     <item
         android:id="@+id/menu_foods_edit"
         android:orderInCategory="1"
-        android:title="@string/editar"
+        android:title="@string/action_edit"
         app:showAsAction="never"/>
 </menu>
