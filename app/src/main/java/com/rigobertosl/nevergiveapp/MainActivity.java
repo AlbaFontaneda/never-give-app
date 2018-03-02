@@ -237,4 +237,4 @@ public class MainActivity extends AppCompatActivity
 
 
 //Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
-//Todo: arreglar el transito entre pantallas porque se cuelga caundo pulsas el botón de "atrás" del propio móvil en las pantallas de FoodsActivity y AchievementsActivity
+//Todo: arreglar el transito entre pantallas. Cerrar fragments
