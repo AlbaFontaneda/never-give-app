@@ -126,7 +126,7 @@
     <style name="AchievementsRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@drawable/achievements_border_row</item>
+        <!--<item name="android:background">@drawable/achievements_border_row</item>-->
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">5dp</item>

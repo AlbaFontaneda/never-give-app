@@ -2,8 +2,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,20 +18,9 @@ import android.widget.TextView;
 
 public class AchievementsActivity extends MainActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,27 +101,29 @@ public class AchievementsActivity extends MainActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+/*
+            View rootView = inflater.inflate(R.layout.fragment_achievements_prueba, container, false);
+            return rootView;
+*/
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1: {
-                    View rootView = inflater.inflate(R.layout.fragment_achievements_init, container, false);
-                    //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                    //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                    View rootView = inflater.inflate(R.layout.fragment_achievements_points, container, false);
                     return rootView;
                 }
                 case 2: {
-                    View rootView = inflater.inflate(R.layout.fragment_achievements, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_achievements_prueba, container, false);
                     TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                     textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
                     return rootView;
                 }
                 case 3: {
-                    View rootView = inflater.inflate(R.layout.fragment_achievements, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_achievements_prueba, container, false);
                     TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                     textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
                     return rootView;
                 }
                 case 4: {
-                    View rootView = inflater.inflate(R.layout.fragment_achievements, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_achievements_prueba, container, false);
                     TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                     textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
                     return rootView;
