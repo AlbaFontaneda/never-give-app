@@ -116,6 +116,7 @@
     </style>
     <!-- /ESTILOS VENTANA DE COMIDAS -->
 
+    <!-- ESTILOS VENTANA DE LOGROS -->
     <style name="AchievementsContent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">100dp</item>
@@ -126,7 +127,7 @@
     <style name="AchievementsRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <!--<item name="android:background">@drawable/achievements_border_row</item>-->
+        <!--<item name="android:background">@drawaachievements_border_bottom_row</item>-->
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">5dp</item>
@@ -149,5 +150,13 @@
         <item name="android:textSize">25dp</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
+    <style name="LastAchievementsContent">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:background">@drawable/achievements_border_bottom</item>
+    </style>
+
 
 </resources>

@@ -18,33 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/my_table"
-                android:visibility="gone"
-                style="@style/InitRows">
-                <LinearLayout
-                    android:id="@+id/my_table_header"
-                    style="@style/InitHeaders">
-                    <TextView
-                        android:id="@+id/my_table_text"
-                        style="@style/InitText" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        />
-                    <!--- /ADDED SPACER VIEW -->
-                    <ImageButton
-                        android:id="@+id/my_table_options"
-                        style="@style/InitOptionsButton"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/my_table_content"
-                    style="@style/InitContent"/>
-            </LinearLayout>
-
         </TableLayout>
     </ScrollView>
 

@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,8 @@
     android:layout_height="match_parent"
     tools:context="com.rigobertosl.nevergiveapp.AchievementsActivity$PlaceholderFragment">
 
-
     <ScrollView
-        android:id="@+id/foods_scroll"
+        android:id="@+id/init_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -40,7 +39,8 @@
             </TableRow>
             <TableRow
                 android:id="@+id/summary_dates"
-                style="@style/AchievementsRow">
+                style="@style/AchievementsRow"
+                android:background="@drawable/achievements_border_top">
 
                 <TextView
                     android:id="@+id/num_exercises"
@@ -59,7 +59,8 @@
             </TableRow>
             <TableRow
                 android:id="@+id/summary_names"
-                style="@style/AchievementsRow">
+                style="@style/AchievementsRow"
+                android:background="@drawable/achievements_border_bottom">
 
                 <TextView
                     style="@style/ElementRows"
@@ -84,12 +85,19 @@
                     android:text="@string/history" />
             </TableRow>
             <LinearLayout
-                android:id="@+id/History_content"
-                style="@style/FoodsContent">
+                android:id="@+id/History_content1"
+                style="@style/LastAchievementsContent">
             </LinearLayout>
-
+            <LinearLayout
+                android:id="@+id/History_content2"
+                style="@style/LastAchievementsContent">
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/History_content3"
+                style="@style/LastAchievementsContent">
+            </LinearLayout>
 
         </TableLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

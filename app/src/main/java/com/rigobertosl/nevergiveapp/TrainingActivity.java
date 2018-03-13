@@ -1,5 +1,8 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -104,20 +107,13 @@ public class TrainingActivity extends MainActivity {
                 case 1: {
                     View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
                     FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-                    final ImageButton myTableOptions = (ImageButton) rootView.findViewById(R.id.my_table_options);
-                    registerForContextMenu(myTableOptions);
-                    myTableOptions.setOnClickListener(this);
-
-                    final LinearLayout myTable = (LinearLayout) rootView.findViewById(R.id.my_table);
-                    final TextView myTableTitle = (TextView) rootView.findViewById(R.id.my_table_text);
 
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Snackbar.make(view, "Crea tu propia tabla!!", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                            myTable.setVisibility(LinearLayout.VISIBLE);
-                            myTableTitle.setText("MI PRIMERA TABLA :)");
+
                         }
                     });
 
@@ -139,9 +135,7 @@ public class TrainingActivity extends MainActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
-                    if(item.getItemId()==R.id.menu_training_elements_delete) {
-                        
-                    }
+
                     return true;
                 }
             });// to implement on click event on items of menu
@@ -151,15 +145,7 @@ public class TrainingActivity extends MainActivity {
         }
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.my_table_options: {
-                    showMenu(v);
-                    break;
-                }
-                default: {
-                    break;
-                }
-            }
+
         }
     }
 
