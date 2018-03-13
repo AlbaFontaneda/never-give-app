@@ -13,9 +13,17 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class TrainingActivity extends MainActivity {
 
@@ -52,16 +60,6 @@ public class TrainingActivity extends MainActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
 
@@ -78,14 +76,14 @@ public class TrainingActivity extends MainActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment
+            implements View.OnClickListener {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
@@ -105,6 +103,24 @@ public class TrainingActivity extends MainActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1: {
                     View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+                    FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+                    final ImageButton myTableOptions = (ImageButton) rootView.findViewById(R.id.my_table_options);
+                    registerForContextMenu(myTableOptions);
+                    myTableOptions.setOnClickListener(this);
+
+                    final LinearLayout myTable = (LinearLayout) rootView.findViewById(R.id.my_table);
+                    final TextView myTableTitle = (TextView) rootView.findViewById(R.id.my_table_text);
+
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Snackbar.make(view, "Crea tu propia tabla!!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            myTable.setVisibility(LinearLayout.VISIBLE);
+                            myTableTitle.setText("MI PRIMERA TABLA :)");
+                        }
+                    });
+
                     return rootView;
                 }
                 case 2: {
@@ -113,6 +129,35 @@ public class TrainingActivity extends MainActivity {
                 }
                 default: {
                     return null;
+                }
+            }
+        }
+        //Función para mostrar los menus desplegables
+        public void showMenu(View v) {
+            final PopupMenu popup = new PopupMenu(getActivity(), v);
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
+                    if(item.getItemId()==R.id.menu_training_elements_delete) {
+                        
+                    }
+                    return true;
+                }
+            });// to implement on click event on items of menu
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_training_elements, popup.getMenu());
+            popup.show();
+        }
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.my_table_options: {
+                    showMenu(v);
+                    break;
+                }
+                default: {
+                    break;
                 }
             }
         }
