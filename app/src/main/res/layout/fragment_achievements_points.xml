@@ -1,0 +1,95 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rigobertosl.nevergiveapp.AchievementsActivity$PlaceholderFragment">
+
+
+    <ScrollView
+        android:id="@+id/foods_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:id="@+id/foods_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/desayuno_row"
+                style="@style/AchievementsRow">
+
+                <ImageView
+                    android:id="@+id/achievements_cup"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/achievements_logo" />
+
+                <TextView
+                    style="@style/ElementRows"
+                    android:text="Puntos de logro: " />
+
+                <TextView
+                    style="@style/ElementRows"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/summary_dates"
+                style="@style/AchievementsRow">
+
+                <TextView
+                    android:id="@+id/num_exercises"
+                    style="@style/summary"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/num_kcal"
+                    style="@style/summary"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/duration"
+                    style="@style/summary"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/summary_names"
+                style="@style/AchievementsRow">
+
+                <TextView
+                    style="@style/ElementRows"
+                    android:text="@string/exercise" />
+
+                <TextView
+                    style="@style/ElementRows"
+                    android:text="@string/kcal" />
+
+                <TextView
+                    style="@style/ElementRows"
+                    android:text="@string/duration" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/record"
+                style="@style/AchievementsRow">
+
+                <TextView
+                    android:id="@+id/title_history"
+                    style="@style/ElementRows"
+                    android:text="@string/history" />
+            </TableRow>
+            <LinearLayout
+                android:id="@+id/History_content"
+                style="@style/FoodsContent">
+            </LinearLayout>
+
+
+        </TableLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
