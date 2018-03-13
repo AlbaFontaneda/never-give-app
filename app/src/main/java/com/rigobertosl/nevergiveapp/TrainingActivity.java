@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
+    public FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,23 @@ public class TrainingActivity extends MainActivity {
                 startActivity(intent);
             }
         });
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager());
         vistaPagina = (ViewPager) findViewById(R.id.container);
         vistaPagina.setAdapter(seleccionPagina);
 
         TabLayout trainTabs = (TabLayout) findViewById(R.id.tabs);
 
-        vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(trainTabs));
+        vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(trainTabs){
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0) {
+                    fab.show();
+                } else {
+                    fab.hide();
+                }
+            }
+        });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
     }
 
@@ -65,6 +76,9 @@ public class TrainingActivity extends MainActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Transiciones entre tabs y fragmentos
+     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
