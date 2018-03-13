@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 
 public class TrainingFragment extends Fragment {
-
     public static TrainingFragment newInstance(int sectionNumber){
         final String ARG_SECTION_NUMBER = "section_number";
         TrainingFragment fragment = new TrainingFragment();
