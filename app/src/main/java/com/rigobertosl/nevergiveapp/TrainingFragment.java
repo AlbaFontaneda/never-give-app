@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,5 +22,13 @@ public class TrainingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+    }
+
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
