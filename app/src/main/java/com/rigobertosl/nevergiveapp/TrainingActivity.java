@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class TrainingActivity extends MainActivity {
@@ -88,19 +90,37 @@ public class TrainingActivity extends MainActivity {
     }
 
     public void openDialog(View view) {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_table, null);
+        final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
         dialog.setTitle("Nueva Tabla");
-        dialog.create();
         dialog.show();
 
-        Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+
+        final EditText tableNameEditText = (EditText)dialogLayout.findViewById(R.id.table_name);
+        final EditText tableDaysEditText = (EditText)dialogLayout.findViewById(R.id.table_days);
+
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TrainingActivity.this,
-                        "Continuar!!!!!!", Toast.LENGTH_LONG).show();
+                String tableName = tableNameEditText.getText().toString();
+                String tableDays = tableDaysEditText.getText().toString();
+                if (tableName.matches("") || tableDays.matches("")) {
+                    Toast.makeText(TrainingActivity.this,
+                            "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
+                } else {
+                    startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
+                }
+            }
+        });
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
             }
         });
 

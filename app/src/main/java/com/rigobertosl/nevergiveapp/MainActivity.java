@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity
     }
 }
 
+//Todo: Condicionar en el Dialog la entrada a la siguiente pantalla y activar el botón Cancel
 //Todo: HACER PANTALLA DE FRAGMENTS
 //Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
 //Todo: arreglar el transito entre pantallas. Cerrar fragments
