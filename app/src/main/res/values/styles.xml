@@ -158,5 +158,10 @@
         <item name="android:background">@drawable/achievements_border_bottom</item>
     </style>
 
+    <style name="button_exercices_type">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
 
 </resources>

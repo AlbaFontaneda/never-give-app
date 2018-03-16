@@ -95,12 +95,14 @@ public class TrainingActivity extends MainActivity {
         dialog.create();
         dialog.show();
 
-        Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(TrainingActivity.this,
                         "Continuar!!!!!!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(TrainingActivity.this, ExercisesTypeActivity.class);
+                startActivity(intent);
             }
         });
 
