@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.ExercisesTypeActivity"
+    tools:showIn="@layout/activity_exercises_type">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TableLayout
+            android:id="@+id/table_exercises"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/pecho"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:layout_weight="2"
+                    android:text="@string/pecho" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/espalda"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:text="@string/espalda" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/biceps"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:text="@string/biceps" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/triceps"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:text="@string/triceps" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hombro"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:text="@string/hombro" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/pierna"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:text="@string/pierna" />
+
+            </LinearLayout>
+        </TableLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

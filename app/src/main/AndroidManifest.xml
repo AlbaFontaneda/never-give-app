@@ -31,7 +31,9 @@
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ExercisesTypeActivity"></activity>
+        <activity android:name=".ExercisesTypeActivity"
+            android:label="@string/title_activity_exercisies_type"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
