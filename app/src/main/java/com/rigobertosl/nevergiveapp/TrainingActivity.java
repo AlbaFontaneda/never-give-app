@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class TrainingActivity extends MainActivity {
@@ -95,14 +96,43 @@ public class TrainingActivity extends MainActivity {
         dialog.create();
         dialog.show();
 
+        final EditText table_name = (EditText)findViewById(R.id.table_name);
+        final EditText table_days = (EditText)findViewById(R.id.table_days);
+
+
         final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /**
+                 * DE ESTA FORMA NO PETA, PERO NUNCA ENTRA A LA NUEVA ACTIVIDAD.
+                 * en caso de poner:
+                 * String tableText = table_name.getText().toString()
+                 * PETA
+                  */
+
+                /*if (table_name == null) {
+                    Toast.makeText(TrainingActivity.this,
+                            "Introduzca un nombre para la tabla", Toast.LENGTH_LONG).show();
+                }else if (table_days == null) {
+                    Toast.makeText(TrainingActivity.this,
+                            "Introduzca un número de días", Toast.LENGTH_LONG).show();
+                }else {*/
+                    startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
+                /**
+                 * Hay que cerrar también el AlerDialog porque cuando pulsas el botón de atrás sigue
+                 * saliendo (y no es deseable)
+                 */
+                //}
+            }
+        });
+
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Toast.makeText(TrainingActivity.this,
-                        "Continuar!!!!!!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(TrainingActivity.this, ExercisesTypeActivity.class);
-                startActivity(intent);
+                        "Has cancelado la tabla", Toast.LENGTH_LONG).show();
             }
         });
 

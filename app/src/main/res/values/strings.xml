@@ -68,7 +68,7 @@
     <string name="title_activity_settings_main">Settings</string>
 
     //Popup Nueva tabla
-    <string name="create">Crear</string>
+    <string name="continuar">Continuar</string>
     <string name="cancel">Cancelar</string>
 
     //Pantalla tipos de ejercicios

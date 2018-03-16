@@ -158,10 +158,33 @@
         <item name="android:background">@drawable/achievements_border_bottom</item>
     </style>
 
-    <style name="button_exercices_type">
+    <!-- ESTILOS PANTALLA TIPOS DE EJERCICIOS -->
+    <style name="Button_exercices_type">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">120dp</item>
         <item name="android:layout_margin">2dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/colorRow</item>
+    </style>
+
+    <style name="Image_exercise_type">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+    <style name="Text_button_exercise_type">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">30dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_weight">2</item>
     </style>
 
 </resources>
