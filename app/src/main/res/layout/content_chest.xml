@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.ChestActivity"
+    tools:showIn="@layout/activity_chest">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableLayout
+            android:id="@+id/table_chest_exercises"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/press_superior"
+                style="@style/Button_exercices_type">
+                <ImageView
+                    style="@style/Image_exercise_type"
+                    android:src="@drawable/achievements_logo" />
+                <TextView
+                    style="@style/Text_button_exercise_type"
+                    android:id="@+id/press_superior_text_view"
+                    android:autoLink="all"
+                    android:text="@string/press_superior" />
+
+            </LinearLayout>
+        </TableLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

@@ -124,7 +124,6 @@ public class TrainingActivity extends MainActivity {
             }
         });
 
-
     }
     /**
      * Transiciones entre tabs y fragmentos

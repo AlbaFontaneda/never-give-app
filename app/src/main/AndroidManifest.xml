@@ -22,22 +22,28 @@
         <activity
             android:name=".AchievementsActivity"
             android:label="@string/title_activity_achievements"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FoodsActivity"
             android:label="@string/title_activity_foods"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".ExercisesTypeActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExercisesTypeActivity"
             android:label="@string/title_activity_exercisies_type"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".TrainingActivity" />
+            android:parentActivityName=".TrainingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChestActivity"
+            android:label="@string/title_activity_chest"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
