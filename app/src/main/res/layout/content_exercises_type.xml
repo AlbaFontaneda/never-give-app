@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,8 +11,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content" >
 
         <TableLayout
             android:id="@+id/table_exercises"
@@ -28,7 +27,6 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:layout_weight="2"
                     android:text="@string/pecho" />
 
             </LinearLayout>
@@ -91,4 +89,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

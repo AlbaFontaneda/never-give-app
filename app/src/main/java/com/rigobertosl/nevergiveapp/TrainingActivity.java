@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,50 +90,37 @@ public class TrainingActivity extends MainActivity {
     }
 
     public void openDialog(View view) {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_table, null);
+        final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
         dialog.setTitle("Nueva Tabla");
-        dialog.create();
         dialog.show();
 
-        final EditText table_name = (EditText)findViewById(R.id.table_name);
-        final EditText table_days = (EditText)findViewById(R.id.table_days);
-
-
         final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+
+        final EditText tableNameEditText = (EditText)dialogLayout.findViewById(R.id.table_name);
+        final EditText tableDaysEditText = (EditText)dialogLayout.findViewById(R.id.table_days);
+
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * DE ESTA FORMA NO PETA, PERO NUNCA ENTRA A LA NUEVA ACTIVIDAD.
-                 * en caso de poner:
-                 * String tableText = table_name.getText().toString()
-                 * PETA
-                  */
-
-                /*if (table_name == null) {
+                String tableName = tableNameEditText.getText().toString();
+                String tableDays = tableDaysEditText.getText().toString();
+                if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
-                            "Introduzca un nombre para la tabla", Toast.LENGTH_LONG).show();
-                }else if (table_days == null) {
-                    Toast.makeText(TrainingActivity.this,
-                            "Introduzca un número de días", Toast.LENGTH_LONG).show();
-                }else {*/
+                            "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
+                } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
-                /**
-                 * Hay que cerrar también el AlerDialog porque cuando pulsas el botón de atrás sigue
-                 * saliendo (y no es deseable)
-                 */
-                //}
+                }
             }
         });
 
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TrainingActivity.this,
-                        "Has cancelado la tabla", Toast.LENGTH_LONG).show();
+                dialog.cancel();
             }
         });
 
