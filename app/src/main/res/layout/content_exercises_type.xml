@@ -26,7 +26,9 @@
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
+                    android:id="@+id/pecho_text_view"
                     style="@style/Text_button_exercise_type"
+                    android:autoLink="all"
                     android:text="@string/pecho" />
 
             </LinearLayout>
@@ -38,6 +40,8 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
+                    android:id="@+id/espalda_text_view"
+                    android:autoLink="all"
                     android:text="@string/espalda" />
 
             </LinearLayout>
@@ -49,6 +53,8 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
+                    android:id="@+id/biceps_text_view"
+                    android:autoLink="all"
                     android:text="@string/biceps" />
 
             </LinearLayout>
@@ -60,6 +66,8 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
+                    android:id="@+id/triceps_text_view"
+                    android:autoLink="all"
                     android:text="@string/triceps" />
 
             </LinearLayout>
@@ -71,6 +79,8 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
+                    android:id="@+id/hombro_text_view"
+                    android:autoLink="all"
                     android:text="@string/hombro" />
 
             </LinearLayout>
@@ -82,6 +92,8 @@
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
+                    android:id="@+id/pierna_text_view"
+                    android:autoLink="all"
                     android:text="@string/pierna" />
 
             </LinearLayout>

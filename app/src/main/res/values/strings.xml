@@ -4,6 +4,7 @@
     <string name="title_activity_training">Entrenamiento</string>
     <string name="title_activity_achievements">Logros</string>
     <string name="title_activity_exercisies_type">Tipos de ejercicios</string>
+    <string name="title_activity_chest">Ejercicios de pecho</string>
 
     //AppBar (Toolbar)
     <string name="app_name">NeverGiveApp</string>
@@ -79,6 +80,8 @@
     <string name="triceps">Tríceps</string>
     <string name="hombro">Hombro</string>
     <string name="pierna">Pierna</string>
-    <string name="title_activity_main2">Main2Activity</string>
+
+    //Pantalla de pecho
+    <string name="press_superior">Press superior</string>
 
 </resources>
