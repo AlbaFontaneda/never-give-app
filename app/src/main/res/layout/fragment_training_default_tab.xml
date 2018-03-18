@@ -28,12 +28,6 @@
                         android:id="@+id/desayuno_text"
                         style="@style/FoodsText"
                         android:text="@string/desayuno" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
-                    <!--- /ADDED SPACER VIEW -->
                     <ImageButton
                         android:id="@+id/desayuno_options"
                         style="@style/FoodsOptionsButton"/>
@@ -54,7 +48,6 @@
                         android:id="@+id/tentempie_text"
                         style="@style/FoodsText"
                         android:text="@string/tentempie" />
-                    <!---  ADDED SPACER VIEW -->
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -81,10 +74,7 @@
                         android:id="@+id/comida_text"
                         style="@style/FoodsText"
                         android:text="@string/comida"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
+
                     <ImageButton
                         android:id="@+id/comida_options"
                         style="@style/FoodsOptionsButton"/>
@@ -105,11 +95,6 @@
                         android:id="@+id/merienda_text"
                         style="@style/FoodsText"
                         android:text="@string/merienda"/>
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
                     <ImageButton
                         android:id="@+id/merienda_options"
                         style="@style/FoodsOptionsButton"/>
@@ -130,11 +115,6 @@
                         android:id="@+id/cena_text"
                         style="@style/FoodsText"
                         android:text="@string/cena"/>
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
                     <ImageButton
                         android:id="@+id/cena_options"
                         style="@style/FoodsOptionsButton"/>

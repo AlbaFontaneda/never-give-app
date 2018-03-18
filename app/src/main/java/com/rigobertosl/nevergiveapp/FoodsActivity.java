@@ -126,8 +126,6 @@ public class FoodsActivity extends MainActivity {
             View rootView = inflater.inflate(R.layout.fragment_foods, container, false);
 
             String[] comidas = {"Desayuno", "Tentempié", "Comida", "Merienda", "Cena"};
-            Toast.makeText(getActivity(),
-                    comidas[1], Toast.LENGTH_SHORT).show();
             ListAdapter listAdapter = new CustomFoodAdapter(getContext(), comidas);
             ListView lista = (ListView) rootView.findViewById(R.id.list_item);
             lista.setAdapter(listAdapter);

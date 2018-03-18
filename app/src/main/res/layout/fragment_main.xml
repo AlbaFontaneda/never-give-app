@@ -31,13 +31,6 @@
                         android:id="@+id/foods_text"
                         style="@style/InitText"
                         android:text="@string/comidas_hoy" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        />
-                    <!--- /ADDED SPACER VIEW -->
                     <ImageButton
                         android:id="@+id/foods_options"
                         style="@style/InitOptionsButton"/>
@@ -58,13 +51,6 @@
                         android:id="@+id/train_text"
                         style="@style/InitText"
                         android:text="@string/tablas_entrenamiento" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        />
-                    <!--- /ADDED SPACER VIEW -->
                     <ImageButton
                         android:id="@+id/train_options"
                         style="@style/InitOptionsButton"/>
@@ -85,13 +71,6 @@
                         android:id="@+id/events_text"
                         style="@style/InitText"
                         android:text="@string/proximos_eventos" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        />
-                    <!--- /ADDED SPACER VIEW -->
                     <ImageButton
                         android:id="@+id/events_options"
                         style="@style/InitOptionsButton"/>
@@ -112,13 +91,6 @@
                         android:id="@+id/achievements_text"
                         style="@style/InitText"
                         android:text="@string/ultimos_logros" />
-                    <!---  ADDED SPACER VIEW -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        />
-                    <!--- /ADDED SPACER VIEW -->
                     <ImageButton
                         android:id="@+id/achievements_options"
                         style="@style/InitOptionsButton"/>

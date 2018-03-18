@@ -4,16 +4,13 @@
     style="@style/FoodsRows" >
         <LinearLayout
             android:id="@+id/desayuno_header"
-            style="@style/FoodsHeaders"
-            android:weightSum="10">
+            style="@style/FoodsHeaders">
             <TextView
                 android:id="@+id/item_title"
                 style="@style/FoodsText"
-                android:text="Titulo"
-                android:layout_weight="9"/>
+                android:text="Titulo"/>
             <ImageButton
                 android:id="@+id/item_options"
-                android:layout_weight="1"
                 style="@style/FoodsOptionsButton"/>
         </LinearLayout>
         <LinearLayout
