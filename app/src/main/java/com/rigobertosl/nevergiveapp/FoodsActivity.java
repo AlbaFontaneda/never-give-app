@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,7 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +64,8 @@ public class FoodsActivity extends MainActivity {
             }
         });
 
+        ListView item_list = (ListView)findViewById(R.id.list_item);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -81,6 +87,7 @@ public class FoodsActivity extends MainActivity {
     }
 
 
+
     //Función para dar funcionalidades a cada item del menu del app bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,6 +104,7 @@ public class FoodsActivity extends MainActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -111,11 +119,23 @@ public class FoodsActivity extends MainActivity {
             return fragment;
         }
 
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_foods, container, false);
 
+            String[] comidas = {"Desayuno", "Tentempié", "Comida", "Merienda", "Cena"};
+            Toast.makeText(getActivity(),
+                    comidas[1], Toast.LENGTH_SHORT).show();
+            ListAdapter listAdapter = new CustomFoodAdapter(getContext(), comidas);
+            ListView lista = (ListView) rootView.findViewById(R.id.list_item);
+            lista.setAdapter(listAdapter);
+
+            // Para que se haga el scroll correctamente ocultando el toolbar
+            ViewCompat.setNestedScrollingEnabled(lista, true);
+
+            /*
             //Menues de la pantalla de inicio para cada elemento
             final ImageButton desayunoOptions = (ImageButton) rootView.findViewById(R.id.desayuno_options);
             registerForContextMenu(desayunoOptions);
@@ -136,10 +156,12 @@ public class FoodsActivity extends MainActivity {
             final ImageButton cenaOptions = (ImageButton) rootView.findViewById(R.id.cena_options);
             registerForContextMenu(cenaOptions);
             cenaOptions.setOnClickListener(this);
+            */
 
             return rootView;
         }
 
+        /*
         public void showMenu(View v) {
             PopupMenu popup = new PopupMenu(getActivity(), v);
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -149,7 +171,7 @@ public class FoodsActivity extends MainActivity {
                 /*if(item.getItemId()==R.id.open_foods) {
                     Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
                     startActivity(intent);
-                }*/
+                }*/ /*
                     return true;
                 }
             });// to implement on click event on items of menu
@@ -157,10 +179,13 @@ public class FoodsActivity extends MainActivity {
             inflater.inflate(R.menu.menu_foods_elements, popup.getMenu());
             popup.show();
         }
+        */
+
+
 
         @Override
         public void onClick(View v) {
-        Toast.makeText(getActivity(),
+        /*Toast.makeText(getActivity(),
                 "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
 
             switch (v.getId()) {
@@ -188,7 +213,9 @@ public class FoodsActivity extends MainActivity {
                     break;
                 }
             }
+            */
         }
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -214,3 +241,5 @@ public class FoodsActivity extends MainActivity {
 
 
 }
+
+// TODO: hay que implementar todos los menús después de usar las listas

@@ -113,6 +113,7 @@ public class TrainingActivity extends MainActivity {
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
+                    dialog.cancel();
                 }
             }
         });
