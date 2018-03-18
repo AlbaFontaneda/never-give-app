@@ -1,6 +1,8 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,8 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChestActivity extends AppCompatActivity {
+public class ChestActivity extends TrainingActivity {
     FloatingActionButton fab;
+    String numSeries;
+    String numRepeticiones;
+    String tiempoDescanso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +58,16 @@ public class ChestActivity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String numSeries = seriesEditText.getText().toString();
-                String numRepeticiones = repeticionesEditText.getText().toString();
-                String tiempoDescanso = descansoEditText.getText().toString();
+                numSeries = seriesEditText.getText().toString();
+                numRepeticiones = repeticionesEditText.getText().toString();
+                tiempoDescanso = descansoEditText.getText().toString();
                 if (numSeries.matches("") || numRepeticiones.matches("") || tiempoDescanso.matches("")) {
                     Toast.makeText(ChestActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     dialog.cancel();
+                    saveData(view);
                 }
             }
         });
@@ -71,5 +78,24 @@ public class ChestActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+    }
+
+    public void saveData(View view) {
+        SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
+        String ID = String.valueOf(TrainingActivity.lastRow);
+        ContentValues values = new ContentValues();
+        values.put(DataBaseContract.DataBaseEntry.COLUMN_SERIES, numSeries);
+        values.put(DataBaseContract.DataBaseEntry.COLUMN_REPETICIONES, numRepeticiones);
+        values.put(DataBaseContract.DataBaseEntry.COLUMN_DESCANSO, tiempoDescanso);
+
+        String selection = DataBaseContract.DataBaseEntry._ID + " LIKE ?";
+        String[] selectionArgs = { ID };
+
+        db.update(DataBaseContract.DataBaseEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ public class TrainingActivity extends MainActivity {
     public FloatingActionButton fab;
     String tableName;
     String tableDays;
+    DataBaseHelper tablaEjercicios = new DataBaseHelper(this);
+    public static long lastRow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,17 +132,17 @@ public class TrainingActivity extends MainActivity {
         });
     }
 
+    /** En esta función se guradan los datos en la base de datos **/
     public void saveData(View v){
-        DataBaseHelper tablaEjercicios = new DataBaseHelper(this);
+
         SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("dias", tableDays);
-        values.put("nombre", tableName);
+        values.put(DataBaseContract.DataBaseEntry.COLUMN_NAME, tableName);
+        values.put(DataBaseContract.DataBaseEntry.COLUMN_DAYS, tableDays);
 
-        db.insert("tabla_ejercicios", null, values);
-        db.close();
-
+        long newRowId = db.insert(DataBaseContract.DataBaseEntry.TABLE_NAME, null, values);
+        lastRow = newRowId;
         Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
     }
     /**
