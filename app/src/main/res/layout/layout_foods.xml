@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/FoodsRows" >
+        <LinearLayout
+            android:id="@+id/desayuno_header"
+            style="@style/FoodsHeaders">
+            <TextView
+                android:id="@+id/item_title"
+                style="@style/FoodsText"
+                android:text="Titulo"/>
+            <ImageButton
+                android:id="@+id/item_options"
+                style="@style/FoodsOptionsButton"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/item_content"
+            style="@style/FoodsContent"/>
+</LinearLayout>

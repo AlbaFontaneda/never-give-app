@@ -22,30 +22,26 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/colorRow</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="InitHeaders">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorHeader</item>
+        <item name="android:background">@color/colorRow</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">10</item>
     </style>
 
     <style name="InitText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:layout_weight">9</item>
     </style>
 
     <style name="InitOptionsButton">
@@ -57,6 +53,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:src">@drawable/ic_options</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="InitContent">
@@ -67,14 +64,19 @@
     </style>
     <!-- /ESTILOS VENTANA DE INICIO -->
     <!-- ESTILOS VENTANA DE COMIDAS -->
+    <style name="FoodsList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:divider">#FFFFFF</item>
+    </style>
+
     <style name="FoodsRows">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/colorRow</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -83,18 +85,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorRow</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">10</item>
     </style>
 
     <style name="FoodsText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:layout_weight">9</item>
     </style>
 
     <style name="FoodsOptionsButton">
@@ -106,6 +107,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:src">@drawable/ic_options</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="FoodsContent">
