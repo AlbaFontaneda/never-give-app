@@ -1,8 +1,10 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -24,7 +26,8 @@ public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
     public FloatingActionButton fab;
-
+    String tableName;
+    String tableDays;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,13 +109,14 @@ public class TrainingActivity extends MainActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tableName = tableNameEditText.getText().toString();
-                String tableDays = tableDaysEditText.getText().toString();
+                tableName = tableNameEditText.getText().toString();
+                tableDays = tableDaysEditText.getText().toString();
                 if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
+                    saveData(view);
                 }
             }
         });
@@ -123,7 +127,20 @@ public class TrainingActivity extends MainActivity {
                 dialog.cancel();
             }
         });
+    }
 
+    public void saveData(View v){
+        DataBaseHelper tablaEjercicios = new DataBaseHelper(this);
+        SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("dias", tableDays);
+        values.put("nombre", tableName);
+
+        db.insert("tabla_ejercicios", null, values);
+        db.close();
+
+        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
     }
     /**
      * Transiciones entre tabs y fragmentos

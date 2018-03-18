@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +25,9 @@ public class ChestActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        TextView supPressLink = (TextView) findViewById(R.id.press_superior_text_view);
+        LinearLayout pressSuperiorLinear = (LinearLayout) findViewById(R.id.press_superior);
 
-        supPressLink.setOnClickListener(new View.OnClickListener() {
+        pressSuperiorLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDialog(view);
