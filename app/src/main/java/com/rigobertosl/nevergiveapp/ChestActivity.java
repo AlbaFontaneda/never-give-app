@@ -84,14 +84,14 @@ public class ChestActivity extends TrainingActivity {
         SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
         String ID = String.valueOf(TrainingActivity.lastRow);
         ContentValues values = new ContentValues();
-        values.put(DataBaseContract.DataBaseEntry.COLUMN_SERIES, numSeries);
-        values.put(DataBaseContract.DataBaseEntry.COLUMN_REPETICIONES, numRepeticiones);
-        values.put(DataBaseContract.DataBaseEntry.COLUMN_DESCANSO, tiempoDescanso);
+        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_SERIES, numSeries);
+        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_REPETICIONES, numRepeticiones);
+        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_DESCANSO, tiempoDescanso);
 
-        String selection = DataBaseContract.DataBaseEntry._ID + " LIKE ?";
+        String selection = DataBaseContract.DataBaseEntryTrain._ID + " LIKE ?";
         String[] selectionArgs = { ID };
 
-        db.update(DataBaseContract.DataBaseEntry.TABLE_NAME,
+        db.update(DataBaseContract.DataBaseEntryTrain.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);

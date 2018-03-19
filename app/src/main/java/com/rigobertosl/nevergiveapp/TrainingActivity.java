@@ -138,10 +138,10 @@ public class TrainingActivity extends MainActivity {
         SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DataBaseContract.DataBaseEntry.COLUMN_NAME, tableName);
-        values.put(DataBaseContract.DataBaseEntry.COLUMN_DAYS, tableDays);
+        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_NAME, tableName);
+        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_DAYS, tableDays);
 
-        long newRowId = db.insert(DataBaseContract.DataBaseEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(DataBaseContract.DataBaseEntryTrain.TABLE_NAME, null, values);
         lastRow = newRowId;
         Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
     }
