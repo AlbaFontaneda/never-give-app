@@ -1,10 +1,13 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -33,6 +38,9 @@ public class FoodsActivity extends MainActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
+    String tableName;
+    String tableDays;
+    DataBaseHelper nuevaComida = new DataBaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +67,7 @@ public class FoodsActivity extends MainActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openDialog(view);
             }
         });
 
@@ -86,8 +93,6 @@ public class FoodsActivity extends MainActivity {
         return true;
     }
 
-
-
     //Función para dar funcionalidades a cada item del menu del app bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,6 +109,55 @@ public class FoodsActivity extends MainActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void openDialog(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_table, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.setTitle("Nueva comida");
+        dialog.show();
+
+        final Button continuar = (Button) dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button) dialogLayout.findViewById(R.id.button_cancel);
+
+        final EditText tableNameEditText = (EditText) dialogLayout.findViewById(R.id.table_name);
+        final EditText tableDaysEditText = (EditText) dialogLayout.findViewById(R.id.table_days);
+
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableName = tableNameEditText.getText().toString();
+                tableDays = tableDaysEditText.getText().toString();
+                if (tableName.matches("") || tableDays.matches("")) {
+                    Toast.makeText(FoodsActivity.this,
+                            "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
+                } else {
+                    dialog.cancel();
+                    saveData(view);
+                }
+            }
+        });
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
+
+    /** En esta función se guradan los datos en la base de datos **/
+    public void saveData(View v){
+
+        SQLiteDatabase db = nuevaComida.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DataBaseContract.DataBaseEntryFoods.COLUMN_NAME, tableName);
+        values.put(DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS, tableDays);
+
+        long newRowId = db.insert(DataBaseContract.DataBaseEntryFoods.TABLE_NAME, null, values);
+        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
+    }
 
     public static class PlaceholderFragment extends Fragment {
 
