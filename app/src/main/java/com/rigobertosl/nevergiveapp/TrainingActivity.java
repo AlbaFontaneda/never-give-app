@@ -29,7 +29,6 @@ public class TrainingActivity extends MainActivity {
     public FloatingActionButton fab;
     String tableName;
     String tableDays;
-    DataBaseHelper tablaEjercicios = new DataBaseHelper(this);
     public static long lastRow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +134,7 @@ public class TrainingActivity extends MainActivity {
     /** En esta función se guradan los datos en la base de datos **/
     public void saveData(View v){
 
+        DataBaseContract.DataBaseHelper tablaEjercicios = new DataBaseContract.DataBaseHelper(this);
         SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
 
         ContentValues values = new ContentValues();

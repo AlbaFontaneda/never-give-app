@@ -81,6 +81,7 @@ public class ChestActivity extends TrainingActivity {
     }
 
     public void saveData(View view) {
+        DataBaseContract.DataBaseHelper tablaEjercicios = new DataBaseContract.DataBaseHelper(this);
         SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
         String ID = String.valueOf(TrainingActivity.lastRow);
         ContentValues values = new ContentValues();
