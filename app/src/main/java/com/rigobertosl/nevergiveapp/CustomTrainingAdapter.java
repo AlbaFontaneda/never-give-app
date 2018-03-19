@@ -2,7 +2,6 @@ package com.rigobertosl.nevergiveapp;
 
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,15 +12,15 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-public class CustomFoodAdapter extends ArrayAdapter<String>{
-    CustomFoodAdapter(Context context, String[] titulos) {
-        super(context, R.layout.layout_foods, titulos);
+public class CustomTrainingAdapter extends ArrayAdapter<String>{
+    CustomTrainingAdapter(Context context, String[] titulos) {
+        super(context, R.layout.layout_training, titulos);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater buckysInflater = LayoutInflater.from(getContext());
-        final View customView = buckysInflater.inflate(R.layout.layout_foods, parent,false);
+        final View customView = buckysInflater.inflate(R.layout.layout_training, parent,false);
 
         String singleTitleItem = getItem(position);
         final TextView title = (TextView) customView.findViewById(R.id.item_title);
@@ -46,7 +45,7 @@ public class CustomFoodAdapter extends ArrayAdapter<String>{
             }
         });// to implement on click event on items of menu
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_foods_elements, popup.getMenu());
+        inflater.inflate(R.menu.menu_training_elements, popup.getMenu());
         popup.show();
     }
 }

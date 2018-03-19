@@ -91,10 +91,7 @@ public class ChestActivity extends TrainingActivity {
         String selection = DataBaseContract.DataBaseEntry._ID + " LIKE ?";
         String[] selectionArgs = { ID };
 
-        db.update(DataBaseContract.DataBaseEntry.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
+        db.update(DataBaseContract.DataBaseEntry.TABLE_NAME, values, selection, selectionArgs);
         Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
 
     }
