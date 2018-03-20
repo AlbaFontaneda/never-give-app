@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 
 public class TrainingFragment extends Fragment {
@@ -37,6 +42,7 @@ public class TrainingFragment extends Fragment {
         if(tablas.length == 0) {
             tablas = aux;
         }
+        fillData();
         ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
         ListView lista = (ListView) rootView.findViewById(R.id.list_item);
         lista.setAdapter(listAdapter);
@@ -48,8 +54,16 @@ public class TrainingFragment extends Fragment {
     }
 
     private String[] fillData() {
+
         Cursor cursor = db.fetchAllRowsTraining();
-        String[] titles = new String[]{DataBaseContract.DataBaseEntryTrain.COLUMN_NAME};
+        ArrayList<String> aux = new ArrayList<String>();
+        if(cursor.moveToFirst()){
+            do {
+                String varaible1 = cursor.getString(cursor.getColumnIndex(DataBaseContract.DataBaseEntryTrain.COLUMN_NAME));
+                aux.add(varaible1);
+            }while (cursor.moveToNext());
+        }
+        String[] titles = aux.toArray(new String[aux.size()]);
         return titles;
     }
 

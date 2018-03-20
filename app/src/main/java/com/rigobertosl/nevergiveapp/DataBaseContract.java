@@ -121,7 +121,7 @@ public class DataBaseContract {
     /** Devolver todas las filas de la tabla_ejercicios **/
     //TODO: Devolver todos los datos del entrenamiento
     public Cursor fetchAllRowsTraining() {
-        return mDb.query(DATABASE_NAME, new String[] {
+        return mDb.query(DataBaseEntryTrain.TABLE_NAME, new String[] {
                         DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME, DataBaseEntryTrain.COLUMN_DAYS},
                 null, null, null, null, null);
     }
