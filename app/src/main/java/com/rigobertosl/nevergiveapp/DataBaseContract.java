@@ -1,15 +1,22 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
+import java.sql.RowId;
 
 /**
  * Creamos esta clase para establecer el esquemas de las tablas
  */
 public class DataBaseContract {
-    private DataBaseContract() {}
+    public DataBaseContract(Context context) {
+        this.context = context;
+    }
 
     private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -56,6 +63,8 @@ public class DataBaseContract {
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
+    private final Context context;
+
     public static class DataBaseHelper extends SQLiteOpenHelper {
 
         public DataBaseHelper(Context context) {
@@ -78,4 +87,85 @@ public class DataBaseContract {
             onUpgrade(db, oldVersion, newVersion);
         }
     }
+
+    public DataBaseContract open() throws SQLException {
+        mDbHelper = new DataBaseHelper(context);
+        mDb = mDbHelper.getWritableDatabase();
+        return this;
+    }
+
+    public void close() {
+        mDbHelper.close();
+    }
+
+    /** Crear tabla_ejercicos en la base de datos **/
+    public long createTableTraining(String name, String days){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryTrain.COLUMN_NAME, name);
+        values.put(DataBaseEntryTrain.COLUMN_DAYS, name);
+
+        return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
+    }
+
+    /** Crear tabla_comidas en la base de datos **/
+    public long createTableFoods(String name, String days){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryFoods.COLUMN_NAME, name);
+        values.put(DataBaseEntryFoods.COLUMN_DAYS, name);
+
+        return mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
+    }
+
+    //TODO: Cuando se implementen las opciones, crear funciones para eliminar tablas
+
+    /** Devolver todas las filas de la tabla_ejercicios **/
+    //TODO: Devolver todos los datos del entrenamiento
+    public Cursor fetchAllRowsTraining() {
+        return mDb.query(DataBaseEntryTrain.TABLE_NAME, new String[] {
+                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME, DataBaseEntryTrain.COLUMN_DAYS},
+                null, null, null, null, null);
+    }
+
+    /** Devolver una unica fila de la tabla_ejercicios **/
+    public Cursor fetchRowTraining(long rowId) throws SQLException {
+        Cursor mCursor = mDb.query(true, DATABASE_NAME, new String[] {
+                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME, DataBaseEntryTrain.COLUMN_DAYS},
+                DataBaseEntryTrain._ID + "=" + rowId, null, null, null, null, null);
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    /** Actualizar la ultima fila de la tabla_ejercicios **/
+    public boolean updateLastRowTraining(long rowId, String series, String repeticiones, String descanso) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryTrain.COLUMN_SERIES, series);
+        values.put(DataBaseEntryTrain.COLUMN_REPETICIONES, repeticiones);
+        values.put(DataBaseEntryTrain.COLUMN_SERIES, descanso);
+
+        return mDb.update(DataBaseEntryTrain.TABLE_NAME, values, DataBaseEntryTrain._ID + "=" + rowId, null) > 0;
+    }
+
+    /** Devolver todas las filas de la tabla_comidas **/
+    public Cursor fetchAllRowsFoods() {
+        return mDb.query(DATABASE_NAME, new String[] {
+                        DataBaseEntryFoods._ID, DataBaseEntryFoods.COLUMN_NAME, DataBaseEntryFoods.COLUMN_DAYS},
+                null, null, null, null, null);
+    }
+
+    /** Devolver una unica fila de la tabla_comidas **/
+    public Cursor fetchRowFoods(long rowId) throws SQLException {
+        Cursor mCursor = mDb.query(true, DATABASE_NAME, new String[] {
+                        DataBaseEntryFoods._ID, DataBaseEntryFoods.COLUMN_NAME, DataBaseEntryFoods.COLUMN_DAYS},
+                DataBaseEntryFoods._ID + "=" + rowId, null, null, null, null, null);
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+   //TODO: Actualizar tablas_comidas
+
+
 }

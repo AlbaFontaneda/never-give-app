@@ -27,13 +27,18 @@ public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
     public FloatingActionButton fab;
-    String tableName;
-    String tableDays;
+
+    private DataBaseContract db;
+    private Long mRiwId;
+
     public static long lastRow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
+
+        db = new DataBaseContract(this);
+        db.open();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,14 +116,15 @@ public class TrainingActivity extends MainActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tableName = tableNameEditText.getText().toString();
-                tableDays = tableDaysEditText.getText().toString();
+                String tableName = tableNameEditText.getText().toString();
+                String tableDays = tableDaysEditText.getText().toString();
                 if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
-                    saveData(view);
+                    long id = db.createTableTraining(tableName, tableDays);
+                    db.close();
                 }
             }
         });
@@ -131,20 +137,6 @@ public class TrainingActivity extends MainActivity {
         });
     }
 
-    /** En esta función se guradan los datos en la base de datos **/
-    public void saveData(View v){
-
-        DataBaseContract.DataBaseHelper tablaEjercicios = new DataBaseContract.DataBaseHelper(this);
-        SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_NAME, tableName);
-        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_DAYS, tableDays);
-
-        long newRowId = db.insert(DataBaseContract.DataBaseEntryTrain.TABLE_NAME, null, values);
-        lastRow = newRowId;
-        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
-    }
     /**
      * Transiciones entre tabs y fragmentos
      */
