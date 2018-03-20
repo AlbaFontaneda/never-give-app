@@ -37,10 +37,10 @@ public class FoodsActivity extends MainActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
     String tableName;
     String tableDays;
-    DataBaseHelper nuevaComida = new DataBaseHelper(this);
+    private static DataBaseContract dbAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +149,7 @@ public class FoodsActivity extends MainActivity {
     /** En esta función se guradan los datos en la base de datos **/
     public void saveData(View v){
 
+        DataBaseContract.DataBaseHelper nuevaComida = new DataBaseContract.DataBaseHelper(this);
         SQLiteDatabase db = nuevaComida.getWritableDatabase();
 
         ContentValues values = new ContentValues();
