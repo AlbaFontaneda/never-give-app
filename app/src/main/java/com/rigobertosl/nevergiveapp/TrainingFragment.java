@@ -38,11 +38,10 @@ public class TrainingFragment extends Fragment {
         db.open();
 
         String[] aux = {"NULL"};
-        String[] tablas = fillData();
+        String[] tablas = fillDataTitle();
         if(tablas.length == 0) {
             tablas = aux;
         }
-        fillData();
         ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
         ListView lista = (ListView) rootView.findViewById(R.id.list_item);
         lista.setAdapter(listAdapter);
@@ -53,13 +52,13 @@ public class TrainingFragment extends Fragment {
         return rootView;
     }
 
-    private String[] fillData() {
+    private String[] fillDataTitle() {
 
-        Cursor cursor = db.fetchAllRowsTraining();
+        Cursor cursor = db.fetchAllRowsNameTraining();
         ArrayList<String> aux = new ArrayList<String>();
         if(cursor.moveToFirst()){
             do {
-                String varaible1 = cursor.getString(cursor.getColumnIndex(DataBaseContract.DataBaseEntryTrain.COLUMN_NAME));
+                String varaible1 = cursor.getString(cursor.getColumnIndex(DataBaseContract.DataBaseEntryNameTrain.COLUMN_NAME));
                 aux.add(varaible1);
             }while (cursor.moveToNext());
         }
