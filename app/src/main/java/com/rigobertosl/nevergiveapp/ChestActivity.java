@@ -18,18 +18,26 @@ import android.widget.Toast;
 
 public class ChestActivity extends TrainingActivity {
     FloatingActionButton fab;
-    String numSeries;
-    String numRepeticiones;
-    String tiempoDescanso;
+    private DataBaseContract db;
+    public long rowId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chest);
+
+        db = new DataBaseContract(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChestActivity.this, TrainingActivity.class));
+            }
+        });
 
         LinearLayout pressSuperiorLinear = (LinearLayout) findViewById(R.id.press_superior);
 
@@ -58,16 +66,21 @@ public class ChestActivity extends TrainingActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numSeries = seriesEditText.getText().toString();
-                numRepeticiones = repeticionesEditText.getText().toString();
-                tiempoDescanso = descansoEditText.getText().toString();
+                String numSeries = seriesEditText.getText().toString();
+                String numRepeticiones = repeticionesEditText.getText().toString();
+                String tiempoDescanso = descansoEditText.getText().toString();
                 if (numSeries.matches("") || numRepeticiones.matches("") || tiempoDescanso.matches("")) {
                     Toast.makeText(ChestActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     fab.setVisibility(View.VISIBLE);
+                    db.open();
+                    long id = db.createTableListTraining("Pecho", numSeries, numRepeticiones, tiempoDescanso);
+                    rowId = id;
+                    db.createTableTraining(TrainingActivity.lastRowId, rowId);
+                    db.close();
                     dialog.cancel();
-                    saveData(view);
+
                 }
             }
         });
@@ -80,21 +93,4 @@ public class ChestActivity extends TrainingActivity {
         });
     }
 
-    public void saveData(View view) {
-        DataBaseContract.DataBaseHelper tablaEjercicios = new DataBaseContract.DataBaseHelper(this);
-        SQLiteDatabase db = tablaEjercicios.getWritableDatabase();
-        String ID = String.valueOf(TrainingActivity.lastRow);
-        ContentValues values = new ContentValues();
-        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_SERIES, numSeries);
-        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_REPETICIONES, numRepeticiones);
-        values.put(DataBaseContract.DataBaseEntryTrain.COLUMN_DESCANSO, tiempoDescanso);
-
-        String selection = DataBaseContract.DataBaseEntryTrain._ID + " LIKE ?";
-        String[] selectionArgs = { ID };
-
-        db.update(DataBaseContract.DataBaseEntryTrain.TABLE_NAME, values, selection, selectionArgs);
-
-        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
-
-    }
 }
