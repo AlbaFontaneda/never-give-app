@@ -7,8 +7,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.sql.RowId;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creamos esta clase para establecer el esquemas de las tablas
@@ -144,10 +147,43 @@ public class DataBaseContract {
     }
 
     /** Devolver todas las filas de nombre_ejercicios **/
-    public Cursor fetchAllRowsNameTraining() {
-        return mDb.query(DataBaseEntryNameTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryNameTrain._ID, DataBaseEntryNameTrain.COLUMN_NAME, DataBaseEntryNameTrain.COLUMN_DAYS},
-                null, null, null, null, null);
+    public List<Object> fetchAllRowsNameTraining() {
+        List<Object> names = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                List<Object> aux = new ArrayList<>();
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)));
+                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_DAYS)));
+
+                names.add(aux);
+            } while (cursor.moveToNext());
+        }
+        return names;
+    }
+
+    /** Devolver solo el nombre de todos los nombre_ejercicios **/
+    public ArrayList<String> fetchAllNamesNameTraining() {
+        ArrayList<String> names = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+
+                names.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)));
+
+            } while (cursor.moveToNext());
+        }
+        return names;
     }
 
     /** Devolver una unica fila de nombre_ejercicios **/
@@ -242,6 +278,30 @@ public class DataBaseContract {
             mCursor.moveToFirst();
         }
         return mCursor;
+    }
+
+    /** Devolver todos los ejercicios de lista_ejercicios a partir de un nombre de nombre_ejercicios**/
+    public List<Object> fetchListByNameTrain(String nombre)  {
+        List<Object> list = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + nombre + "'" +
+                " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
+                " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                List<Object> aux = new ArrayList<>();
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)));
+                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
+                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
+                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+
+                list.add(aux);
+            } while (cursor.moveToNext());
+        }
+        return list;
     }
 
     /** Crear tabla_comidas en la base de datos **/

@@ -1,20 +1,16 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TrainingFragment extends Fragment {
@@ -42,7 +38,7 @@ public class TrainingFragment extends Fragment {
         if(tablas.length == 0) {
             tablas = aux;
         }
-        String[] content = fillDataContent();
+        fillDataContent();
         ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
         ListView lista = (ListView) rootView.findViewById(R.id.list_item);
         lista.setAdapter(listAdapter);
@@ -55,20 +51,20 @@ public class TrainingFragment extends Fragment {
 
     private String[] fillDataTitle() {
 
-        Cursor cursor = db.fetchAllRowsNameTraining();
-        ArrayList<String> aux = new ArrayList<String>();
-        if(cursor.moveToFirst()){
-            do {
-                String varaible1 = cursor.getString(cursor.getColumnIndex(DataBaseContract.DataBaseEntryNameTrain.COLUMN_NAME));
-                aux.add(varaible1);
-            }while (cursor.moveToNext());
-        }
-        String[] titles = aux.toArray(new String[aux.size()]);
+        ArrayList<String> names = db.fetchAllNamesNameTraining();
+        String[] titles = names.toArray(new String[names.size()]);
         return titles;
     }
 
     private String[] fillDataContent() {
+        String[] names = fillDataTitle();
         String[] content = {};
+        ArrayList<String> list = new ArrayList<>();
+        for(String name: names){
+            List<Object> aux = db.fetchListByNameTrain(name);
+            list.add(String.valueOf(aux));
+        }
+        content = list.toArray(new String[list.size()]);
         return content;
     }
 
