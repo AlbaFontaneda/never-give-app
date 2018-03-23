@@ -150,7 +150,7 @@ public class DataBaseContract {
                 null, null, null, null, null);
     }
 
-    /** Devolver una unica fila de la tabla_ejercicios **/
+    /** Devolver una unica fila de nombre_ejercicios **/
     public Cursor fetchRowNameTraining(long rowId) throws SQLException {
         Cursor mCursor = mDb.query(true, DataBaseEntryNameTrain.TABLE_NAME, new String[] {
                         DataBaseEntryNameTrain._ID, DataBaseEntryNameTrain.COLUMN_NAME, DataBaseEntryNameTrain.COLUMN_DAYS},
@@ -161,11 +161,15 @@ public class DataBaseContract {
         return mCursor;
     }
 
-    /** Actualizar la ultima fila de la tabla_ejercicios **/
-    public boolean updateLastRowTraining(long rowId, String series, String repeticiones, String descanso) {
-        ContentValues values = new ContentValues();
-
-        return mDb.update(DataBaseEntryTrain.TABLE_NAME, values, DataBaseEntryTrain._ID + "=" + rowId, null) > 0;
+    /** Devolver una unica fila de nombre_ejercicios (filter by NAME) **/
+    public Cursor fetchRowNameTrainingByName(String name) throws SQLException {
+        Cursor mCursor = mDb.query(true, DataBaseEntryNameTrain.TABLE_NAME, new String[] {
+                        DataBaseEntryNameTrain._ID, DataBaseEntryNameTrain.COLUMN_NAME, DataBaseEntryNameTrain.COLUMN_DAYS},
+                DataBaseEntryNameTrain.COLUMN_NAME + " = '" + name +"'", null, null, null, null, null);
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
     }
 
     /** Crear lista_ejercicos en la base de datos **/
@@ -222,6 +226,18 @@ public class DataBaseContract {
                         DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME_ID,
                         DataBaseEntryTrain.COLUMN_LIST_ID},
                 DataBaseEntryTrain._ID + "=" + rowId, null, null, null, null, null);
+        if(mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    /** Devolver una unica fila de la lista_ejercicios (filter by IDNAME)**/
+    public Cursor fetchRowTrainingByName(long nameId) throws SQLException {
+        Cursor mCursor = mDb.query(true, DataBaseEntryTrain.TABLE_NAME, new String[] {
+                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME_ID,
+                        DataBaseEntryTrain.COLUMN_LIST_ID},
+                DataBaseEntryTrain.COLUMN_NAME_ID + "=" + nameId, null, null, null, null, null);
         if(mCursor != null) {
             mCursor.moveToFirst();
         }

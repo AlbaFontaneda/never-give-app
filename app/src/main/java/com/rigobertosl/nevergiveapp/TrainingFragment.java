@@ -42,6 +42,7 @@ public class TrainingFragment extends Fragment {
         if(tablas.length == 0) {
             tablas = aux;
         }
+        String[] content = fillDataContent();
         ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
         ListView lista = (ListView) rootView.findViewById(R.id.list_item);
         lista.setAdapter(listAdapter);
@@ -64,6 +65,11 @@ public class TrainingFragment extends Fragment {
         }
         String[] titles = aux.toArray(new String[aux.size()]);
         return titles;
+    }
+
+    private String[] fillDataContent() {
+        String[] content = {};
+        return content;
     }
 
     public void onDestroyView() {
