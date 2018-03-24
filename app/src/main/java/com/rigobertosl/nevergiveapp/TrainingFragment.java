@@ -3,6 +3,8 @@ package com.rigobertosl.nevergiveapp;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,22 +31,21 @@ public class TrainingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
         db = new DataBaseContract(getActivity());
         db.open();
 
-        String[] aux = {"NULL"};
         String[] tablas = fillDataTitle();
-        if(tablas.length == 0) {
-            tablas = aux;
-        }
-        fillDataContent();
-        ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
-        ListView lista = (ListView) rootView.findViewById(R.id.list_item);
-        lista.setAdapter(listAdapter);
+        ArrayList<ArrayList> content = fillDataContent();
+        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), tablas, content);
+        recyclerView.setAdapter(adapter);
+
 
         // Para que se haga el scroll correctamente ocultando el toolbar
-        ViewCompat.setNestedScrollingEnabled(lista, true);
 
         return rootView;
     }
@@ -56,15 +57,15 @@ public class TrainingFragment extends Fragment {
         return titles;
     }
 
-    private String[] fillDataContent() {
+    private ArrayList<ArrayList> fillDataContent() {
         String[] names = fillDataTitle();
-        String[] content = {};
-        ArrayList<String[]> list = new ArrayList<>();
+        ArrayList<ArrayList> list = new ArrayList<>();
         for(String name: names){
-            list = db.fetchListByNameTrain(name);
+            ArrayList<String[]> aux = new ArrayList<>();
+            aux = db.fetchListByNameTrain(name);
+            list.add(aux);
         }
-
-        return content;
+        return list;
     }
 
     public void onDestroyView() {

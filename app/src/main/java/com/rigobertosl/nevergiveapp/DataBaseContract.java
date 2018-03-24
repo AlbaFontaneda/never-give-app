@@ -199,9 +199,9 @@ public class DataBaseContract {
             do {
                 ArrayList<String> aux = new ArrayList<>();
                 aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)));
-                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
-                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
-                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
                 String[] ejercicios = aux.toArray(new String[aux.size()]);
 
                 list.add(ejercicios);
