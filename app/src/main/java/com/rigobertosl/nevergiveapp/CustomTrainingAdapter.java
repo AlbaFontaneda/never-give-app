@@ -48,6 +48,8 @@ public class CustomTrainingAdapter extends ArrayAdapter<String>{
         exercisesList = new ArrayList<>();
         exercisesList.add(new Exercise("Press de banca", "12"));
         exercisesList.add(new Exercise("Press superior", "20"));
+        exercisesList.add(new Exercise("Remo", "55"));
+        exercisesList.add(new Exercise("Dominadas", "10"));
         adapter = new ExerciseAdapter(exercisesList);
         recyclerView.setAdapter(adapter);
 
