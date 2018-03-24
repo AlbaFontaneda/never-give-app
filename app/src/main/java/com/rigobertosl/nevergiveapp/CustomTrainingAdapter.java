@@ -2,29 +2,35 @@ package com.rigobertosl.nevergiveapp;
 
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAdapter.MyViewHolder> {
     private Context mContext;
     private String[] titles = {};
     private ArrayList<ArrayList> content = new ArrayList<>();
 
+    private RecyclerView recyclerView;
+    private ExerciseAdapter exerciseAdapter;
+    private List<Exercise> exerciseList;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public int count;
         public TextView title;
-        public TextView ejercicio;
 
         public MyViewHolder (View view){
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
-            ejercicio = (TextView) view.findViewById(R.id.ejercicio);
         }
     }
     
@@ -38,6 +44,21 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_training, parent, false);
 
+
+        recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(parent.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        exerciseList = new ArrayList<>();
+        
+        exerciseList.add(new Exercise("Press de banca", "12"));
+        exerciseList.add(new Exercise("Press superior", "20"));
+        exerciseList.add(new Exercise("Remo", "55"));
+        exerciseList.add(new Exercise("Dominadas", "10"));
+        exerciseAdapter = new ExerciseAdapter(exerciseList);
+        recyclerView.setAdapter(exerciseAdapter);
+
+
         return new MyViewHolder(itemView);
     }
 
@@ -50,5 +71,53 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
     @Override
     public int getItemCount() {
         return titles.length;
+    }
+
+
+    public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
+
+        List<Exercise> exercises;
+
+        public ExerciseAdapter(List<Exercise> exercises){
+            this.exercises = exercises;
+        }
+
+        @Override
+        public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_card, parent, false);
+            ExerciseViewHolder exerciseViewHolder = new ExerciseViewHolder(view);
+            return exerciseViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(ExerciseViewHolder holder, int position) {
+            holder.title.setText(exercises.get(position).nombre);
+            holder.repeticiones.setText(exercises.get(position).repeticiones);
+        }
+
+        @Override
+        public int getItemCount() {
+            return exercises.size();
+        }
+
+        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+            super.onAttachedToRecyclerView(recyclerView);
+        }
+
+        public class ExerciseViewHolder extends RecyclerView.ViewHolder {
+            CardView cardView;
+            TextView title, repeticiones;
+            ImageView imageView;
+
+            ExerciseViewHolder(View view) {
+                super(view);
+                cardView = (CardView)view.findViewById(R.id.card_view);
+                imageView = (ImageView)view.findViewById(R.id.image);
+                //imageView.setImageResource(R.drawable.achievements_logo);
+                title = (TextView)view.findViewById(R.id.title);
+                repeticiones = (TextView)view.findViewById(R.id.repeticiones);
+            }
+        }
+
     }
 }
