@@ -146,27 +146,6 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryNameTrain.TABLE_NAME, null, values);
     }
 
-    /** Devolver todas las filas de nombre_ejercicios **/
-    public List<Object> fetchAllRowsNameTraining() {
-        List<Object> names = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME;
-        mDb = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                List<Object> aux = new ArrayList<>();
-                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)));
-                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_DAYS)));
-
-                names.add(aux);
-            } while (cursor.moveToNext());
-        }
-        return names;
-    }
-
     /** Devolver solo el nombre de todos los nombre_ejercicios **/
     public ArrayList<String> fetchAllNamesNameTraining() {
         ArrayList<String> names = new ArrayList<>();
@@ -186,29 +165,7 @@ public class DataBaseContract {
         return names;
     }
 
-    /** Devolver una unica fila de nombre_ejercicios **/
-    public Cursor fetchRowNameTraining(long rowId) throws SQLException {
-        Cursor mCursor = mDb.query(true, DataBaseEntryNameTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryNameTrain._ID, DataBaseEntryNameTrain.COLUMN_NAME, DataBaseEntryNameTrain.COLUMN_DAYS},
-                DataBaseEntryTrain._ID + "=" + rowId, null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
-    /** Devolver una unica fila de nombre_ejercicios (filter by NAME) **/
-    public Cursor fetchRowNameTrainingByName(String name) throws SQLException {
-        Cursor mCursor = mDb.query(true, DataBaseEntryNameTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryNameTrain._ID, DataBaseEntryNameTrain.COLUMN_NAME, DataBaseEntryNameTrain.COLUMN_DAYS},
-                DataBaseEntryNameTrain.COLUMN_NAME + " = '" + name +"'", null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
-    /** Crear lista_ejercicos en la base de datos **/
+        /** Crear lista_ejercicos en la base de datos **/
     public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
@@ -217,26 +174,6 @@ public class DataBaseContract {
         values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, repeticiones);
 
         return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
-    }
-
-    /** Devolver todas las filas de lista_ejercicios **/
-    public Cursor fetchAllRowsListTraining() {
-        return mDb.query(DataBaseEntryListTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryListTrain._ID, DataBaseEntryListTrain.COLUMN_NAME, DataBaseEntryListTrain.COLUMN_SERIES,
-                        DataBaseEntryListTrain.COLUMN_REPETICIONES, DataBaseEntryListTrain.COLUMN_DESCANSO},
-                null, null, null, null, null);
-    }
-
-    /** Devolver una unica fila de la lista_ejercicios **/
-    public Cursor fetchRowListTraining(long rowId) throws SQLException {
-        Cursor mCursor = mDb.query(true, DataBaseEntryListTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryListTrain._ID, DataBaseEntryListTrain.COLUMN_NAME, DataBaseEntryListTrain.COLUMN_SERIES,
-                        DataBaseEntryListTrain.COLUMN_REPETICIONES, DataBaseEntryListTrain.COLUMN_DESCANSO},
-                DataBaseEntryListTrain._ID + "=" + rowId, null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
     }
 
     /** Crear tabla_ejercicios (asignación de varios elementos de la lista a un nombre) **/
@@ -248,41 +185,9 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
     }
 
-    /** Devolver todas las filas de tabla_ejercicios **/
-    public Cursor fetchAllRowsTraining() {
-        return mDb.query(DataBaseEntryTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME_ID,
-                        DataBaseEntryTrain.COLUMN_LIST_ID},
-                null, null, null, null, null);
-    }
-
-    /** Devolver una unica fila de la lista_ejercicios **/
-    public Cursor fetchRowTraining(long rowId) throws SQLException {
-        Cursor mCursor = mDb.query(true, DataBaseEntryTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME_ID,
-                        DataBaseEntryTrain.COLUMN_LIST_ID},
-                DataBaseEntryTrain._ID + "=" + rowId, null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
-    /** Devolver una unica fila de la lista_ejercicios (filter by IDNAME)**/
-    public Cursor fetchRowTrainingByName(long nameId) throws SQLException {
-        Cursor mCursor = mDb.query(true, DataBaseEntryTrain.TABLE_NAME, new String[] {
-                        DataBaseEntryTrain._ID, DataBaseEntryTrain.COLUMN_NAME_ID,
-                        DataBaseEntryTrain.COLUMN_LIST_ID},
-                DataBaseEntryTrain.COLUMN_NAME_ID + "=" + nameId, null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
     /** Devolver todos los ejercicios de lista_ejercicios a partir de un nombre de nombre_ejercicios**/
-    public List<Object> fetchListByNameTrain(String nombre)  {
-        List<Object> list = new ArrayList<>();
+    public ArrayList<String[]> fetchListByNameTrain(String nombre)  {
+        ArrayList<String[]> list = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
                 + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + nombre + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
@@ -292,13 +197,14 @@ public class DataBaseContract {
 
         if(cursor.moveToFirst()) {
             do {
-                List<Object> aux = new ArrayList<>();
+                ArrayList<String> aux = new ArrayList<>();
                 aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)));
-                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
-                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
-                aux.add(cursor.getInt(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                String[] ejercicios = aux.toArray(new String[aux.size()]);
 
-                list.add(aux);
+                list.add(ejercicios);
             } while (cursor.moveToNext());
         }
         return list;
@@ -313,26 +219,9 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
     }
 
-    /** Devolver todas las filas de la tabla_comidas **/
-    public Cursor fetchAllRowsFoods() {
-        return mDb.query(DATABASE_NAME, new String[] {
-                        DataBaseEntryFoods._ID, DataBaseEntryFoods.COLUMN_NAME, DataBaseEntryFoods.COLUMN_DAYS},
-                null, null, null, null, null);
-    }
 
-    /** Devolver una unica fila de la tabla_comidas **/
-    public Cursor fetchRowFoods(long rowId) throws SQLException {
-        Cursor mCursor = mDb.query(true, DATABASE_NAME, new String[] {
-                        DataBaseEntryFoods._ID, DataBaseEntryFoods.COLUMN_NAME, DataBaseEntryFoods.COLUMN_DAYS},
-                DataBaseEntryFoods._ID + "=" + rowId, null, null, null, null, null);
-        if(mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
-   //TODO: Actualizar tablas_comidas
     // TODO: Cuando se implementen las opciones, crear funciones para eliminar tablas
+    // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muerte
 
 
 }

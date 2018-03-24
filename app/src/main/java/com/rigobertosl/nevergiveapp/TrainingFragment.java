@@ -59,12 +59,11 @@ public class TrainingFragment extends Fragment {
     private String[] fillDataContent() {
         String[] names = fillDataTitle();
         String[] content = {};
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String[]> list = new ArrayList<>();
         for(String name: names){
-            List<Object> aux = db.fetchListByNameTrain(name);
-            list.add(String.valueOf(aux));
+            list = db.fetchListByNameTrain(name);
         }
-        content = list.toArray(new String[list.size()]);
+
         return content;
     }
 
