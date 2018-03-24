@@ -21,10 +21,6 @@ public class CustomExercisesAdapter extends ArrayAdapter<String>{
         LayoutInflater buckysInflater = LayoutInflater.from(getContext());
         final View customView = buckysInflater.inflate(R.layout.layout_training, parent,false);
 
-        String contentItem = getItem(position);
-        final TextView content = (TextView) customView.findViewById(R.id.ejercicio);
-
-        content.setText(contentItem);
         return customView;
     }
 
