@@ -1,20 +1,18 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TrainingFragment extends Fragment {
@@ -33,36 +31,27 @@ public class TrainingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
         db = new DataBaseContract(getActivity());
         db.open();
 
-        String[] aux = {"NULL"};
         String[] tablas = fillDataTitle();
-        if(tablas.length == 0) {
-            tablas = aux;
-        }
-        ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
-        ListView lista = (ListView) rootView.findViewById(R.id.list_item);
-        lista.setAdapter(listAdapter);
+        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), tablas);
+        recyclerView.setAdapter(adapter);
+
 
         // Para que se haga el scroll correctamente ocultando el toolbar
-        ViewCompat.setNestedScrollingEnabled(lista, true);
 
         return rootView;
     }
 
     private String[] fillDataTitle() {
-
-        Cursor cursor = db.fetchAllRowsNameTraining();
-        ArrayList<String> aux = new ArrayList<String>();
-        if(cursor.moveToFirst()){
-            do {
-                String varaible1 = cursor.getString(cursor.getColumnIndex(DataBaseContract.DataBaseEntryNameTrain.COLUMN_NAME));
-                aux.add(varaible1);
-            }while (cursor.moveToNext());
-        }
-        String[] titles = aux.toArray(new String[aux.size()]);
+        ArrayList<String> names = db.fetchAllNamesNameTraining();
+        String[] titles = names.toArray(new String[names.size()]);
         return titles;
     }
 
