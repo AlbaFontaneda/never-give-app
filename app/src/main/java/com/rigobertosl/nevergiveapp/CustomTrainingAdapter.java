@@ -35,10 +35,9 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
     }
     
-    public CustomTrainingAdapter(Context mContext, String[] titles, ArrayList<ArrayList> content) {
+    public CustomTrainingAdapter(Context mContext, String[] titles) {
         this.mContext = mContext;
         this.titles = titles;
-        this.content = content;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

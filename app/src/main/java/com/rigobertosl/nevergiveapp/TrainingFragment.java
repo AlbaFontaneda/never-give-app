@@ -40,8 +40,7 @@ public class TrainingFragment extends Fragment {
         db.open();
 
         String[] tablas = fillDataTitle();
-        ArrayList<ArrayList> content = fillDataContent();
-        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), tablas, content);
+        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), tablas);
         recyclerView.setAdapter(adapter);
 
 
@@ -54,17 +53,6 @@ public class TrainingFragment extends Fragment {
         ArrayList<String> names = db.fetchAllNamesNameTraining();
         String[] titles = names.toArray(new String[names.size()]);
         return titles;
-    }
-
-    private ArrayList<ArrayList> fillDataContent() {
-        String[] names = fillDataTitle();
-        ArrayList<ArrayList> list = new ArrayList<>();
-        for(String name: names){
-            ArrayList<String[]> aux = new ArrayList<>();
-            aux = db.fetchListByNameTrain(name);
-            list.add(aux);
-        }
-        return list;
     }
 
     public void onDestroyView() {
