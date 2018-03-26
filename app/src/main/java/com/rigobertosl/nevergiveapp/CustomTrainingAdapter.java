@@ -19,6 +19,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
     private String[] titles = {};
     private ArrayList<ArrayList> content = new ArrayList<>();
 
+    private DataBaseContract db;
     private RecyclerView recyclerView;
     private ExerciseAdapter exerciseAdapter;
     private List<Exercise> exerciseList;
@@ -47,17 +48,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(parent.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        exerciseList = new ArrayList<>();
-        
-        exerciseList.add(new Exercise("Press de banca", "12"));
-        exerciseList.add(new Exercise("Press superior", "20"));
-        exerciseList.add(new Exercise("Remo", "55"));
-        exerciseList.add(new Exercise("Dominadas", "10"));
-        exerciseAdapter = new ExerciseAdapter(exerciseList);
-        recyclerView.setAdapter(exerciseAdapter);
-
 
         return new MyViewHolder(itemView);
     }
@@ -66,6 +56,18 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(this.titles[position]);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.title.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        db = new DataBaseContract(holder.title.getContext());
+        db.open();
+
+        ArrayList<String> nombresTablas = db.fetchAllNamesNameTraining();
+        exerciseList = db.getAllExercisesFromTable(nombresTablas.get(position));
+        exerciseAdapter = new ExerciseAdapter(exerciseList);
+        recyclerView.setAdapter(exerciseAdapter);
+
     }
 
     @Override
@@ -92,7 +94,8 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         @Override
         public void onBindViewHolder(ExerciseViewHolder holder, int position) {
             holder.title.setText(exercises.get(position).nombre);
-            holder.repeticiones.setText(exercises.get(position).repeticiones);
+            holder.series.setText(exercises.get(position).series+" series");
+            holder.repeticiones.setText(exercises.get(position).repeticiones+" repeticiones");
         }
 
         @Override
@@ -106,7 +109,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         public class ExerciseViewHolder extends RecyclerView.ViewHolder {
             CardView cardView;
-            TextView title, repeticiones;
+            TextView title, series, repeticiones;
             ImageView imageView;
 
             ExerciseViewHolder(View view) {
@@ -115,7 +118,8 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 imageView = (ImageView)view.findViewById(R.id.image);
                 //imageView.setImageResource(R.drawable.achievements_logo);
                 title = (TextView)view.findViewById(R.id.title);
-                repeticiones = (TextView)view.findViewById(R.id.repeticiones);
+                series = (TextView)view.findViewById(R.id.num_series);
+                repeticiones = (TextView)view.findViewById(R.id.num_repeticiones);
             }
         }
 

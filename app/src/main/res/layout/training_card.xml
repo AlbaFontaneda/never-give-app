@@ -21,39 +21,55 @@
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="3dp"
                 android:scaleType="centerCrop"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/achievements_logo" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="18dp"
                 android:text="Título"
                 android:layout_below="@id/image"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:textColor="#000"
-                android:layout_marginBottom="1dp"
+                android:paddingStart="3dp"
+                android:textColor="@color/colorAccent"
+                android:paddingEnd="2dp"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="8sp"
                 android:autoSizeMaxTextSize="15sp" />
             <TextView
-                android:id="@+id/repeticiones"
+                android:id="@+id/num_series"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="Repeticiones"
+                android:layout_height="15dp"
+                android:text="XX"
                 android:layout_below="@id/title"
-                android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:paddingStart="3dp"
                 android:textColor="#000"
-                android:layout_marginBottom="5dp"
+                android:paddingEnd="2dp"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="8sp"
                 android:autoSizeMaxTextSize="15sp"/>
+            <TextView
+                android:id="@+id/num_repeticiones"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:text="YY"
+                android:layout_below="@id/num_series"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:paddingStart="3dp"
+                android:textColor="#000"
+                android:paddingEnd="2dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeMaxTextSize="15sp"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

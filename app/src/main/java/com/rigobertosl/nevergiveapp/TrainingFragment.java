@@ -51,7 +51,6 @@ public class TrainingFragment extends Fragment {
     }
 
     private String[] fillDataTitle() {
-
         ArrayList<String> names = db.fetchAllNamesNameTraining();
         String[] titles = names.toArray(new String[names.size()]);
         return titles;
