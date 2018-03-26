@@ -1,8 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChestActivity extends TrainingActivity {
+public class EspaldaActivity extends TrainingActivity {
     FloatingActionButton fab;
     private DataBaseContract db;
     public long rowId;
@@ -24,7 +21,7 @@ public class ChestActivity extends TrainingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chest);
+        setContentView(R.layout.activity_espalda);
 
         db = new DataBaseContract(this);
 
@@ -35,51 +32,51 @@ public class ChestActivity extends TrainingActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChestActivity.this, TrainingActivity.class));
+                startActivity(new Intent(EspaldaActivity.this, TrainingActivity.class));
             }
         });
 
-        LinearLayout pressSuperiorLinear = (LinearLayout) findViewById(R.id.press_superior);
-        LinearLayout pressBancaLinear = (LinearLayout) findViewById(R.id.press_banca);
-        LinearLayout poleaAltaLinear = (LinearLayout) findViewById(R.id.polea_alta);
-        LinearLayout pullOverLinear = (LinearLayout) findViewById(R.id.pullover);
-        LinearLayout fondosLinear = (LinearLayout) findViewById(R.id.fondos);
-        LinearLayout pressBarraLinear = (LinearLayout) findViewById(R.id.press_barra);
+        LinearLayout dominadasLinear = (LinearLayout) findViewById(R.id.dominadas);
+        LinearLayout dominadasCerradoLinear = (LinearLayout) findViewById(R.id.dominadas_cerrado);
+        LinearLayout remoBarraLinear = (LinearLayout) findViewById(R.id.remo_barra);
+        LinearLayout remoPoleaLinear = (LinearLayout) findViewById(R.id.remo_polea);
+        LinearLayout pesoMuertoLinear = (LinearLayout) findViewById(R.id.peso_muerto);
+        LinearLayout pulloverBancoLinear = (LinearLayout) findViewById(R.id.pullover_banco);
 
-        pressSuperiorLinear.setOnClickListener(new View.OnClickListener() {
+        dominadasLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Aperturas con mancuernas");
+                openDialog(view, "Dominadas");
             }
         });
-        pressBancaLinear.setOnClickListener(new View.OnClickListener() {
+        dominadasCerradoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Press de banca al cuello");
+                openDialog(view, "Dominadas con agarre cerrado");
             }
         });
-        poleaAltaLinear.setOnClickListener(new View.OnClickListener() {
+        remoBarraLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Cruces en polea alta");
+                openDialog(view, "Remo con barra");
             }
         });
-        pullOverLinear.setOnClickListener(new View.OnClickListener() {
+        remoPoleaLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Pullover");
+                openDialog(view, "Remo en polea sentado");
             }
         });
-        fondosLinear.setOnClickListener(new View.OnClickListener() {
+        pesoMuertoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Fondos entre bancos");
+                openDialog(view, "Peso muerto");
             }
         });
-        pressBarraLinear.setOnClickListener(new View.OnClickListener() {
+        pulloverBancoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Press con barra");
+                openDialog(view, "Pullover banco declinado");
             }
         });
     }
@@ -105,7 +102,7 @@ public class ChestActivity extends TrainingActivity {
                 String numRepeticiones = repeticionesEditText.getText().toString();
                 String tiempoDescanso = descansoEditText.getText().toString();
                 if (numSeries.matches("") || numRepeticiones.matches("") || tiempoDescanso.matches("")) {
-                    Toast.makeText(ChestActivity.this,
+                    Toast.makeText(EspaldaActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     fab.setVisibility(View.VISIBLE);

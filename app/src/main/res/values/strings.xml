@@ -83,5 +83,6 @@
 
     //Pantalla de pecho
     <string name="press_superior">Press superior</string>
+    <string name="title_activity_espalda">EspaldaActivity</string>
 
 </resources>

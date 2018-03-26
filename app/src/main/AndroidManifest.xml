@@ -44,6 +44,11 @@
             android:label="@string/title_activity_chest"
             android:parentActivityName=".ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EspaldaActivity"
+            android:label="@string/title_activity_espalda"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

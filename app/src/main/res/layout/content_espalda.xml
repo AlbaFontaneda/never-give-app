@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.rigobertosl.nevergiveapp.ChestActivity"
-    tools:showIn="@layout/activity_chest">
+    tools:context="com.rigobertosl.nevergiveapp.EspaldaActivity"
+    tools:showIn="@layout/activity_espalda">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -20,81 +20,81 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/press_superior"
+                android:id="@+id/dominadas"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/press_superior_text_view"
+                    android:id="@+id/dominadas_text_view"
                     android:autoLink="all"
-                    android:text="Aperturas con mancuerna" />
+                    android:text="Dominadas" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/press_banca"
+                android:id="@+id/dominadas_cerrado"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/press_banca_text_view"
+                    android:id="@+id/dominadas_cerrado_text_view"
                     android:autoLink="all"
-                    android:text="Press de banca al cuello" />
+                    android:text="Dominadas con agarre cerrado" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/polea_alta"
+                android:id="@+id/remo_barra"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/polea_alta_text_view"
+                    android:id="@+id/remo_barra_text_view"
                     android:autoLink="all"
-                    android:text="Cruces en polea alta" />
+                    android:text="Remo con barra" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pullover"
+                android:id="@+id/remo_polea"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/pullover_text_view"
+                    android:id="@+id/remo_polea_view"
                     android:autoLink="all"
-                    android:text="Pullover en banco declinado" />
+                    android:text="Remo en polea sentado" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/fondos"
+                android:id="@+id/peso_muerto"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/fondos_text_view"
+                    android:id="@+id/peso_muerto_text_view"
                     android:autoLink="all"
-                    android:text="Fondos entre bancos" />
+                    android:text="Peso muerto" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/press_barra"
+                android:id="@+id/pullover_banco"
                 style="@style/Button_exercices_type">
                 <ImageView
                     style="@style/Image_exercise_type"
                     android:src="@drawable/achievements_logo" />
                 <TextView
                     style="@style/Text_button_exercise_type"
-                    android:id="@+id/press_barra_text_view"
+                    android:id="@+id/pullover_banco_text_view"
                     android:autoLink="all"
-                    android:text="Press con barra en banco declinado" />
+                    android:text="Pullover banco declinado" />
             </LinearLayout>
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>

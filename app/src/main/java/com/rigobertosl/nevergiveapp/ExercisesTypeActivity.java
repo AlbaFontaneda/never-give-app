@@ -19,17 +19,20 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         LinearLayout pechoLinearLayout = (LinearLayout)findViewById(R.id.pecho);
-        TextView pechoLink = (TextView) findViewById(R.id.pecho_text_view);
-
-        TextView espaldaLink = (TextView) findViewById(R.id.espalda_text_view);
-        TextView tricepsLink = (TextView) findViewById(R.id.triceps_text_view);
-        TextView bicepsLink = (TextView) findViewById(R.id.biceps_text_view);
-        TextView piernaLink = (TextView) findViewById(R.id.pierna_text_view);
-        TextView hombroLink = (TextView) findViewById(R.id.hombro_text_view);
+        LinearLayout espaldaLinearLayout = (LinearLayout) findViewById(R.id.espalda);
+        LinearLayout bicepsLinearLayout = (LinearLayout) findViewById(R.id.biceps);
+        LinearLayout tricepsLinearLayout = (LinearLayout) findViewById(R.id.triceps);
+        LinearLayout hombroLinearLayout = (LinearLayout) findViewById(R.id.hombro);
+        LinearLayout piernaLinearLayout = (LinearLayout) findViewById(R.id.pierna);
 
         pechoLinearLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ExercisesTypeActivity.this, ChestActivity.class));
+            }
+        });
+        espaldaLinearLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
             }
         });
 
