@@ -166,26 +166,6 @@ public class DataBaseContract {
         return names;
     }
 
-        /** Crear lista_ejercicos en la base de datos **/
-    public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
-        values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
-        values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
-        values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, repeticiones);
-
-        return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
-    }
-
-    /** Crear tabla_ejercicios (asignación de varios elementos de la lista a un nombre) **/
-    public long createTableTraining(long idName,  long idList){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseEntryTrain.COLUMN_NAME_ID, idName);
-        values.put(DataBaseEntryTrain.COLUMN_LIST_ID, idList);
-
-        return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
-    }
-
     /** Devuelve TODOS los ejercicios de la tabla cuyo nombre es "nombre" en un ArrayList<Exercise> **/
     public ArrayList<Exercise> getAllExercisesFromTable(String nombre) {
         ArrayList<Exercise> exercises = new ArrayList<>();
@@ -225,6 +205,54 @@ public class DataBaseContract {
         return exercises;
     }
 
+
+
+        /** Crear lista_ejercicos en la base de datos **/
+    public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
+        values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
+        values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
+        values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, repeticiones);
+
+        return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
+    }
+
+    /** Crear tabla_ejercicios (asignación de varios elementos de la lista a un nombre) **/
+    public long createTableTraining(long idName,  long idList){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryTrain.COLUMN_NAME_ID, idName);
+        values.put(DataBaseEntryTrain.COLUMN_LIST_ID, idList);
+
+        return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
+    }
+
+    // FURUAMENTE BORRAR
+    /** Devolver todos los ejercicios de lista_ejercicios a partir de un nombre de nombre_ejercicios **/
+    public ArrayList<String[]> fetchListByNameTrain(String nombre)  {
+        ArrayList<String[]> list = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + nombre + "'" +
+                " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
+                " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                ArrayList<String> aux = new ArrayList<>();
+                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
+                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                String[] ejercicios = aux.toArray(new String[aux.size()]);
+
+                list.add(ejercicios);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     /** Crear tabla_comidas en la base de datos **/
     public long createTableFoods(String name, String days){
         ContentValues values = new ContentValues();
@@ -236,7 +264,7 @@ public class DataBaseContract {
 
 
     // TODO: Cuando se implementen las opciones, crear funciones para eliminar tablas
-    // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muelte
+    // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muerte
 
 
 }
