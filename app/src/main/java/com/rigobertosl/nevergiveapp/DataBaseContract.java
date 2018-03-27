@@ -234,6 +234,7 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
     }
 
+    // TODO: No estoy segura de que estas dos funciones vayan bien, hay que hacer pruebas
     /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/
     public void deleteTable(String nombre, boolean deleteAllData) {
         mDb = mDbHelper.getWritableDatabase();
@@ -244,7 +245,6 @@ public class DataBaseContract {
                 deleteToDo(exercise.id);
             }
         }
-
         mDb.delete(DataBaseEntryNameTrain.TABLE_NAME, DataBaseEntryNameTrain._ID + " = ?",
                 new String[] { String.valueOf(nombre) });
     }
@@ -255,7 +255,7 @@ public class DataBaseContract {
         mDb.delete(DataBaseEntryListTrain.TABLE_NAME, DataBaseEntryListTrain._ID + " = ?",
                 new String[] { String.valueOf(ejercicioId) });
     }
-    // TODO: Cuando se implementen las opciones, crear funciones para eliminar tablas
+
     // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muerte
 
 

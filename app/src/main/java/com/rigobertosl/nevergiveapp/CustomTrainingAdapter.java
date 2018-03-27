@@ -78,6 +78,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.menu_training_elements_delete:
+                                //TODO El context no esta funcionando por lo que nunca me genera la base de datos
                                 db = new DataBaseContract(mContext);
                                 db.open();
                                 db.deleteTable("PRUEBA 1", true);
