@@ -205,9 +205,7 @@ public class DataBaseContract {
         return exercises;
     }
 
-
-
-        /** Crear lista_ejercicos en la base de datos **/
+    /** Crear lista_ejercicos en la base de datos **/
     public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
@@ -227,32 +225,6 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
     }
 
-    // FURUAMENTE BORRAR
-    /** Devolver todos los ejercicios de lista_ejercicios a partir de un nombre de nombre_ejercicios **/
-    public ArrayList<String[]> fetchListByNameTrain(String nombre)  {
-        ArrayList<String[]> list = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
-                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + nombre + "'" +
-                " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
-                " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
-        mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                ArrayList<String> aux = new ArrayList<>();
-                aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)));
-                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)));
-                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)));
-                //aux.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
-                String[] ejercicios = aux.toArray(new String[aux.size()]);
-
-                list.add(ejercicios);
-            } while (cursor.moveToNext());
-        }
-        return list;
-    }
-
     /** Crear tabla_comidas en la base de datos **/
     public long createTableFoods(String name, String days){
         ContentValues values = new ContentValues();
@@ -262,7 +234,27 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
     }
 
+    /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/
+    public void deleteTable(String nombre, boolean deleteAllData) {
+        mDb = mDbHelper.getWritableDatabase();
+        if (deleteAllData) {
+            List<Exercise> listEjercicios = getAllExercisesFromTable(nombre);
 
+            for (Exercise exercise : listEjercicios) {
+                deleteToDo(exercise.id);
+            }
+        }
+
+        mDb.delete(DataBaseEntryNameTrain.TABLE_NAME, DataBaseEntryNameTrain._ID + " = ?",
+                new String[] { String.valueOf(nombre) });
+    }
+
+    /** Delete ejercicios **/
+    public void deleteToDo(long ejercicioId) {
+        mDb = mDbHelper.getWritableDatabase();
+        mDb.delete(DataBaseEntryListTrain.TABLE_NAME, DataBaseEntryListTrain._ID + " = ?",
+                new String[] { String.valueOf(ejercicioId) });
+    }
     // TODO: Cuando se implementen las opciones, crear funciones para eliminar tablas
     // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muerte
 

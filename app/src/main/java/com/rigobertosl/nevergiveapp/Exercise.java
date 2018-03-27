@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp;
 public class Exercise {
 
     String nombre, series, repeticiones, descanso;
+    long id;
 
     public Exercise(){}
 
@@ -16,5 +17,8 @@ public class Exercise {
         this.series = series;
         this.repeticiones = repeticiones;
         this.descanso = descanso;
+    }
+    public Exercise(long id){
+        this.id = id;
     }
 }
