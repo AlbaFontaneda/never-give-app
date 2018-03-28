@@ -88,6 +88,7 @@ public class TrainingActivity extends MainActivity {
         if (id == R.id.action_settings) {
             Toast.makeText(TrainingActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
+            //db.resetDataBase();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,7 +118,8 @@ public class TrainingActivity extends MainActivity {
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
-                    long id = db.createTableNameTraining(tableName, tableDays);
+                    TrainingTable trainingTable = db.createTableNameTraining(tableName, tableDays);
+                    long id = trainingTable.getId();
                     lastRowId = id;
                     db.close();
                 }

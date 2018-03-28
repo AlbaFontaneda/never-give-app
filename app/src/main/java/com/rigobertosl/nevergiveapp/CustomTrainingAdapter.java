@@ -4,12 +4,17 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +33,12 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         public int count;
         public TextView title;
+        public ImageButton itemOptions;
 
         public MyViewHolder (View view){
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
+            itemOptions = (ImageButton) view.findViewById(R.id.item_options);
         }
     }
     
@@ -55,6 +62,41 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(this.titles[position]);
+        holder.itemOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(mContext, holder.itemOptions);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.menu_training_elements);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+
+                        switch (item.getItemId()) {
+                            case R.id.menu_training_elements_edit:
+                                Toast.makeText(mContext,
+                                        "Edit pulsado", Toast.LENGTH_LONG).show();
+                                break;
+                            case R.id.menu_training_elements_delete:
+
+                                db = new DataBaseContract(mContext);
+                                db.open();
+                                db.deleteTable(trainingTable.get(holder.getAdapterPosition()), true);
+                                db.close();
+                                Toast.makeText(mContext,
+                                        "Delete pulsado", Toast.LENGTH_LONG).show();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                //displaying the popup
+                popup.show();
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.title.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -92,9 +134,9 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         @Override
         public void onBindViewHolder(ExerciseViewHolder holder, int position) {
-            holder.title.setText(exercises.get(position).nombre);
-            holder.series.setText(exercises.get(position).series+" series");
-            holder.repeticiones.setText(exercises.get(position).repeticiones+" repeticiones");
+            holder.title.setText(exercises.get(position).getNombre());
+            holder.series.setText(exercises.get(position).getSeries()+" series");
+            holder.repeticiones.setText(exercises.get(position).getRepeticiones()+" repeticiones");
         }
 
         @Override
