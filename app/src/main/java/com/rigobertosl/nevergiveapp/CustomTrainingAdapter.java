@@ -72,16 +72,19 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
+                        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+
                         switch (item.getItemId()) {
                             case R.id.menu_training_elements_edit:
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.menu_training_elements_delete:
-                                //TODO El context no esta funcionando por lo que nunca me genera la base de datos
+
                                 db = new DataBaseContract(mContext);
                                 db.open();
-                                db.deleteTable("PRUEBA 1", true);
+                                db.deleteTable(trainingTable.get(holder.getAdapterPosition()), true);
                                 db.close();
                                 Toast.makeText(mContext,
                                         "Delete pulsado", Toast.LENGTH_LONG).show();
@@ -131,9 +134,9 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         @Override
         public void onBindViewHolder(ExerciseViewHolder holder, int position) {
-            holder.title.setText(exercises.get(position).nombre);
-            holder.series.setText(exercises.get(position).series+" series");
-            holder.repeticiones.setText(exercises.get(position).repeticiones+" repeticiones");
+            holder.title.setText(exercises.get(position).getNombre());
+            holder.series.setText(exercises.get(position).getSeries()+" series");
+            holder.repeticiones.setText(exercises.get(position).getRepeticiones()+" repeticiones");
         }
 
         @Override
