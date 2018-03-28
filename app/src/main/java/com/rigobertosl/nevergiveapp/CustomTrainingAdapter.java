@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAdapter.MyViewHolder> {
     private Context mContext;
-    private String[] titles = {};
+    private ArrayList<TrainingTable> trainingTables;
     private ArrayList<ArrayList> content = new ArrayList<>();
 
     private DataBaseContract db;
@@ -42,9 +42,9 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
     }
     
-    public CustomTrainingAdapter(Context mContext, String[] titles) {
+    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables) {
         this.mContext = mContext;
-        this.titles = titles;
+        this.trainingTables = trainingTables;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,7 +61,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.title.setText(this.titles[position]);
+        holder.title.setText(trainingTables.get(position).getName());
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +88,18 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                 db.close();
                                 Toast.makeText(mContext,
                                         "Delete pulsado", Toast.LENGTH_LONG).show();
+
+                                //Todo: HAY QUE USAR ALGO DE ESTO, PERO NO LO TENGO CLARO
+                                /*
+                                trainingTable.remove(holder.getAdapterPosition());
+                                CustomTrainingAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                                CustomTrainingAdapter.this.notifyItemRangeChanged(holder.getAdapterPosition(), trainingTable.size());
+                                CustomTrainingAdapter.this.notifyDataSetChanged();
+
+                                //CustomTrainingAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+
+                                //notifyItemRemoved(holder.getAdapterPosition());
+                                */
                                 break;
                         }
                         return false;
@@ -113,7 +125,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return trainingTables.size();
     }
 
 

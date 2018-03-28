@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -137,8 +137,8 @@ public class DataBaseContract {
         mDbHelper.close();
     }
 
-    public void resetDataBase(){
-        mDb.execSQL("DROP TABLE "+DataBaseEntryTrain.TABLE_NAME);
+    public void resetDataBase() throws  SQLException{
+        this.DATABASE_VERSION++;
     }
 
     /** Crear nombre_ejercicos en la base de datos **/

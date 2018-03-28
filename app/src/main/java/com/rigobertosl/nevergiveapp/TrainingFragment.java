@@ -39,20 +39,11 @@ public class TrainingFragment extends Fragment {
         db = new DataBaseContract(getActivity());
         db.open();
 
-        String[] tablas = fillDataTitle();
-        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), tablas);
+        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable);
         recyclerView.setAdapter(adapter);
 
-
-        // Para que se haga el scroll correctamente ocultando el toolbar
-
         return rootView;
-    }
-
-    private String[] fillDataTitle() {
-        ArrayList<String> names = db.fetchAllNamesNameTraining();
-        String[] titles = names.toArray(new String[names.size()]);
-        return titles;
     }
 
     public void onDestroyView() {
