@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAdapter.MyViewHolder> {
     private Context mContext;
-    private String[] titles = {};
+    private ArrayList<TrainingTable> trainingTables;
     private ArrayList<ArrayList> content = new ArrayList<>();
 
     private DataBaseContract db;
@@ -42,26 +42,31 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
     }
     
-    public CustomTrainingAdapter(Context mContext, String[] titles) {
+    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables) {
         this.mContext = mContext;
-        this.titles = titles;
+        this.trainingTables = trainingTables;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_training, parent, false);
 
-
         recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
 
         return new MyViewHolder(itemView);
     }
-
+    //TODO: Esto seria lo optimo, nose como llamarlo
+    /*public void deleteAllData(){
+        final int size = trainingTables.size();
+        trainingTables.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+    */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.title.setText(this.titles[position]);
+        holder.title.setText(trainingTables.get(position).getName());
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +93,11 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                 db.close();
                                 Toast.makeText(mContext,
                                         "Delete pulsado", Toast.LENGTH_LONG).show();
+
+                                trainingTables.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(), trainingTables.size());
+
                                 break;
                         }
                         return false;
@@ -95,6 +105,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 });
                 //displaying the popup
                 popup.show();
+
             }
         });
 
@@ -113,7 +124,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return trainingTables.size();
     }
 
 

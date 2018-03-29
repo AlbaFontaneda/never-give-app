@@ -1,7 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,10 +21,9 @@ public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
     public FloatingActionButton fab;
-
     private DataBaseContract db;
     public static long lastRowId;
-    public static String nombreTabla;
+    public static boolean deleteAll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +86,9 @@ public class TrainingActivity extends MainActivity {
         if (id == R.id.action_settings) {
             Toast.makeText(TrainingActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
-            //db.resetDataBase();
+            db.resetDataBase();
+            finish();
+            startActivity(getIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -155,7 +155,6 @@ public class TrainingActivity extends MainActivity {
                     return new Fragment();
             }
         }
-
         @Override
         public int getCount() {
             return 2;
