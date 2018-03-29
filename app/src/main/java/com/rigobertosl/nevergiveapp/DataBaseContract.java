@@ -138,7 +138,9 @@ public class DataBaseContract {
     }
 
     public void resetDataBase() throws  SQLException{
-        this.DATABASE_VERSION++;
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryNameTrain.TABLE_NAME);
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryListTrain.TABLE_NAME);
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryTrain.TABLE_NAME);
     }
 
     /** Crear nombre_ejercicos en la base de datos **/

@@ -51,13 +51,18 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_training, parent, false);
 
-
         recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
 
         return new MyViewHolder(itemView);
     }
-
+    //TODO: Esto seria lo optimo, nose como llamarlo
+    /*public void deleteAllData(){
+        final int size = trainingTables.size();
+        trainingTables.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+    */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
@@ -89,17 +94,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                 Toast.makeText(mContext,
                                         "Delete pulsado", Toast.LENGTH_LONG).show();
 
-                                //Todo: HAY QUE USAR ALGO DE ESTO, PERO NO LO TENGO CLARO
-                                /*
-                                trainingTable.remove(holder.getAdapterPosition());
-                                CustomTrainingAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-                                CustomTrainingAdapter.this.notifyItemRangeChanged(holder.getAdapterPosition(), trainingTable.size());
-                                CustomTrainingAdapter.this.notifyDataSetChanged();
+                                trainingTables.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(), trainingTables.size());
 
-                                //CustomTrainingAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-
-                                //notifyItemRemoved(holder.getAdapterPosition());
-                                */
                                 break;
                         }
                         return false;
@@ -107,6 +105,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 });
                 //displaying the popup
                 popup.show();
+
             }
         });
 
