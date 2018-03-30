@@ -25,7 +25,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/appbar_height">
+        android:layout_marginTop="@dimen/app_bar_height_without_tabs">
 
         <include layout="@layout/content_exercises_type" />
     </FrameLayout>
