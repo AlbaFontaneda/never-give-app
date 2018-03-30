@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -195,11 +195,11 @@ public class DataBaseContract {
     }
 
     /** Devuelve TODOS los ejercicios de la tabla cuyo nombre es "nombre" en un ArrayList<Exercise> **/
-    public ArrayList<Exercise> getAllExercisesFromTable(String nombre) {
+    public ArrayList<Exercise> getAllExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
-                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + nombre + "'" +
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
 
@@ -271,7 +271,7 @@ public class DataBaseContract {
         mDb = mDbHelper.getWritableDatabase();
         if (deleteAllData) {
 
-            List<Exercise> listEjercicios = getAllExercisesFromTable(trainingTable.getName());
+            List<Exercise> listEjercicios = getAllExercisesFromTable(trainingTable);
 
             for (Exercise exercise : listEjercicios) {
                 deleteExercisesFromTable(exercise.getId());
@@ -295,13 +295,21 @@ public class DataBaseContract {
                 new String[] { String.valueOf(tableId) });
     }
 
-    /** Delete table **/
+    /** Delete link table **/
     public void deleteLinkTable(long tableId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryTrain.TABLE_NAME, DataBaseEntryTrain.COLUMN_NAME_ID + " = ?",
                 new String[] { String.valueOf(tableId) });
     }
-    // TODO: Segun se vayan necesitando, crear las funciones, si no el codigo este es la muerte
+
+    /** Edit Table **/
+    /*
+    public TrainingTable editTable(TrainingTable oldTrainingTable){
+        TrainingTable newTrainingTable = new TrainingTable(oldTrainingTable.getId(), oldTrainingTable.getName(), oldTrainingTable.getDays());
+
+        return newTrainingTable;
+    }
+    */
 
 
 }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_margin="1dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardMaxElevation="2dp"
+        app:cardElevation="1dp"
+        card_view:cardCornerRadius="10dp"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/nombre_ejercicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre ejercicio"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="25sp"
+                android:padding="2dp" />
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:padding="3dp"
+                android:columnCount="6"
+                android:rowCount="1"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/nombre_ejercicio">
+                <TextView
+                    android:id="@+id/series"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:text="Series:"
+                    android:layout_column="0" />
+                <EditText
+                    android:id="@+id/num_series"
+                    android:inputType="number"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
+                    android:layout_gravity="left|center"
+                    android:hint="XXX"
+                    android:layout_column="1"/>
+                <TextView
+                    android:id="@+id/repeticiones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:text="Rep:"
+                    android:layout_column="2" />
+                <EditText
+                    android:id="@+id/num_repeticiones"
+                    android:inputType="number"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
+                    android:layout_gravity="left|center"
+                    android:hint="YYY"
+                    android:layout_column="3"/>
+                <TextView
+                    android:id="@+id/descanso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:text="Descanso:"
+                    android:layout_column="4" />
+                <EditText
+                    android:id="@+id/num_descanso"
+                    android:inputType="number"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
+                    android:layout_gravity="left|center"
+                    android:hint="ZZZ"
+                    android:layout_column="5"/>
+            </GridLayout>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>
