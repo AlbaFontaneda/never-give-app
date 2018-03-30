@@ -22,8 +22,12 @@
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
     </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/appbar_height">
 
-    <include layout="@layout/content_exercises_type" />
-
+        <include layout="@layout/content_exercises_type" />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
