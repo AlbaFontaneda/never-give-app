@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class ExercisesTypeActivity extends AppCompatActivity {
@@ -18,24 +19,22 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        LinearLayout pechoLinearLayout = (LinearLayout)findViewById(R.id.pecho);
-        LinearLayout espaldaLinearLayout = (LinearLayout) findViewById(R.id.espalda);
-        LinearLayout bicepsLinearLayout = (LinearLayout) findViewById(R.id.biceps);
-        LinearLayout tricepsLinearLayout = (LinearLayout) findViewById(R.id.triceps);
-        LinearLayout hombroLinearLayout = (LinearLayout) findViewById(R.id.hombro);
-        LinearLayout piernaLinearLayout = (LinearLayout) findViewById(R.id.pierna);
+        RadioButton pechoRadioButton = (RadioButton) findViewById(R.id.radioButtonPecho);
+        RadioButton espaldaRadioButton = (RadioButton) findViewById(R.id.radioButtonEspalda);
+        RadioButton tricepsRadioButton = (RadioButton) findViewById(R.id.radioButtonTriceps);
+        RadioButton bicepsRadioButton = (RadioButton) findViewById(R.id.radioButtonBiceps);
+        RadioButton piernaRadioButton = (RadioButton) findViewById(R.id.radioButtonPierna);
 
-        pechoLinearLayout.setOnClickListener(new View.OnClickListener() {
+        pechoRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ExercisesTypeActivity.this, ChestActivity.class));
             }
         });
-        espaldaLinearLayout.setOnClickListener(new View.OnClickListener() {
+        espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
             }
         });
-
     }
 
 }

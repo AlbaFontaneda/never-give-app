@@ -9,6 +9,77 @@
     tools:context="com.rigobertosl.nevergiveapp.ExercisesTypeActivity"
     tools:showIn="@layout/activity_exercises_type">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/exercises_types_background"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- ESPALDA -->
+            <RadioButton
+                android:id="@+id/radioButtonEspalda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="163dp"
+                android:layout_marginTop="108dp" />
+
+
+            <!--END ESPALDA -->
+
+            <!-- PECHO -->
+            <RadioButton
+                android:id="@+id/radioButtonPecho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioButtonEspalda"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp" />
+            <!--END PECHO -->
+
+            <!-- TRICEPS -->
+            <RadioButton
+                android:id="@+id/radioButtonTriceps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/radioButtonPecho"
+                android:layout_alignBottom="@+id/radioButtonPecho"
+                android:layout_marginEnd="74dp"
+                android:layout_toStartOf="@+id/radioButtonPecho" />
+            <!--END TRICEPS -->
+
+            <!-- BICEPS -->
+            <RadioButton
+                android:id="@+id/radioButtonBiceps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioButtonEspalda"
+                android:layout_below="@+id/radioButtonPecho"
+                android:layout_marginStart="24dp" />
+            <!--END BICEPS -->
+
+            <!-- PIERNA -->
+            <RadioButton
+                android:id="@+id/radioButtonPierna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioButtonTriceps"
+                android:layout_below="@+id/radioButtonBiceps"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="80dp" />
+            <!--END PIERNA -->
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+   <!--
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -100,5 +171,5 @@
         </TableLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
+    -->
 </android.support.design.widget.CoordinatorLayout>
