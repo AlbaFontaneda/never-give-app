@@ -23,6 +23,7 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         RadioButton espaldaRadioButton = (RadioButton) findViewById(R.id.radioButtonEspalda);
         RadioButton tricepsRadioButton = (RadioButton) findViewById(R.id.radioButtonTriceps);
         RadioButton bicepsRadioButton = (RadioButton) findViewById(R.id.radioButtonBiceps);
+        RadioButton abdominalesRadioButton = (RadioButton) findViewById(R.id.radioButtonAbdominales);
         RadioButton piernaRadioButton = (RadioButton) findViewById(R.id.radioButtonPierna);
 
         pechoRadioButton.setOnClickListener(new View.OnClickListener() {
