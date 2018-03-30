@@ -48,6 +48,11 @@
             android:name=".EspaldaActivity"
             android:label="@string/title_activity_espalda"
             android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TableResumeActivity"
+            android:label="@string/title_activity_scrolling"
+            android:parentActivityName=".TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

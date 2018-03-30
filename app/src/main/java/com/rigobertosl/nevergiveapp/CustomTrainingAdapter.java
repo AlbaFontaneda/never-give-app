@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -20,10 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAdapter.MyViewHolder> {
+
     private Context mContext;
     private ArrayList<TrainingTable> trainingTables;
-    private ArrayList<ArrayList> content = new ArrayList<>();
-
     private DataBaseContract db;
     private RecyclerView recyclerView;
     private ExerciseAdapter exerciseAdapter;
@@ -31,7 +31,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public int count;
         public TextView title;
         public ImageButton itemOptions;
 
@@ -56,6 +55,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         return new MyViewHolder(itemView);
     }
+
     //TODO: Esto seria lo optimo, nose como llamarlo
     /*public void deleteAllData(){
         final int size = trainingTables.size();
@@ -63,6 +63,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         notifyItemRangeRemoved(0, size);
     }
     */
+
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
@@ -84,6 +85,11 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                             case R.id.menu_training_elements_edit:
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
+
+                                Intent i = new Intent(mContext, TableResumeActivity.class);
+                                i.putExtra("position", holder.getAdapterPosition()); //Con esto pasamos la posición de la tabla que queramos ver
+                                mContext.startActivity(i);
+
                                 break;
                             case R.id.menu_training_elements_delete:
 
@@ -115,11 +121,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         db = new DataBaseContract(holder.title.getContext());
         db.open();
 
-        ArrayList<String> nombresTablas = db.fetchAllNamesNameTraining();
-        exerciseList = db.getAllExercisesFromTable(nombresTablas.get(position));
+        ArrayList<TrainingTable> trainingTables = db.getAllTables();
+        exerciseList = db.getAllExercisesFromTable(trainingTables.get(position));
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
-
     }
 
     @Override
@@ -134,6 +139,22 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         public ExerciseAdapter(List<Exercise> exercises){
             this.exercises = exercises;
+        }
+
+        public class ExerciseViewHolder extends RecyclerView.ViewHolder {
+            CardView cardView;
+            TextView title, series, repeticiones;
+            ImageView imageView;
+
+            ExerciseViewHolder(View view) {
+                super(view);
+                cardView = (CardView)view.findViewById(R.id.card_view);
+                imageView = (ImageView)view.findViewById(R.id.image);
+                //imageView.setImageResource(R.drawable.achievements_logo);
+                title = (TextView)view.findViewById(R.id.title);
+                series = (TextView)view.findViewById(R.id.num_series);
+                repeticiones = (TextView)view.findViewById(R.id.num_repeticiones);
+            }
         }
 
         @Override
@@ -159,21 +180,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
             super.onAttachedToRecyclerView(recyclerView);
         }
 
-        public class ExerciseViewHolder extends RecyclerView.ViewHolder {
-            CardView cardView;
-            TextView title, series, repeticiones;
-            ImageView imageView;
 
-            ExerciseViewHolder(View view) {
-                super(view);
-                cardView = (CardView)view.findViewById(R.id.card_view);
-                imageView = (ImageView)view.findViewById(R.id.image);
-                //imageView.setImageResource(R.drawable.achievements_logo);
-                title = (TextView)view.findViewById(R.id.title);
-                series = (TextView)view.findViewById(R.id.num_series);
-                repeticiones = (TextView)view.findViewById(R.id.num_repeticiones);
-            }
-        }
 
     }
 }

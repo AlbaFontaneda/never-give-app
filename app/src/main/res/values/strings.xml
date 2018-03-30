@@ -71,6 +71,7 @@
 
     //Popup Nueva tabla
     <string name="continuar">Continuar</string>
+    <string name="editar">Editar</string>
     <string name="cancel">Cancelar</string>
 
     //Pantalla tipos de ejercicios
@@ -84,5 +85,7 @@
     //Pantalla de pecho
     <string name="press_superior">Press superior</string>
     <string name="title_activity_espalda">EspaldaActivity</string>
+    <string name="title_activity_scrolling">TableResumeActivity</string>
+    <string name="large_text">Contenido de la tabla. Ya hace scrolling.</string>
 
 </resources>
