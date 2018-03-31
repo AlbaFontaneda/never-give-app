@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
+
+import java.sql.Time;
+
 public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
@@ -99,7 +103,7 @@ public class TrainingActivity extends MainActivity {
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_table, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
-        dialog.setTitle("Nueva Tabla");
+        //dialog.setTitle("Nueva Tabla");
         dialog.show();
 
         final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
@@ -107,6 +111,16 @@ public class TrainingActivity extends MainActivity {
 
         final EditText tableNameEditText = (EditText)dialogLayout.findViewById(R.id.table_name);
         final EditText tableDaysEditText = (EditText)dialogLayout.findViewById(R.id.table_days);
+
+        tableDaysEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                RecurrencePickerDialogFragment rpd = new RecurrencePickerDialogFragment();
+
+                rpd.show(fm, null);
+            }
+        });
 
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
