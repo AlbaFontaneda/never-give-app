@@ -27,7 +27,7 @@ public class TrainingActivity extends MainActivity {
     public FloatingActionButton fab;
     private DataBaseContract db;
     public static long lastRowId;
-    public static boolean deleteAll;
+    public String weekDays;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +117,15 @@ public class TrainingActivity extends MainActivity {
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
                 RecurrencePickerDialogFragment rpd = new RecurrencePickerDialogFragment();
-
-                rpd.show(fm, null);
+                rpd.setOnRecurrenceSetListener(new RecurrencePickerDialogFragment.OnRecurrenceSetListener(){
+                    @Override
+                    public void onRecurrenceSet(String rrule) {
+                        if (rrule != null && rrule.length() > 0) {
+                            weekDays = rrule.substring(rrule.lastIndexOf("=") + 1);
+                        }
+                    }
+                });
+                rpd.show(fm, "recurrencePickerDialogFragment");
             }
         });
 
@@ -126,7 +133,7 @@ public class TrainingActivity extends MainActivity {
             @Override
             public void onClick(View view) {
                 String tableName = tableNameEditText.getText().toString();
-                String tableDays = tableDaysEditText.getText().toString();
+                String tableDays = weekDays;
                 if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
