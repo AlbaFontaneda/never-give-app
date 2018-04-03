@@ -1,11 +1,9 @@
 package com.rigobertosl.nevergiveapp;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,14 +52,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         return new MyViewHolder(itemView);
     }
-
-    //TODO: Esto seria lo optimo, nose como llamarlo
-    /*public void deleteAllData(){
-        final int size = trainingTables.size();
-        trainingTables.clear();
-        notifyItemRangeRemoved(0, size);
-    }
-    */
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {

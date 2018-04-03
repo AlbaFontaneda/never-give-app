@@ -9,16 +9,18 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        app:cardMaxElevation="2dp"
-        app:cardElevation="1dp"
-        card_view:cardCornerRadius="4dp"
+        android:layout_height="165dp"
+        android:layout_margin="4dp"
+        app:cardMaxElevation="4dp"
+        app:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="6dp"
         android:layout_centerInParent="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorRow" >
+            android:background="@color/colorAccent" >
 
             <TextView
                 android:id="@+id/item_title"
@@ -27,6 +29,7 @@
                 android:text="Título"
                 android:gravity="center"
                 android:textSize="20dp"
+                android:textColor="@color/titlesColor"
                 android:layout_margin="5dp"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
@@ -40,7 +43,7 @@
                 android:layout_height="140dp"
                 android:layout_width="match_parent"
                 android:layout_below="@id/item_title"
-                android:background="@color/colorAccent"
+                android:background="@color/cardViewContent"
                 android:orientation="horizontal" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
