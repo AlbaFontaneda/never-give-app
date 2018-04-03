@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -32,7 +32,6 @@ public class DataBaseContract {
         public static final String TABLE_NAME = "nombre_ejercicios";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DAYS = "days";
-
 
         private static final String SQL_CREATE_ENTRIES_NAME_TRAIN =
                 "CREATE TABLE " + DataBaseContract.DataBaseEntryNameTrain.TABLE_NAME + " (" +
@@ -303,13 +302,13 @@ public class DataBaseContract {
     }
 
     /** Edit Table **/
-    /*
-    public TrainingTable editTable(TrainingTable oldTrainingTable){
-        TrainingTable newTrainingTable = new TrainingTable(oldTrainingTable.getId(), oldTrainingTable.getName(), oldTrainingTable.getDays());
+    public int editTable(TrainingTable Table, String newName){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryNameTrain.COLUMN_NAME, newName);
 
-        return newTrainingTable;
+        return mDb.update(DataBaseEntryNameTrain.TABLE_NAME, values,
+                DataBaseContract.DataBaseEntryNameTrain._ID + " = ?",
+                new String[] { String.valueOf(Table.getId()) });
     }
-    */
-
-
 }

@@ -27,6 +27,7 @@ public class TableResumeActivity extends AppCompatActivity {
     private ArrayList<TrainingTable> trainingTable;
     private int position;
     private RecyclerView recyclerView;
+    ExerciseResumeAdapter exerciseResumeAdapter;
 
 
     @Override
@@ -63,7 +64,7 @@ public class TableResumeActivity extends AppCompatActivity {
         dialog.setTitle(table.getName());
         dialog.show();
 
-        EditText tableName = (EditText) dialogLayout.findViewById(R.id.table_name);
+        final EditText tableName = (EditText) dialogLayout.findViewById(R.id.table_name);
         EditText tableDays = (EditText) dialogLayout.findViewById(R.id.table_days);
         final Button editar = (Button)dialogLayout.findViewById(R.id.button_edit);
         final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
@@ -75,7 +76,7 @@ public class TableResumeActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)dialogLayout.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
         List<Exercise> exerciseList = db.getAllExercisesFromTable(table);
-        ExerciseResumeAdapter exerciseResumeAdapter = new ExerciseResumeAdapter(exerciseList);
+        exerciseResumeAdapter = new ExerciseResumeAdapter(exerciseList);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(exerciseResumeAdapter);
 
@@ -85,20 +86,38 @@ public class TableResumeActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+
+        editar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                String newTableName = (String) tableName.getText().toString();
+                String newTitle = (String) exerciseResumeAdapter.getTitle().getText();
+                String newSeries = (String) exerciseResumeAdapter.getnSeries().getText().toString();
+                String newRepeticiones = (String) exerciseResumeAdapter.getnRepeticiones().getText().toString();
+                String newDescanso = (String) exerciseResumeAdapter.getnDescanso().getText().toString();
+
+                db.editTable(trainingTable.get(position), newTableName);
+
+                dialog.cancel();
+                finish();
+                startActivity(getIntent());
+            }
+        });
     }
 
-    public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAdapter.MyViewHolder> {
+    public static class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAdapter.MyViewHolder> {
 
-        List<Exercise> exercises;
+        private List<Exercise> exercises;
 
         public ExerciseResumeAdapter(List<Exercise> exercises) {
             this.exercises = exercises;
         }
 
-        public class MyViewHolder extends RecyclerView.ViewHolder{
+        public static class MyViewHolder extends RecyclerView.ViewHolder{
             CardView cardView;
-            TextView title, series, repeticiones, descanso;
-            EditText nSeries, nRepeticiones, nDescanso;
+            static TextView title, series, repeticiones, descanso;
+            static EditText nSeries, nRepeticiones, nDescanso;
 
             MyViewHolder(View view) {
                 super(view);
@@ -114,6 +133,23 @@ public class TableResumeActivity extends AppCompatActivity {
                 nDescanso = (EditText)view.findViewById(R.id.num_descanso);
             }
         }
+
+        public TextView getTitle() {
+            return MyViewHolder.title;
+        }
+
+        public EditText getnSeries() {
+            return MyViewHolder.nSeries;
+        }
+
+        public EditText getnRepeticiones() {
+            return MyViewHolder.nRepeticiones;
+        }
+
+        public EditText getnDescanso() {
+            return MyViewHolder.nDescanso;
+        }
+
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
