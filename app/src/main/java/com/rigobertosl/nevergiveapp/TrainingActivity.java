@@ -116,12 +116,16 @@ public class TrainingActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(RecurrencePickerDialogFragment.BUNDLE_HIDE_SWITCH_BUTTON, true);
                 RecurrencePickerDialogFragment rpd = new RecurrencePickerDialogFragment();
+                rpd.setArguments(bundle);
                 rpd.setOnRecurrenceSetListener(new RecurrencePickerDialogFragment.OnRecurrenceSetListener(){
                     @Override
                     public void onRecurrenceSet(String rrule) {
                         if (rrule != null && rrule.length() > 0) {
                             weekDays = rrule.substring(rrule.lastIndexOf("=") + 1);
+                            tableDaysEditText.setText(weekDays);
                         }
                     }
                 });
