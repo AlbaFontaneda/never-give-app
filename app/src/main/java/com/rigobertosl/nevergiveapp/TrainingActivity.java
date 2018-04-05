@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class TrainingActivity extends MainActivity {
     private SectionsPagerAdapter seleccionPagina;
@@ -126,7 +127,38 @@ public class TrainingActivity extends MainActivity {
                     public void onRecurrenceSet(String rrule) {
                         if (rrule != null && rrule.length() > 0) {
                             weekDays = rrule.substring(rrule.lastIndexOf("=") + 1);
-                            tableDaysEditText.setText(weekDays);
+                            char[] myDaysChars = weekDays.toCharArray();
+                            ArrayList<String> myDays = new ArrayList<>();
+                            for(int i = 0; i < myDaysChars.length; i++) {
+                                if(myDaysChars[i] == 'S' && myDaysChars[i+1] == 'U'){
+                                    myDays.add("DO");
+                                }
+                                else if(myDaysChars[i] == 'M'){
+                                    myDays.add("LU");
+                                }
+                                else if(myDaysChars[i] == 'T' && myDaysChars[i+1] == 'U'){
+                                    myDays.add("M");
+                                }
+                                else if(myDaysChars[i] == 'W'){
+                                    myDays.add("X");
+                                }
+                                else if(myDaysChars[i] == 'T' && myDaysChars[i+1] == 'H'){
+                                    myDays.add("JU");
+                                }
+                                else if(myDaysChars[i] == 'F'){
+                                    myDays.add("VI");
+                                }
+                                else if(myDaysChars[i] == 'S' && myDaysChars[i+1] == 'A'){
+                                    myDays.add("SA");
+                                }
+                            }
+                            if(myDays.get(0).equals("DO")) {
+                                myDays.remove(0);
+                                myDays.add("DO");
+                            }
+
+                            weekDays = myDays.toString();
+                            tableDaysEditText.setText(weekDays.substring(1, weekDays.length()-1));
                         }
                     }
                 });
@@ -138,7 +170,7 @@ public class TrainingActivity extends MainActivity {
             @Override
             public void onClick(View view) {
                 String tableName = tableNameEditText.getText().toString();
-                String tableDays = weekDays;
+                String tableDays = weekDays.substring(1, weekDays.length()-1);
                 if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
