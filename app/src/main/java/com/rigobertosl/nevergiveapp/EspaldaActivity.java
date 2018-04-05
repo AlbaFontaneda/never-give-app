@@ -1,5 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class EspaldaActivity extends TrainingActivity {
     FloatingActionButton fab;
@@ -85,7 +89,6 @@ public class EspaldaActivity extends TrainingActivity {
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_exercise, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
-        dialog.setTitle("Introduce los datos para el ejercicio");
         dialog.show();
 
         final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
@@ -93,7 +96,28 @@ public class EspaldaActivity extends TrainingActivity {
 
         final EditText seriesEditText = (EditText)dialogLayout.findViewById(R.id.num_series);
         final EditText repeticionesEditText = (EditText)dialogLayout.findViewById(R.id.num_repeticiones);
+
         final EditText descansoEditText = (EditText)dialogLayout.findViewById(R.id.tiempo_descanso);
+
+        descansoEditText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = 00;
+                int minute = 00;
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(EspaldaActivity.this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        descansoEditText.setText( selectedHour + "' " + selectedMinute +"''");
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
 
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
