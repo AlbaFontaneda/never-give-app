@@ -107,13 +107,13 @@ public class ChestActivity extends TrainingActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                int hour = 00;
+                int minute = 00;
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(ChestActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(ChestActivity.this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        descansoEditText.setText( selectedHour + ":" + selectedMinute);
+                        descansoEditText.setText( selectedHour + "' " + selectedMinute +"''");
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
