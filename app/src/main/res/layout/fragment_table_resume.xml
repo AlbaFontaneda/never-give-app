@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.TableResumeActivity"
+    tools:showIn="@layout/activity_table_resume">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:gravity="center" >
+            <TextView
+                android:id="@+id/titleExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/colorAccent"
+                android:text="NOMBRE DEL EJERCICIO" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/imageExercise"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_gravity="left"
+                android:src="@drawable/achievements_logo"/>
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:padding="7dp">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/nseries" />
+                    <TextView
+                        android:id="@+id/series"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:layout_gravity="center"
+                        android:text="X" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="Repeticiones: " />
+                    <TextView
+                        android:id="@+id/repeticiones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:layout_gravity="center"
+                        android:text="X" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/ndescanso" />
+                    <TextView
+                        android:id="@+id/descanso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:layout_gravity="center"
+                        android:text="X" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="15dp"
+                android:paddingTop="10dp"
+                android:text="Series completadas" />
+
+            <android.support.v7.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/recyclerCheckBoxView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".TableResumeActivity" />
+                <!--
+                <CheckBox android:id="@+id/checkbox_meat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                -->
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
