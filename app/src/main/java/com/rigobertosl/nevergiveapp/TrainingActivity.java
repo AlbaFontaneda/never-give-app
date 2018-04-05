@@ -26,6 +26,7 @@ public class TrainingActivity extends MainActivity {
     private ViewPager vistaPagina;
     public FloatingActionButton fab;
     private DataBaseContract db;
+    public static TrainingTable trainingTable;
     public static long lastRowId;
     public String weekDays;
     @Override
@@ -143,7 +144,7 @@ public class TrainingActivity extends MainActivity {
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(TrainingActivity.this, ExercisesTypeActivity.class));
-                    TrainingTable trainingTable = db.createTableNameTraining(tableName, tableDays);
+                    trainingTable = db.createTableNameTraining(tableName, tableDays);
                     long id = trainingTable.getId();
                     lastRowId = id;
                     db.close();
