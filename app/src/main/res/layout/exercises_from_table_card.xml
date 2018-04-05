@@ -31,6 +31,7 @@
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeMaxTextSize="25sp"
                 android:padding="2dp" />
+
             <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -42,57 +43,30 @@
                 android:layout_below="@id/nombre_ejercicio">
                 <TextView
                     android:id="@+id/series"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center"
-                    android:text="Series:"
+                    style="@style/AttributeExerciseText"
+                    android:text="@string/nseries"
                     android:layout_column="0" />
                 <EditText
                     android:id="@+id/num_series"
-                    android:inputType="number"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="10dp"
-                    android:maxLines="1"
-                    android:layout_gravity="left|center"
-                    android:hint="XXX"
+                    style="@style/ContentExerciseAttribute"
                     android:layout_column="1"/>
                 <TextView
                     android:id="@+id/repeticiones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center"
-                    android:text="Rep:"
+                    style="@style/AttributeExerciseText"
+                    android:text="@string/nrep"
                     android:layout_column="2" />
                 <EditText
                     android:id="@+id/num_repeticiones"
-                    android:inputType="number"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="10dp"
-                    android:maxLines="1"
-                    android:layout_gravity="left|center"
-                    android:hint="YYY"
+                    style="@style/ContentExerciseAttribute"
                     android:layout_column="3"/>
                 <TextView
                     android:id="@+id/descanso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center"
-                    android:text="Descanso:"
+                    style="@style/AttributeExerciseText"
+                    android:text="@string/ndescanso"
                     android:layout_column="4" />
                 <EditText
                     android:id="@+id/num_descanso"
-                    android:inputType="number"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="10dp"
-                    android:maxLines="1"
-                    android:layout_gravity="left|center"
-                    android:hint="ZZZ"
+                    style="@style/ContentExerciseAttribute"
                     android:layout_column="5"/>
             </GridLayout>
         </RelativeLayout>

@@ -88,4 +88,11 @@
     <string name="title_activity_scrolling">TableResumeActivity</string>
     <string name="large_text">Contenido de la tabla. Ya hace scrolling.</string>
 
+    //Popup edición de una tabla
+    <string name="nombreTabla">Nombre:</string>
+    <string name="ndias">Días:</string>
+    <string name="nseries">Series:</string>
+    <string name="nrep">Rep:</string>
+    <string name="ndescanso">Descanso:</string>
+
 </resources>

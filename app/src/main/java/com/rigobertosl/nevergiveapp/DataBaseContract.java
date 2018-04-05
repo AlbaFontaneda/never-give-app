@@ -168,9 +168,7 @@ public class DataBaseContract {
 
         if(cursor.moveToFirst()) {
             do {
-
                 names.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)));
-
             } while (cursor.moveToNext());
         }
         return names;
@@ -302,13 +300,36 @@ public class DataBaseContract {
     }
 
     /** Edit Table **/
-    public int editTable(TrainingTable Table, String newName){
+    public int editTable(TrainingTable table, String newName, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryNameTrain.COLUMN_NAME, newName);
 
+        ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
+        editExercisesFromTable(table, oldExercises, newExercises);
+
         return mDb.update(DataBaseEntryNameTrain.TABLE_NAME, values,
                 DataBaseContract.DataBaseEntryNameTrain._ID + " = ?",
-                new String[] { String.valueOf(Table.getId()) });
+                new String[] { String.valueOf(table.getId()) });
+    }
+
+    public void editExercisesFromTable(TrainingTable table, ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
+        mDb = mDbHelper.getWritableDatabase();
+
+        for(int i=0; i<oldExercises.size(); i++){
+            editExercise(oldExercises.get(i), newExercises.get(i));
+        }
+    }
+
+    public int editExercise(Exercise oldExercise, Exercise newExercise){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryListTrain.COLUMN_NAME, newExercise.getNombre());
+        values.put(DataBaseEntryListTrain.COLUMN_SERIES, newExercise.getSeries());
+        values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, newExercise.getRepeticiones());
+        values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, newExercise.getDescanso());
+
+        return mDb.update(DataBaseEntryListTrain.TABLE_NAME, values, DataBaseEntryListTrain._ID + " = ?",
+                new String[] { String.valueOf(oldExercise.getId()) });
     }
 }
