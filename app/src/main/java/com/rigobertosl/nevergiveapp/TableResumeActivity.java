@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.codetroopers.betterpickers.expirationpicker.ExpirationPicker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class TableResumeActivity extends AppCompatActivity {
     private ArrayList<TrainingTable> trainingTable;
     private int position;
     private RecyclerView recyclerView;
-    ExerciseResumeAdapter exerciseResumeAdapter;
+    private ExerciseResumeAdapter exerciseResumeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +92,7 @@ public class TableResumeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String newTableName = (String) tableName.getText().toString();
-                String newTitle = (String) exerciseResumeAdapter.getTitle().getText();
-                String newSeries = (String) exerciseResumeAdapter.getnSeries().getText().toString();
-                String newRepeticiones = (String) exerciseResumeAdapter.getnRepeticiones().getText().toString();
-                String newDescanso = (String) exerciseResumeAdapter.getnDescanso().getText().toString();
-
-                db.editTable(trainingTable.get(position), newTableName, (ArrayList<Exercise>) exerciseResumeAdapter.getExercises());
+                db.editTable(trainingTable.get(position), tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
 
                 dialog.cancel();
                 finish();
@@ -107,20 +103,50 @@ public class TableResumeActivity extends AppCompatActivity {
 
     public static class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAdapter.MyViewHolder> {
 
-        protected ArrayList<Exercise> exercises;
-        protected ArrayList<EditText> nSeriesEjercicios;
+        private ArrayList<Exercise> exercises;
+        private  ArrayList<Exercise> exercisesEdited;
 
         public ExerciseResumeAdapter(ArrayList<Exercise> exercises) {
             this.exercises = exercises;
+            exercisesEdited = exercises;
         }
 
-        public static class MyViewHolder extends RecyclerView.ViewHolder{
-            CardView cardView;
-            static TextView title, series, repeticiones, descanso;
-            static EditText nSeries, nRepeticiones, nDescanso;
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercises_from_table_card, parent, false);
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+
+            //Título (no editable)
+            holder.title.setText(exercises.get(position).getNombre());
+            // Editables
+            holder.nSeries.setText(exercises.get(position).getSeries());
+            holder.nRepeticiones.setText(exercises.get(position).getRepeticiones());
+            holder.nDescanso.setText(exercises.get(position).getDescanso());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return exercises.size();
+        }
+
+        public  ArrayList<Exercise> getExercisesEdited(){
+            return exercisesEdited;
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder{
+
+            private CardView cardView;
+            private TextView title, series, repeticiones, descanso;
+            private EditText nSeries, nRepeticiones, nDescanso;
 
             MyViewHolder(View view) {
                 super(view);
+
                 cardView = (CardView)view.findViewById(R.id.card_view);
 
                 title = (TextView)view.findViewById(R.id.nombre_ejercicio);
@@ -129,100 +155,59 @@ public class TableResumeActivity extends AppCompatActivity {
                 descanso = (TextView)view.findViewById(R.id.descanso);
 
                 nSeries = (EditText)view.findViewById(R.id.num_series);
+                nSeries.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        exercisesEdited.get(getAdapterPosition()).setSeries(charSequence.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+
                 nRepeticiones = (EditText)view.findViewById(R.id.num_repeticiones);
+                nRepeticiones.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        exercisesEdited.get(getAdapterPosition()).setRepeticiones(charSequence.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+
                 nDescanso = (EditText)view.findViewById(R.id.num_descanso);
+                nDescanso.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        exercisesEdited.get(getAdapterPosition()).setDescanso(charSequence.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
             }
-        }
-
-        public List<Exercise> getExercises() {
-            return exercises;
-        }
-
-        public TextView getTitle() {
-            return MyViewHolder.title;
-        }
-
-        public EditText getnSeries() {
-            return MyViewHolder.nSeries;
-        }
-
-        public EditText getnRepeticiones() {
-            return MyViewHolder.nRepeticiones;
-        }
-
-        public EditText getnDescanso() {
-            return MyViewHolder.nDescanso;
-        }
-
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercises_from_table_card, parent, false);
-            MyViewHolder myViewHolder = new MyViewHolder(view);
-            return myViewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-            holder.title.setText(exercises.get(position).getNombre());
-
-            holder.nSeries.setText(exercises.get(position).getSeries());
-            holder.nSeries.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) { }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    exercises.get(position).setSeries(holder.nSeries.getText().toString());
-                }
-            });
-
-            holder.nRepeticiones.setText(exercises.get(position).getRepeticiones());
-            holder.nRepeticiones.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) { }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    exercises.get(position).setRepeticiones(holder.nRepeticiones.getText().toString());
-                }
-            });
-
-            holder.nDescanso.setText(exercises.get(position).getDescanso());
-            holder.nDescanso.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) { }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    exercises.get(position).setDescanso(holder.nDescanso.getText().toString());
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return exercises.size();
-        }
-
-        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-            super.onAttachedToRecyclerView(recyclerView);
         }
     }
 }
