@@ -174,7 +174,7 @@ public class DataBaseContract {
         return names;
     }
 
-    /** Devuelve un ArrayList con todas las tablas que existen en la base de datos **/
+    /** Devuelve un ArrayList con todas las tablas (nombre_ejercicios) que existen en la base de datos **/
     public ArrayList<TrainingTable> getAllTables() {
         ArrayList<TrainingTable> table = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME;
@@ -285,7 +285,7 @@ public class DataBaseContract {
                 new String[] { String.valueOf(ejercicioId) });
     }
 
-    /** Delete table **/
+    /** Delete table nombre_ejercicios **/
     public void deleteTable(long tableId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryNameTrain.TABLE_NAME, DataBaseEntryNameTrain._ID + " = ?",
@@ -331,5 +331,23 @@ public class DataBaseContract {
 
         return mDb.update(DataBaseEntryListTrain.TABLE_NAME, values, DataBaseEntryListTrain._ID + " = ?",
                 new String[] { String.valueOf(oldExercise.getId()) });
+    }
+
+    /** Filtrado por dias **/
+    public ArrayList<TrainingTable> getAllTablesFilterByDay(String filterDay) {
+        ArrayList<TrainingTable> tableByDay = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " WHERE " + DataBaseEntryNameTrain.COLUMN_DAYS + " LIKE '%"+filterDay+"%'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                TrainingTable trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_DAYS)));
+                tableByDay.add(trainingTable);
+            } while (cursor.moveToNext());
+        }
+        return tableByDay;
     }
 }
