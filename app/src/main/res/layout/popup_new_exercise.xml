@@ -11,71 +11,67 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/colorAccent">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="5dp"
-                android:text="Numero de series:" />
+                android:paddingRight="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/titlesColor"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="Establece numero de series, repeticiones y tiempo de descando" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <EditText
                 android:id="@+id/num_series"
                 android:inputType="number"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:maxLines="1"
-                android:gravity="center"/>
+                android:hint="Número de series"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="5dp"
-                android:text="Numero de repeticiones:" />
             <EditText
                 android:id="@+id/num_repeticiones"
                 android:inputType="number"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:maxLines="1"
-                android:gravity="center"/>
+                android:hint="Número de repeticiones"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="5dp"
-                android:text="Tiempo de descanso:" />
             <EditText
                 android:id="@+id/tiempo_descanso"
-                android:inputType="time"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
+                android:inputType="date"
+                android:focusable="false"
+                android:clickable="true"
                 android:maxLines="1"
-                android:gravity="center"/>
+                android:hint="Tiempo de descanso" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,4 +93,5 @@
                 android:text="@string/cancel"/>
         </LinearLayout>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

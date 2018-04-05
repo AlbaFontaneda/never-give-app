@@ -85,7 +85,6 @@ public class EspaldaActivity extends TrainingActivity {
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_exercise, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
-        dialog.setTitle("Introduce los datos para el ejercicio");
         dialog.show();
 
         final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
