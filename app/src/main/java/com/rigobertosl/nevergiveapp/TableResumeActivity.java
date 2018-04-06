@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,8 +16,6 @@ import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,8 +29,9 @@ public class TableResumeActivity extends TrainingActivity {
     private int position;
     private RecyclerView recyclerView;
     private ExerciseResumeAdapter exerciseResumeAdapter;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
+    public int numPaginas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +48,17 @@ public class TableResumeActivity extends TrainingActivity {
         toolbar.setTitle(trainingTable.get(position).getName());
         setSupportActionBar(toolbar);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        numPaginas = (int)db.getAllExercisesFromTable(trainingTable.get(position)).size();
+        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        for (int i = 0; i<numPaginas; i++){
+            Fragment f = new ExerciseResumeFragment();
+            fragments.add(f);
+        }
 
+        mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mExercisePageAdapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -109,76 +113,34 @@ public class TableResumeActivity extends TrainingActivity {
         });
     }
 
-    public static class ExerciseResume extends Fragment {
 
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private int position;
-        private DataBaseContract db;
-        private Exercise ejercicio;
+    /** ADAPTADOR DEL VIEWPAGER **/
+    public class ExercisePageAdapter extends FragmentPagerAdapter {
 
-        public ExerciseResume() {
+        private  ArrayList<Fragment> fragments;
+
+        public ExercisePageAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+            super(fm);
+            this.fragments = fragments;
         }
 
-        public static ExerciseResume newInstance(int sectionNumber) {
-            ExerciseResume fragment = new ExerciseResume();
+        @Override
+        public Fragment getItem(int position) {
+            ExerciseResumeFragment fragment = (ExerciseResumeFragment) fragments.get(position);
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt("page_position", position);
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);
-            position = (int) getActivity().getIntent().getSerializableExtra("position");
-
-            TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
-            TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
-            TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
-            TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
-
-            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
-
-            db = new DataBaseContract(getActivity());
-            db.open();
-
-            ArrayList<TrainingTable> trainingTable = db.getAllTables();
-            ejercicio = db.getAllExercisesFromTable(trainingTable.get(position)).get(position);
-
-            exerciseTitle.setText((String) ejercicio.getNombre());
-            exerciseSeries.setText((String) ejercicio.getSeries());
-            exerciseRep.setText((String) ejercicio.getRepeticiones());
-            exerciseDescanso.setText((String) ejercicio.getDescanso());
-
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(layoutManager);
-            RecyclerView.Adapter adapter = new CheckboxAdapter(ejercicio);
-            recyclerView.setAdapter(adapter);
-
-            return rootView;
-        }
-    }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a ExerciseResume (defined as a static inner class below).
-            return ExerciseResume.newInstance(position + 1);
-        }
-
-        @Override
         public int getCount() {
-            return db.getAllExercisesFromTable(trainingTable.get(position)).size();
+            return numPaginas;
         }
     }
 
+
+    /** ADAPTADOR DEL RECYCLERVIEW **/
     public static class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.MyViewHolder> {
 
         private Exercise exercise;
