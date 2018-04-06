@@ -10,52 +10,54 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import static java.lang.Integer.valueOf;
+
 public class MainFragment extends Fragment{
 
     private DataBaseContract db;
-    public static int weekDay;
-    public String filterDay;
-
-    public static MainFragment newInstance(int sectionNumber){
-        final String ARG_SECTION_NUMBER = "section_number";
-        weekDay = sectionNumber;
-        MainFragment fragment = new MainFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private int weekDay;
+    private String filterDay;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-        if(weekDay == 1) {
-            filterDay = "LU";
-        }else if(weekDay == 2) {
-            filterDay = "M";
-        }else if(weekDay == 3) {
-            filterDay = "X";
-        }else if(weekDay == 4) {
-            filterDay = "JU";
-        }else if(weekDay == 5) {
-            filterDay = "VI";
-        }else if(weekDay == 6) {
-            filterDay = "SA";
-        }else if(weekDay == 7) {
-            filterDay = "DO";
-        }
-
+        weekDay = valueOf(getArguments().getInt("page_position"));
         db = new DataBaseContract(getActivity());
         db.open();
 
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_training);
+        //RecyclerView recyclerViewFoods = (RecyclerView) rootView.findViewById(R.id.list_food);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerViewTraining.setLayoutManager(layoutManager);
+        //RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
+        //recyclerViewFoods.setLayoutManager(layoutManager2);
+
+        if(weekDay == 0) {
+            filterDay = "LU";
+        }else if(weekDay == 1) {
+            filterDay = "M";
+        }else if(weekDay == 2) {
+            filterDay = "X";
+        }else if(weekDay == 3) {
+            filterDay = "JU";
+        }else if(weekDay == 4) {
+            filterDay = "VI";
+        }else if(weekDay == 5) {
+            filterDay = "SA";
+        }else if(weekDay == 6) {
+            filterDay = "DO";
+        }
+
         ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
-        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable);
-        recyclerView.setAdapter(adapter);
+        ArrayList<TrainingTable> trainingTable2 = db.getAllTablesFilterByDay("M");
+        RecyclerView.Adapter adapterTraining = new CustomTrainingAdapter(getContext(), trainingTable);
+
+        //RecyclerView.Adapter adapterFood = new CustomTrainingAdapter(getContext(), trainingTable2);
+        recyclerViewTraining.setAdapter(adapterTraining);
+        //recyclerViewFoods.setAdapter(adapterFood);
+
 
         return rootView;
     }
