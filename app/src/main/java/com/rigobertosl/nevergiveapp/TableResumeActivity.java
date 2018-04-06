@@ -3,28 +3,25 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.codetroopers.betterpickers.expirationpicker.ExpirationPicker;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class TableResumeActivity extends AppCompatActivity {
+import static java.lang.Integer.valueOf;
+
+public class TableResumeActivity extends TrainingActivity {
 
     private Context mContext;
     private DataBaseContract db;
@@ -32,6 +29,9 @@ public class TableResumeActivity extends AppCompatActivity {
     private int position;
     private RecyclerView recyclerView;
     private ExerciseResumeAdapter exerciseResumeAdapter;
+    private ExercisePageAdapter mExercisePageAdapter;
+    private ViewPager mViewPager;
+    public int numPaginas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,19 @@ public class TableResumeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(trainingTable.get(position).getName());
         setSupportActionBar(toolbar);
+
+        numPaginas = (int)db.getAllExercisesFromTable(trainingTable.get(position)).size();
+        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        for (int i = 0; i<numPaginas; i++){
+            Fragment f = new ExerciseResumeFragment();
+            fragments.add(f);
+        }
+
+        mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mExercisePageAdapter);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -98,5 +111,64 @@ public class TableResumeActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
+    }
+
+
+    /** ADAPTADOR DEL VIEWPAGER **/
+    public class ExercisePageAdapter extends FragmentPagerAdapter {
+
+        private  ArrayList<Fragment> fragments;
+
+        public ExercisePageAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+            super(fm);
+            this.fragments = fragments;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            ExerciseResumeFragment fragment = (ExerciseResumeFragment) fragments.get(position);
+            Bundle args = new Bundle();
+            args.putInt("page_position", position);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return numPaginas;
+        }
+    }
+
+
+    /** ADAPTADOR DEL RECYCLERVIEW **/
+    public static class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.MyViewHolder> {
+
+        private Exercise exercise;
+
+        public CheckboxAdapter(Exercise exercise){
+            this.exercise = exercise;
+        }
+
+        @Override
+        public CheckboxAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox, parent, false);
+            return new CheckboxAdapter.MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CheckboxAdapter.MyViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return valueOf(exercise.getSeries());
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            public MyViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
     }
 }
