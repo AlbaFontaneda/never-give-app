@@ -21,6 +21,8 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,7 +50,13 @@ public class MainActivity extends AppCompatActivity
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager());
+        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        for (int i = 0; i<7; i++){
+            Fragment f = new MainFragment();
+            fragments.add(f);
+        }
+
+        seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
 
         // Set up the ViewPager with the sections adapter.
         vistaPagina = (ViewPager) findViewById(R.id.container);
@@ -117,13 +125,19 @@ public class MainActivity extends AppCompatActivity
      * Transiciones entre tabs y fragmentos
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        public SectionsPagerAdapter(FragmentManager fm) {
+        ArrayList<Fragment> fragments;
+        public SectionsPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
             super(fm);
+            this.fragments = fragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return MainFragment.newInstance(position);
+            MainFragment fragment = (MainFragment) fragments.get(position);
+            Bundle args = new Bundle();
+            args.putInt("page_position", position);
+            fragment.setArguments(args);
+            return fragment;
         }
         @Override
         public int getCount() {
