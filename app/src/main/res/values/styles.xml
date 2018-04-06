@@ -189,4 +189,40 @@
         <item name="android:layout_weight">2</item>
     </style>
 
+    <!-- ESTILOS POPUP EDICIÓN DE TABLA -->
+    <style name="AtributteTableText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+    
+    <style name="ContentTableAttribute">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    
+        <!-- DENTRO DEL RECYCLERVIEW -->
+    <style name="AttributeExerciseText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left|center</item>
+    </style>
+    
+    <style name="ContentExerciseAttribute">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_gravity">left|center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
 </resources>

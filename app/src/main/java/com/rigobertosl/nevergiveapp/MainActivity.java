@@ -16,23 +16,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    private SectionsPagerAdapter seleccionPagina;
+    private ViewPager vistaPagina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +50,20 @@ public class MainActivity extends AppCompatActivity
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        for (int i = 0; i<7; i++){
+            Fragment f = new MainFragment();
+            fragments.add(f);
+        }
+
+        seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        vistaPagina = (ViewPager) findViewById(R.id.container);
+        vistaPagina.setAdapter(seleccionPagina);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
     }
     /*********** FUNCIONES DE LA PANTALLA DE INICIO ******************/
     @Override
@@ -121,112 +122,29 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment
-            implements View.OnClickListener{
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            //Menues de la pantalla de inicio para cada elemento
-            final ImageButton foodsOptions = (ImageButton) rootView.findViewById(R.id.foods_options);
-            registerForContextMenu(foodsOptions);
-            foodsOptions.setOnClickListener(this);
-
-            final ImageButton trainOptions = (ImageButton) rootView.findViewById(R.id.train_options);
-            registerForContextMenu(trainOptions);
-            trainOptions.setOnClickListener(this);
-
-            final ImageButton eventsOptions = (ImageButton) rootView.findViewById(R.id.events_options);
-            registerForContextMenu(eventsOptions);
-            eventsOptions.setOnClickListener(this);
-
-            final ImageButton achievementsOptions = (ImageButton) rootView.findViewById(R.id.achievements_options);
-            registerForContextMenu(achievementsOptions);
-            achievementsOptions.setOnClickListener(this);
-            return rootView;
-        }
-        //Función para mostrar los menus desplegables
-        public void showMenu(View v) {
-            PopupMenu popup = new PopupMenu(getActivity(), v);
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    //CON ESTO METEMOS UNA FUNCION A CADA COSO DEL MENU DEPENDIENDO DE LA ID
-                if(item.getItemId()==R.id.menu_init_element_settings) {
-                    Toast.makeText(getActivity(),item.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-                    return true;
-                }
-            });// to implement on click event on items of menu
-            MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.menu_init_elements, popup.getMenu());
-            popup.show();
-        }
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getActivity(),
-                    "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-            switch (v.getId()) {
-                case R.id.foods_options: {
-                    showMenu(v);
-                    break;
-                }
-                case R.id.train_options: {
-                    showMenu(v);
-                    break;
-                }
-                case R.id.events_options: {
-                    showMenu(v);
-                    break;
-                }
-                case R.id.achievements_options: {
-                    showMenu(v);
-                    break;
-                }
-                default: {
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * Transiciones entre tabs y fragmentos
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
+        ArrayList<Fragment> fragments;
+        public SectionsPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
             super(fm);
+            this.fragments = fragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            MainFragment fragment = (MainFragment) fragments.get(position);
+            Bundle args = new Bundle();
+            args.putInt("page_position", position);
+            fragment.setArguments(args);
+            return fragment;
         }
-
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 7;
         }
     }
+
 }
 
 //Todo: Condicionar en el Dialog la entrada a la siguiente pantalla y activar el botón Cancel

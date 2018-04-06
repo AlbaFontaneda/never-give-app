@@ -2,16 +2,18 @@ package com.rigobertosl.nevergiveapp;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
+import java.util.ArrayList;
 
 public class TrainingFragment extends Fragment {
+
+    private DataBaseContract db;
+
     public static TrainingFragment newInstance(int sectionNumber){
         final String ARG_SECTION_NUMBER = "section_number";
         TrainingFragment fragment = new TrainingFragment();
@@ -24,14 +26,17 @@ public class TrainingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
 
-        String[] tablas = {"Añade tu primera tabla"};
-        ListAdapter listAdapter = new CustomTrainingAdapter(getContext(), tablas);
-        ListView lista = (ListView) rootView.findViewById(R.id.list_item);
-        lista.setAdapter(listAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
-        // Para que se haga el scroll correctamente ocultando el toolbar
-        ViewCompat.setNestedScrollingEnabled(lista, true);
+        db = new DataBaseContract(getActivity());
+        db.open();
+
+        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }

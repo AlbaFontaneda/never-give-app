@@ -10,4 +10,6 @@
     <color name="buttonPressed">#c951ab</color>
     <color name="buttonPressedStroke">#99207b</color>
     <color name="achievementsRow">#c178bc</color>
+    <color name="titlesColor">#ffffff</color>
+    <color name="cardViewContent">#dcdcdc</color>
 </resources>
