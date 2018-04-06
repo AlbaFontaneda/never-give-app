@@ -47,6 +47,7 @@ public class ExerciseResumeFragment extends Fragment {
         exerciseDescanso.setText((String) ejercicio.getDescanso());
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new TableResumeActivity.CheckboxAdapter(ejercicio);
