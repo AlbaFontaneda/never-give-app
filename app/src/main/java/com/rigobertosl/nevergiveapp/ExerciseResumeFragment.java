@@ -39,12 +39,12 @@ public class ExerciseResumeFragment extends Fragment {
         TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
         TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
-        TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
+        //TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
 
         exerciseTitle.setText((String) ejercicio.getNombre());
         exerciseSeries.setText((String) ejercicio.getSeries());
         exerciseRep.setText((String) ejercicio.getRepeticiones());
-        exerciseDescanso.setText((String) ejercicio.getDescanso());
+        //exerciseDescanso.setText((String) ejercicio.getDescanso());
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
 
