@@ -189,6 +189,8 @@ public class FoodsActivity extends MainActivity {
                     Toast.makeText(FoodsActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
+                    finish();
+                    startActivity(getIntent());
                     foodTable = db.createTableFoods(foodName, foodDays, foodType);
                     db.close();
                     dialog.cancel();

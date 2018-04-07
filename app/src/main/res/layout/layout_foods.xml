@@ -39,7 +39,7 @@
                 android:layout_alignParentRight="true"/>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recylcer_exercises"
+                android:id="@+id/recylcer_foods"
                 android:layout_height="140dp"
                 android:layout_width="match_parent"
                 android:layout_below="@id/item_title"

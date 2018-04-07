@@ -360,4 +360,50 @@ public class DataBaseContract {
 
         return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type);
     }
+
+    /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
+    public ArrayList<FoodTable> getAllFoodTables() {
+        ArrayList<FoodTable> table = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                table.add(foodTable);
+            } while (cursor.moveToNext());
+        }
+        return table;
+    }
+
+    /** Filtrado por dia de la semana en tablas de comidas**/
+    public ArrayList<FoodTable> getAllFoodsFilterByDay(String filterDay) {
+        ArrayList<FoodTable> foodByDay = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_TYPE_FOOD + " LIKE '%"+filterDay+"%'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                foodByDay.add(foodTable);
+            } while (cursor.moveToNext());
+        }
+        return foodByDay;
+    }
+
+    /** Borra un row de tabla_comidas **/
+    public void deleteFood(FoodTable foodTable) {
+        long tableId = foodTable.getId();
+        mDb = mDbHelper.getWritableDatabase();
+        mDb.delete(DataBaseEntryFoods.TABLE_NAME, DataBaseEntryFoods._ID + " = ?",
+                new String[] { String.valueOf(tableId) });
+    }
+
 }

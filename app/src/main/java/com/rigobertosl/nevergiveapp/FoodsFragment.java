@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,18 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import static java.lang.Integer.valueOf;
+
 public class FoodsFragment extends Fragment{
+
     private DataBaseContract db;
+    private int weekDay;
+    private String filterDay;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        weekDay = valueOf(getArguments().getInt("page_position"));
         db = new DataBaseContract(getActivity());
         db.open();
 
@@ -25,10 +32,23 @@ public class FoodsFragment extends Fragment{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewTraining.setLayoutManager(layoutManager);
 
-        ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay("M");
-        RecyclerView.Adapter adapterTraining = new CustomTrainingAdapter(getContext(), trainingTable);
+        if(weekDay == 0) {
+            filterDay = "Desayuno";
+        }else if(weekDay == 1) {
+            filterDay = "Almuerzo";
+        }else if(weekDay == 2) {
+            filterDay = "Comida";
+        }else if(weekDay == 3) {
+            filterDay = "Merienda";
+        }else if(weekDay == 4) {
+            filterDay = "Cena";
+        }
 
-        recyclerViewTraining.setAdapter(adapterTraining);
+        ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByDay(filterDay);
+        db.close();
+        RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterDay);
+
+        recyclerViewTraining.setAdapter(adapterFoods);
 
         return rootView;
     }
