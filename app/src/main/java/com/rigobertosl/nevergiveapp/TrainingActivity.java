@@ -29,7 +29,8 @@ public class TrainingActivity extends MainActivity {
     private DataBaseContract db;
     public static TrainingTable trainingTable;
     public static long lastRowId;
-    public String weekDays;
+    public String weekDays = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +171,10 @@ public class TrainingActivity extends MainActivity {
             @Override
             public void onClick(View view) {
                 String tableName = tableNameEditText.getText().toString();
-                String tableDays = weekDays.substring(1, weekDays.length()-1);
+                String tableDays = "";
+                if(!weekDays.equals("")){
+                    tableDays = weekDays.substring(1, weekDays.length()-1);
+                }
                 if (tableName.matches("") || tableDays.matches("")) {
                     Toast.makeText(TrainingActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
