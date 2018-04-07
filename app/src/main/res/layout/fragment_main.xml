@@ -7,9 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_training"
-        style="@style/FoodsList" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_food"
+        android:id="@+id/list_main"
         style="@style/FoodsList" />
 </android.support.design.widget.CoordinatorLayout>

@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -83,12 +83,15 @@ public class DataBaseContract {
         public static final String TABLE_NAME = "tabla_comidas";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DAYS = "days";
+        public static final String COLUMN_TYPE_FOOD = "type";
+
 
         private static final String SQL_CREATE_ENTRIES_FOODS =
                 "CREATE TABLE " + DataBaseContract.DataBaseEntryFoods.TABLE_NAME + " (" +
                         DataBaseContract.DataBaseEntryFoods._ID + " INTEGER PRIMARY KEY," +
                         DataBaseContract.DataBaseEntryFoods.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS + TEXT_TYPE + " )";
+                        DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS + TEXT_TYPE + COMMA_SEP +
+                        DataBaseContract.DataBaseEntryFoods.COLUMN_TYPE_FOOD + TEXT_TYPE + " )";
 
         private static final String SQL_DELETE_ENTRIES_FOODS =
                 "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseEntryFoods.TABLE_NAME;
@@ -254,15 +257,6 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
     }
 
-    /** Crear tabla_comidas en la base de datos **/
-    public long createTableFoods(String name, String days){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseEntryFoods.COLUMN_NAME, name);
-        values.put(DataBaseEntryFoods.COLUMN_DAYS, name);
-
-        return mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
-    }
-
     /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/
     public void deleteTable(TrainingTable trainingTable, boolean deleteAllData) {
         mDb = mDbHelper.getWritableDatabase();
@@ -333,7 +327,7 @@ public class DataBaseContract {
                 new String[] { String.valueOf(oldExercise.getId()) });
     }
 
-    /** Filtrado por dias **/
+    /** Filtrado por dias en tablas de entrenamiento**/
     public ArrayList<TrainingTable> getAllTablesFilterByDay(String filterDay) {
         ArrayList<TrainingTable> tableByDay = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " WHERE " + DataBaseEntryNameTrain.COLUMN_DAYS + " LIKE '%"+filterDay+"%'";
@@ -350,4 +344,66 @@ public class DataBaseContract {
         }
         return tableByDay;
     }
+
+    /** Crear tabla_comidas en la base de datos **/
+    public FoodTable createTableFoods(String name, String days, String type){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryFoods.COLUMN_NAME, name);
+        values.put(DataBaseEntryFoods.COLUMN_DAYS, days);
+        values.put(DataBaseEntryFoods.COLUMN_TYPE_FOOD, type);
+        mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        cursor.moveToLast();
+
+        return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type);
+    }
+
+    /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
+    public ArrayList<FoodTable> getAllFoodTables() {
+        ArrayList<FoodTable> table = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                table.add(foodTable);
+            } while (cursor.moveToNext());
+        }
+        return table;
+    }
+
+    /** Filtrado por dia de la semana en tablas de comidas**/
+    public ArrayList<FoodTable> getAllFoodsFilterByDay(String filterDay) {
+        ArrayList<FoodTable> foodByDay = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_TYPE_FOOD + " LIKE '%"+filterDay+"%'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                foodByDay.add(foodTable);
+            } while (cursor.moveToNext());
+        }
+        return foodByDay;
+    }
+
+    /** Borra un row de tabla_comidas **/
+    public void deleteFood(FoodTable foodTable) {
+        long tableId = foodTable.getId();
+        mDb = mDbHelper.getWritableDatabase();
+        mDb.delete(DataBaseEntryFoods.TABLE_NAME, DataBaseEntryFoods._ID + " = ?",
+                new String[] { String.valueOf(tableId) });
+    }
+
 }

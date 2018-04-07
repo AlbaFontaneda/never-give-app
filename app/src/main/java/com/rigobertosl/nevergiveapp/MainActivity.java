@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -153,3 +152,5 @@ public class MainActivity extends AppCompatActivity
 //Todo: arreglar el transito entre pantallas. Cerrar fragments
 //Todo: Arreglar posicionamiento de tabs al girar pantalla
 //Todo: HACER ACTIVIDAD EVENTOS
+
+//Todo: Alba* hay que hacer otro custom adapter para el inicio, ya que para cada tab es totalmente distinto lo que sale y hay que tener en cuenta comidas y entrenamientos
