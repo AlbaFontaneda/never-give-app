@@ -137,16 +137,33 @@
                     android:padding="5dp"
                     android:text="Descanso"
                     android:textSize="15dp"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15">
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:background="@drawable/circulo_vacio"
+                        android:progressDrawable="@drawable/circulo_relleno"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:rotation="-90" />
+                    <TextView
+                        android:id="@+id/temporizador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="00:00"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorAccent"/>
+                </RelativeLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:max="100"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/circular"
-                    android:layout_weight="15"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
