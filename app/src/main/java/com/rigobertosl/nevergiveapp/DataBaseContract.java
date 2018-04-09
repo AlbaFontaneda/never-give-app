@@ -160,23 +160,6 @@ public class DataBaseContract {
         return new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days);
     }
 
-    /** Devolver solo el nombre de todos los nombre_ejercicios **/
-    public ArrayList<String> fetchAllNamesNameTraining() {
-        ArrayList<String> names = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME;
-        mDb = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)));
-            } while (cursor.moveToNext());
-        }
-        return names;
-    }
-
     /** Devuelve un ArrayList con todas las tablas (nombre_ejercicios) que existen en la base de datos **/
     public ArrayList<TrainingTable> getAllTables() {
         ArrayList<TrainingTable> table = new ArrayList<>();
@@ -194,6 +177,24 @@ public class DataBaseContract {
         return table;
     }
 
+    public TrainingTable getTrainingTableByID(long ID){
+        TrainingTable trainingTable = null;
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " WHERE " + DataBaseEntryNameTrain._ID + " = '" + ID + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain.COLUMN_DAYS)));
+
+            } while (cursor.moveToNext());
+        }
+
+        return trainingTable;
+    }
+
     /** Devuelve TODOS los ejercicios de la tabla cuyo nombre es "nombre" en un ArrayList<Exercise> **/
     public ArrayList<Exercise> getAllExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
@@ -204,26 +205,6 @@ public class DataBaseContract {
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
 
         mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
-                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain.COLUMN_LIST_ID))));
-                exercises.add(newExercise);
-            } while (cursor.moveToNext());
-        }
-        return exercises;
-    }
-
-    /** ¡NO USABLE DE MOMENTO! DEVUELVE TODOS LOS EJERCICIOS DE TODAS LAS TABLAS COMO UN ARRAYLIST<EXERCISE> **/
-    public ArrayList<Exercise> getAllExercisesOfDataBase() {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + DataBaseEntryListTrain.TABLE_NAME;
-        mDb = mDbHelper.getReadableDatabase();
-
         Cursor cursor = mDb.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {

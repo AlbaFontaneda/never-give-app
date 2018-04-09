@@ -19,7 +19,7 @@ import static java.lang.Integer.valueOf;
 
 public class ExerciseResumeFragment extends Fragment {
 
-    private int position;
+    private long tableID;
     private int pagina;
 
     private DataBaseContract db;
@@ -36,14 +36,13 @@ public class ExerciseResumeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        position = (int) getActivity().getIntent().getSerializableExtra("position");
-        pagina = valueOf(getArguments().getInt("page_position"));
         db = new DataBaseContract(getActivity());
         db.open();
+        tableID = (long) getActivity().getIntent().getSerializableExtra("tablaID");
+        pagina = valueOf(getArguments().getInt("page_position"));
+        TrainingTable trainingTable = db.getTrainingTableByID(tableID);
 
-        ArrayList<TrainingTable> trainingTable = db.getAllTables();
-        ejercicios = db.getAllExercisesFromTable(trainingTable.get(position));
+        ejercicios = db.getAllExercisesFromTable(trainingTable);
         Exercise ejercicio = ejercicios.get(pagina);
 
         View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);

@@ -81,9 +81,9 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
 
-                                Intent i = new Intent(mContext, TableResumeActivity.class);
-                                i.putExtra("position", holder.getAdapterPosition()); //Con esto pasamos la posición de la tabla que queramos ver
-                                mContext.startActivity(i);
+                                Intent intent = new Intent(mContext, TableResumeActivity.class);
+                                intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
+                                mContext.startActivity(intent);
 
                                 break;
                             case R.id.menu_training_elements_delete:
@@ -116,7 +116,13 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         db = new DataBaseContract(holder.title.getContext());
         db.open();
 
-        ArrayList<TrainingTable> trainingTables = db.getAllTables();
+
+        ArrayList<TrainingTable> trainingTables;
+        if(filterDay == null) {
+            trainingTables = db.getAllTables();
+        } else {
+            trainingTables = db.getAllTablesFilterByDay(filterDay);
+        }
         exerciseList = db.getAllExercisesFromTable(trainingTables.get(position));
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
