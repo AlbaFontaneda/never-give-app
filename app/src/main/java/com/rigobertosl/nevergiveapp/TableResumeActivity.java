@@ -25,13 +25,13 @@ public class TableResumeActivity extends TrainingActivity {
 
     private Context mContext;
     private DataBaseContract db;
-    private ArrayList<TrainingTable> trainingTable;
-    private int position;
+    private long tableID;
     private RecyclerView recyclerView;
     private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
     public int numPaginas;
+    private TrainingTable trainingTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,14 @@ public class TableResumeActivity extends TrainingActivity {
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
         db.open();
-        trainingTable = db.getAllTables();
-        position = (int) getIntent().getSerializableExtra("position");
+        tableID = (long) getIntent().getSerializableExtra("tablaID");
+        trainingTable = db.getTrainingTableByID(tableID);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.get(position).getName());
+        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
 
-        numPaginas = (int)db.getAllExercisesFromTable(trainingTable.get(position)).size();
+        numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         for (int i = 0; i<numPaginas; i++){
             Fragment f = new ExerciseResumeFragment();
@@ -65,7 +65,7 @@ public class TableResumeActivity extends TrainingActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, trainingTable.get(position));
+                openDialog(view, trainingTable);
             }
         });
     }
@@ -105,7 +105,7 @@ public class TableResumeActivity extends TrainingActivity {
             @Override
             public void onClick(View view) {
 
-                db.editTable(trainingTable.get(position), tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
+                db.editTable(trainingTable, tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
                 dialog.cancel();
                 finish();
                 startActivity(getIntent());
