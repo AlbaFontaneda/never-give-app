@@ -2,7 +2,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,7 +43,7 @@ public class FoodsFragment extends Fragment{
             filterDay = "Cena";
         }
 
-        ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByDay(filterDay);
+        ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByType(filterDay);
         db.close();
         RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterDay);
 

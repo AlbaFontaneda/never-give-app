@@ -66,7 +66,7 @@
     <!-- ESTILOS VENTANA DE COMIDAS -->
     <style name="FoodsList">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">5dp</item>
         <item name="android:dividerHeight">5dp</item>
         <item name="android:divider">#FFFFFF</item>

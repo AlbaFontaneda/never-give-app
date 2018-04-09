@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -380,9 +380,28 @@ public class DataBaseContract {
     }
 
     /** Filtrado por dia de la semana en tablas de comidas**/
+    public ArrayList<FoodTable> getAllFoodsFilterByType(String filterType) {
+        ArrayList<FoodTable> foodByType = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_TYPE_FOOD + " LIKE '%"+filterType+"%'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                foodByType.add(foodTable);
+            } while (cursor.moveToNext());
+        }
+        return foodByType;
+    }
+
+    /** Filtrado por dia de la semana en tablas de comidas**/
     public ArrayList<FoodTable> getAllFoodsFilterByDay(String filterDay) {
         ArrayList<FoodTable> foodByDay = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_TYPE_FOOD + " LIKE '%"+filterDay+"%'";
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_DAYS + " LIKE '%"+filterDay+"%'";
 
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);

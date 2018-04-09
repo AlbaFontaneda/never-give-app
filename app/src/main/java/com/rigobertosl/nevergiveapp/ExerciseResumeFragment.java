@@ -8,21 +8,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.lang.Integer.valueOf;
 
 public class ExerciseResumeFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private int position;
+    private int pagina;
+
     private DataBaseContract db;
     private ArrayList<Exercise> ejercicios;
-    private int pagina;
-    private int timer = 0;
+
+    private static final long START_TIME = 5000;
+    private long timeLeft = START_TIME;
+    private CountDownTimer timer;
+    private boolean timerRunning;
+    private TextView countDown;
+    private ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,25 +51,34 @@ public class ExerciseResumeFragment extends Fragment {
         TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
         TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
+        countDown = (TextView)rootView.findViewById(R.id.temporizador);
+        ImageButton play = (ImageButton)rootView.findViewById(R.id.play);
+        ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
+        ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
+        progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
+        updateCountDown();
 
-        final ProgressBar progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
-        progressBar.setProgress(timer);
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        stop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                timer++;
-                progressBar.setProgress((int)timer*100/(5000/1000));
+            public void onClick(View view) {
+                resetTimer();
             }
+        });
 
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFinish() {
-                //Do what you want
-                timer++;
-                progressBar.setProgress(100);
+            public void onClick(View view) {
+                startTimer();
             }
-        };
-        countDownTimer.start();
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseTimer();
+            }
+        });
 
         //TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
 
@@ -77,5 +95,48 @@ public class ExerciseResumeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    /** ESTO HACE PUTAS COSAS RARAS. NO TIENEN SENTIDO **/
+    private void startTimer(){
+        // Tiempo en milisegundos, pasa cada 1000ms, es decir, cada segundo
+        timer = new CountDownTimer(timeLeft, 1000) {
+
+            @Override
+            public void onTick(long msUntilFinished) {
+                timeLeft = msUntilFinished;
+                updateCountDown();
+            }
+
+            @Override
+            public void onFinish() {
+                //progressBar.setProgress(0);
+                //countDown.setText("00:00");
+                timerRunning = false;
+            }
+        }.start();
+
+        timerRunning = true;
+    }
+
+    private void pauseTimer(){
+        timer.cancel();
+        timerRunning = false;
+    }
+
+    private void resetTimer(){
+        timeLeft = START_TIME;
+        timer.cancel();
+        updateCountDown();
+        timerRunning = false;
+    }
+
+    private void updateCountDown() {
+        int minutes = (int) timeLeft / 60000;
+        int seconds = (int) timeLeft % 60000 / 1000;
+
+        progressBar.setProgress(seconds*100/((int)START_TIME/1000));
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        countDown.setText(timeLeftFormatted);
     }
 }
