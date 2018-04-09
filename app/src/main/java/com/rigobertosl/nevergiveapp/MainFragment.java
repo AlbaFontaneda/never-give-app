@@ -26,10 +26,14 @@ public class MainFragment extends Fragment{
         db.open();
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_main);
+        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_main_training);
+        RecyclerView recyclerViewFoods = (RecyclerView) rootView.findViewById(R.id.list_main_foods);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewTraining.setLayoutManager(layoutManager);
+
+        RecyclerView.LayoutManager layoutManagerFood = new LinearLayoutManager(getActivity());
+        recyclerViewFoods.setLayoutManager(layoutManagerFood);
 
         if(weekDay == 0) {
             filterDay = "LU";
@@ -49,9 +53,12 @@ public class MainFragment extends Fragment{
 
         ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
         ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
-        RecyclerView.Adapter adapterMain = new CustomMainAdapter(getContext(), trainingTable, foodTable);
 
-        recyclerViewTraining.setAdapter(adapterMain);
+        RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable);
+        RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, "LU");
+
+        recyclerViewTraining.setAdapter(adapterTrain);
+        recyclerViewFoods.setAdapter(adapterFood);
 
 
         return rootView;

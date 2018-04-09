@@ -67,7 +67,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                     public boolean onMenuItemClick(MenuItem item) {
                         db = new DataBaseContract(mContext);
                         db.open();
-                        ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
+                        ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByType(filterDay);
                         db.close();
                         switch (item.getItemId()) {
                             case R.id.menu_foods_elements_edit:

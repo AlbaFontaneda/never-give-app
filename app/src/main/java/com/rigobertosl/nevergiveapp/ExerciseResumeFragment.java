@@ -56,7 +56,6 @@ public class ExerciseResumeFragment extends Fragment {
         ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
         ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
-        progressBar.setProgress(100);
 
         updateCountDown();
 
