@@ -21,6 +21,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     private Context mContext;
     private ArrayList<TrainingTable> trainingTables;
+    private String filterDay;
     private DataBaseContract db;
     private RecyclerView recyclerView;
     private ExerciseAdapter exerciseAdapter;
@@ -38,9 +39,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
     }
     
-    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables) {
+    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables, String filterDay) {
         this.mContext = mContext;
         this.trainingTables = trainingTables;
+        this.filterDay = filterDay;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,8 +69,12 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
-                        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+                        ArrayList<TrainingTable> trainingTable;
+                        if(filterDay == null) {
+                            trainingTable = db.getAllTables();
+                        } else {
+                            trainingTable = db.getAllTablesFilterByDay(filterDay);
+                        }
 
                         switch (item.getItemId()) {
                             case R.id.menu_training_elements_edit:

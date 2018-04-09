@@ -16,7 +16,8 @@ public class FoodsFragment extends Fragment{
 
     private DataBaseContract db;
     private int weekDay;
-    private String filterDay;
+    private String filterType;
+    private boolean isType;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,20 +33,20 @@ public class FoodsFragment extends Fragment{
         recyclerViewTraining.setLayoutManager(layoutManager);
 
         if(weekDay == 0) {
-            filterDay = "Desayuno";
+            filterType = "Desayuno";
         }else if(weekDay == 1) {
-            filterDay = "Almuerzo";
+            filterType = "Almuerzo";
         }else if(weekDay == 2) {
-            filterDay = "Comida";
+            filterType = "Comida";
         }else if(weekDay == 3) {
-            filterDay = "Merienda";
+            filterType = "Merienda";
         }else if(weekDay == 4) {
-            filterDay = "Cena";
+            filterType = "Cena";
         }
-
-        ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByType(filterDay);
+        isType = true;
+        ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByType(filterType);
         db.close();
-        RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterDay);
+        RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterType, isType);
 
         recyclerViewTraining.setAdapter(adapterFoods);
 

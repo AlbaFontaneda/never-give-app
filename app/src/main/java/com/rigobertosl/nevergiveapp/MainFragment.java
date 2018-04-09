@@ -17,6 +17,7 @@ public class MainFragment extends Fragment{
     private DataBaseContract db;
     private int weekDay;
     private String filterDay;
+    private boolean isType;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,12 +51,12 @@ public class MainFragment extends Fragment{
         }else if(weekDay == 6) {
             filterDay = "DO";
         }
-
+        isType = false;
         ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
         ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
 
-        RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable);
-        RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, "LU");
+        RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
+        RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, filterDay, isType);
 
         recyclerViewTraining.setAdapter(adapterTrain);
         recyclerViewFoods.setAdapter(adapterFood);

@@ -20,6 +20,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
     private Context mContext;
     private ArrayList<FoodTable> foodTables;
     private String filterDay;
+    private boolean isType;
     private DataBaseContract db;
     private RecyclerView recyclerView;
 
@@ -35,10 +36,11 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
         }
     }
 
-    public CustomFoodAdapter(Context mContext, ArrayList<FoodTable> foodTables, String filterDay) {
+    public CustomFoodAdapter(Context mContext, ArrayList<FoodTable> foodTables, String filterDay, boolean isType) {
         this.mContext = mContext;
         this.foodTables = foodTables;
         this.filterDay = filterDay;
+        this.isType = isType;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,7 +69,13 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                     public boolean onMenuItemClick(MenuItem item) {
                         db = new DataBaseContract(mContext);
                         db.open();
-                        ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByType(filterDay);
+                        ArrayList<FoodTable> foodTable;
+                        if(isType) {
+                            foodTable = db.getAllFoodsFilterByType(filterDay);
+                        } else {
+                            foodTable = db.getAllFoodsFilterByDay(filterDay);
+                        }
+
                         db.close();
                         switch (item.getItemId()) {
                             case R.id.menu_foods_elements_edit:
