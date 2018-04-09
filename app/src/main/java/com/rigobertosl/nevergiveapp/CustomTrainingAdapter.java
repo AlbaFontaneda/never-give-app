@@ -180,8 +180,5 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         public void onAttachedToRecyclerView(RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
-
-
-
     }
 }
