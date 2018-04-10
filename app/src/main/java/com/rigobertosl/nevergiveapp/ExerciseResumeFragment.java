@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,13 +26,12 @@ public class ExerciseResumeFragment extends Fragment {
     private DataBaseContract db;
     private ArrayList<Exercise> ejercicios;
 
-    private static final long START_TIME = 5000;
+    private static final long START_TIME = 10000;
     private long timeLeft = START_TIME;
-    private CountDownTimer timer;
-    private boolean timerRunning;
     private TextView countDown;
     private ProgressBar progressBar;
 
+    private MyCountDownTimer mycounter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,26 +56,29 @@ public class ExerciseResumeFragment extends Fragment {
         ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
-        updateCountDown();
+        //updateCountDown();
+        progressBar.setProgress(100);
+        mycounter = new MyCountDownTimer(START_TIME, 1000);
+        RefreshTimer();
 
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetTimer();
+                mycounter.reset();
             }
         });
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTimer();
+                mycounter.start();
             }
         });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pauseTimer();
+                mycounter.pause();
             }
         });
 
@@ -96,41 +99,21 @@ public class ExerciseResumeFragment extends Fragment {
         return rootView;
     }
 
-    /** ESTO HACE PUTAS COSAS RARAS. NO TIENEN SENTIDO **/
-    private void startTimer(){
-        // Tiempo en milisegundos, pasa cada 1000ms, es decir, cada segundo
-        timer = new CountDownTimer(timeLeft, 1000) {
+    public void RefreshTimer()
+    {
+        final Handler handler = new Handler();
+        final Runnable counter = new Runnable(){
 
-            @Override
-            public void onTick(long msUntilFinished) {
-                timeLeft = msUntilFinished;
-                updateCountDown();
+            public void run(){
+                updateCountDown(mycounter.getCurrentTime());
+                handler.postDelayed(this, 100);
             }
-
-            @Override
-            public void onFinish() {
-                //progressBar.setProgress(0);
-                //countDown.setText("00:00");
-                timerRunning = false;
-            }
-        }.start();
-
-        timerRunning = true;
+        };
+        handler.postDelayed(counter, 100);
     }
 
-    private void pauseTimer(){
-        timer.cancel();
-        timerRunning = false;
-    }
 
-    private void resetTimer(){
-        timeLeft = START_TIME;
-        timer.cancel();
-        updateCountDown();
-        timerRunning = false;
-    }
-
-    private void updateCountDown() {
+    private void updateCountDown(long timeLeft) {
         int minutes = (int) timeLeft / 60000;
         int seconds = (int) timeLeft % 60000 / 1000;
 
@@ -138,4 +121,5 @@ public class ExerciseResumeFragment extends Fragment {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         countDown.setText(timeLeftFormatted);
     }
+
 }
