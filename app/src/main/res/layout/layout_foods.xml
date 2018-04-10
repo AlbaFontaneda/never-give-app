@@ -68,7 +68,13 @@
 
                 </LinearLayout>
 
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recylcer_foods"
+                    android:layout_height="140dp"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/item_title"
+                    android:background="@color/cardViewContent"
+                    android:orientation="horizontal" />
 
             </LinearLayout>
         </RelativeLayout>
