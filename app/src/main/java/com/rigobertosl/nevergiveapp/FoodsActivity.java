@@ -47,6 +47,7 @@ public class FoodsActivity extends MainActivity {
     private DataBaseContract db;
     public static FoodTable foodTable;
     public String weekDays = "";
+    public static long foodTableId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,8 +191,10 @@ public class FoodsActivity extends MainActivity {
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     finish();
-                    startActivity(getIntent());
+                    startActivity(new Intent(FoodsActivity.this, FoodResumeActivity.class));
                     foodTable = db.createTableFoods(foodName, foodDays, foodType);
+                    long id = foodTable.getId();
+                    foodTableId = id;
                     db.close();
                     dialog.cancel();
                 }

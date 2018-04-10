@@ -397,6 +397,25 @@ public class DataBaseContract {
         }
         return foodByDay;
     }
+    /** Devuelve una tabla de comidas por ID **/
+    public FoodTable getFoodById(long foodId) {
+        FoodTable foodTable = null;
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods._ID + " = '" + foodId + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+
+            } while (cursor.moveToNext());
+        }
+
+        return foodTable;
+    }
 
     /** Borra un row de tabla_comidas **/
     public void deleteFood(FoodTable foodTable) {

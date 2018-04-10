@@ -54,6 +54,10 @@
             android:name=".TableResumeActivity"
             android:label="@string/title_activity_scrolling"
             android:parentActivityName=".TrainingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FoodResumeActivity"
+            android:label="@string/title_activity_food_resume"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
