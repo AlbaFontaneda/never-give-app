@@ -22,7 +22,6 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
     private String filterDay;
     private boolean isType;
     private DataBaseContract db;
-    private RecyclerView recyclerView;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -46,9 +45,6 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_foods, parent, false);
-
-        recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_foods);
-        recyclerView.setHasFixedSize(true);
 
         return new MyViewHolder(itemView);
     }
