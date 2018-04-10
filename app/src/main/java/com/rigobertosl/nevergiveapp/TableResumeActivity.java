@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -43,6 +44,8 @@ public class TableResumeActivity extends TrainingActivity {
         db.open();
         tableID = (long) getIntent().getSerializableExtra("tablaID");
         trainingTable = db.getTrainingTableByID(tableID);
+        CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        //colToolbar.setTitleEnabled(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(trainingTable.getName());

@@ -47,9 +47,6 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_foods, parent, false);
 
-        recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_foods);
-        recyclerView.setHasFixedSize(true);
-
         return new MyViewHolder(itemView);
     }
 

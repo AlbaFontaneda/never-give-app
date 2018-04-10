@@ -94,5 +94,6 @@
     <string name="nseries">Series:</string>
     <string name="nrep">Rep:</string>
     <string name="ndescanso">Descanso:</string>
+    <string name="title_activity_food_resume">FoodResumeActivity</string>
 
 </resources>
