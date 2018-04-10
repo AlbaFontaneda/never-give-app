@@ -50,7 +50,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     android:background="@color/achievementsRow"
-                    android:layout_weight="1">
+                    android:layout_weight="4">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -63,18 +63,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="9">
+                    android:gravity="left"
+                    android:layout_weight="7">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="20dp"
+                        android:text="Días de la semana:" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:textAllCaps="true"
+                        android:text="LU, M, X, Ju, Vu, Sa, Do"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:text="Kcal:" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorAccent"
+                            android:text="XXX"/>
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylcer_foods"
-                    android:layout_height="140dp"
-                    android:layout_width="match_parent"
-                    android:layout_below="@id/item_title"
-                    android:background="@color/cardViewContent"
-                    android:orientation="horizontal" />
 
             </LinearLayout>
         </RelativeLayout>
