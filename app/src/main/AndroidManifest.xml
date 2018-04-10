@@ -58,7 +58,8 @@
         <activity
             android:name=".FoodResumeActivity"
             android:label="@string/title_activity_food_resume"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".FoodsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

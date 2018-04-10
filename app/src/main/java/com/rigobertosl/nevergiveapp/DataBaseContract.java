@@ -397,6 +397,7 @@ public class DataBaseContract {
         }
         return foodByDay;
     }
+
     /** Devuelve una tabla de comidas por ID **/
     public FoodTable getFoodById(long foodId) {
         FoodTable foodTable = null;
