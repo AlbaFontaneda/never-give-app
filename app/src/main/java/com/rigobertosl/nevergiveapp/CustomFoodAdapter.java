@@ -26,11 +26,13 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title;
+        public TextView days;
         public ImageButton itemOptions;
 
         public MyViewHolder (View view){
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
+            days = (TextView) view.findViewById(R.id.item_days);
             itemOptions = (ImageButton) view.findViewById(R.id.item_options);
         }
     }
@@ -53,6 +55,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(foodTables.get(position).getName());
+        holder.days.setText(foodTables.get(position).getDays());
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

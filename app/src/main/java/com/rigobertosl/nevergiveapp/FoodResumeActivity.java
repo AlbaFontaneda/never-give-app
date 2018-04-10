@@ -1,15 +1,16 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 public class FoodResumeActivity extends FoodsActivity {
 
@@ -25,17 +26,51 @@ public class FoodResumeActivity extends FoodsActivity {
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
         db.open();
-        FoodTable foodTable = db.getFoodById(FoodsActivity.foodTableId);
-        setSupportActionBar(toolbar);
+        final FoodTable foodTable = db.getFoodById(FoodsActivity.foodTableId);
+        db.close();
         toolbar.setTitle(foodTable.getName());
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
+                final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+                final AlertDialog dialog = builder.create();
+                dialog.setView(dialogLayout);
+                dialog.show();
+
+                final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+                final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+                volver.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        db = new DataBaseContract(FoodResumeActivity.this);
+                        db.open();
+                        db.deleteFood(foodTable);
+                        db.close();
+                        finish();
+                        startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+                    }
+                });
+                quedarse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                finish();
+                startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+                Toast.makeText(mContext,
+                        "Comida guardada con exito", Toast.LENGTH_LONG).show();
             }
         });
 
