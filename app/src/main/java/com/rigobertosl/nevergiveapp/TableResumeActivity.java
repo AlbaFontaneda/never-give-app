@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class TableResumeActivity extends TrainingActivity {
     private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
-    public int numPaginas;
+    private int numPaginas;
     private TrainingTable trainingTable;
 
     @Override
@@ -62,7 +64,6 @@ public class TableResumeActivity extends TrainingActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,6 @@ public class TableResumeActivity extends TrainingActivity {
             }
         });
     }
-
 
     /** ADAPTADOR DEL VIEWPAGER **/
     public class ExercisePageAdapter extends FragmentPagerAdapter {

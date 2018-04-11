@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,5 +105,39 @@ public class AchievementsActivity extends MainActivity {
             // Show 4 total pages.
             return 4;
         }
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(AchievementsActivity.this, MainActivity.class);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
     }
 }

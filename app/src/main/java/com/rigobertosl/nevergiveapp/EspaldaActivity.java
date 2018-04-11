@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,7 +104,6 @@ public class EspaldaActivity extends TrainingActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = 00;
                 int minute = 00;
@@ -149,4 +149,37 @@ public class EspaldaActivity extends TrainingActivity {
         });
     }
 
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(EspaldaActivity.this, ExercisesTypeActivity.class);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
+    }
 }
