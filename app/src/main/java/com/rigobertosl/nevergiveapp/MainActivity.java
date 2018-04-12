@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private DataBaseContract db;
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DataBaseContract(this);
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
@@ -84,9 +86,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete) {
             Toast.makeText(MainActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
+            db.open();
+            db.resetDataBase();
+            db.close();
+            finish();
+            startActivity(getIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);

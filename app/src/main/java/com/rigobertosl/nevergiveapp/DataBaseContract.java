@@ -143,8 +143,17 @@ public class DataBaseContract {
         mDb.execSQL("DELETE FROM "+ DataBaseEntryNameTrain.TABLE_NAME);
         mDb.execSQL("DELETE FROM "+ DataBaseEntryListTrain.TABLE_NAME);
         mDb.execSQL("DELETE FROM "+ DataBaseEntryTrain.TABLE_NAME);
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryFoods.TABLE_NAME);
     }
-
+    public void resetTrainingTables() throws  SQLException{
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryNameTrain.TABLE_NAME);
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryListTrain.TABLE_NAME);
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryTrain.TABLE_NAME);
+    }
+    public void resetFoods() throws  SQLException{
+        mDb.execSQL("DELETE FROM "+ DataBaseEntryFoods.TABLE_NAME);
+    }
+    
     /** Crear nombre_ejercicos en la base de datos **/
     public TrainingTable createTableNameTraining(String name, String days){
         ContentValues values = new ContentValues();

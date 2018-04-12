@@ -1,8 +1,12 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -12,9 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FoodResumeActivity extends FoodsActivity {
 
@@ -22,6 +30,8 @@ public class FoodResumeActivity extends FoodsActivity {
     private DataBaseContract db;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    ImageView imageView;
+    ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +96,8 @@ public class FoodResumeActivity extends FoodsActivity {
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
 
-        ImageView imageView = (ImageView) findViewById(R.id.image_view);
-        Button imageButton = (Button) findViewById(R.id.image_button);
+        imageView = (ImageView) findViewById(R.id.image_view);
+        imageButton = (ImageButton) findViewById(R.id.image_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +132,37 @@ public class FoodResumeActivity extends FoodsActivity {
         });
         builder.show();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_CAMERA){
+                Bundle bundle = data.getExtras();
+                Bitmap bmp = (Bitmap) bundle.get("data");
+                bmp = Bitmap.createScaledBitmap(bmp, 120, 140, true);
+                imageView.setImageBitmap(bmp);
+                final BitmapDrawable bmpd = (BitmapDrawable) imageView.getDrawable();
+                imageButton.setAdjustViewBounds(true);
+                imageButton.setBackground(bmpd);
+
+            } else if(requestCode == SELECT_FILE) {
+                Uri selectedImageUri = data.getData();
+                Bitmap bmp = null;
+                try {
+                    bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                bmp = Bitmap.createScaledBitmap(bmp, 120, 140, true);
+                imageView.setImageBitmap(bmp);
+                final BitmapDrawable bmpd = (BitmapDrawable) imageView.getDrawable();
+                imageButton.setAdjustViewBounds(true);
+                imageButton.setBackground(bmpd);
+            }
+        }
+    }
+
 
     /** Sobrescripción del botón de atrás del propio móvil
      * Código extraido de: Ekawas.
