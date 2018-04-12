@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -79,5 +80,53 @@ public class FoodResumeActivity extends FoodsActivity {
 
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
+
+        final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+        final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db = new DataBaseContract(FoodResumeActivity.this);
+                db.open();
+                db.deleteFood(foodTable);
+                db.close();
+                finish();
+                startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+            }
+        });
+        quedarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
     }
 }

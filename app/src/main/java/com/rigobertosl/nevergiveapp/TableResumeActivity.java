@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class TableResumeActivity extends TrainingActivity {
     private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
-    public int numPaginas;
+    private int numPaginas;
     private TrainingTable trainingTable;
 
     @Override
@@ -62,7 +64,6 @@ public class TableResumeActivity extends TrainingActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,6 @@ public class TableResumeActivity extends TrainingActivity {
             }
         });
     }
-
 
     /** ADAPTADOR DEL VIEWPAGER **/
     public class ExercisePageAdapter extends FragmentPagerAdapter {
@@ -173,5 +173,46 @@ public class TableResumeActivity extends TrainingActivity {
                 super(itemView);
             }
         }
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     * Enlace: https://stackoverflow.com/questions/3141996/android-how-to-override-the-back-button-so-it-doesnt-finish-my-activity?rq=1
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent;
+        if((boolean) getIntent().getSerializableExtra("fromTraining")){
+            setIntent = new Intent(TableResumeActivity.this, TrainingActivity.class);
+        }else{
+            setIntent = new Intent(TableResumeActivity.this, MainActivity.class);
+
+        }
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
     }
 }
