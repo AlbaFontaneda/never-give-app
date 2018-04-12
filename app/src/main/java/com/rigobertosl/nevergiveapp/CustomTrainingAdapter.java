@@ -82,6 +82,11 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
 
                                 Intent intent = new Intent(mContext, TableResumeActivity.class);
+                                if(mContext.getClass() == MainActivity.class){
+                                    intent.putExtra("fromTraining", false);
+                                }else if (mContext.getClass() == TrainingActivity.class){
+                                    intent.putExtra("fromTraining", true);
+                                }
                                 intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
                                 mContext.startActivity(intent);
 
