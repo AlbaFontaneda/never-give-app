@@ -15,7 +15,7 @@ import static java.lang.Integer.valueOf;
 public class MainFragment extends Fragment{
 
     private DataBaseContract db;
-    private int weekDay;
+    public int weekDay;
     private String filterDay;
     private boolean isType;
 

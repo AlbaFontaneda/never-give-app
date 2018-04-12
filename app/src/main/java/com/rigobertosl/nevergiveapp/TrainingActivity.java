@@ -94,7 +94,7 @@ public class TrainingActivity extends MainActivity {
         if (id == R.id.action_settings) {
             Toast.makeText(TrainingActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
-            db.resetDataBase();
+            db.resetTrainingTables();
             finish();
             startActivity(getIntent());
             return true;

@@ -100,6 +100,12 @@ public class FoodsActivity extends MainActivity {
             Toast.makeText(getApplicationContext(),
                     item.getTitle(), Toast.LENGTH_SHORT).show();
             return true;
+        } if(id == R.id.menu_foods_delete) {
+           db.open();
+           db.resetFoods();
+           db.close();
+           finish();
+           startActivity(getIntent());
         }
         return super.onOptionsItemSelected(item);
     }
