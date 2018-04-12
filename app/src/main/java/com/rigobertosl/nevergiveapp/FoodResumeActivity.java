@@ -1,15 +1,18 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,8 @@ public class FoodResumeActivity extends FoodsActivity {
 
     private Context mContext;
     private DataBaseContract db;
+
+    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,42 @@ public class FoodResumeActivity extends FoodsActivity {
 
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
+
+        ImageView imageView = (ImageView) findViewById(R.id.image_view);
+        Button imageButton = (Button) findViewById(R.id.image_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
+    }
+
+    private void selectImage() {
+        final CharSequence[] items = {"Camara", "Galeria", "Cancelar"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
+        builder.setTitle("Añade una imagen");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(items[i].equals("Camara")){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
+
+                }else if(items[i].equals("Galeria")){
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    startActivityForResult(intent.createChooser(intent, "Seleciona un archivo"), SELECT_FILE);
+
+
+                }else if(items[i].equals("Cancelar")){
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
     /** Sobrescripción del botón de atrás del propio móvil
