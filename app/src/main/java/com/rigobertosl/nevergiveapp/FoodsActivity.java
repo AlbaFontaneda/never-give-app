@@ -130,8 +130,6 @@ public class FoodsActivity extends MainActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
-
-
         foodDaysEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +197,7 @@ public class FoodsActivity extends MainActivity {
                 } else {
                     finish();
                     startActivity(new Intent(FoodsActivity.this, FoodResumeActivity.class));
-                    foodTable = db.createTableFoods(foodName, foodDays, foodType);
+                    foodTable = db.createTableFoods(foodName, foodDays, foodType, null);
                     long id = foodTable.getId();
                     foodTableId = id;
                     db.close();

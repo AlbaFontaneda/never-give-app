@@ -1,14 +1,18 @@
 package com.rigobertosl.nevergiveapp;
 
+import java.sql.Blob;
+
 public class FoodTable {
     private long id;
     private String name, days, type;
+    private byte[] image;
 
-    public FoodTable(long id, String name, String days, String type) {
+    public FoodTable(long id, String name, String days, String type, byte[] image) {
         this.id = id;
         this.name = name;
         this.days = days;
         this.type = type;
+        this.image = image;
     }
 
     public long getId() {
@@ -39,7 +43,15 @@ public class FoodTable {
         return type;
     }
 
-    public void getType(String type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
