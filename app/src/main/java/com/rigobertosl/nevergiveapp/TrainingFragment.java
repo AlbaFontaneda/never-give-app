@@ -33,8 +33,9 @@ public class TrainingFragment extends Fragment {
 
         db = new DataBaseContract(getActivity());
         db.open();
-
         ArrayList<TrainingTable> trainingTable = db.getAllTables();
+        db.close();
+
         RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable, null);
         recyclerView.setAdapter(adapter);
 

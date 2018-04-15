@@ -33,6 +33,8 @@ public class ExerciseResumeFragment extends Fragment {
 
     private MyCountDownTimer mycounter;
 
+    TrainingTable trainingTable;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,9 +42,14 @@ public class ExerciseResumeFragment extends Fragment {
         db.open();
         tableID = (long) getActivity().getIntent().getSerializableExtra("tablaID");
         pagina = valueOf(getArguments().getInt("page_position"));
-        TrainingTable trainingTable = db.getTrainingTableByID(tableID);
+        if((boolean) getActivity().getIntent().getSerializableExtra("isDefault")) {
+            trainingTable = db.getDefaultTableByID(tableID);
+            ejercicios = db.getAllDefaultExercisesFromTable(trainingTable);
+        } else {
+            trainingTable = db.getTrainingTableByID(tableID);
+            ejercicios = db.getAllExercisesFromTable(trainingTable);
+        }
 
-        ejercicios = db.getAllExercisesFromTable(trainingTable);
         Exercise ejercicio = ejercicios.get(pagina);
 
         View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);
