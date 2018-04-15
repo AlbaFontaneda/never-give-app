@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,8 @@ public class TableResumeActivity extends TrainingActivity {
         tableID = (long) getIntent().getSerializableExtra("tablaID");
         trainingTable = db.getTrainingTableByID(tableID);
         CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        TextView toolbar_days = (TextView)findViewById(R.id.toolbar_days);
+        toolbar_days.setText(trainingTable.getDays());
         //colToolbar.setTitleEnabled(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
