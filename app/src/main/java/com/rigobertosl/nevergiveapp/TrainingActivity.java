@@ -79,6 +79,28 @@ public class TrainingActivity extends MainActivity {
             }
         });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
+        db.open();
+        if(db.checkifTableisEmpty()) {
+            String[] tableNames = getResources().getStringArray(R.array.defaultTables);
+            String[] pechoEjercicios = getResources().getStringArray(R.array.ejerciciosPecho);
+            String[] espaldaEjercicios = getResources().getStringArray(R.array.ejerciciosEspalda);
+            String[] ejerciciosValues = getResources().getStringArray(R.array.ejerciciosValues);
+            for(String name: tableNames) {
+                TrainingTable defaultTable = db.createDefaultTable(name);
+                if(defaultTable.getId() == 1) {
+                    for(String ejercicio: pechoEjercicios) {
+                        long ejerciciosPechoId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], null);
+                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosPechoId);
+                    }
+                } else if(defaultTable.getId() == 2) {
+                    for (String ejercicio : espaldaEjercicios) {
+                        long ejerciciosEspaldaId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], null);
+                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosEspaldaId);
+                    }
+                }
+            }
+        }
+        db.close();
     }
 
     @Override

@@ -1,15 +1,12 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -28,7 +25,7 @@ public class TrainingFragmentDefault extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_training_default_tab, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -37,9 +34,9 @@ public class TrainingFragmentDefault extends Fragment {
         db = new DataBaseContract(getActivity());
         db.open();
 
-        //ArrayList<TrainingTable> trainingTable = db.getAllDefaultTables();
-        //RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable, null);
-        //recyclerView.setAdapter(adapter);
+        ArrayList<TrainingTable> trainingTable = db.getAllDefaultTables();
+        RecyclerView.Adapter adapter = new CustomTrainingDefaultTablesAdapter(getContext(), trainingTable);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }

@@ -21,7 +21,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -133,6 +133,22 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseDefaultExercises.TABLE_NAME;
     }
 
+    public static class DataBaseDefaultLinkTable implements BaseColumns {
+        public static final String TABLE_NAME = "link_default";
+        public static final String COLUMN_NAME_ID = "id_name";
+        public static final String COLUMN_LIST_ID = "id_list";
+
+
+        private static final String SQL_CREATE_ENTRIES_DEFAULT_LINK =
+                "CREATE TABLE " + DataBaseDefaultLinkTable.TABLE_NAME + " (" +
+                        DataBaseDefaultLinkTable._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseDefaultLinkTable.COLUMN_NAME_ID + LONG_TYPE + COMMA_SEP +
+                        DataBaseDefaultLinkTable.COLUMN_LIST_ID + LONG_TYPE + " )";
+
+        private static final String SQL_DELETE_ENTRIES_DEFAULT_LINK =
+                "DROP TABLE IF EXISTS " + DataBaseDefaultLinkTable.TABLE_NAME;
+    }
+
 
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
@@ -153,6 +169,7 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryFoods.SQL_CREATE_ENTRIES_FOODS);
             db.execSQL(DataBaseDefaultTable.SQL_CREATE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_CREATE_DEFAULT_EXERCISES);
+            db.execSQL(DataBaseDefaultLinkTable.SQL_CREATE_ENTRIES_DEFAULT_LINK);
         }
 
         public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
@@ -162,6 +179,7 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryFoods.SQL_DELETE_ENTRIES_FOODS);
             db.execSQL(DataBaseDefaultTable.SQL_DELETE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_DELETE_DEFAULT_EXERCISES);
+            db.execSQL(DataBaseDefaultLinkTable.SQL_DELETE_ENTRIES_DEFAULT_LINK);
             onCreate(db);
         }
 
@@ -228,6 +246,7 @@ public class DataBaseContract {
         return table;
     }
 
+    /** Devuelve la tabla por id **/
     public TrainingTable getTrainingTableByID(long ID){
         TrainingTable trainingTable = null;
 
@@ -477,10 +496,13 @@ public class DataBaseContract {
                 new String[] { String.valueOf(tableId) });
     }
 
+
+    /********************* TABLAS DE ENTRENAMIENTO POR DEFECTO *****************************/
+
     /** Metemos los datos a las tablas por defecto **/
-    public TrainingTable createDefaultTable(){
+    public TrainingTable createDefaultTable(String name){
         ContentValues values = new ContentValues();
-        values.put(DataBaseDefaultTable.COLUMN_NAME, "Entrenamiendo de pecho");
+        values.put(DataBaseDefaultTable.COLUMN_NAME, name);
         //values.put(DataBaseEntryNameTrain.COLUMN_DAYS, days);
         mDb.insert(DataBaseDefaultTable.TABLE_NAME, null, values);
 
@@ -489,10 +511,10 @@ public class DataBaseContract {
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         cursor.moveToLast();
 
-        return new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),"Entrenamiendo de pecho", null);
+        return new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),name, null);
     }
 
-    /** Devuelve un ArrayList con todas las tablas (nombre_ejercicios) que existen en la base de datos **/
+    /** Devuelve un arraylist con todas las tablas creadas por defecto **/
     public ArrayList<TrainingTable> getAllDefaultTables() {
         ArrayList<TrainingTable> table = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME;
@@ -507,6 +529,80 @@ public class DataBaseContract {
             } while (cursor.moveToNext());
         }
         return table;
+    }
+
+    /** Devuelve la tabla por defecto por id **/
+    public TrainingTable getDefaultTableByID(long ID){
+        TrainingTable trainingTable = null;
+
+        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME + " WHERE " + DataBaseDefaultTable._ID + " = '" + ID + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),
+                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_DAYS)));
+
+            } while (cursor.moveToNext());
+        }
+
+        return trainingTable;
+    }
+
+    /** Crear la lista de ejercicios por defecto en la base de datos **/
+    public long createTableListDefaultTraining(String name,  String series, String repeticiones, String descanso){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseDefaultExercises.COLUMN_NAME, name);
+        values.put(DataBaseDefaultExercises.COLUMN_SERIES, series);
+        values.put(DataBaseDefaultExercises.COLUMN_REPETICIONES, repeticiones);
+        values.put(DataBaseDefaultExercises.COLUMN_DESCANSO, descanso);
+
+        return mDb.insert(DataBaseDefaultExercises.TABLE_NAME, null, values);
+    }
+
+    /** Devuelve TODOS los ejercicios de la tabla cuyo nombre es "nombre" en un ArrayList<Exercise> **/
+    public ArrayList<Exercise> getAllDefaultExercisesFromTable(TrainingTable mTrainingTable) {
+        ArrayList<Exercise> exercises = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME + " tn, " + DataBaseDefaultExercises.TABLE_NAME
+                + " tl, " + DataBaseDefaultLinkTable.TABLE_NAME + " te WHERE tn." + DataBaseDefaultTable.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
+                " AND tn." + DataBaseDefaultTable._ID + " = te." + DataBaseDefaultLinkTable.COLUMN_NAME_ID +
+                " AND tl." + DataBaseDefaultExercises._ID + " = te." + DataBaseDefaultLinkTable.COLUMN_LIST_ID;
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_SERIES)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_DESCANSO)));
+                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultLinkTable.COLUMN_LIST_ID))));
+                exercises.add(newExercise);
+            } while (cursor.moveToNext());
+        }
+        return exercises;
+    }
+
+    /** Crear tabla_link (asignación de varios ejercicios por defecto a una tabla de ejercicios) **/
+    public long createDefaultLinkTraining(long idName,  long idList){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseDefaultLinkTable.COLUMN_NAME_ID, idName);
+        values.put(DataBaseDefaultLinkTable.COLUMN_LIST_ID, idList);
+
+        return mDb.insert(DataBaseDefaultLinkTable.TABLE_NAME, null, values);
+    }
+
+    /** Comprueba si existe la tabla de ejercicios por defecto **/
+    public boolean checkifTableisEmpty() {
+        boolean isEmpty = true;
+        String count = "SELECT count(*) FROM " + DataBaseDefaultTable.TABLE_NAME;
+        mDb = mDbHelper.getWritableDatabase();
+        Cursor mcursor = mDb.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount > 0) isEmpty = false;
+        return isEmpty;
     }
 
 }

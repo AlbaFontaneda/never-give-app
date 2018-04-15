@@ -96,4 +96,31 @@
     <string name="ndescanso">Descanso:</string>
     <string name="title_activity_food_resume">FoodResumeActivity</string>
 
+    //Tablas de entrenamiento
+    <string-array name="defaultTables">
+        <item>Entrenamiento de pecho</item>
+        <item>Entrenamiento de espalda</item>
+        <item>Entrenamiento de brazo</item>
+        <item>Entrenamiento de perina</item>
+    </string-array>
+
+    //Ejercicios de pecho
+    <string-array name="ejerciciosPecho">
+        <item>Press de banca al cuello</item>
+        <item>Pullover en banco declinado</item>
+    </string-array>
+
+    //Ejercicios valores (Series, rep, descanso)
+    <string-array name="ejerciciosValues">
+        <item>3</item>
+        <item>12</item>
+        <!--<item>Aqui va el descanso</item>-->
+    </string-array>
+
+    //Ejercicios de espalda
+    <string-array name="ejerciciosEspalda">
+        <item>Dominadas</item>
+    </string-array>
+    <string name="title_activity_default_resume">DefaultResume</string>
+
 </resources>
