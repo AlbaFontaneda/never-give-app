@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
     private static final String COMMA_SEP = ",";
 
-    /*Establecemos contenido de las tablas*/
+    /********************* COLUMNAS TABLAS DE ENTRENAMIENTO CUSTOMIZADAS *****************************/
     public static class DataBaseEntryNameTrain implements BaseColumns {
         public static final String TABLE_NAME = "nombre_ejercicios";
         public static final String COLUMN_NAME = "name";
@@ -79,11 +80,13 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseEntryTrain.TABLE_NAME;
     }
 
+    /********************* COLUMNAS PARA TABLAS DE COMIDAS *****************************/
     public static class DataBaseEntryFoods implements BaseColumns {
         public static final String TABLE_NAME = "tabla_comidas";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DAYS = "days";
         public static final String COLUMN_TYPE_FOOD = "type";
+        public static final String COLUMN_IMAGE = "image";
 
 
         private static final String SQL_CREATE_ENTRIES_FOODS =
@@ -91,13 +94,14 @@ public class DataBaseContract {
                         DataBaseContract.DataBaseEntryFoods._ID + " INTEGER PRIMARY KEY," +
                         DataBaseContract.DataBaseEntryFoods.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseEntryFoods.COLUMN_TYPE_FOOD + TEXT_TYPE + " )";
+                        DataBaseContract.DataBaseEntryFoods.COLUMN_TYPE_FOOD + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryFoods.COLUMN_IMAGE + " BLOB" + " )";
 
         private static final String SQL_DELETE_ENTRIES_FOODS =
                 "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseEntryFoods.TABLE_NAME;
     }
 
-    /** Datos para las tablas por defecto **/
+    /********************* COLUMNAS PARA TABLAS DE ENTRENAMIENTO POR DEFECTO *****************************/
     public static class DataBaseDefaultTable implements BaseColumns {
         public static final String TABLE_NAME = "tabla_default";
         public static final String COLUMN_NAME = "name";
@@ -213,6 +217,9 @@ public class DataBaseContract {
     public void resetFoods() throws  SQLException{
         mDb.execSQL("DELETE FROM "+ DataBaseEntryFoods.TABLE_NAME);
     }
+
+
+    /********************* TABLAS DE ENTRENAMIENTO CUSTOMIZADAS *****************************/
 
     /** Crear nombre_ejercicos en la base de datos **/
     public TrainingTable createTableNameTraining(String name, String days){
@@ -396,12 +403,16 @@ public class DataBaseContract {
         return tableByDay;
     }
 
+
+    /************************************** TABLAS COMIDAS  *************************************/
+
     /** Crear tabla_comidas en la base de datos **/
-    public FoodTable createTableFoods(String name, String days, String type){
+    public FoodTable createTableFoods(String name, String days, String type, byte[] image){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryFoods.COLUMN_NAME, name);
         values.put(DataBaseEntryFoods.COLUMN_DAYS, days);
         values.put(DataBaseEntryFoods.COLUMN_TYPE_FOOD, type);
+        values.put(DataBaseEntryFoods.COLUMN_IMAGE, image);
         mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
 
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
@@ -409,7 +420,13 @@ public class DataBaseContract {
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         cursor.moveToLast();
 
-        return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type);
+        return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type, image);
+    }
+
+    public void addImageFood(FoodTable foodTable, byte[] image) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryFoods.COLUMN_IMAGE, image);
+        mDb.update(DataBaseEntryFoods.TABLE_NAME, values, DataBaseEntryFoods._ID +"="+ foodTable.getId(), null);
     }
 
     /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
@@ -423,14 +440,14 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
                 table.add(foodTable);
             } while (cursor.moveToNext());
         }
         return table;
     }
 
-    /** Filtrado por dia de la semana en tablas de comidas**/
+    /** Filtrado por tipo de comidas**/
     public ArrayList<FoodTable> getAllFoodsFilterByType(String filterType) {
         ArrayList<FoodTable> foodByType = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME + " WHERE " + DataBaseEntryFoods.COLUMN_TYPE_FOOD + " LIKE '%"+filterType+"%'";
@@ -442,7 +459,7 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
                 foodByType.add(foodTable);
             } while (cursor.moveToNext());
         }
@@ -461,7 +478,7 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
                 foodByDay.add(foodTable);
             } while (cursor.moveToNext());
         }
@@ -480,7 +497,7 @@ public class DataBaseContract {
             do{
                 foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
 
             } while (cursor.moveToNext());
         }

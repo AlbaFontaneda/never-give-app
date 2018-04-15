@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -86,7 +87,7 @@ public class FoodResumeActivity extends FoodsActivity {
                 finish();
                 startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
                 Toast.makeText(mContext,
-                        "Comida guardada con exito", Toast.LENGTH_LONG).show();
+                        foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -104,6 +105,53 @@ public class FoodResumeActivity extends FoodsActivity {
                 selectImage();
             }
         });
+
+        if(foodTable.getType().equals("Desayuno")) {
+            Bitmap bitmap = ((BitmapDrawable)getDrawable(R.drawable.desayuno_default)).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            db.open();
+            db.addImageFood(foodTable, bitmapdata);
+            db.close();
+            imageButton.setBackground(getDrawable(R.drawable.desayuno_default));
+        } else if(foodTable.getType().equals("Almuerzo")) {
+            Bitmap bitmap = ((BitmapDrawable)getDrawable(R.drawable.almuerzo_default)).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            db.open();
+            db.addImageFood(foodTable, bitmapdata);
+            db.close();
+            imageButton.setBackground(getDrawable(R.drawable.almuerzo_default));
+        } else if(foodTable.getType().equals("Comida")) {
+            Bitmap bitmap = ((BitmapDrawable)getDrawable(R.drawable.comida_default)).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            db.open();
+            db.addImageFood(foodTable, bitmapdata);
+            db.close();
+            imageButton.setBackground(getDrawable(R.drawable.comida_default));
+        } else if(foodTable.getType().equals("Merienda")) {
+            Bitmap bitmap = ((BitmapDrawable)getDrawable(R.drawable.merienda_default)).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            db.open();
+            db.addImageFood(foodTable, bitmapdata);
+            db.close();
+            imageButton.setBackground(getDrawable(R.drawable.merienda_default));
+        } else if(foodTable.getType().equals("Cena")) {
+            Bitmap bitmap = ((BitmapDrawable)getDrawable(R.drawable.cena_default)).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            db.open();
+            db.addImageFood(foodTable, bitmapdata);
+            db.close();
+            imageButton.setBackground(getDrawable(R.drawable.cena_default));
+        }
     }
 
     private void selectImage() {
@@ -146,6 +194,13 @@ public class FoodResumeActivity extends FoodsActivity {
                 imageButton.setAdjustViewBounds(true);
                 imageButton.setBackground(bmpd);
 
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitmapdata = stream.toByteArray();
+                db.open();
+                db.addImageFood(foodTable, bitmapdata);
+                db.close();
+
             } else if(requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
                 Bitmap bmp = null;
@@ -159,6 +214,13 @@ public class FoodResumeActivity extends FoodsActivity {
                 final BitmapDrawable bmpd = (BitmapDrawable) imageView.getDrawable();
                 imageButton.setAdjustViewBounds(true);
                 imageButton.setBackground(bmpd);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitmapdata = stream.toByteArray();
+                db.open();
+                db.addImageFood(foodTable, bitmapdata);
+                db.close();
             }
         }
     }

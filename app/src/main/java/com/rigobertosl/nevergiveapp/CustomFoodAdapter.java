@@ -2,12 +2,17 @@ package com.rigobertosl.nevergiveapp;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +32,14 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
         public TextView title;
         public TextView days;
+        public ImageView image;
         public ImageButton itemOptions;
 
         public MyViewHolder (View view){
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
             days = (TextView) view.findViewById(R.id.item_days);
+            image = (ImageView) view.findViewById(R.id.item_image);
             itemOptions = (ImageButton) view.findViewById(R.id.item_options);
         }
     }
@@ -56,6 +63,11 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
         holder.title.setText(foodTables.get(position).getName());
         holder.days.setText(foodTables.get(position).getDays());
+        byte[] b = foodTables.get(position).getImage();
+        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);
+        holder.image.setImageDrawable(d);
+
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
