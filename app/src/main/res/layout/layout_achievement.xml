@@ -21,10 +21,9 @@
         card_view:cardCornerRadius="6dp"
         android:layout_centerInParent="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="@color/ActionBarEnd" >
 
             <TextView
@@ -35,16 +34,42 @@
                 android:gravity="left"
                 android:textSize="20dp"
                 android:textColor="@color/titlesColor"
-                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="40dp"
+                android:textAllCaps="true"
                 android:textStyle="bold" />
 
+            <!-- Cambiar el estilo por otro -->
+            <ImageButton
+                android:id="@+id/item_type"
+                style="@style/FoodsOptionsButton"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"/>
+
             <TextView
-                android:id="@+id/item_content"
+                android:id="@+id/item_points"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_below="@id/item_title"
-                android:textSize="15dp"
-                android:background="@color/cardViewContent"/>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:textSize="17dp"
+                android:text="X"
+                android:textStyle="bold"
+                android:textColor="#FFF"/>
+
+                <TextView
+                    android:id="@+id/item_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/item_title"
+                    android:padding="10dp"
+                    android:textSize="17dp"
+                    android:background="@color/cardViewContent"/>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
