@@ -1,42 +1,55 @@
-<android.support.design.widget.CoordinatorLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rigobertosl.nevergiveapp.AchievementsActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <ScrollView
-        android:id="@+id/init_scroll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="5dp"
         android:orientation="vertical">
 
-        <TableLayout
-            android:id="@+id/foods_table"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="*">
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/layouts_resume_table">
 
-            <TableRow
-                android:id="@+id/desayuno_row"
-                style="@style/AchievementsRow">
+            <ImageView
+                android:id="@+id/achievements_cup"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/achievements_logo"
+                android:layout_weight="1"/>
 
-                <ImageView
-                    android:id="@+id/achievements_cup"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/achievements_logo" />
+            <TextView
+                style="@style/ElementRows"
+                android:text="Puntos de logro: "
+                android:layout_weight="1"/>
 
-                <TextView
-                    style="@style/ElementRows"
-                    android:text="Puntos de logro: " />
+            <TextView
+                android:id="@+id/achievements_points"
+                style="@style/ElementRows"
+                android:text="0"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-                <TextView
-                    style="@style/ElementRows"
-                    android:text="0" />
-            </TableRow>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/layouts_resume_table">
+
             <TableRow
                 android:id="@+id/summary_dates"
                 style="@style/AchievementsRow"
@@ -44,60 +57,79 @@
 
                 <TextView
                     android:id="@+id/num_exercises"
+                    android:layout_marginRight="25dp"
                     style="@style/summary"
                     android:text="0" />
 
                 <TextView
                     android:id="@+id/num_kcal"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp"
                     style="@style/summary"
                     android:text="0" />
 
                 <TextView
                     android:id="@+id/duration"
                     style="@style/summary"
+                    android:layout_marginLeft="25dp"
                     android:text="0" />
             </TableRow>
             <TableRow
-                android:id="@+id/summary_names"
                 style="@style/AchievementsRow"
                 android:background="@drawable/achievements_border_bottom">
 
                 <TextView
                     style="@style/ElementRows"
+                    android:layout_marginRight="25dp"
                     android:text="@string/exercise" />
 
                 <TextView
                     style="@style/ElementRows"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp"
                     android:text="@string/kcal" />
 
                 <TextView
                     style="@style/ElementRows"
+                    android:layout_marginLeft="25dp"
                     android:text="@string/duration" />
             </TableRow>
+        </TableLayout>
 
-            <TableRow
-                android:id="@+id/record"
-                style="@style/AchievementsRow">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:background="@drawable/layouts_resume_table">
+            <TextView
+                android:id="@+id/title_history"
+                style="@style/ElementRows"
+                android:text="@string/history" />
 
-                <TextView
-                    android:id="@+id/title_history"
-                    style="@style/ElementRows"
-                    android:text="@string/history" />
-            </TableRow>
             <LinearLayout
                 android:id="@+id/History_content1"
-                style="@style/LastAchievementsContent">
+                android:layout_marginTop="5dp"
+                style="@style/LastAchievementsContent"
+                android:background="@drawable/layouts_resume_table">
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/History_content2"
-                style="@style/LastAchievementsContent">
+                android:layout_marginTop="5dp"
+                style="@style/LastAchievementsContent"
+                android:background="@drawable/layouts_resume_table">
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/History_content3"
-                style="@style/LastAchievementsContent">
+                android:layout_marginTop="5dp"
+                style="@style/LastAchievementsContent"
+                android:background="@drawable/layouts_resume_table">
             </LinearLayout>
+        </LinearLayout>
 
-        </TableLayout>
-    </ScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

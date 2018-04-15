@@ -34,11 +34,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AchievementsActivity"
-            android:label="@string/title_activity_achievements"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".FoodsActivity"
             android:label="@string/title_activity_foods"
             android:parentActivityName=".MainActivity"
@@ -78,6 +73,10 @@
             android:name=".DefaultResume"
             android:label="@string/title_activity_default_resume"
             android:parentActivityName=".TrainingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AchievementsActivity"
+            android:label="@string/title_activity_achievements2"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
