@@ -37,7 +37,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="50dp"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
 
@@ -45,8 +45,9 @@
             <ImageButton
                 android:id="@+id/item_type"
                 style="@style/FoodsOptionsButton"
-                android:layout_marginRight="15dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_marginRight="25dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_logros"/>
 
             <TextView
                 android:id="@+id/item_points"
@@ -56,7 +57,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginRight="10dp"
                 android:textSize="17dp"
                 android:text="X"
                 android:textStyle="bold"

@@ -11,6 +11,7 @@ import android.provider.BaseColumns;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Long.valueOf;
 
@@ -622,4 +623,40 @@ public class DataBaseContract {
         return isEmpty;
     }
 
+
+    /********************* PANTALLA DE EVENTOS *****************************/
+
+    /** Devuelve todos los ejercicios de todas las tablas como un ArrayList<Exercise> **/
+    public ArrayList<Exercise> getAllExercisesOfDataBase() {
+        ArrayList<Exercise> exercises = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DataBaseEntryListTrain.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain._ID))));
+                exercises.add(newExercise);
+            } while (cursor.moveToNext());
+        }
+        return exercises;
+    }
+
+    /** Develve el tiempo o la duración de todas las tablas como un string del formato mm:ss **/
+    public String getTimeOfTables(){
+        long minutes = 0;
+        long seconds = getAllExercisesOfDataBase().size()*30; //Suponemos que la duración de la realización de cada ejercicio es de 30 segundos
+        ArrayList<Exercise> allExercises = getAllExercisesOfDataBase();
+        for(Exercise exercise : allExercises){
+            String exercise_time = exercise.getDescanso();
+            String[] min_sec = exercise_time.split(":");
+            minutes += valueOf(min_sec[0])*60*valueOf(exercise.getSeries());
+            seconds += valueOf(min_sec[1])*valueOf(exercise.getSeries());
+        }
+        return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+    }
 }

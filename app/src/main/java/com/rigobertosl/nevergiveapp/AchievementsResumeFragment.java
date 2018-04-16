@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import static java.lang.Integer.valueOf;
 
 public class AchievementsResumeFragment extends Fragment {
@@ -18,7 +20,7 @@ public class AchievementsResumeFragment extends Fragment {
                              Bundle savedInstanceState) {
         weekDay = valueOf(getArguments().getInt("page_position"));
         db = new DataBaseContract(getActivity());
-        db.open();
+
 
         View rootView = inflater.inflate(R.layout.fragment_achievements_points, container, false);
 
@@ -26,6 +28,11 @@ public class AchievementsResumeFragment extends Fragment {
         TextView numExercises = (TextView)rootView.findViewById(R.id.num_exercises);
         TextView numKcal = (TextView)rootView.findViewById(R.id.num_kcal);
         TextView numDuration = (TextView)rootView.findViewById(R.id.duration);
+
+        db.open();
+        numExercises.setText(String.valueOf(db.getAllExercisesOfDataBase().size()));
+        //numDuration.setText(db.getTimeOfTables());
+        db.close();
 
         return rootView;
     }
