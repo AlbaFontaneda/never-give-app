@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -101,18 +102,7 @@ public class ChestActivity extends TrainingActivity {
 
             @Override
             public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = 00;
-                int minute = 00;
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(ChestActivity.this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        descansoEditText.setText( selectedHour + "' " + selectedMinute +"''");
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
+                openDatePicker(v, descansoEditText);
             }
         });
 
@@ -139,6 +129,63 @@ public class ChestActivity extends TrainingActivity {
             }
         });
 
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
+
+    public void openDatePicker(View view, final EditText descansoEditText){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_timepicker, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
+
+        final int[] selectedMinute = {0};
+        final int[] selectedSeconds = {0};
+
+        NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
+        NumberPicker segundosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.segundos_picker);
+
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+
+        minutosPikcer.setValue(0);
+        minutosPikcer.setMinValue(0);
+        minutosPikcer.setMaxValue(60);
+        minutosPikcer.setWrapSelectorWheel(true);
+
+        minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                 selectedMinute[0] = newVal;
+            }
+        });
+
+        segundosPikcer.setValue(00);
+        segundosPikcer.setMinValue(0);
+        segundosPikcer.setMaxValue(60);
+        segundosPikcer.setWrapSelectorWheel(true);
+
+        segundosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                selectedSeconds[0] = newVal;
+            }
+        });
+
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                descansoEditText.setText( selectedMinute[0] + ":" + selectedSeconds[0] );
+                dialog.cancel();
+            }
+        });
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
