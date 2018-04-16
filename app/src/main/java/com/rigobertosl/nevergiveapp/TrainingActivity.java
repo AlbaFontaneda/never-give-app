@@ -79,6 +79,7 @@ public class TrainingActivity extends MainActivity {
             }
         });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
+
         db.open();
         if(db.checkifTableisEmpty()) {
             String[] tableNames = getResources().getStringArray(R.array.defaultTables);
