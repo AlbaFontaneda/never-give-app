@@ -29,6 +29,7 @@ public class FoodResumeActivity extends FoodsActivity {
 
     private Context mContext;
     private DataBaseContract db;
+    private long foodId;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView imageView;
@@ -43,7 +44,8 @@ public class FoodResumeActivity extends FoodsActivity {
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
         db.open();
-        final FoodTable foodTable = db.getFoodById(FoodsActivity.foodTableId);
+        foodId = (long) getIntent().getSerializableExtra("foodId");
+        final FoodTable foodTable = db.getFoodById(foodId);
         db.close();
         toolbar.setTitle(foodTable.getName());
         setSupportActionBar(toolbar);
@@ -51,32 +53,7 @@ public class FoodResumeActivity extends FoodsActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                final AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
-                final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
-                final AlertDialog dialog = builder.create();
-                dialog.setView(dialogLayout);
-                dialog.show();
-
-                final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
-                final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
-
-                volver.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        db = new DataBaseContract(FoodResumeActivity.this);
-                        db.open();
-                        db.deleteFood(foodTable);
-                        db.close();
-                        finish();
-                        startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
-                    }
-                });
-                quedarse.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                    }
-                });
+               onBackPressed();
             }
         });
 
@@ -246,31 +223,44 @@ public class FoodResumeActivity extends FoodsActivity {
 
     @Override
     public void onBackPressed() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
-        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
-        final AlertDialog dialog = builder.create();
-        dialog.setView(dialogLayout);
-        dialog.show();
-
-        final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
-        final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
-
-        volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db = new DataBaseContract(FoodResumeActivity.this);
-                db.open();
-                db.deleteFood(foodTable);
-                db.close();
-                finish();
+        if((boolean) getIntent().getSerializableExtra("fromResume")){
+            finish();
+            if((boolean) getIntent().getSerializableExtra("fromFoods")){
                 startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+            }else{
+                startActivity(new Intent(FoodResumeActivity.this, MainActivity.class));
             }
-        });
-        quedarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
+        }else{
+            final AlertDialog.Builder builder = new AlertDialog.Builder(FoodResumeActivity.this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db = new DataBaseContract(FoodResumeActivity.this);
+                    db.open();
+                    db.deleteFood(foodTable);
+                    db.close();
+                    finish();
+                    startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+                }
+            });
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+        }
+        //setIntent.addCategory(Intent.CATEGORY_HOME);
+        //setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+
     }
 }

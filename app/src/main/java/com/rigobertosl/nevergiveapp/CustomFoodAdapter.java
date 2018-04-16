@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -92,6 +93,15 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                             case R.id.menu_foods_elements_edit:
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(mContext, FoodResumeActivity.class);
+                                if(mContext.getClass() == MainActivity.class){
+                                    intent.putExtra("fromFoods", false);
+                                }else if (mContext.getClass() == FoodsActivity.class){
+                                    intent.putExtra("fromFoods", true);
+                                }
+                                intent.putExtra("foodId", foodTable.get(holder.getAdapterPosition()).getId());
+                                intent.putExtra("fromResume", true);
+                                mContext.startActivity(intent);
                                 break;
                             case R.id.menu_foods_elements_delete:
                                 db.open();
