@@ -76,7 +76,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AchievementsActivity"
-            android:label="@string/title_activity_achievements2"
+            android:label="@string/title_activity_achievements"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
