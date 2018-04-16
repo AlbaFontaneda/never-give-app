@@ -122,5 +122,9 @@
         <item>Dominadas</item>
     </string-array>
     <string name="title_activity_default_resume">DefaultResume</string>
+    <string name="title_activity_achievements2">Achievements2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
 
 </resources>

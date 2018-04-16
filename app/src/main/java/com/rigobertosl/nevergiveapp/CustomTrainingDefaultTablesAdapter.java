@@ -57,6 +57,7 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.title.setText(trainingTables.get(position).getName());
+        holder.title.setSingleLine(false);
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
