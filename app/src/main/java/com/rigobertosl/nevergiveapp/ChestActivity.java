@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
+
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Calendar;
 
@@ -166,7 +168,7 @@ public class ChestActivity extends TrainingActivity {
             }
         });
 
-        segundosPikcer.setValue(00);
+        segundosPikcer.setValue(0);
         segundosPikcer.setMinValue(0);
         segundosPikcer.setMaxValue(60);
         segundosPikcer.setWrapSelectorWheel(true);
