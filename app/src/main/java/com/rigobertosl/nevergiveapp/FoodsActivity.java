@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -35,6 +37,7 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
 
@@ -49,6 +52,8 @@ public class FoodsActivity extends MainActivity {
     public static FoodTable foodTable;
     public String weekDays = "";
     public static long foodTableId;
+
+    EditText foodDaysEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +127,7 @@ public class FoodsActivity extends MainActivity {
         final Button cancelar = (Button) dialogLayout.findViewById(R.id.button_cancel);
 
         final EditText foodNameEditText = (EditText)dialogLayout.findViewById(R.id.name_food);
-        final EditText foodDaysEditText = (EditText)dialogLayout.findViewById(R.id.food_days);
+        foodDaysEditText = (EditText)dialogLayout.findViewById(R.id.food_days);
         final Spinner dropdown = dialogLayout.findViewById(R.id.food_spinner);
 
         String[] items = new String[]{"Selecciona una comida...", "Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
@@ -133,52 +138,7 @@ public class FoodsActivity extends MainActivity {
         foodDaysEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(RecurrencePickerDialogFragment.BUNDLE_HIDE_SWITCH_BUTTON, true);
-                RecurrencePickerDialogFragment rpd = new RecurrencePickerDialogFragment();
-                rpd.setArguments(bundle);
-                rpd.setOnRecurrenceSetListener(new RecurrencePickerDialogFragment.OnRecurrenceSetListener(){
-                    @Override
-                    public void onRecurrenceSet(String rrule) {
-                        if (rrule != null && rrule.length() > 0) {
-                            weekDays = rrule.substring(rrule.lastIndexOf("=") + 1);
-                            char[] myDaysChars = weekDays.toCharArray();
-                            ArrayList<String> myDays = new ArrayList<>();
-                            for(int i = 0; i < myDaysChars.length; i++) {
-                                if(myDaysChars[i] == 'S' && myDaysChars[i+1] == 'U'){
-                                    myDays.add("DO");
-                                }
-                                else if(myDaysChars[i] == 'M'){
-                                    myDays.add("LU");
-                                }
-                                else if(myDaysChars[i] == 'T' && myDaysChars[i+1] == 'U'){
-                                    myDays.add("M");
-                                }
-                                else if(myDaysChars[i] == 'W'){
-                                    myDays.add("X");
-                                }
-                                else if(myDaysChars[i] == 'T' && myDaysChars[i+1] == 'H'){
-                                    myDays.add("JU");
-                                }
-                                else if(myDaysChars[i] == 'F'){
-                                    myDays.add("VI");
-                                }
-                                else if(myDaysChars[i] == 'S' && myDaysChars[i+1] == 'A'){
-                                    myDays.add("SA");
-                                }
-                            }
-                            if(myDays.get(0).equals("DO")) {
-                                myDays.remove(0);
-                                myDays.add("DO");
-                            }
-
-                            weekDays = myDays.toString();
-                            foodDaysEditText.setText(weekDays.substring(1, weekDays.length()-1));
-                        }
-                    }
-                });
-                rpd.show(fm, "recurrencePickerDialogFragment");
+                selectDays();
             }
         });
 
@@ -218,6 +178,176 @@ public class FoodsActivity extends MainActivity {
         });
     }
 
+    public void selectDays() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodsActivity.this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_weekpicker, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
+
+        final ToggleButton lunes = (ToggleButton)dialogLayout.findViewById(R.id.button_lunes);
+        final ToggleButton martes = (ToggleButton)dialogLayout.findViewById(R.id.button_martes);
+        final ToggleButton miercoles = (ToggleButton)dialogLayout.findViewById(R.id.button_miercoles);
+        final ToggleButton jueves = (ToggleButton)dialogLayout.findViewById(R.id.button_jueves);
+        final ToggleButton viernes = (ToggleButton)dialogLayout.findViewById(R.id.button_viernes);
+        final ToggleButton sabado = (ToggleButton)dialogLayout.findViewById(R.id.button_sabado);
+        final ToggleButton domingo = (ToggleButton)dialogLayout.findViewById(R.id.button_domingo);
+
+        final CheckBox checkAll = (CheckBox) dialogLayout.findViewById(R.id.check_all);
+
+        final ArrayList<String> myDays = new ArrayList<>();
+
+        final boolean[] lunesChecked = new boolean[1];
+        final boolean[] martesChecked = new boolean[1];
+        final boolean[] miercolesChecked = new boolean[1];
+        final boolean[] juevesChecked = new boolean[1];
+        final boolean[] viernesChecked = new boolean[1];
+        final boolean[] sabadoChecked = new boolean[1];
+        final boolean[] domingoChecked = new boolean[1];
+
+        final boolean[] checks = new boolean[7];
+
+        lunes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunesChecked[0] = true;
+                } else {
+                    lunesChecked[0] = false;
+                }
+                checks[0] = lunesChecked[0];
+            }
+        });
+
+        martes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    martesChecked[0] = true;
+                } else {
+                    martesChecked[0] = false;
+                }
+                checks[1] = martesChecked[0];
+            }
+        });
+
+        miercoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    miercolesChecked[0] = true;
+                } else {
+                    miercolesChecked[0] = false;
+                }
+                checks[2] = miercolesChecked[0];
+            }
+        });
+
+        jueves.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    juevesChecked[0] = true;
+                } else {
+                    juevesChecked[0] = false;
+                }
+                checks[3] = juevesChecked[0];
+            }
+        });
+
+        viernes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    viernesChecked[0] = true;
+                } else {
+                    viernesChecked[0] = false;
+                }
+                checks[4] = viernesChecked[0];
+            }
+        });
+
+        sabado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sabadoChecked[0] = true;
+                } else {
+                    sabadoChecked[0] = false;
+                }
+                checks[5] = sabadoChecked[0];
+            }
+        });
+
+        domingo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    domingoChecked[0] = true;
+                } else {
+                    domingoChecked[0] = false;
+                }
+                checks[6] = domingoChecked[0];
+            }
+        });
+
+        checkAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunes.setChecked(true);
+                    martes.setChecked(true);
+                    miercoles.setChecked(true);
+                    jueves.setChecked(true);
+                    viernes.setChecked(true);
+                    sabado.setChecked(true);
+                    domingo.setChecked(true);
+                } else {
+                    lunes.setChecked(false);
+                    martes.setChecked(false);
+                    miercoles.setChecked(false);
+                    jueves.setChecked(false);
+                    viernes.setChecked(false);
+                    sabado.setChecked(false);
+                    domingo.setChecked(false);
+                }
+            }
+        });
+
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(checks[0] == true){
+                    myDays.add("LU");
+                }
+                if (checks[1] == true) {
+                    myDays.add("M");
+                }
+                if (checks[2] == true) {
+                    myDays.add("X");
+                }
+                if (checks[3] == true) {
+                    myDays.add("JU");
+                }
+                if (checks[4] == true) {
+                    myDays.add("VI");
+                }
+                if (checks[5] == true) {
+                    myDays.add("SA");
+                }
+                if (checks[6] == true) {
+                    myDays.add("DO");
+                }
+
+                weekDays = myDays.toString();
+                foodDaysEditText.setText(weekDays.substring(1, weekDays.length()-1));
+                dialog.cancel();
+
+            }
+        });
+
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
 
     /**
      * Transiciones entre tabs y fragmentos
