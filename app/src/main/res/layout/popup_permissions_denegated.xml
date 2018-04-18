@@ -25,7 +25,7 @@
                 android:textColor="@color/titlesColor"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="Necesita activar los permisos de ubicación para acceder a esta aplicación" />
+                android:text="Debe activar los permisos de ubicación para acceder a esta aplicación." />
         </LinearLayout>
 
 
@@ -39,12 +39,6 @@
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:text="Salir" />
-            <Button
-                android:id="@+id/continuar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:text="Continuar" />
         </LinearLayout>
     </LinearLayout>
 
