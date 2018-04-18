@@ -2,7 +2,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,7 +14,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,12 +26,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EventsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CODE = 1;
+    private final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET};
     private GoogleMap mMap;
     private GooglePlace myPosition;
     private LocationManager locationManager;
     private LocationListener locationListener;
     private boolean GPSenabled = false;
+    private boolean ubicationPermissionEnable;
+    //boolean showRationale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +44,20 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        ubicationPermissionEnable = checkUbicationPermission();
+        if (!ubicationPermissionEnable){
+            openDialogUbicationPermission();
+        }else {
+            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         myPosition = new GooglePlace();
-
         configureMyPosition();
     }
 
@@ -78,11 +85,17 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
 
     /** EN CASO DE NO TENER PERMISOS **/
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        //showRationale = shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION);
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                configureMyPosition();
+
+            case MY_PERMISSIONS_REQUEST_CODE: {
+                if(grantResults[1] == 0){
+                    finish();
+                    startActivity(getIntent());
+                }else{
+                    openDialogUbicationPermission();
+                }
                 break;
 
             }default:
@@ -90,11 +103,15 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
+    public boolean checkUbicationPermission(){
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
     public void configureMyPosition(){
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[] { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET }, MY_PERMISSIONS_REQUEST_LOCATION);
+                requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
             }
             return;
         }
@@ -105,7 +122,17 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        /** LA APP PETA SI NO TIENES LA UBICACIÓN PUESTA **/
+        // CONTROLAR LA UBICACIÓN
+
+        myPosition.setLatitude(location.getLatitude());
+        myPosition.setLongitude(location.getLongitude());
+
+        LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
+
+        mMap.addMarker(new MarkerOptions().position(myLocation).title("Marker in myLocation"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+
+        // LA APP PETA SI NO TIENES LA UBICACIÓN PUESTA
         /*
         try {
             GPSenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -133,13 +160,42 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
             dialog.show();
         }
         */
+    }
 
-        myPosition.setLatitude(location.getLatitude());
-        myPosition.setLongitude(location.getLongitude());
+    public void openDialogUbicationPermission(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_permissions, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
 
-        LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
+        final Button salir = (Button)dialogLayout.findViewById(R.id.salir);
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.continuar);
 
-        mMap.addMarker(new MarkerOptions().position(myLocation).title("Marker in myLocation"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EventsActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                dialog.cancel();
+            }
+        });
+
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                if (ubicationPermissionEnable){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
+                    }
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
+                    }
+                }
+            }
+        });
     }
 }

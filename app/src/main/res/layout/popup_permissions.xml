@@ -34,13 +34,13 @@
             android:layout_height="match_parent"
             android:gravity="center" >
             <Button
-                android:id="@+id/button_volver"
+                android:id="@+id/salir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:text="Salir" />
             <Button
-                android:id="@+id/button_quedarse"
+                android:id="@+id/continuar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
