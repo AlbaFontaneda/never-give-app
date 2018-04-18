@@ -33,7 +33,6 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
     private GooglePlace myPosition;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private static int antiLoop = 1;
     private boolean GPSenabled = false;
     private boolean ubicationPermissionEnable;
     boolean neverAskAgain;
@@ -48,7 +47,9 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
 
         ubicationPermissionEnable = checkUbicationPermission();
         if (!ubicationPermissionEnable){
-            openDialogUbicationPermission();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
+            }
         }else {
             MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
@@ -96,7 +97,7 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
                     finish();
                     startActivity(getIntent());
                 }else{
-                    openDialogUbicationPermission();
+                    openDialogUbicationPermissionDenegated();
                 }
                 break;
 
@@ -164,70 +165,26 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         */
     }
 
-    public void openDialogUbicationPermission(){
+    public void openDialogUbicationPermissionDenegated(){
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this);
         final View dialogLayout;
-
-        if (antiLoop < 2){
-            dialogLayout = getLayoutInflater().inflate(R.layout.popup_permissions, null);
-        }else{
-            dialogLayout = getLayoutInflater().inflate(R.layout.popup_permissions_denegated, null);
-        }
-
+        dialogLayout = getLayoutInflater().inflate(R.layout.popup_permissions_denegated, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
         dialog.show();
 
         final Button salir = (Button)dialogLayout.findViewById(R.id.salir);
 
-        if (antiLoop < 2){
-
-            final Button continuar = (Button)dialogLayout.findViewById(R.id.continuar);
-            continuar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    antiLoop ++;
-                    dialog.cancel();
-                    if (ubicationPermissionEnable){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
-                        }
-                    }else{
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
-                        }
-                    }
-                }
-            });
-
-            salir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.cancel();
-                    Intent intent = new Intent(EventsActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    antiLoop = 1;
-                }
-            });
-
-        } else {
-            salir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.cancel();
-                    Intent intent = new Intent(EventsActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    antiLoop = 1;
-                }
-            });
-        }
-
-
-
-
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                Intent intent = new Intent(EventsActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
     }
 
