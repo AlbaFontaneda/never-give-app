@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,8 +12,10 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,11 +26,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EventsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 10;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private GoogleMap mMap;
     private GooglePlace myPosition;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private boolean GPSenabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +51,7 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap = googleMap;
         myPosition = new GooglePlace();
 
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new MyLocationListener();
-
         configureMyPosition();
-
-        LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
-
-        mMap.addMarker(new MarkerOptions().position(myLocation).title("Marker in myLocation"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
     }
 
     /*---------- Listener class to get coordinates ------------- */
@@ -97,18 +93,53 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
     public void configureMyPosition(){
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[] { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET }, MY_PERMISSIONS_REQUEST_LOCATION);
             }
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new MyLocationListener();
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        /** LA APP PETA SI NO TIENES LA UBICACIÓN PUESTA **/
+        /*
+        try {
+            GPSenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {
+
+        }
+
+        if (!GPSenabled){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getBaseContext());
+            dialog.setMessage("Por favor, conecte el gps de su dispositivo.");
+            dialog.setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    getBaseContext().startActivity(myIntent);
+                }
+            });
+            dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(EventsActivity.this,
+                            "No conseguimos determinar su posición.", Toast.LENGTH_LONG).show();
+                }
+            });
+            dialog.show();
+        }
+        */
+
         myPosition.setLatitude(location.getLatitude());
         myPosition.setLongitude(location.getLongitude());
+
+        LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
+
+        mMap.addMarker(new MarkerOptions().position(myLocation).title("Marker in myLocation"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
     }
 }
