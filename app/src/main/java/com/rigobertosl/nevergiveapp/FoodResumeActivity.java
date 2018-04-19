@@ -68,6 +68,8 @@ public class FoodResumeActivity extends FoodsActivity {
             }
         });
 
+
+
         TextView foodType = (TextView) findViewById(R.id.food_type);
         foodType.setText(foodTable.getType());
 
