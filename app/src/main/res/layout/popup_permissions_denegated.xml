@@ -25,7 +25,7 @@
                 android:textColor="@color/titlesColor"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="Debe activar los permisos de ubicación para acceder a esta aplicación." />
+                android:text="Debe activar los permisos de ubicación para acceder a esta aplicación" />
         </LinearLayout>
 
 
