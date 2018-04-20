@@ -2,13 +2,14 @@ package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -19,12 +20,16 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Locale;
 
 public class EventsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -34,7 +39,6 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
     private GooglePlace myPosition;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    //private boolean GPSenabled = false;
     private boolean ubicationPermissionEnable;
 
     @Override
@@ -51,8 +55,14 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
                 requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
             }
         }else {
-            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+            final LocationManager manager = (LocationManager) getSystemService( LocationManager.class );
+
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                openDialogNoGPS();
+            } else {
+                MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+                mapFragment.getMapAsync(this);
+            }
         }
 
     }
@@ -62,10 +72,26 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap = googleMap;
         myPosition = new GooglePlace();
 
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager)getSystemService(LocationManager.class);
         locationListener = new MyLocationListener();
 
-        configureMyPosition();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
+            }
+            return;
+        }
+        Looper looper = null;
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, looper);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        myPosition.setLatitude(location.getLatitude());
+        myPosition.setLongitude(location.getLongitude());
+
+        LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(15).tilt(70).build();
+        CameraUpdate cameraUpdate  = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        mMap.moveCamera(cameraUpdate);
+        mMap.addMarker(new MarkerOptions().position(myLocation));
     }
 
     /*---------- Listener class to get coordinates ------------- */
@@ -79,8 +105,7 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
 
         @Override
         public void onProviderDisabled(String provider) {
-            Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(i);
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
 
         @Override
@@ -88,6 +113,7 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {}
+
     }
 
     /** EN CASO DE NO TENER PERMISOS **/
@@ -111,43 +137,6 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public boolean checkUbicationPermission(){
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    public void configureMyPosition(){
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(PERMISSIONS, MY_PERMISSIONS_REQUEST_CODE);
-            }
-            return;
-        }
-
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
-        //android.location.Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            openDialogNoGPS();
-        } else {
-/*
-            android.location.Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            myPosition.setLatitude(location.getLatitude());
-            myPosition.setLongitude(location.getLongitude());
-*/
-            LatLng myLocation = new LatLng(myPosition.getLatitude(), myPosition.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(myLocation).title("Marker in myLocation"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        }
-
-        /*
-        if (location == null){
-            openDialogUbicationPermissionDenegated(false);
-        } else {
-
-        }
-        */
-
     }
 
     private void openDialogNoGPS() {
@@ -230,5 +219,41 @@ public class EventsActivity extends AppCompatActivity implements OnMapReadyCallb
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(setIntent);
+    }
+}
+
+class GooglePlace {
+
+    private String name;
+    private double latitude, longitude;
+
+    public GooglePlace() {
+        this.name = "";
+        this.latitude = 0;
+        this.longitude = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
