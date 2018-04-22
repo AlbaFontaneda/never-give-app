@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_eventos) {
-            Intent intent = new Intent(MainActivity.this, EventsActivity.class);
+            Intent intent = new Intent(MainActivity.this, UiSettingsDemoActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);

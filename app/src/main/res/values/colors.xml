@@ -14,4 +14,5 @@
     <color name="achievementsRow">#c178bc</color>
     <color name="titlesColor">#ffffff</color>
     <color name="cardViewContent">#dcdcdc</color>
+    <color name="white">#D0FFFFFF</color>
 </resources>

@@ -90,6 +90,10 @@
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_events"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".UiSettingsDemoActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_events"/>
       
     </application>
 
