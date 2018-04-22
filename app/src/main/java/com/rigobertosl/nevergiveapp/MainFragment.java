@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -55,12 +56,21 @@ public class MainFragment extends Fragment{
         ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
         ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
 
-        RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
-        RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, filterDay, isType);
+        if(trainingTable.size() == 0 && foodTable.size() == 0) {
+            View itemView = LayoutInflater.from(container.getContext())
+                    .inflate(R.layout.layout_no_content, container, false);
+            TextView title = itemView.findViewById(R.id.item_title);
+            title.setText("HEY LISTEN!");
+            TextView mensaje = itemView.findViewById(R.id.text_view);
+            mensaje.setText("Parece que no tienes nada establecido para este día. ¿Por qué no pruebas a guardar algun dato?");
+            return itemView;
+        } else {
 
-        recyclerViewTraining.setAdapter(adapterTrain);
-        recyclerViewFoods.setAdapter(adapterFood);
-
+            RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
+            RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, filterDay, isType);
+            recyclerViewTraining.setAdapter(adapterTrain);
+            recyclerViewFoods.setAdapter(adapterFood);
+        }
 
         return rootView;
     }

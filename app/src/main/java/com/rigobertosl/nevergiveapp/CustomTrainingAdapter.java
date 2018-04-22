@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +58,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-
         holder.title.setText(trainingTables.get(position).getName());
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override

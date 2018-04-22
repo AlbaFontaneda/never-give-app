@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -34,11 +35,20 @@ public class TrainingFragment extends Fragment {
         db = new DataBaseContract(getActivity());
         db.open();
         ArrayList<TrainingTable> trainingTable = db.getAllTables();
+        trainingTable.size();
         db.close();
-
-        RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable, null);
-        recyclerView.setAdapter(adapter);
-
+        if(trainingTable.size() == 0) {
+            View itemView = LayoutInflater.from(container.getContext())
+                    .inflate(R.layout.layout_no_content, container, false);
+            TextView title = itemView.findViewById(R.id.item_title);
+            title.setText("HEY LISTEN!");
+            TextView mensaje = itemView.findViewById(R.id.text_view);
+            mensaje.setText("Parece que no tienes ninguna tabla de entrenamiento creada, ¿por qué no pruebas a crear una?");
+            return itemView;
+        } else {
+            RecyclerView.Adapter adapter = new CustomTrainingAdapter(getContext(), trainingTable, null);
+            recyclerView.setAdapter(adapter);
+        }
         return rootView;
     }
 
