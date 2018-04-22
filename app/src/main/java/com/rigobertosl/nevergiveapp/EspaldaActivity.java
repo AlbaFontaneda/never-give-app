@@ -159,7 +159,7 @@ public class EspaldaActivity extends TrainingActivity {
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);
-        minutosPikcer.setMaxValue(60);
+        minutosPikcer.setMaxValue(59);
         minutosPikcer.setWrapSelectorWheel(true);
 
         minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -172,7 +172,7 @@ public class EspaldaActivity extends TrainingActivity {
 
         segundosPikcer.setValue(00);
         segundosPikcer.setMinValue(0);
-        segundosPikcer.setMaxValue(60);
+        segundosPikcer.setMaxValue(59);
         segundosPikcer.setWrapSelectorWheel(true);
 
         segundosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {

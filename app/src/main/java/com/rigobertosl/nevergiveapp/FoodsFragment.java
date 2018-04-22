@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,10 +47,20 @@ public class FoodsFragment extends Fragment{
         isType = true;
         ArrayList<FoodTable> foodTables = db.getAllFoodsFilterByType(filterType);
         db.close();
-        RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterType, isType);
 
-        recyclerViewTraining.setAdapter(adapterFoods);
+        if(foodTables.size() == 0) {
+            View itemView = LayoutInflater.from(container.getContext())
+                    .inflate(R.layout.layout_no_content, container, false);
+            TextView title = itemView.findViewById(R.id.item_title);
+            title.setText("HEY LISTEN!");
+            TextView mensaje = itemView.findViewById(R.id.text_view);
+            mensaje.setText("Parece que no tienes ninguna comida creada, ¿por qué no pruebas a crear una?");
+            return itemView;
+        } else {
 
+            RecyclerView.Adapter adapterFoods = new CustomFoodAdapter(getContext(), foodTables, filterType, isType);
+            recyclerViewTraining.setAdapter(adapterFoods);
+        }
         return rootView;
     }
 }
