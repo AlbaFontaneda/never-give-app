@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,13 +76,14 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
                 for (int i = 0; i < foods.length(); i++) {
                     JSONObject food = foods.getJSONObject(i);
 
-                    JSONArray nutrients = food.getJSONArray("nutrients");
+                    JSONObject nutrients = food.getJSONObject("nutrients");
+                    int x = 0;
                     for (int j = 0; j < nutrients.length(); i++) {
-                        JSONObject c = nutrients.getJSONObject(i);
-                        if(c.getString("nutrient_id").equals(208)){
-                            FoodKcal poi = new FoodKcal(c.getString("unit"), c.getString("value"));
-                            temp.add(poi);
-                        }
+                        //JSONObject c = nutrients.getJSONObject(i);
+                        //if(c.getString("nutrient_id").equals(208)){
+                           // FoodKcal poi = new FoodKcal(c.getString("unit"), c.getString("value"));
+                            //temp.add(poi);
+                        //}
                     }
                 }
 
