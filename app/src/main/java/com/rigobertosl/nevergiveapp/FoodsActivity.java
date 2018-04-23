@@ -155,7 +155,7 @@ public class FoodsActivity extends MainActivity {
                     Toast.makeText(FoodsActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
-                    foodTable = db.createTableFoods(foodName, foodDays, foodType, null);
+                    foodTable = db.createTableFoods(foodName, foodDays, foodType, null, null);
                     finish();
                     //startActivity(new Intent(FoodsActivity.this, FoodResumeActivity.class));
                     long id = foodTable.getId();
