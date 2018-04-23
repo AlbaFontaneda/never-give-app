@@ -24,12 +24,15 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class FoodResumeActivity extends FoodsActivity {
 
     private Context mContext;
     private DataBaseContract db;
     private long foodId;
+
+    public static TextView description;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView imageView;
@@ -75,6 +78,8 @@ public class FoodResumeActivity extends FoodsActivity {
 
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
+
+        description = (TextView) findViewById(R.id.description);
 
         imageView = (ImageView) findViewById(R.id.image_view);
         imageButton = (ImageButton) findViewById(R.id.image_button);

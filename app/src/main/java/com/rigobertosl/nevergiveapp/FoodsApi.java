@@ -74,16 +74,18 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
 
                 JSONArray foods = jsonObj.getJSONArray("foods");
                 for (int i = 0; i < foods.length(); i++) {
-                    JSONObject food = foods.getJSONObject(i);
+                    JSONObject jObj = foods.getJSONObject(i);
+                    JSONObject food = jObj.getJSONObject("food");
+                    JSONArray nutrients = food.getJSONArray("nutrients");
 
-                    JSONObject nutrients = food.getJSONObject("nutrients");
-                    int x = 0;
-                    for (int j = 0; j < nutrients.length(); i++) {
-                        //JSONObject c = nutrients.getJSONObject(i);
-                        //if(c.getString("nutrient_id").equals(208)){
-                           // FoodKcal poi = new FoodKcal(c.getString("unit"), c.getString("value"));
-                            //temp.add(poi);
-                        //}
+                    for (int j = 0; j < nutrients.length(); j++) {
+                        JSONObject c = nutrients.getJSONObject(j);
+                        if(c.getString("nutrient_id").toString().equals("208")){
+                            String kcal = c.getString("value").toString();
+                            String unidades = c.getString("unit").toString();
+                            FoodKcal poi = new FoodKcal(unidades,kcal);
+                            temp.add(poi);
+                        }
                     }
                 }
 
@@ -104,6 +106,7 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
             // make a list of the venus that are loaded in the list.
             // show the name, the category and the city
             listTitle.add(i, "tipo: " +result.get(i).getName() + "\nkcal: " + result.get(i).getKcal());
+            FoodResumeActivity.description.setText(listTitle.get(0));
         }
 
         // set the results to the list
