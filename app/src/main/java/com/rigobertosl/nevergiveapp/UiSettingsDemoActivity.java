@@ -17,12 +17,14 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -107,6 +109,11 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMapRe
                 mUiSettings.setMyLocationButtonEnabled(true);
             } else {
                 mLocationPermissionDenied = true;
+                Toast.makeText(this, R.string.location_permission_denied, Toast.LENGTH_SHORT).show();
+                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
 
         } else if (requestCode == LOCATION_LAYER_PERMISSION_REQUEST_CODE) {
@@ -116,6 +123,13 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMapRe
                 //mMyLocationLayerCheckbox.setChecked(true);
             } else {
                 mLocationPermissionDenied = true;
+                /*
+                Toast.makeText(this, R.string.location_permission_denied, Toast.LENGTH_SHORT).show();
+                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                */
             }
         }
     }
@@ -124,8 +138,41 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMapRe
     protected void onResumeFragments() {
         super.onResumeFragments();
         if (mLocationPermissionDenied) {
-            PermissionUtils.PermissionDeniedDialog.newInstance(false).show(getSupportFragmentManager(), "dialog");
+            PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getSupportFragmentManager(), "dialog");
             mLocationPermissionDenied = false;
         }
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(UiSettingsDemoActivity.this, MainActivity.class);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
     }
 }
