@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -105,7 +106,10 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
 
         for (int i = 0; i < result.size(); i++) {
             listKcal.add(i, Integer.valueOf(result.get(i).getKcal()));
+            Log.e("PR: ", "kcal" + listKcal);
         }
+
         FoodResumeActivity.listKcal = listKcal;
+
     }
 }
