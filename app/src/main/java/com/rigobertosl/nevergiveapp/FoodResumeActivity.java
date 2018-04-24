@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodResumeActivity extends FoodsActivity {
 
@@ -38,12 +39,7 @@ public class FoodResumeActivity extends FoodsActivity {
 
     public static TextView kcal;
 
-    public static CheckBox checkPasta;
-    public static boolean isPastaSelect;
-    public static CheckBox checkHuevos;
-    public static boolean isHuevosSelect;
-    public static CheckBox checkLeche;
-    public static boolean isLecheSelect;
+    public static List<Integer> listKcal;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView imageView;
@@ -52,6 +48,7 @@ public class FoodResumeActivity extends FoodsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new FoodsApi().execute();
         setContentView(R.layout.activity_food_resume);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -82,44 +79,182 @@ public class FoodResumeActivity extends FoodsActivity {
             }
         });
 
-        checkPasta = (CheckBox) findViewById(R.id.pasta_button);
+        CheckBox checkPasta = (CheckBox) findViewById(R.id.pasta_button);
         checkPasta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    new FoodsApi().execute();
-                    isPastaSelect = true;
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(0);
+                    kcal.setText(res.toString());
                 } else {
                     Integer currentValue = Integer.valueOf(kcal.getText().toString());
-                    Integer res = currentValue - 375; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
-                    FoodResumeActivity.kcal.setText(res.toString());
+                    Integer res = currentValue - listKcal.get(0);
+                    kcal.setText(res.toString());
                 }
             }
         });
 
-        checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
+        CheckBox checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
         checkHuevos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    new FoodsApi().execute();
-                    isHuevosSelect = true;
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(1);
+                    kcal.setText(res.toString());
                 } else {
                     Integer currentValue = Integer.valueOf(kcal.getText().toString());
-                    Integer res = currentValue - 164; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
-                    FoodResumeActivity.kcal.setText(res.toString());
+                    Integer res = currentValue - listKcal.get(1);
+                    kcal.setText(res.toString());
                 }
             }
         });
 
-        checkLeche = (CheckBox) findViewById(R.id.leche_button);
+        CheckBox checkLeche = (CheckBox) findViewById(R.id.leche_button);
         checkLeche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    new FoodsApi().execute();
-                    isLecheSelect = true;
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(2);
+                    kcal.setText(res.toString());
                 } else {
                     Integer currentValue = Integer.valueOf(kcal.getText().toString());
-                    Integer res = currentValue - 43; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
-                    FoodResumeActivity.kcal.setText(res.toString());
+                    Integer res = currentValue - listKcal.get(2);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkCarne = (CheckBox) findViewById(R.id.carne_button);
+        checkCarne.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(3);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(3);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkPescado = (CheckBox) findViewById(R.id.pescado_button);
+        checkPescado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(4);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(4);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkVerdura = (CheckBox) findViewById(R.id.verdura_button);
+        checkVerdura.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(5);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(5);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkBolleria = (CheckBox) findViewById(R.id.bolleria_button);
+        checkBolleria.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(6);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(6);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkCereales = (CheckBox) findViewById(R.id.cereales_button);
+        checkCereales.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(7);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(7);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkLegumbre = (CheckBox) findViewById(R.id.legumbre_button);
+        checkLegumbre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(8);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(8);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkEmbutido = (CheckBox) findViewById(R.id.embutido_button);
+        checkEmbutido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(9);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(9);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkQueso = (CheckBox) findViewById(R.id.queso_button);
+        checkQueso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(10);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(10);
+                    kcal.setText(res.toString());
+                }
+            }
+        });
+
+        CheckBox checkYogurt = (CheckBox) findViewById(R.id.yogur_button);
+        checkYogurt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue + listKcal.get(11);
+                    kcal.setText(res.toString());
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - listKcal.get(11);
+                    kcal.setText(res.toString());
                 }
             }
         });
