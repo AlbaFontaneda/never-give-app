@@ -85,11 +85,16 @@ public class FoodResumeActivity extends FoodsActivity {
                 db.updateKcal(foodTable, kcal.getText().toString());
                 db.close();
                 finish();
-                if((boolean) getIntent().getSerializableExtra("fromFoods")){
+                if((boolean) getIntent().getSerializableExtra("fromResume")) {
+                    if((boolean) getIntent().getSerializableExtra("fromFoods")){
+                        startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
+                    }else{
+                        startActivity(new Intent(FoodResumeActivity.this, MainActivity.class));
+                    }
+                } else {
                     startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
-                }else{
-                    startActivity(new Intent(FoodResumeActivity.this, MainActivity.class));
                 }
+
                 Toast.makeText(mContext,
                         foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
