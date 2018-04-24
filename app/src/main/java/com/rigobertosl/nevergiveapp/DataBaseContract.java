@@ -88,6 +88,7 @@ public class DataBaseContract {
         public static final String COLUMN_DAYS = "days";
         public static final String COLUMN_TYPE_FOOD = "type";
         public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_KCAL= "kcal";
 
 
         private static final String SQL_CREATE_ENTRIES_FOODS =
@@ -96,6 +97,7 @@ public class DataBaseContract {
                         DataBaseContract.DataBaseEntryFoods.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseEntryFoods.COLUMN_TYPE_FOOD + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryFoods.COLUMN_KCAL + TEXT_TYPE + COMMA_SEP +
                         DataBaseEntryFoods.COLUMN_IMAGE + " BLOB" + " )";
 
         private static final String SQL_DELETE_ENTRIES_FOODS =
@@ -408,12 +410,13 @@ public class DataBaseContract {
     /************************************** TABLAS COMIDAS  *************************************/
 
     /** Crear tabla_comidas en la base de datos **/
-    public FoodTable createTableFoods(String name, String days, String type, byte[] image){
+    public FoodTable createTableFoods(String name, String days, String type, byte[] image, String kcal){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryFoods.COLUMN_NAME, name);
         values.put(DataBaseEntryFoods.COLUMN_DAYS, days);
         values.put(DataBaseEntryFoods.COLUMN_TYPE_FOOD, type);
         values.put(DataBaseEntryFoods.COLUMN_IMAGE, image);
+        values.put(DataBaseEntryFoods.COLUMN_KCAL, kcal);
         mDb.insert(DataBaseEntryFoods.TABLE_NAME, null, values);
 
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
@@ -421,12 +424,19 @@ public class DataBaseContract {
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         cursor.moveToLast();
 
-        return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type, image);
+        return new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryNameTrain._ID))),name, days, type, image, kcal);
     }
-
+    /** Añadimos imagen **/
     public void addImageFood(FoodTable foodTable, byte[] image) {
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryFoods.COLUMN_IMAGE, image);
+        mDb.update(DataBaseEntryFoods.TABLE_NAME, values, DataBaseEntryFoods._ID +"="+ foodTable.getId(), null);
+    }
+
+    /** Actualizamos kcal **/
+    public void updateKcal(FoodTable foodTable, String kcal) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryFoods.COLUMN_KCAL, kcal);
         mDb.update(DataBaseEntryFoods.TABLE_NAME, values, DataBaseEntryFoods._ID +"="+ foodTable.getId(), null);
     }
 
@@ -441,7 +451,8 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_KCAL)));
                 table.add(foodTable);
             } while (cursor.moveToNext());
         }
@@ -460,7 +471,8 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_KCAL)));
                 foodByType.add(foodTable);
             } while (cursor.moveToNext());
         }
@@ -479,7 +491,8 @@ public class DataBaseContract {
             do {
                 FoodTable foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_KCAL)));
                 foodByDay.add(foodTable);
             } while (cursor.moveToNext());
         }
@@ -498,7 +511,8 @@ public class DataBaseContract {
             do{
                 foodTable = new FoodTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods._ID))),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_DAYS)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_TYPE_FOOD)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_IMAGE)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryFoods.COLUMN_KCAL)));
 
             } while (cursor.moveToNext());
         }

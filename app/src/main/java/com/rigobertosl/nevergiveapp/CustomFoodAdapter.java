@@ -33,6 +33,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
         public TextView title;
         public TextView days;
+        public TextView kcal;
         public ImageView image;
         public ImageButton itemOptions;
 
@@ -40,6 +41,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
             super(view);
             title = (TextView) view.findViewById(R.id.item_title);
             days = (TextView) view.findViewById(R.id.item_days);
+            kcal = (TextView) view.findViewById(R.id.num_kcal);
             image = (ImageView) view.findViewById(R.id.item_image);
             itemOptions = (ImageButton) view.findViewById(R.id.item_options);
         }
@@ -64,6 +66,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
         holder.title.setText(foodTables.get(position).getName());
         holder.days.setText(foodTables.get(position).getDays());
+        holder.kcal.setText(foodTables.get(position).getKcal());
         byte[] b = foodTables.get(position).getImage();
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);

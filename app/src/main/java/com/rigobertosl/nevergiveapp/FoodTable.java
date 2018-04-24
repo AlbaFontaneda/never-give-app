@@ -4,15 +4,16 @@ import java.sql.Blob;
 
 public class FoodTable {
     private long id;
-    private String name, days, type;
+    private String name, days, type, kcal;
     private byte[] image;
 
-    public FoodTable(long id, String name, String days, String type, byte[] image) {
+    public FoodTable(long id, String name, String days, String type, byte[] image, String kcal) {
         this.id = id;
         this.name = name;
         this.days = days;
         this.type = type;
         this.image = image;
+        this.kcal = kcal;
     }
 
     public long getId() {
@@ -53,5 +54,13 @@ public class FoodTable {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(String kcal) {
+        this.kcal = kcal;
     }
 }

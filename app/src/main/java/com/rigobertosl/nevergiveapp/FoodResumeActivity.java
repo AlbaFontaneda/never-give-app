@@ -13,9 +13,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,12 +28,22 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class FoodResumeActivity extends FoodsActivity {
 
     private Context mContext;
     private DataBaseContract db;
     private long foodId;
+
+    public static TextView kcal;
+
+    public static CheckBox checkPasta;
+    public static boolean isPastaSelect;
+    public static CheckBox checkHuevos;
+    public static boolean isHuevosSelect;
+    public static CheckBox checkLeche;
+    public static boolean isLecheSelect;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView imageView;
@@ -68,11 +82,73 @@ public class FoodResumeActivity extends FoodsActivity {
             }
         });
 
+        checkPasta = (CheckBox) findViewById(R.id.pasta_button);
+        checkPasta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    new FoodsApi().execute();
+                    isPastaSelect = true;
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - 375; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
+                    FoodResumeActivity.kcal.setText(res.toString());
+                }
+            }
+        });
+
+        checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
+        checkHuevos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    new FoodsApi().execute();
+                    isHuevosSelect = true;
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - 164; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
+                    FoodResumeActivity.kcal.setText(res.toString());
+                }
+            }
+        });
+
+        checkLeche = (CheckBox) findViewById(R.id.leche_button);
+        checkLeche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    new FoodsApi().execute();
+                    isLecheSelect = true;
+                } else {
+                    Integer currentValue = Integer.valueOf(kcal.getText().toString());
+                    Integer res = currentValue - 43; //TODO: CAMBIAR ESTE DATO METIDO A CAPON
+                    FoodResumeActivity.kcal.setText(res.toString());
+                }
+            }
+        });
+
+
         TextView foodType = (TextView) findViewById(R.id.food_type);
         foodType.setText(foodTable.getType());
 
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
+
+        kcal = (TextView) findViewById(R.id.num_kcal);
+        kcal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                db.open();
+                db.updateKcal(foodTable, kcal.getText().toString());
+            }
+        });
 
         imageView = (ImageView) findViewById(R.id.image_view);
         imageButton = (ImageButton) findViewById(R.id.image_button);
