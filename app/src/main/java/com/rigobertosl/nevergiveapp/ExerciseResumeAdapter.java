@@ -1,5 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -7,10 +8,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.shawnlin.numberpicker.NumberPicker;
+
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAdapter.MyViewHolder> {
 
@@ -102,6 +107,12 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
             });
 
             nDescanso = (EditText)view.findViewById(R.id.num_descanso);
+            nDescanso.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openDatePicker(view, nDescanso);
+                }
+            });
             nDescanso.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -116,6 +127,66 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                }
+            });
+        }
+
+        public void openDatePicker(View view, final EditText descansoEditText){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            //final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_timepicker, null);
+            View dialogLayout = LayoutInflater.from(view.getContext())
+                    .inflate(R.layout.popup_custom_timepicker, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+
+            final int[] selectedMinute = {0};
+            final int[] selectedSeconds = {0};
+
+            NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
+            NumberPicker segundosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.segundos_picker);
+
+            final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+            final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+
+            minutosPikcer.setValue(0);
+            minutosPikcer.setMinValue(0);
+            minutosPikcer.setMaxValue(20);
+            minutosPikcer.setWrapSelectorWheel(true);
+
+            minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                    //Display the newly selected number from picker
+                    selectedMinute[0] = newVal;
+                }
+            });
+
+            segundosPikcer.setValue(0);
+            segundosPikcer.setMinValue(0);
+            segundosPikcer.setMaxValue(59);
+            segundosPikcer.setWrapSelectorWheel(true);
+
+            segundosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                    //Display the newly selected number from picker
+                    selectedSeconds[0] = newVal;
+                }
+            });
+
+            continuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                    descansoEditText.setText(timeLeftFormatted);
+                    dialog.cancel();
+                }
+            });
+            cancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
                 }
             });
         }

@@ -26,7 +26,7 @@ public class ExerciseResumeFragment extends Fragment {
     private DataBaseContract db;
     private ArrayList<Exercise> ejercicios;
 
-    private static final long START_TIME = 10000;
+    private long START_TIME = 10000;
     private long timeLeft = START_TIME;
     private TextView countDown;
     private ProgressBar progressBar;
@@ -65,6 +65,7 @@ public class ExerciseResumeFragment extends Fragment {
 
         //updateCountDown();
         progressBar.setProgress(100);
+        setStartTime(ejercicio.getDescanso());
         mycounter = new MyCountDownTimer(START_TIME, 1000);
         RefreshTimer();
 
@@ -89,12 +90,14 @@ public class ExerciseResumeFragment extends Fragment {
             }
         });
 
-        //TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
+        TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
 
         exerciseTitle.setText((String) ejercicio.getNombre());
         exerciseSeries.setText((String) ejercicio.getSeries());
         exerciseRep.setText((String) ejercicio.getRepeticiones());
+
         //exerciseDescanso.setText((String) ejercicio.getDescanso());
+
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
 
@@ -119,7 +122,6 @@ public class ExerciseResumeFragment extends Fragment {
         handler.postDelayed(counter, 100);
     }
 
-
     private void updateCountDown(long timeLeft) {
         int minutes = (int) timeLeft / 60000;
         int seconds = (int) timeLeft % 60000 / 1000;
@@ -127,6 +129,11 @@ public class ExerciseResumeFragment extends Fragment {
         progressBar.setProgress(seconds*100/((int)START_TIME/1000));
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         countDown.setText(timeLeftFormatted);
+    }
+
+    public void setStartTime(String sTime){
+        String[] time = sTime.split(":");
+        START_TIME = Long.parseLong(time[0])*60+Long.parseLong(time[1]);
     }
 
 }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ChestActivity extends TrainingActivity {
     FloatingActionButton fab;
@@ -104,7 +105,7 @@ public class ChestActivity extends TrainingActivity {
 
             @Override
             public void onClick(View v) {
-                openDatePicker(v, descansoEditText);
+                openDatePicker(descansoEditText);
             }
         });
 
@@ -139,7 +140,7 @@ public class ChestActivity extends TrainingActivity {
         });
     }
 
-    public void openDatePicker(View view, final EditText descansoEditText){
+    public void openDatePicker(final EditText descansoEditText){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_timepicker, null);
         final AlertDialog dialog = builder.create();
@@ -184,7 +185,8 @@ public class ChestActivity extends TrainingActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                descansoEditText.setText( selectedMinute[0] + ":" + selectedSeconds[0] );
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                descansoEditText.setText(timeLeftFormatted);
                 dialog.cancel();
             }
         });

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class EspaldaActivity extends TrainingActivity {
     FloatingActionButton fab;
@@ -186,7 +187,8 @@ public class EspaldaActivity extends TrainingActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                descansoEditText.setText( selectedMinute[0] + ":" + selectedSeconds[0] );
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                descansoEditText.setText(timeLeftFormatted);
                 dialog.cancel();
             }
         });
