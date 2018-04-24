@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -29,8 +28,6 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FoodResumeActivity extends FoodsActivity {
@@ -43,12 +40,29 @@ public class FoodResumeActivity extends FoodsActivity {
 
     public static List<Integer> listKcal;
 
+    boolean isPastaCheck;
+    boolean isHuevosCheck;
+    boolean isLecheCheck;
+    boolean isCarneCheck;
+    boolean isPescadoCheck;
+    boolean isVerduraCheck;
+    boolean isBolleriaCheck;
+    boolean isCerealesCheck;
+    boolean isLegumbreCheck;
+    boolean isEmbutidoCheck;
+    boolean isQuesoCheck;
+    boolean isYogurtCheck;
+
+    boolean[] checks;
+
     byte[] bitmapdataCamera;
     byte[] bitmapdataGalery;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView imageView;
     ImageButton imageButton;
+
+    KcalTable kcalTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +86,15 @@ public class FoodResumeActivity extends FoodsActivity {
             }
         });
 
+        if((boolean) getIntent().getSerializableExtra("fromResume")) {
+            kcalTable = db.getKcalTableByFood(foodId);
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //KcalTable kcalTable;
                 db.open();
                 if(bitmapdataCamera != null){
                     db.addImageFood(foodTable, bitmapdataCamera);
@@ -83,23 +102,25 @@ public class FoodResumeActivity extends FoodsActivity {
                     db.addImageFood(foodTable, bitmapdataGalery);
                 }
                 db.updateKcal(foodTable, kcal.getText().toString());
-                db.close();
                 finish();
                 if((boolean) getIntent().getSerializableExtra("fromResume")) {
+                    db.updateTableKcal(kcalTable, checks);
                     if((boolean) getIntent().getSerializableExtra("fromFoods")){
                         startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
                     }else{
                         startActivity(new Intent(FoodResumeActivity.this, MainActivity.class));
                     }
                 } else {
+                    db.createTableKcal(foodId, checks[0], checks[1], checks[2], checks[3], checks[4], checks[5], checks[6], checks[7], checks[8], checks[9], checks[10], checks[11]);
                     startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
                 }
-
+                db.close();
                 Toast.makeText(mContext,
                         foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
         });
         Log.e("PR: ", "FoodResumeLista ACTIVIDAD: " + listKcal);
+        checks = new boolean[12];
 
         if(listKcal != null){
             CheckBox checkPasta = (CheckBox) findViewById(R.id.pasta_button);
@@ -109,11 +130,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(0);
                         kcal.setText(res.toString());
+                        isPastaCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(0);
                         kcal.setText(res.toString());
+                        isPastaCheck = false;
                     }
+                    checks[0] = isPastaCheck;
                 }
             });
 
@@ -124,11 +148,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(1);
                         kcal.setText(res.toString());
+                        isHuevosCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(1);
                         kcal.setText(res.toString());
+                        isHuevosCheck = false;
                     }
+                    checks[1] = isHuevosCheck;
                 }
             });
 
@@ -139,11 +166,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(2);
                         kcal.setText(res.toString());
+                        isLecheCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(2);
                         kcal.setText(res.toString());
+                        isLecheCheck = false;
                     }
+                    checks[2] = isLecheCheck;
                 }
             });
 
@@ -154,11 +184,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(3);
                         kcal.setText(res.toString());
+                        isCarneCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(3);
                         kcal.setText(res.toString());
+                        isCarneCheck = false;
                     }
+                    checks[3] = isCarneCheck;
                 }
             });
 
@@ -169,11 +202,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(4);
                         kcal.setText(res.toString());
+                        isPescadoCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(4);
                         kcal.setText(res.toString());
+                        isPescadoCheck = false;
                     }
+                    checks[4] = isPescadoCheck;
                 }
             });
 
@@ -184,11 +220,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(5);
                         kcal.setText(res.toString());
+                        isVerduraCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(5);
                         kcal.setText(res.toString());
+                        isVerduraCheck = false;
                     }
+                    checks[5] = isVerduraCheck;
                 }
             });
 
@@ -199,11 +238,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(6);
                         kcal.setText(res.toString());
+                        isBolleriaCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(6);
                         kcal.setText(res.toString());
+                        isBolleriaCheck = false;
                     }
+                    checks[6] = isBolleriaCheck;
                 }
             });
 
@@ -214,11 +256,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(7);
                         kcal.setText(res.toString());
+                        isCerealesCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(7);
                         kcal.setText(res.toString());
+                        isCerealesCheck = false;
                     }
+                    checks[7] = isCerealesCheck;
                 }
             });
 
@@ -229,11 +274,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(8);
                         kcal.setText(res.toString());
+                        isLegumbreCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(8);
                         kcal.setText(res.toString());
+                        isLegumbreCheck = false;
                     }
+                    checks[8] = isLegumbreCheck;
                 }
             });
 
@@ -244,11 +292,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(9);
                         kcal.setText(res.toString());
+                        isEmbutidoCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(9);
                         kcal.setText(res.toString());
+                        isEmbutidoCheck = false;
                     }
+                    checks[9] = isEmbutidoCheck;
                 }
             });
 
@@ -259,11 +310,14 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(10);
                         kcal.setText(res.toString());
+                        isQuesoCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(10);
                         kcal.setText(res.toString());
+                        isQuesoCheck = false;
                     }
+                    checks[10] = isQuesoCheck;
                 }
             });
 
@@ -274,15 +328,18 @@ public class FoodResumeActivity extends FoodsActivity {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue + listKcal.get(11);
                         kcal.setText(res.toString());
+                        isYogurtCheck = true;
                     } else {
                         Integer currentValue = Integer.valueOf(kcal.getText().toString());
                         Integer res = currentValue - listKcal.get(11);
                         kcal.setText(res.toString());
+                        isYogurtCheck = false;
                     }
+                    checks[11] = isYogurtCheck;
                 }
             });
         }
-
+        Log.e("PR:", "CHECKS "+checks);
         TextView foodType = (TextView) findViewById(R.id.food_type);
         foodType.setText(foodTable.getType());
 

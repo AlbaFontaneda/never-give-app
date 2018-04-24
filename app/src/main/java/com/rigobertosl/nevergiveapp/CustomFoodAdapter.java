@@ -96,7 +96,6 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                             case R.id.menu_foods_elements_edit:
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
-                                new FoodsApi().execute();
                                 Intent intent = new Intent(mContext, FoodResumeActivity.class);
                                 if(mContext.getClass() == MainActivity.class){
                                     intent.putExtra("fromFoods", false);

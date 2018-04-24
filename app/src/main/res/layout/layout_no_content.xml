@@ -41,6 +41,7 @@
                 android:textStyle="bold" />
 
             <!-- NO FUNCIONA EL INFLATE EN EL EMULADOR CON EL IMAGEVIEW -->
+            <!--
             <ImageView
                 android:id="@+id/image_view"
                 android:layout_height="140dp"
@@ -51,7 +52,7 @@
                 android:layout_marginLeft="10dp"
                 android:scaleType="centerCrop"
                 android:orientation="horizontal" />
-
+            -->
             <TextView
                 android:id="@+id/text_view"
                 android:layout_height="140dp"
