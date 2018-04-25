@@ -16,6 +16,7 @@ public class MyCountDownTimer {
     private long millisInFuture;
     private long countDownInterval;
     private boolean status, reset;
+
     public MyCountDownTimer(long pMillisInFuture, long pCountDownInterval) {
         this.START_TIMER = pMillisInFuture;
         this.millisInFuture = pMillisInFuture;
