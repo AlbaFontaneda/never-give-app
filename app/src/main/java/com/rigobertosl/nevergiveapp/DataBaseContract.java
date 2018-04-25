@@ -23,7 +23,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -566,6 +566,7 @@ public class DataBaseContract {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryFoods.TABLE_NAME, DataBaseEntryFoods._ID + " = ?",
                 new String[] { String.valueOf(tableId) });
+        deleteKcal(foodTable);
     }
 
     /** Crear las kcal en la base de datos **/
@@ -586,6 +587,14 @@ public class DataBaseContract {
         values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[11]);
 
         return mDb.insert(DataBaseEntryKcal.TABLE_NAME, null, values);
+    }
+
+    /** Borra un row de lista de kcal **/
+    public void deleteKcal(FoodTable foodTable) {
+        long tableId = foodTable.getId();
+        mDb = mDbHelper.getWritableDatabase();
+        mDb.delete(DataBaseEntryKcal.TABLE_NAME, DataBaseEntryKcal.COLUMN_FOOD_ID + " = ?",
+                new String[] { String.valueOf(tableId) });
     }
 
     /** Actualizamos kcal de la tabla **/

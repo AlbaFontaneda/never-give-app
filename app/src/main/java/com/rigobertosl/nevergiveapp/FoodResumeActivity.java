@@ -94,7 +94,6 @@ public class FoodResumeActivity extends FoodsActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //KcalTable kcalTable;
                 db.open();
                 if(bitmapdataCamera != null){
                     db.addImageFood(foodTable, bitmapdataCamera);
@@ -119,11 +118,43 @@ public class FoodResumeActivity extends FoodsActivity {
                         foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
         });
-        Log.e("PR: ", "FoodResumeLista ACTIVIDAD: " + listKcal);
+
         checks = new boolean[12];
 
+        CheckBox checkPasta = (CheckBox) findViewById(R.id.pasta_button);
+        CheckBox checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
+        CheckBox checkLeche = (CheckBox) findViewById(R.id.leche_button);
+        CheckBox checkCarne = (CheckBox) findViewById(R.id.carne_button);
+        CheckBox checkPescado = (CheckBox) findViewById(R.id.pescado_button);
+        CheckBox checkVerdura = (CheckBox) findViewById(R.id.verdura_button);
+        CheckBox checkBolleria = (CheckBox) findViewById(R.id.bolleria_button);
+        CheckBox checkCereales = (CheckBox) findViewById(R.id.cereales_button);
+        CheckBox checkLegumbre = (CheckBox) findViewById(R.id.legumbre_button);
+        CheckBox checkEmbutido = (CheckBox) findViewById(R.id.embutido_button);
+        CheckBox checkQueso = (CheckBox) findViewById(R.id.queso_button);
+        CheckBox checkYogurt = (CheckBox) findViewById(R.id.yogur_button);
+
+        kcal = (TextView) findViewById(R.id.num_kcal);
+
+        if(kcalTable != null) {
+            if(kcalTable.isPasta()) checkPasta.setChecked(true);
+            if(kcalTable.isHuevos()) checkHuevos.setChecked(true);
+            if(kcalTable.isLeche()) checkLeche.setChecked(true);
+            if(kcalTable.isCarne()) checkCarne.setChecked(true);
+            if(kcalTable.isPescado()) checkPescado.setChecked(true);
+            if(kcalTable.isVerdura()) checkVerdura.setChecked(true);
+            if(kcalTable.isBolleria()) checkBolleria.setChecked(true);
+            if(kcalTable.isCereales()) checkCereales.setChecked(true);
+            if(kcalTable.isLegumbre()) checkLegumbre.setChecked(true);
+            if(kcalTable.isEmbutido()) checkEmbutido.setChecked(true);
+            if(kcalTable.isQueso()) checkQueso.setChecked(true);
+            if(kcalTable.isYogurt()) checkYogurt.setChecked(true);
+            Log.e("PR", "FOODTABLE:" + foodTable.getKcal().toString());
+            kcal.setText(foodTable.getKcal().toString());
+            //kcal.setText(foodTable.getKcal());
+        }
+
         if(listKcal != null){
-            CheckBox checkPasta = (CheckBox) findViewById(R.id.pasta_button);
             checkPasta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -141,7 +172,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
             checkHuevos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -159,7 +189,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkLeche = (CheckBox) findViewById(R.id.leche_button);
             checkLeche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -177,7 +206,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkCarne = (CheckBox) findViewById(R.id.carne_button);
             checkCarne.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -195,7 +223,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkPescado = (CheckBox) findViewById(R.id.pescado_button);
             checkPescado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -213,7 +240,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkVerdura = (CheckBox) findViewById(R.id.verdura_button);
             checkVerdura.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -231,7 +257,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkBolleria = (CheckBox) findViewById(R.id.bolleria_button);
             checkBolleria.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -249,7 +274,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkCereales = (CheckBox) findViewById(R.id.cereales_button);
             checkCereales.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -267,7 +291,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkLegumbre = (CheckBox) findViewById(R.id.legumbre_button);
             checkLegumbre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -285,7 +308,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkEmbutido = (CheckBox) findViewById(R.id.embutido_button);
             checkEmbutido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -303,7 +325,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkQueso = (CheckBox) findViewById(R.id.queso_button);
             checkQueso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -321,7 +342,6 @@ public class FoodResumeActivity extends FoodsActivity {
                 }
             });
 
-            CheckBox checkYogurt = (CheckBox) findViewById(R.id.yogur_button);
             checkYogurt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
@@ -346,7 +366,6 @@ public class FoodResumeActivity extends FoodsActivity {
         TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
 
-        kcal = (TextView) findViewById(R.id.num_kcal);
         kcal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
