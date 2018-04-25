@@ -111,7 +111,7 @@ public class FoodResumeActivity extends FoodsActivity {
                         startActivity(new Intent(FoodResumeActivity.this, MainActivity.class));
                     }
                 } else {
-                    db.createTableKcal(foodId, checks[0], checks[1], checks[2], checks[3], checks[4], checks[5], checks[6], checks[7], checks[8], checks[9], checks[10], checks[11]);
+                    db.createTableKcal(foodId, checks);
                     startActivity(new Intent(FoodResumeActivity.this, FoodsActivity.class));
                 }
                 db.close();

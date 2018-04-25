@@ -23,7 +23,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -569,21 +569,21 @@ public class DataBaseContract {
     }
 
     /** Crear las kcal en la base de datos **/
-    public long createTableKcal(long foodId, boolean pasta, boolean huevos, boolean leche, boolean carne, boolean pescado, boolean verdura, boolean bolleria, boolean cereales, boolean legumbre, boolean embutido, boolean queso, boolean yogurt){
+    public long createTableKcal(long foodId,  boolean[] checks){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryKcal.COLUMN_FOOD_ID, foodId);
-        values.put(DataBaseEntryKcal.COLUMN_PASTA, pasta);
-        values.put(DataBaseEntryKcal.COLUMN_HUEVOS, huevos);
-        values.put(DataBaseEntryKcal.COLUMN_LECHE, leche);
-        values.put(DataBaseEntryKcal.COLUMN_CARNE, carne);
-        values.put(DataBaseEntryKcal.COLUMN_PESCADO, pescado);
-        values.put(DataBaseEntryKcal.COLUMN_VERDURA, verdura);
-        values.put(DataBaseEntryKcal.COLUMN_BOLLERIA, bolleria);
-        values.put(DataBaseEntryKcal.COLUMN_CEREALES, cereales);
-        values.put(DataBaseEntryKcal.COLUMN_LEGUMBRE, legumbre);
-        values.put(DataBaseEntryKcal.COLUMN_EMBUTIDO, embutido);
-        values.put(DataBaseEntryKcal.COLUMN_QUESO, queso);
-        values.put(DataBaseEntryKcal.COLUMN_YOGURT, yogurt);
+        values.put(DataBaseEntryKcal.COLUMN_PASTA, checks[0]);
+        values.put(DataBaseEntryKcal.COLUMN_HUEVOS, checks[1]);
+        values.put(DataBaseEntryKcal.COLUMN_LECHE, checks[2]);
+        values.put(DataBaseEntryKcal.COLUMN_CARNE, checks[3]);
+        values.put(DataBaseEntryKcal.COLUMN_PESCADO, checks[4]);
+        values.put(DataBaseEntryKcal.COLUMN_VERDURA, checks[5]);
+        values.put(DataBaseEntryKcal.COLUMN_BOLLERIA, checks[6]);
+        values.put(DataBaseEntryKcal.COLUMN_CEREALES, checks[7]);
+        values.put(DataBaseEntryKcal.COLUMN_LEGUMBRE, checks[8]);
+        values.put(DataBaseEntryKcal.COLUMN_EMBUTIDO, checks[9]);
+        values.put(DataBaseEntryKcal.COLUMN_QUESO, checks[10]);
+        values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[11]);
 
         return mDb.insert(DataBaseEntryKcal.TABLE_NAME, null, values);
     }
@@ -602,8 +602,8 @@ public class DataBaseContract {
         values.put(DataBaseEntryKcal.COLUMN_LEGUMBRE, checks[8]);
         values.put(DataBaseEntryKcal.COLUMN_EMBUTIDO, checks[9]);
         values.put(DataBaseEntryKcal.COLUMN_QUESO, checks[10]);
-        values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[10]);
-        mDb.update(DataBaseEntryFoods.TABLE_NAME, values, DataBaseEntryKcal._ID +"="+ kcalTable.getId(), null);
+        values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[11]);
+        mDb.update(DataBaseEntryKcal.TABLE_NAME, values, DataBaseEntryKcal._ID +"="+ kcalTable.getId(), null);
     }
 
     /** Cogemos la lista de calorias segun la comida **/
@@ -612,16 +612,60 @@ public class DataBaseContract {
         String selectQuery = "SELECT * FROM " + DataBaseEntryKcal.TABLE_NAME + " WHERE " + DataBaseEntryKcal.COLUMN_FOOD_ID + " = '" + foodId + "'";
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
+        boolean pasta = false;
+        boolean huevos = false;
+        boolean leche = false;
+        boolean carne = false;
+        boolean pescado = false;
+        boolean verdura = false;
+        boolean bolleria = false;
+        boolean cereales = false;
+        boolean legumbre = false;
+        boolean embutido = false;
+        boolean queso = false;
+        boolean yogurt = false;
 
         if(cursor.moveToFirst()) {
             do {
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PASTA))) == 1) {
+                    pasta = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_HUEVOS))) == 1) {
+                    huevos = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LECHE))) == 1) {
+                    leche = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CARNE))) == 1) {
+                    carne = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PESCADO))) == 1) {
+                    pescado = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_VERDURA))) == 1) {
+                    verdura = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_BOLLERIA))) == 1) {
+                    bolleria = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CEREALES))) == 1) {
+                    cereales = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LEGUMBRE))) == 1) {
+                    legumbre = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_EMBUTIDO))) == 1) {
+                    embutido = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_QUESO))) == 1) {
+                    queso = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_YOGURT))) == 1) {
+                    yogurt = true;
+                }
+
                 kcalTable = new KcalTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal._ID))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PASTA))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_HUEVOS))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LECHE))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CARNE))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PESCADO))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_VERDURA))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_BOLLERIA))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CEREALES))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LEGUMBRE))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_EMBUTIDO))),
-                        Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_QUESO))), Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_YOGURT))));
+                        pasta, huevos, leche, carne, pescado, verdura, bolleria, cereales, legumbre, embutido, queso, yogurt);
             } while (cursor.moveToNext());
         }
         return kcalTable;
