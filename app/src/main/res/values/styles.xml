@@ -214,12 +214,24 @@
         <item name="android:layout_gravity">left|center</item>
     </style>
 
-    <style name="ContentExerciseAttribute">
-        <item name="android:layout_width">45dp</item>
+    <style name="ContentExerciseAttributeShort">
+        <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">3dp</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_gravity">left|center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ContentExerciseAttributeLarge">
+        <item name="android:layout_width">63dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:inputType">number</item>
         <item name="android:maxLines">1</item>
     </style>

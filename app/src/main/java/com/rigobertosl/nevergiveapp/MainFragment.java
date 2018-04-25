@@ -58,12 +58,14 @@ public class MainFragment extends Fragment{
 
         if(trainingTable.size() == 0 && foodTable.size() == 0) {
             // Comentar en caso de ejecutar en emulador
+            /*
             View itemView = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_no_content, container, false);
             TextView title = itemView.findViewById(R.id.item_title);
             title.setText("HEY LISTEN!");
             TextView mensaje = itemView.findViewById(R.id.text_view);
             mensaje.setText("Parece que no tienes nada establecido para este día. ¿Por qué no pruebas a guardar algun dato?");
             return itemView;
+            */
             // comentar hasta aquí
         } else {
 

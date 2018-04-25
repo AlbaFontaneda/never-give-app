@@ -17,7 +17,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -26,7 +25,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,7 +33,8 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,48 +49,69 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 /**
- * This shows how UI settings can be toggled.
+ * This demo shows how GMS Location can be used to check for changes to the users location.  The
+ * "My Location" button uses GMS Location to set the blue dot representing the users location.
+ * Permission for {@link Manifest.permission#ACCESS_FINE_LOCATION} is requested at run
+ * time. If the permission has not been granted, the Activity is finished with an error message.
  */
-public class UiSettingsDemoActivity extends AppCompatActivity implements OnMyLocationButtonClickListener,
+public class MyLocationDemoActivity extends AppCompatActivity
+        implements
+        OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private static final int MY_LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private static final int LOCATION_LAYER_PERMISSION_REQUEST_CODE = 2;
-    private GoogleMap mMap;
-    private UiSettings mUiSettings;
-
-    final String GOOGLE_KEY = "poner_aqui_API_KEY";
-
-    // Centrado en la UC3M Leganés
-    final String latitude = "40.341442";
-    final String longitude = "-3.762217";
-
-    // Radio de búsqueda
-    final String radius = "1000";
-
-    // Tipo de establecimiento (ver API Google Places)
-    final String type = "gym";
-
-    // Todos los centros encontrados
-    ArrayList<GooglePlace> foundPlaces;
+    /**
+     * Request code for location permission request.
+     *
+     * @see #onRequestPermissionsResult(int, String[], int[])
+     */
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     /**
      * Flag indicating whether a requested permission has been denied after returning in
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
-    private boolean mLocationPermissionDenied = false;
+    private boolean mPermissionDenied = false;
+
+    private GoogleMap mMap;
+    private final String type = "gym";
+    private final String radius = "1000";
+    private ArrayList<GooglePlace> foundPlaces;
+    private GooglePlace myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ui_settings_demo);
+        setContentView(R.layout.my_location_demo);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
 
-        new FindPlaces().execute();
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+        enableMyLocation();
+    }
+
+    /**
+     * Enables the My Location layer if the fine location permission has been granted.
+     */
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            // Access to the location has been granted to the app.
+            mMap.setMyLocationEnabled(true);
+        }
     }
 
     @Override
@@ -104,83 +124,44 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMyLoc
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
+        myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
+        new FindPlaces().execute();
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-        mUiSettings = mMap.getUiSettings();
-
-        //--------------------------------------------------------//
-        // Pedir permisos primero
-        if (!checkReady()) {
-            return;
-        }
-        mUiSettings.setZoomControlsEnabled(true);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-            mUiSettings.setMyLocationButtonEnabled(true);
-        } else {
-            // Uncheck the box and request missing location permission.
-            PermissionUtils.requestPermission(this, LOCATION_LAYER_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-        }
-
-        //--------------------------------------------------------//
-
-        // Keep the UI Settings state in sync with the checkboxes.
-        //mMap.setMyLocationEnabled(isChecked(R.id.mylocationlayer_toggle));
-    }
-
-    /**
-     * Checks if the map is ready (which depends on whether the Google Play services APK is
-     * available. This should be called prior to calling any methods on GoogleMap.
-     */
-    private boolean checkReady() {
-        if (mMap == null) {
-            Toast.makeText(this, "Cargando mapa...", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
             @NonNull int[] grantResults) {
-        if (requestCode == MY_LOCATION_PERMISSION_REQUEST_CODE) {
-            // Enable the My Location button if the permission has been granted.
-            if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                mUiSettings.setMyLocationButtonEnabled(true);
-            } else {
-                mLocationPermissionDenied = true;
-                Toast.makeText(this, R.string.location_permission_denied, Toast.LENGTH_SHORT).show();
-                finish();
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
 
-        } else if (requestCode == LOCATION_LAYER_PERMISSION_REQUEST_CODE) {
-            // Enable the My Location layer if the permission has been granted.
-            if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                mMap.setMyLocationEnabled(true);
-                //mMyLocationLayerCheckbox.setChecked(true);
-            } else {
-                mLocationPermissionDenied = true;
-            }
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            mPermissionDenied = true;
         }
     }
 
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        if (mLocationPermissionDenied) {
-            PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getSupportFragmentManager(), "dialog");
-            mLocationPermissionDenied = false;
+        if (mPermissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            mPermissionDenied = false;
         }
+    }
+
+    /**
+     * Displays a dialog with error message explaining that the location permission is missing.
+     */
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
     public class FindPlaces extends AsyncTask<View, Void, ArrayList<GooglePlace>> {
@@ -191,7 +172,7 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMyLoc
         protected ArrayList<GooglePlace> doInBackground(View... views) {
             ArrayList<GooglePlace> temp = null;
             temp = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
-                    + latitude + "," + longitude + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
+                    + myLocation.getLatitude() + "," + myLocation.getLongitude() + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
             return temp;
         }
 
@@ -250,42 +231,56 @@ public class UiSettingsDemoActivity extends AppCompatActivity implements OnMyLoc
 
         protected void onPostExecute(ArrayList<GooglePlace> result) {
             foundPlaces = result;
+            for(GooglePlace place : result){
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(place.getLatitude(), place.getLongitude()))
+                        .title(place.getName()));
+            }
         }
 
     }
 
+}
 
+class GooglePlace {
 
-    /** Sobrescripción del botón de atrás del propio móvil
-     * Código extraido de: Ekawas.
-     * Answered Jun 29 '10 at 16:00.
-     * Edited by Arvindh Mani.
-     * Edited Aug 10 '16 at 1:23.
-     * Visitado a día 11/04/2018
-     **/
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
-                && keyCode == KeyEvent.KEYCODE_BACK
-                && event.getRepeatCount() == 0) {
-            onBackPressed();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    private String name;
+    private double latitude, longitude;
+
+    public GooglePlace() {
+        this.name = "";
+        this.latitude = 0;
+        this.longitude = 0;
     }
 
-    /** Sobrescripción del botón de atrás del propio móvil
-     * Código extraido de: Ekawas.
-     * Answered Jun 29 '10 at 16:00.
-     * Edited by Arvindh Mani.
-     * Edited Aug 10 '16 at 1:23.
-     * Visitado a día 11/04/2018
-     **/
-    @Override
-    public void onBackPressed() {
-        Intent setIntent = new Intent(UiSettingsDemoActivity.this, MainActivity.class);
-        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        finish();
-        startActivity(setIntent);
+    public GooglePlace(String name, double latitude, double longitude) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
+
