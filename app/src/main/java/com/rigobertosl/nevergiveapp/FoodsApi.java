@@ -106,7 +106,6 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
 
         for (int i = 0; i < result.size(); i++) {
             listKcal.add(i, Integer.valueOf(result.get(i).getKcal()));
-            Log.e("PR: ", "kcal" + listKcal);
         }
 
         FoodResumeActivity.listKcal = listKcal;

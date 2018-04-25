@@ -192,12 +192,28 @@
                         android:text="Yogurt"/>
                 </LinearLayout>
             </LinearLayout>
-            <TextView
-                android:id="@+id/num_kcal"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="0"/>
+                android:background="@drawable/layouts_resume_table"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/bpblack"
+                    android:textSize="17dp"
+                    android:text="Total de Kcal:"/>
+                <TextView
+                    android:id="@+id/num_kcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:padding="5dp"
+                    android:text="0"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
