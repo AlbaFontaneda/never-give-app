@@ -24,6 +24,7 @@ public class DataBaseContract {
     }
 
     private static final int DATABASE_VERSION = 1;
+
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";
@@ -104,6 +105,44 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseEntryFoods.TABLE_NAME;
     }
 
+    public static class DataBaseEntryKcal implements BaseColumns {
+        public static final String TABLE_NAME = "lista_kcal";
+        public static final String COLUMN_FOOD_ID = "id_food";
+        public static final String COLUMN_PASTA = "pasta";
+        public static final String COLUMN_HUEVOS = "huevos";
+        public static final String COLUMN_LECHE = "leche";
+        public static final String COLUMN_CARNE = "carne";
+        public static final String COLUMN_PESCADO = "pescado";
+        public static final String COLUMN_VERDURA = "verdura";
+        public static final String COLUMN_BOLLERIA = "bolleria";
+        public static final String COLUMN_CEREALES = "cereales";
+        public static final String COLUMN_LEGUMBRE = "legumbre";
+        public static final String COLUMN_EMBUTIDO = "embutido";
+        public static final String COLUMN_QUESO = "queso";
+        public static final String COLUMN_YOGURT = "yogurt";
+
+
+        private static final String SQL_CREATE_ENTRIES_KCAL =
+                "CREATE TABLE " + DataBaseEntryKcal.TABLE_NAME + " (" +
+                        DataBaseEntryKcal._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseEntryKcal.COLUMN_FOOD_ID + LONG_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_PASTA + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_HUEVOS + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_LECHE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_CARNE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_PESCADO + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_VERDURA + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_BOLLERIA + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_CEREALES + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_LEGUMBRE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_EMBUTIDO + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_QUESO + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryKcal.COLUMN_YOGURT + TEXT_TYPE + " )";
+
+        private static final String SQL_DELETE_ENTRIES_KCAL =
+                "DROP TABLE IF EXISTS " + DataBaseEntryKcal.TABLE_NAME;
+    }
+
     /********************* COLUMNAS PARA TABLAS DE ENTRENAMIENTO POR DEFECTO *****************************/
     public static class DataBaseDefaultTable implements BaseColumns {
         public static final String TABLE_NAME = "tabla_default";
@@ -174,6 +213,7 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryListTrain.SQL_CREATE_ENTRIES_LIST_TRAIN);
             db.execSQL(DataBaseEntryTrain.SQL_CREATE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_CREATE_ENTRIES_FOODS);
+            db.execSQL(DataBaseEntryKcal.SQL_CREATE_ENTRIES_KCAL);
             db.execSQL(DataBaseDefaultTable.SQL_CREATE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_CREATE_DEFAULT_EXERCISES);
             db.execSQL(DataBaseDefaultLinkTable.SQL_CREATE_ENTRIES_DEFAULT_LINK);
@@ -184,6 +224,7 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryListTrain.SQL_DELETE_ENTRIES_LIST_TRAIN);
             db.execSQL(DataBaseEntryTrain.SQL_DELETE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_DELETE_ENTRIES_FOODS);
+            db.execSQL(DataBaseEntryKcal.SQL_DELETE_ENTRIES_KCAL);
             db.execSQL(DataBaseDefaultTable.SQL_DELETE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_DELETE_DEFAULT_EXERCISES);
             db.execSQL(DataBaseDefaultLinkTable.SQL_DELETE_ENTRIES_DEFAULT_LINK);
@@ -526,6 +567,118 @@ public class DataBaseContract {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryFoods.TABLE_NAME, DataBaseEntryFoods._ID + " = ?",
                 new String[] { String.valueOf(tableId) });
+        deleteKcal(foodTable);
+    }
+
+    /** Crear las kcal en la base de datos **/
+    public long createTableKcal(long foodId,  boolean[] checks){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryKcal.COLUMN_FOOD_ID, foodId);
+        values.put(DataBaseEntryKcal.COLUMN_PASTA, checks[0]);
+        values.put(DataBaseEntryKcal.COLUMN_HUEVOS, checks[1]);
+        values.put(DataBaseEntryKcal.COLUMN_LECHE, checks[2]);
+        values.put(DataBaseEntryKcal.COLUMN_CARNE, checks[3]);
+        values.put(DataBaseEntryKcal.COLUMN_PESCADO, checks[4]);
+        values.put(DataBaseEntryKcal.COLUMN_VERDURA, checks[5]);
+        values.put(DataBaseEntryKcal.COLUMN_BOLLERIA, checks[6]);
+        values.put(DataBaseEntryKcal.COLUMN_CEREALES, checks[7]);
+        values.put(DataBaseEntryKcal.COLUMN_LEGUMBRE, checks[8]);
+        values.put(DataBaseEntryKcal.COLUMN_EMBUTIDO, checks[9]);
+        values.put(DataBaseEntryKcal.COLUMN_QUESO, checks[10]);
+        values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[11]);
+
+        return mDb.insert(DataBaseEntryKcal.TABLE_NAME, null, values);
+    }
+
+    /** Borra un row de lista de kcal **/
+    public void deleteKcal(FoodTable foodTable) {
+        long tableId = foodTable.getId();
+        mDb = mDbHelper.getWritableDatabase();
+        mDb.delete(DataBaseEntryKcal.TABLE_NAME, DataBaseEntryKcal.COLUMN_FOOD_ID + " = ?",
+                new String[] { String.valueOf(tableId) });
+    }
+
+    /** Actualizamos kcal de la tabla **/
+    public void updateTableKcal(KcalTable kcalTable, boolean[] checks) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseEntryKcal.COLUMN_PASTA, checks[0]);
+        values.put(DataBaseEntryKcal.COLUMN_HUEVOS, checks[1]);
+        values.put(DataBaseEntryKcal.COLUMN_LECHE, checks[2]);
+        values.put(DataBaseEntryKcal.COLUMN_CARNE, checks[3]);
+        values.put(DataBaseEntryKcal.COLUMN_PESCADO, checks[4]);
+        values.put(DataBaseEntryKcal.COLUMN_VERDURA, checks[5]);
+        values.put(DataBaseEntryKcal.COLUMN_BOLLERIA, checks[6]);
+        values.put(DataBaseEntryKcal.COLUMN_CEREALES, checks[7]);
+        values.put(DataBaseEntryKcal.COLUMN_LEGUMBRE, checks[8]);
+        values.put(DataBaseEntryKcal.COLUMN_EMBUTIDO, checks[9]);
+        values.put(DataBaseEntryKcal.COLUMN_QUESO, checks[10]);
+        values.put(DataBaseEntryKcal.COLUMN_YOGURT, checks[11]);
+        mDb.update(DataBaseEntryKcal.TABLE_NAME, values, DataBaseEntryKcal._ID +"="+ kcalTable.getId(), null);
+    }
+
+    /** Cogemos la lista de calorias segun la comida **/
+    public KcalTable getKcalTableByFood(long foodId) {
+        KcalTable kcalTable = null;
+        String selectQuery = "SELECT * FROM " + DataBaseEntryKcal.TABLE_NAME + " WHERE " + DataBaseEntryKcal.COLUMN_FOOD_ID + " = '" + foodId + "'";
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        boolean pasta = false;
+        boolean huevos = false;
+        boolean leche = false;
+        boolean carne = false;
+        boolean pescado = false;
+        boolean verdura = false;
+        boolean bolleria = false;
+        boolean cereales = false;
+        boolean legumbre = false;
+        boolean embutido = false;
+        boolean queso = false;
+        boolean yogurt = false;
+
+        if(cursor.moveToFirst()) {
+            do {
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PASTA))) == 1) {
+                    pasta = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_HUEVOS))) == 1) {
+                    huevos = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LECHE))) == 1) {
+                    leche = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CARNE))) == 1) {
+                    carne = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_PESCADO))) == 1) {
+                    pescado = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_VERDURA))) == 1) {
+                    verdura = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_BOLLERIA))) == 1) {
+                    bolleria = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_CEREALES))) == 1) {
+                    cereales = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_LEGUMBRE))) == 1) {
+                    legumbre = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_EMBUTIDO))) == 1) {
+                    embutido = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_QUESO))) == 1) {
+                    queso = true;
+                }
+                if(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal.COLUMN_YOGURT))) == 1) {
+                    yogurt = true;
+                }
+
+                kcalTable = new KcalTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryKcal._ID))),
+                        pasta, huevos, leche, carne, pescado, verdura, bolleria, cereales, legumbre, embutido, queso, yogurt);
+            } while (cursor.moveToNext());
+        }
+        return kcalTable;
     }
 
 
