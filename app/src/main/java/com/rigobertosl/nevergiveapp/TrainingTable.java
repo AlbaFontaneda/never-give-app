@@ -1,9 +1,5 @@
 package com.rigobertosl.nevergiveapp;
 
-/**
- * Created by Javi on 28/03/2018.
- */
-
 public class TrainingTable {
     private long id;
     private String name, days;

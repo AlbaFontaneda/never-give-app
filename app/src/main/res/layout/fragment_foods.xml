@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-        <ListView
-            android:id="@+id/list_item"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_food"
             style="@style/FoodsList" />
 </android.support.design.widget.CoordinatorLayout>

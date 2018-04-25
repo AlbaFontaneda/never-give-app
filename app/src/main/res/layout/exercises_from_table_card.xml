@@ -48,7 +48,7 @@
                     android:layout_column="0" />
                 <EditText
                     android:id="@+id/num_series"
-                    style="@style/ContentExerciseAttribute"
+                    style="@style/ContentExerciseAttributeShort"
                     android:layout_column="1"/>
                 <TextView
                     android:id="@+id/repeticiones"
@@ -57,7 +57,7 @@
                     android:layout_column="2" />
                 <EditText
                     android:id="@+id/num_repeticiones"
-                    style="@style/ContentExerciseAttribute"
+                    style="@style/ContentExerciseAttributeShort"
                     android:layout_column="3"/>
                 <TextView
                     android:id="@+id/descanso"
@@ -66,7 +66,10 @@
                     android:layout_column="4" />
                 <EditText
                     android:id="@+id/num_descanso"
-                    style="@style/ContentExerciseAttribute"
+                    style="@style/ContentExerciseAttributeLarge"
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:layout_column="5"/>
             </GridLayout>
         </RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,8 +16,9 @@ import static java.lang.Integer.valueOf;
 public class MainFragment extends Fragment{
 
     private DataBaseContract db;
-    private int weekDay;
+    public int weekDay;
     private String filterDay;
+    private boolean isType;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,13 +28,14 @@ public class MainFragment extends Fragment{
         db.open();
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_training);
-        //RecyclerView recyclerViewFoods = (RecyclerView) rootView.findViewById(R.id.list_food);
+        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_main_training);
+        RecyclerView recyclerViewFoods = (RecyclerView) rootView.findViewById(R.id.list_main_foods);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewTraining.setLayoutManager(layoutManager);
-        //RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
-        //recyclerViewFoods.setLayoutManager(layoutManager2);
+
+        RecyclerView.LayoutManager layoutManagerFood = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewFoods.setLayoutManager(layoutManagerFood);
 
         if(weekDay == 0) {
             filterDay = "LU";
@@ -49,15 +52,26 @@ public class MainFragment extends Fragment{
         }else if(weekDay == 6) {
             filterDay = "DO";
         }
-
+        isType = false;
         ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
-        ArrayList<TrainingTable> trainingTable2 = db.getAllTablesFilterByDay("M");
-        RecyclerView.Adapter adapterTraining = new CustomTrainingAdapter(getContext(), trainingTable);
+        ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
 
-        //RecyclerView.Adapter adapterFood = new CustomTrainingAdapter(getContext(), trainingTable2);
-        recyclerViewTraining.setAdapter(adapterTraining);
-        //recyclerViewFoods.setAdapter(adapterFood);
+        if(trainingTable.size() == 0 && foodTable.size() == 0) {
 
+            View itemView = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_no_content, container, false);
+            TextView title = itemView.findViewById(R.id.item_title);
+            title.setText("HEY LISTEN!");
+            TextView mensaje = itemView.findViewById(R.id.text_view);
+            mensaje.setText("Parece que no tienes nada establecido para este día. ¿Por qué no pruebas a guardar algun dato?");
+            return itemView;
+
+        } else {
+
+            RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
+            RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, filterDay, isType);
+            recyclerViewTraining.setAdapter(adapterTrain);
+            recyclerViewFoods.setAdapter(adapterFood);
+        }
 
         return rootView;
     }

@@ -33,56 +33,39 @@
             app:tabMode="scrollable">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_lunes"
+                android:id="@+id/tab_desayuno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lunes_tab" />
+                android:text="DESAYUNOS" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_martes"
+                android:id="@+id/tab_almuerzo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/martes_tab" />
+                android:text="ALMUERZOS" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_miercoles"
+                android:id="@+id/tab_comida"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/miercoles_tab" />
+                android:text="COMIDAS" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_jueves"
+                android:id="@+id/tab_merienda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/jueves_tab" />
+                android:text="MERIENDAS" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_viernes"
+                android:id="@+id/tab_cena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/viernes_tab" />
+                android:text="CENAS" />
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/tab_sabado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sabado_tab" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/tab_domingo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/domingo_tab" />
 
         </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -91,5 +74,18 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add" />
+
+    <FrameLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

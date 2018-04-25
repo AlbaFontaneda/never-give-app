@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,13 +25,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private DataBaseContract db;
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(FoodResumeActivity.listKcal == null) {
+            new FoodsApi().execute();
+        }
+
         setContentView(R.layout.activity_main);
+        db = new DataBaseContract(this);
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
@@ -85,9 +90,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete) {
             Toast.makeText(MainActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
+            db.open();
+            db.resetDataBase();
+            db.close();
+            finish();
+            startActivity(getIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -108,7 +118,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_eventos) {
-            //HACER ACTIVIDAD EVENTOS
+            Intent intent = new Intent(MainActivity.this, MyLocationDemoActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
@@ -153,3 +164,5 @@ public class MainActivity extends AppCompatActivity
 //Todo: arreglar el transito entre pantallas. Cerrar fragments
 //Todo: Arreglar posicionamiento de tabs al girar pantalla
 //Todo: HACER ACTIVIDAD EVENTOS
+
+//Todo: Alba* hay que hacer otro custom adapter para el inicio, ya que para cada tab es totalmente distinto lo que sale y hay que tener en cuenta comidas y entrenamientos

@@ -2,39 +2,54 @@ package com.rigobertosl.nevergiveapp;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.lang.Integer.valueOf;
 
 public class ExerciseResumeFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    private int position;
+    private long tableID;
+    private int pagina;
+
     private DataBaseContract db;
     private ArrayList<Exercise> ejercicios;
-    private int pagina;
-    private int timer = 0;
+
+    private long START_TIME = 1000;
+    private long timeLeft = START_TIME;
+    private TextView countDown;
+    private ProgressBar progressBar;
+
+    private MyCountDownTimer mycounter;
+
+    TrainingTable trainingTable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        position = (int) getActivity().getIntent().getSerializableExtra("position");
-        pagina = valueOf(getArguments().getInt("page_position"));
         db = new DataBaseContract(getActivity());
         db.open();
+        tableID = (long) getActivity().getIntent().getSerializableExtra("tablaID");
+        pagina = valueOf(getArguments().getInt("page_position"));
+        if((boolean) getActivity().getIntent().getSerializableExtra("isDefault")) {
+            trainingTable = db.getDefaultTableByID(tableID);
+            ejercicios = db.getAllDefaultExercisesFromTable(trainingTable);
+        } else {
+            trainingTable = db.getTrainingTableByID(tableID);
+            ejercicios = db.getAllExercisesFromTable(trainingTable);
+        }
 
-        ArrayList<TrainingTable> trainingTable = db.getAllTables();
-        ejercicios = db.getAllExercisesFromTable(trainingTable.get(position));
         Exercise ejercicio = ejercicios.get(pagina);
 
         View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);
@@ -42,32 +57,47 @@ public class ExerciseResumeFragment extends Fragment {
         TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
         TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
+        countDown = (TextView)rootView.findViewById(R.id.temporizador);
+        ImageButton play = (ImageButton)rootView.findViewById(R.id.play);
+        ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
+        ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
+        progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
+        //updateCountDown();
+        progressBar.setProgress(100);
+        setStartTime(ejercicio.getDescanso());
+        mycounter = new MyCountDownTimer(START_TIME, 1000);
+        RefreshTimer();
 
-        final ProgressBar progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
-        progressBar.setProgress(timer);
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        stop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                timer++;
-                progressBar.setProgress((int)timer*100/(5000/1000));
+            public void onClick(View view) {
+                mycounter.reset();
             }
+        });
 
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFinish() {
-                //Do what you want
-                timer++;
-                progressBar.setProgress(100);
+            public void onClick(View view) {
+                mycounter.start();
             }
-        };
-        countDownTimer.start();
+        });
 
-        //TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mycounter.pause();
+            }
+        });
+
+        TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
 
         exerciseTitle.setText((String) ejercicio.getNombre());
         exerciseSeries.setText((String) ejercicio.getSeries());
         exerciseRep.setText((String) ejercicio.getRepeticiones());
+
         //exerciseDescanso.setText((String) ejercicio.getDescanso());
+
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
 
@@ -78,4 +108,34 @@ public class ExerciseResumeFragment extends Fragment {
 
         return rootView;
     }
+
+    public void RefreshTimer()
+    {
+        final Handler handler = new Handler();
+        final Runnable counter = new Runnable(){
+
+            public void run(){
+                updateCountDown(mycounter.getCurrentTime());
+                handler.postDelayed(this, 100);
+            }
+        };
+        handler.postDelayed(counter, 100);
+    }
+
+    private void updateCountDown(long timeLeft) {
+        int minutes = (int)timeLeft / 60000;
+        int seconds = (int)timeLeft/1000 % 60;
+
+
+        int porcentajeRestante = (int)timeLeft*100/(int)START_TIME;
+        progressBar.setProgress(porcentajeRestante);
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        countDown.setText(timeLeftFormatted);
+    }
+
+    public void setStartTime(String sTime){
+        String[] time = sTime.split(":");
+        START_TIME *= Long.parseLong(time[0])*60+Long.parseLong(time[1]);
+    }
+
 }

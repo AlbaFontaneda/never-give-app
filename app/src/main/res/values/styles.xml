@@ -66,8 +66,7 @@
     <!-- ESTILOS VENTANA DE COMIDAS -->
     <style name="FoodsList">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:dividerHeight">5dp</item>
         <item name="android:divider">#FFFFFF</item>
     </style>
@@ -134,7 +133,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
-        <item name="android:orientation">vertical</item>
+        <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
@@ -198,7 +197,7 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">5dp</item>
     </style>
-    
+
     <style name="ContentTableAttribute">
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -207,22 +206,45 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:maxLines">1</item>
     </style>
-    
-        <!-- DENTRO DEL RECYCLERVIEW -->
+
+    <!-- DENTRO DEL RECYCLERVIEW -->
     <style name="AttributeExerciseText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">left|center</item>
     </style>
-    
-    <style name="ContentExerciseAttribute">
-        <item name="android:layout_width">45dp</item>
+
+    <style name="ContentExerciseAttributeShort">
+        <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">3dp</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_gravity">left|center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:inputType">number</item>
         <item name="android:maxLines">1</item>
     </style>
 
+    <style name="ContentExerciseAttributeLarge">
+        <item name="android:layout_width">63dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+
+    <!-- COLLAPSING BAR -->
+    <style name="ToolbarExpandedTitle">
+        <item name="android:textSize">40dp</item>
+        <item name="android:shadowColor">#ffffff</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:minLines">1</item>
+        <item name="android:lines">4</item>
+        <item name="android:maxLines">5</item>
+    </style>
 </resources>

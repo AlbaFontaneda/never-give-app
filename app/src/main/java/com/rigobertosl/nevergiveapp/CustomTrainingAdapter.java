@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     private Context mContext;
     private ArrayList<TrainingTable> trainingTables;
+    private String filterDay;
     private DataBaseContract db;
     private RecyclerView recyclerView;
     private ExerciseAdapter exerciseAdapter;
@@ -38,9 +40,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
     }
     
-    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables) {
+    public CustomTrainingAdapter(Context mContext, ArrayList<TrainingTable> trainingTables, String filterDay) {
         this.mContext = mContext;
         this.trainingTables = trainingTables;
+        this.filterDay = filterDay;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,7 +58,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-
         holder.title.setText(trainingTables.get(position).getName());
         holder.itemOptions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,17 +69,27 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
-                        ArrayList<TrainingTable> trainingTable = db.getAllTables();
+                        ArrayList<TrainingTable> trainingTable;
+                        if(filterDay == null) {
+                            trainingTable = db.getAllTables();
+                        } else {
+                            trainingTable = db.getAllTablesFilterByDay(filterDay);
+                        }
 
                         switch (item.getItemId()) {
                             case R.id.menu_training_elements_edit:
                                 Toast.makeText(mContext,
                                         "Edit pulsado", Toast.LENGTH_LONG).show();
 
-                                Intent i = new Intent(mContext, TableResumeActivity.class);
-                                i.putExtra("position", holder.getAdapterPosition()); //Con esto pasamos la posición de la tabla que queramos ver
-                                mContext.startActivity(i);
+                                Intent intent = new Intent(mContext, TableResumeActivity.class);
+                                if(mContext.getClass() == MainActivity.class){
+                                    intent.putExtra("fromTraining", false);
+                                }else if (mContext.getClass() == TrainingActivity.class){
+                                    intent.putExtra("fromTraining", true);
+                                }
+                                intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
+                                intent.putExtra("isDefault", false);
+                                mContext.startActivity(intent);
 
                                 break;
                             case R.id.menu_training_elements_delete:
@@ -110,7 +122,13 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         db = new DataBaseContract(holder.title.getContext());
         db.open();
 
-        ArrayList<TrainingTable> trainingTables = db.getAllTables();
+
+        ArrayList<TrainingTable> trainingTables;
+        if(filterDay == null) {
+            trainingTables = db.getAllTables();
+        } else {
+            trainingTables = db.getAllTablesFilterByDay(filterDay);
+        }
         exerciseList = db.getAllExercisesFromTable(trainingTables.get(position));
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
@@ -168,8 +186,5 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         public void onAttachedToRecyclerView(RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
-
-
-
     }
 }

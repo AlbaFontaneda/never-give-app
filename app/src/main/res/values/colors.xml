@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="ActionBarEnd">#4dacb6</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentLigth">#FFFF80AB</color>
+    <color name="colorAccentDark">#be2e5f</color>
     <color name="colorRow">#a9a8a8</color>
     <color name="colorCotent">#FF1E7881</color>
     <color name="colorHeader">#1c8f31</color>
@@ -12,4 +14,5 @@
     <color name="achievementsRow">#c178bc</color>
     <color name="titlesColor">#ffffff</color>
     <color name="cardViewContent">#dcdcdc</color>
+    <color name="white">#D0FFFFFF</color>
 </resources>

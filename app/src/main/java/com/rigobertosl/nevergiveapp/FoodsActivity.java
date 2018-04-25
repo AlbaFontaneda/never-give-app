@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,47 +24,49 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
+
+import java.util.ArrayList;
 
 public class FoodsActivity extends MainActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    String tableName;
-    String tableDays;
-    private static DataBaseContract dbAdapter;
+    private SectionsPagerAdapter seleccionPagina;
+    private ViewPager vistaPagina;
+    public FloatingActionButton fab;
+    private DataBaseContract db;
+    public static FoodTable foodTable;
+    public String weekDays = "";
+    public static long foodTableId;
+
+    EditText foodDaysEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foods);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        db = new DataBaseContract(this);
+        db.open();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Función para volver a la pantalla anterior
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(FoodsActivity.this, MainActivity.class);
-                //Para matar la actividad anterior
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //Para leer la nueva actividad (volver al main)
-                startActivity(intent);
-            }
-        });
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,21 +74,22 @@ public class FoodsActivity extends MainActivity {
             }
         });
 
-        ListView item_list = (ListView)findViewById(R.id.list_item);
+        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        for (int i = 0; i<7; i++){
+            Fragment f = new FoodsFragment();
+            fragments.add(f);
+        }
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
+        vistaPagina = (ViewPager) findViewById(R.id.container);
+        vistaPagina.setAdapter(seleccionPagina);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
     }
 
-    //Función para abrir el menu de opciones del app bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -96,44 +100,72 @@ public class FoodsActivity extends MainActivity {
     //Función para dar funcionalidades a cada item del menu del app bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.menu_foods_visual | id == R.id.menu_foods_settings | id == R.id.menu_foods_edit) {
             Toast.makeText(getApplicationContext(),
                     item.getTitle(), Toast.LENGTH_SHORT).show();
             return true;
+        } if(id == R.id.menu_foods_delete) {
+           db.open();
+           db.resetFoods();
+           db.close();
+           finish();
+           startActivity(getIntent());
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void openDialog(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_table, null);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_food, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
-        dialog.setTitle("Nueva comida");
         dialog.show();
+
 
         final Button continuar = (Button) dialogLayout.findViewById(R.id.button_continue);
         final Button cancelar = (Button) dialogLayout.findViewById(R.id.button_cancel);
 
-        final EditText tableNameEditText = (EditText) dialogLayout.findViewById(R.id.table_name);
-        final EditText tableDaysEditText = (EditText) dialogLayout.findViewById(R.id.table_days);
+        final EditText foodNameEditText = (EditText)dialogLayout.findViewById(R.id.name_food);
+        foodDaysEditText = (EditText)dialogLayout.findViewById(R.id.food_days);
+        final Spinner dropdown = dialogLayout.findViewById(R.id.food_spinner);
+
+        String[] items = new String[]{"Selecciona una comida...", "Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(FoodsActivity.this, android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+
+        foodDaysEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectDays();
+            }
+        });
 
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tableName = tableNameEditText.getText().toString();
-                tableDays = tableDaysEditText.getText().toString();
-                if (tableName.matches("") || tableDays.matches("")) {
+                String foodName = foodNameEditText.getText().toString();
+                String foodDays = "";
+                String foodType = dropdown.getSelectedItem().toString();
+                if(!weekDays.equals("")){
+                    foodDays = weekDays.substring(1, weekDays.length()-1);
+                }
+                if (foodName.matches("") || foodDays.matches("") || foodType.equals("Selecciona una comida...")) {
                     Toast.makeText(FoodsActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
+                    foodTable = db.createTableFoods(foodName, foodDays, foodType, null, null);
+                    finish();
+                    //startActivity(new Intent(FoodsActivity.this, FoodResumeActivity.class));
+                    long id = foodTable.getId();
+                    foodTableId = id;
+                    Intent intent = new Intent(FoodsActivity.this, FoodResumeActivity.class);
+                    intent.putExtra("foodId", foodTableId);
+                    intent.putExtra("fromResume", false);
+                    startActivity(intent);
+                    db.close();
                     dialog.cancel();
-                    saveData(view);
                 }
             }
         });
@@ -146,74 +178,237 @@ public class FoodsActivity extends MainActivity {
         });
     }
 
-    /** En esta función se guradan los datos en la base de datos **/
-    public void saveData(View v){
+    public void selectDays() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodsActivity.this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_weekpicker, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
 
-        DataBaseContract.DataBaseHelper nuevaComida = new DataBaseContract.DataBaseHelper(this);
-        SQLiteDatabase db = nuevaComida.getWritableDatabase();
+        final ToggleButton lunes = (ToggleButton)dialogLayout.findViewById(R.id.button_lunes);
+        final ToggleButton martes = (ToggleButton)dialogLayout.findViewById(R.id.button_martes);
+        final ToggleButton miercoles = (ToggleButton)dialogLayout.findViewById(R.id.button_miercoles);
+        final ToggleButton jueves = (ToggleButton)dialogLayout.findViewById(R.id.button_jueves);
+        final ToggleButton viernes = (ToggleButton)dialogLayout.findViewById(R.id.button_viernes);
+        final ToggleButton sabado = (ToggleButton)dialogLayout.findViewById(R.id.button_sabado);
+        final ToggleButton domingo = (ToggleButton)dialogLayout.findViewById(R.id.button_domingo);
 
-        ContentValues values = new ContentValues();
-        values.put(DataBaseContract.DataBaseEntryFoods.COLUMN_NAME, tableName);
-        values.put(DataBaseContract.DataBaseEntryFoods.COLUMN_DAYS, tableDays);
+        final CheckBox checkAll = (CheckBox) dialogLayout.findViewById(R.id.check_all);
 
-        long newRowId = db.insert(DataBaseContract.DataBaseEntryFoods.TABLE_NAME, null, values);
-        Toast.makeText(this, "Datos de la tabla guardados", Toast.LENGTH_SHORT).show();
+        final ArrayList<String> myDays = new ArrayList<>();
+
+        final boolean[] lunesChecked = new boolean[1];
+        final boolean[] martesChecked = new boolean[1];
+        final boolean[] miercolesChecked = new boolean[1];
+        final boolean[] juevesChecked = new boolean[1];
+        final boolean[] viernesChecked = new boolean[1];
+        final boolean[] sabadoChecked = new boolean[1];
+        final boolean[] domingoChecked = new boolean[1];
+
+        final boolean[] checks = new boolean[7];
+
+        lunes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunesChecked[0] = true;
+                } else {
+                    lunesChecked[0] = false;
+                }
+                checks[0] = lunesChecked[0];
+            }
+        });
+
+        martes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    martesChecked[0] = true;
+                } else {
+                    martesChecked[0] = false;
+                }
+                checks[1] = martesChecked[0];
+            }
+        });
+
+        miercoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    miercolesChecked[0] = true;
+                } else {
+                    miercolesChecked[0] = false;
+                }
+                checks[2] = miercolesChecked[0];
+            }
+        });
+
+        jueves.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    juevesChecked[0] = true;
+                } else {
+                    juevesChecked[0] = false;
+                }
+                checks[3] = juevesChecked[0];
+            }
+        });
+
+        viernes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    viernesChecked[0] = true;
+                } else {
+                    viernesChecked[0] = false;
+                }
+                checks[4] = viernesChecked[0];
+            }
+        });
+
+        sabado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sabadoChecked[0] = true;
+                } else {
+                    sabadoChecked[0] = false;
+                }
+                checks[5] = sabadoChecked[0];
+            }
+        });
+
+        domingo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    domingoChecked[0] = true;
+                } else {
+                    domingoChecked[0] = false;
+                }
+                checks[6] = domingoChecked[0];
+            }
+        });
+
+        checkAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunes.setChecked(true);
+                    martes.setChecked(true);
+                    miercoles.setChecked(true);
+                    jueves.setChecked(true);
+                    viernes.setChecked(true);
+                    sabado.setChecked(true);
+                    domingo.setChecked(true);
+                } else {
+                    lunes.setChecked(false);
+                    martes.setChecked(false);
+                    miercoles.setChecked(false);
+                    jueves.setChecked(false);
+                    viernes.setChecked(false);
+                    sabado.setChecked(false);
+                    domingo.setChecked(false);
+                }
+            }
+        });
+
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(checks[0] == true){
+                    myDays.add("LU");
+                }
+                if (checks[1] == true) {
+                    myDays.add("M");
+                }
+                if (checks[2] == true) {
+                    myDays.add("X");
+                }
+                if (checks[3] == true) {
+                    myDays.add("JU");
+                }
+                if (checks[4] == true) {
+                    myDays.add("VI");
+                }
+                if (checks[5] == true) {
+                    myDays.add("SA");
+                }
+                if (checks[6] == true) {
+                    myDays.add("DO");
+                }
+
+                weekDays = myDays.toString();
+                foodDaysEditText.setText(weekDays.substring(1, weekDays.length()-1));
+                dialog.cancel();
+
+            }
+        });
+
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
     }
 
-    public static class PlaceholderFragment extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        public PlaceholderFragment() {
-        }
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_foods, container, false);
-
-            String[] comidas = {"Desayuno", "Tentempié", "Comida", "Merienda", "Cena"};
-            ListAdapter listAdapter = new CustomFoodAdapter(getContext(), comidas);
-            ListView lista = (ListView) rootView.findViewById(R.id.list_item);
-            lista.setAdapter(listAdapter);
-
-            // Para que se haga el scroll correctamente ocultando el toolbar
-            ViewCompat.setNestedScrollingEnabled(lista, true);
-
-            return rootView;
-        }
-
-    }
-
+    /**
+     * Transiciones entre tabs y fragmentos
+     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
+        ArrayList<Fragment> fragments;
+        public SectionsPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
             super(fm);
+            this.fragments = fragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            FoodsFragment fragment = (FoodsFragment) fragments.get(position);
+            Bundle args = new Bundle();
+            args.putInt("page_position", position);
+            fragment.setArguments(args);
+            return fragment;
         }
-
         @Override
         public int getCount() {
-            return 7;
+            return 5;
         }
+    }
+
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(FoodsActivity.this, MainActivity.class);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
     }
 
     /*********** FUNCIONES DE LA PANTALLA DE COMIDAS ******************/
 
 
 }
-
-// TODO: hay que implementar todos los menús después de usar las listas

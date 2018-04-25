@@ -1,13 +1,16 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,13 +29,13 @@ public class TableResumeActivity extends TrainingActivity {
 
     private Context mContext;
     private DataBaseContract db;
-    private ArrayList<TrainingTable> trainingTable;
-    private int position;
+    private long tableID;
     private RecyclerView recyclerView;
     private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
-    public int numPaginas;
+    private int numPaginas;
+    private TrainingTable trainingTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,18 @@ public class TableResumeActivity extends TrainingActivity {
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
         db.open();
-        trainingTable = db.getAllTables();
-        position = (int) getIntent().getSerializableExtra("position");
+        tableID = (long) getIntent().getSerializableExtra("tablaID");
+        trainingTable = db.getTrainingTableByID(tableID);
+        CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        TextView toolbar_days = (TextView)findViewById(R.id.toolbar_days);
+        toolbar_days.setText(trainingTable.getDays());
+        //colToolbar.setTitleEnabled(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.get(position).getName());
+        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
 
-        numPaginas = (int)db.getAllExercisesFromTable(trainingTable.get(position)).size();
+        numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         for (int i = 0; i<numPaginas; i++){
             Fragment f = new ExerciseResumeFragment();
@@ -60,12 +68,11 @@ public class TableResumeActivity extends TrainingActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, trainingTable.get(position));
+                openDialog(view, trainingTable);
             }
         });
     }
@@ -105,14 +112,13 @@ public class TableResumeActivity extends TrainingActivity {
             @Override
             public void onClick(View view) {
 
-                db.editTable(trainingTable.get(position), tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
+                db.editTable(trainingTable, tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
                 dialog.cancel();
                 finish();
                 startActivity(getIntent());
             }
         });
     }
-
 
     /** ADAPTADOR DEL VIEWPAGER **/
     public class ExercisePageAdapter extends FragmentPagerAdapter {
@@ -170,5 +176,46 @@ public class TableResumeActivity extends TrainingActivity {
                 super(itemView);
             }
         }
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     * Enlace: https://stackoverflow.com/questions/3141996/android-how-to-override-the-back-button-so-it-doesnt-finish-my-activity?rq=1
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /** Sobrescripción del botón de atrás del propio móvil
+     * Código extraido de: Ekawas.
+     * Answered Jun 29 '10 at 16:00.
+     * Edited by Arvindh Mani.
+     * Edited Aug 10 '16 at 1:23.
+     * Visitado a día 11/04/2018
+     **/
+    @Override
+    public void onBackPressed() {
+        Intent setIntent;
+        if((boolean) getIntent().getSerializableExtra("fromTraining")){
+            setIntent = new Intent(TableResumeActivity.this, TrainingActivity.class);
+        }else{
+            setIntent = new Intent(TableResumeActivity.this, MainActivity.class);
+
+        }
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(setIntent);
     }
 }

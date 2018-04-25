@@ -10,7 +10,6 @@
     tools:context="com.rigobertosl.nevergiveapp.AchievementsActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
@@ -22,6 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
             android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
@@ -29,6 +29,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabGravity="fill"
             app:tabMode="scrollable">
 
             <android.support.design.widget.TabItem
@@ -55,7 +56,6 @@
                 android:text="@string/events_tab" />
 
         </android.support.design.widget.TabLayout>
-
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
