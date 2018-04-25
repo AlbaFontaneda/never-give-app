@@ -94,12 +94,12 @@ public class TrainingActivity extends MainActivity {
                 TrainingTable defaultTable = db.createDefaultTable(name);
                 if(defaultTable.getId() == 1) {
                     for(String ejercicio: pechoEjercicios) {
-                        long ejerciciosPechoId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], null);
+                        long ejerciciosPechoId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
                         db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosPechoId);
                     }
                 } else if(defaultTable.getId() == 2) {
                     for (String ejercicio : espaldaEjercicios) {
-                        long ejerciciosEspaldaId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], null);
+                        long ejerciciosEspaldaId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
                         db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosEspaldaId);
                     }
                 }
