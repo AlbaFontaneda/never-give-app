@@ -137,19 +137,55 @@ public class FoodResumeActivity extends FoodsActivity {
         kcal = (TextView) findViewById(R.id.num_kcal);
 
         if(kcalTable != null) {
-            if(kcalTable.isPasta()) checkPasta.setChecked(true);
-            if(kcalTable.isHuevos()) checkHuevos.setChecked(true);
-            if(kcalTable.isLeche()) checkLeche.setChecked(true);
-            if(kcalTable.isCarne()) checkCarne.setChecked(true);
-            if(kcalTable.isPescado()) checkPescado.setChecked(true);
-            if(kcalTable.isVerdura()) checkVerdura.setChecked(true);
-            if(kcalTable.isBolleria()) checkBolleria.setChecked(true);
-            if(kcalTable.isCereales()) checkCereales.setChecked(true);
-            if(kcalTable.isLegumbre()) checkLegumbre.setChecked(true);
-            if(kcalTable.isEmbutido()) checkEmbutido.setChecked(true);
-            if(kcalTable.isQueso()) checkQueso.setChecked(true);
-            if(kcalTable.isYogurt()) checkYogurt.setChecked(true);
-            Log.e("PR", "FOODTABLE:" + foodTable.getKcal().toString());
+            if(kcalTable.isPasta()) {
+                checkPasta.setChecked(true);
+                checks[0] = true;
+            }
+            if(kcalTable.isHuevos()) {
+                checkHuevos.setChecked(true);
+                checks[1] = true;
+            }
+            if(kcalTable.isLeche()) {
+                checkLeche.setChecked(true);
+                checks[2] = true;
+            }
+            if(kcalTable.isCarne()) {
+                checkCarne.setChecked(true);
+                checks[3] = true;
+            }
+            if(kcalTable.isPescado()) {
+                checkPescado.setChecked(true);
+                checks[4] = true;
+            }
+            if(kcalTable.isVerdura()) {
+                checkVerdura.setChecked(true);
+                checks[5] = true;
+            }
+            if(kcalTable.isBolleria()) {
+                checkBolleria.setChecked(true);
+                checks[6] = true;
+            }
+            if(kcalTable.isCereales()) {
+                checkCereales.setChecked(true);
+                checks[7] = true;
+            }
+            if(kcalTable.isLegumbre()) {
+                checkLegumbre.setChecked(true);
+                checks[8] = true;
+            }
+            if(kcalTable.isEmbutido()) {
+                checkEmbutido.setChecked(true);
+                checks[9] = true;
+            }
+            if(kcalTable.isQueso()) {
+                checkQueso.setChecked(true);
+                checks[10] = true;
+            }
+            if(kcalTable.isYogurt()) {
+                checkYogurt.setChecked(true);
+                checks[11] = true;
+            }
+
             kcal.setText(foodTable.getKcal().toString());
             //kcal.setText(foodTable.getKcal());
         }
