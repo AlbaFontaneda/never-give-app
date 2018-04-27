@@ -115,7 +115,6 @@
         <item>3</item>
         <item>12</item>
         <item>00:30</item>
-        <!--<item>Aqui va el descanso</item>-->
     </string-array>
 
     //Ejercicios de espalda
@@ -124,25 +123,176 @@
     </string-array>
 
     <string name="title_activity_default_resume">DefaultResume</string>
-    <string name="title_activity_achievements2">Achievements2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
     <string name="title_activity_events">Events</string>
 
     // Permissions
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+    <string name="permission_rationale_location">Para acceder a su localización es necesario conceder los permisos de ubicación en su dispositivo.\nY activar el GPS para detectar su ubicación.</string>
     <string name="location_permission_denied">Esta aplicación requiere los permisos de localización activos.\nSi los permisos han sido denegados permanentemente, puede activarlos desde: Ajustes &gt; Aplicaciones &gt; NeverGiveApp.</string>
-    <string name="permission_required_toast">Location permission is required for this demo.</string>
 
-    //UI Settings
-    <string name="zoom_buttons">Zoom Buttons</string>
-    <string name="compass">Compass</string>
-    <string name="mylocation_button">My Location Button</string>
-    <string name="mylocation_layer">My Location Layer</string>
-    <string name="scroll">Scroll Gestures</string>
-    <string name="zoom_gestures">Zoom Gestures</string>
-    <string name="tilt">Tilt Gestures</string>
-    <string name="rotate">Rotate Gestures</string>
+    //ACHIEVEMENTS
+    <string-array name="achievementTitles">
+        // Entrenamiento
+        <item>Primera tabla</item>
+        <item>Iniciado del entrenamiento</item>
+        <item>Novato del entrenamiento</item>
+        <item>Aprendiz del entrenamiento</item>
+        <item>Experto del entrenamiento</item>
+
+        <item>Lunes de entrenamiento</item>
+        <item>Martes de entrenamiento</item>
+        <item>Miércoles de entrenamiento</item>
+        <item>Jueves de entrenamiento</item>
+        <item>Viernes de entrenamiento</item>
+        <item>Sábado de entrenamiento</item>
+        <item>Domingo de entrenamiento</item>
+        <item>Entrena toda la semana</item>
+
+        <item>Pecho lobo</item>
+        <item>Espalda koala</item>
+        <item>Bíceps gorila</item>
+        <item>Ala de murciélago</item>
+        <item>Tableta de chocolate</item>
+        <item>Pata negra</item>
+        <item>To tocho</item>
+
+        <item>Día vago</item>
+        <item>Día tranquilo</item>
+        <item>Día difícil</item>
+        <item>Día duro</item>
+
+        // Comidas
+        <item>Primera comida</item>
+        <item>Segunda comida</item>
+        <item>Tercera comida</item>
+        <item>Cuarta comida</item>
+        <item>Quinta comida</item>
+        <item>Estás en los huesos</item>
+        <item>Necesitas comer más</item>
+        <item>Deberías comer más</item>
+        <item>Alimentación pobre</item>
+        <item>Alimentación buena</item>
+        <item>Alimentación óptima</item>
+
+        <item>Como un colibrí</item>
+        <item>Como una persona</item>
+        <item>Comiendo se crece</item>
+        <item>Semana en construcción</item>
+        <item>Semana ligera</item>
+        <item>Comida diaria</item>
+        <item>Semana incompleta</item>
+        <item>Planificación semanal</item>
+
+    </string-array>
+
+    <string-array name="achievementDescriptions">
+        // Entrenamiento
+        <item>Crea tu primera tabla personalizada.</item>
+        <item>Crea 5 tablas personalizadas.</item>
+        <item>Crea 10 tablas personalizadas.</item>
+        <item>Crea 15 tablas personalizadas.</item>
+        <item>Crea 20 tablas personalizadas.</item>
+
+        <item>Crea una tabla personalizada para cada el Lunes.</item>
+        <item>Crea una tabla personalizada para cada el Martes.</item>
+        <item>Crea una tabla personalizada para cada el Miércoles.</item>
+        <item>Crea una tabla personalizada para cada el Jueves.</item>
+        <item>Crea una tabla personalizada para cada el Viernes.</item>
+        <item>Crea una tabla personalizada para cada el Sábado.</item>
+        <item>Crea una tabla personalizada para cada el Domingo.</item>
+        <item>Crea una tabla personalizada para cada día de la semana.</item>
+
+        <item>Crea una tabla personalizada para pecho.</item>
+        <item>Crea una tabla personalizada para hombro y espalda.</item>
+        <item>Crea una tabla personalizada para bíceps.</item>
+        <item>Crea una tabla personalizada para tríceps.</item>
+        <item>Crea una tabla personalizada para abdominales.</item>
+        <item>Crea una tabla personalizada para pierna.</item>
+        <item>Crea una tabla personalizada para cada parte del cuerpo.</item>
+
+        <item>Incluye hasta 4 ejercicios en una tabla.</item>
+        <item>Incluye hasta 5 ejercicios en una tabla.</item>
+        <item>Incluye hasta 6 ejercicios en una tabla.</item>
+        <item>Incluye hasta 7 ejercicios en una tabla.</item>
+
+        // Comidas
+        <item>Crea tu primera comida.</item>
+        <item>Crea 2 comidas.</item>
+        <item>Crea 3 comidas.</item>
+        <item>Crea 4 comidas.</item>
+        <item>Crea 5 comidas.</item>
+        <item>Crea 10 comidas.</item>
+        <item>Crea 15 comidas.</item>
+        <item>Crea 20 comidas.</item>
+        <item>Crea 25 comidas.</item>
+        <item>Crea 30 comidas.</item>
+        <item>Crea 35 comidas.</item>
+
+        <item>Crea 3 comidas para un día de la semana.</item>
+        <item>Crea 5 comidas para un día de la semana.</item>
+        <item>Crea desayuno, comida y cena para un día de la semana.</item>
+        <item>Crea desayuno, comida y cena para 3 días de la semana.</item>
+        <item>Crea desayuno, comida y cena para todos los días de la semana.</item>
+        <item>Crea las 5 comidas para un día de la semana.</item>
+        <item>Crea las 5 comidas para tres días de la semana.</item>
+        <item>Crea las 5 comidas para todos los días de la semana.</item>
+
+    </string-array>
+
+    <string-array name="achievementPoints">
+        // Entrenamiento
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>10</item>
+
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>10</item>
+
+        <item>1</item>
+        <item>3</item>
+        <item>3</item>
+        <item>5</item>
+
+        // Comidas
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+
+    </string-array>
 
 </resources>

@@ -86,11 +86,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".EventsActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_events"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
             android:name=".MyLocationDemoActivity"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_events"/>
