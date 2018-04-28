@@ -3,8 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:paddingTop="5dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
@@ -15,9 +13,7 @@
         style="@style/cardView">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent" >
+            style="@style/cardViewRelativeLayout" >
 
             <TextView
                 android:id="@+id/item_title"
@@ -26,16 +22,11 @@
 
             <ImageButton
                 android:id="@+id/item_options"
-                style="@style/FoodsOptionsButton"
-                android:layout_alignParentEnd="true"/>
+                style="@style/cardViewOptions" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recylcer_exercises"
-                android:layout_height="140dp"
-                android:layout_width="match_parent"
-                android:layout_below="@id/item_title"
-                android:background="@color/cardViewContent"
-                android:orientation="horizontal" />
+                style="@style/cardViewRecycler" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
