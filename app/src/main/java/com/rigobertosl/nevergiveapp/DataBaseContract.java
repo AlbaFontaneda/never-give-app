@@ -53,6 +53,7 @@ public class DataBaseContract {
         public static final String COLUMN_SERIES = "series";
         public static final String COLUMN_REPETICIONES = "repeticiones";
         public static final String COLUMN_DESCANSO = "descanso";
+        public static final String COLUMN_TYPE = "tipo";
 
 
         private static final String SQL_CREATE_ENTRIES_LIST_TRAIN =
@@ -61,7 +62,8 @@ public class DataBaseContract {
                         DataBaseEntryListTrain.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                         DataBaseEntryListTrain.COLUMN_SERIES + TEXT_TYPE + COMMA_SEP +
                         DataBaseEntryListTrain.COLUMN_REPETICIONES + TEXT_TYPE + COMMA_SEP +
-                        DataBaseEntryListTrain.COLUMN_DESCANSO + TEXT_TYPE + " )";
+                        DataBaseEntryListTrain.COLUMN_DESCANSO + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryListTrain.COLUMN_TYPE + TEXT_TYPE + " )";
 
         private static final String SQL_DELETE_ENTRIES_LIST_TRAIN =
                 "DROP TABLE IF EXISTS " + DataBaseEntryListTrain.TABLE_NAME;
@@ -331,7 +333,8 @@ public class DataBaseContract {
         if(cursor.moveToFirst()) {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)));
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain.COLUMN_LIST_ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
@@ -340,12 +343,13 @@ public class DataBaseContract {
     }
 
     /** Crear lista_ejercicos en la base de datos **/
-    public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
+    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
         values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
         values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
         values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, descanso);
+        values.put(DataBaseEntryListTrain.COLUMN_TYPE, tipo);
 
         return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
     }
@@ -761,7 +765,7 @@ public class DataBaseContract {
         if(cursor.moveToFirst()) {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_DESCANSO)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_DESCANSO)), null);
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultLinkTable.COLUMN_LIST_ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
@@ -805,7 +809,8 @@ public class DataBaseContract {
         if(cursor.moveToFirst()) {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)));
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain._ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());

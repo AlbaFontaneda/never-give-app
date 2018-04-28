@@ -41,6 +41,13 @@
     <string name="compartir">Compartir</string>
     <string name="reports">Reports</string>
 
+    //CardViews
+    <string name="titleCard">Título</string>
+    <string name="infoDays">Días de la semana:</string>
+    <string name="infoKcal">Todal de Kcal:</string>
+
+
+
     //Menús de los elementos de cada actividad
     <string name="element_settings">Opciones</string>
     <string name="element_edit">Editar</string>

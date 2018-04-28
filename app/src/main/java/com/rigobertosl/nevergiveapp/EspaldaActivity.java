@@ -124,7 +124,7 @@ public class EspaldaActivity extends TrainingActivity {
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "espalda");
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
