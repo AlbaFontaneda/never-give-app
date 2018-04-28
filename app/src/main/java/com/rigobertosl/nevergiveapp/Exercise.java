@@ -3,13 +3,14 @@ package com.rigobertosl.nevergiveapp;
 public class Exercise {
 
     private long id;
-    private String nombre, series, repeticiones, descanso;
+    private String nombre, series, repeticiones, descanso, tipo;
 
-    public Exercise(String nombre, String series, String repeticiones, String descanso) {
+    public Exercise(String nombre, String series, String repeticiones, String descanso, String tipo) {
         this.nombre = nombre;
         this.series = series;
         this.repeticiones = repeticiones;
         this.descanso = descanso;
+        this.tipo = tipo;
     }
 
     public long getId() {
@@ -50,5 +51,13 @@ public class Exercise {
 
     public void setDescanso(String descanso) {
         this.descanso = descanso;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

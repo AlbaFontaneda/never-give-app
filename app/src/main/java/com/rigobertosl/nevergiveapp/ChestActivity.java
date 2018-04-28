@@ -122,7 +122,7 @@ public class ChestActivity extends TrainingActivity {
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "pecho");
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
