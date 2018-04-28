@@ -416,7 +416,6 @@ public class FoodResumeActivity extends FoodsActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 db.open();
-                //db.updateKcal(foodTable, kcal.getText().toString());
                 db.close();
             }
         });
