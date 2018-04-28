@@ -8,5 +8,5 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_item"
-        style="@style/FoodsList" />
+        style="@style/cardViewList" />
 </android.support.design.widget.CoordinatorLayout>
