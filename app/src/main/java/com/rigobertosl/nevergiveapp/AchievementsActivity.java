@@ -48,7 +48,7 @@ public class AchievementsActivity extends AppCompatActivity {
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
         fragments.add(new AchievementsResumeFragment());
-        for (int i = 0; i<3; i++){
+        for (int i = 0; i < 2; i++){
             Fragment f = new AchievementsFragment();
             fragments.add(f);
         }
@@ -119,7 +119,7 @@ public class AchievementsActivity extends AppCompatActivity {
         }
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 

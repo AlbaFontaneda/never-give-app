@@ -10,6 +10,7 @@ import android.provider.BaseColumns;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,7 +71,6 @@ public class DataBaseContract {
         public static final String TABLE_NAME = "tabla_ejercicios";
         public static final String COLUMN_NAME_ID = "id_name";
         public static final String COLUMN_LIST_ID = "id_list";
-
 
         private static final String SQL_CREATE_ENTRIES_TRAIN =
                 "CREATE TABLE " + DataBaseEntryTrain.TABLE_NAME + " (" +
@@ -825,5 +825,74 @@ public class DataBaseContract {
             seconds += valueOf(min_sec[1])*valueOf(exercise.getSeries());
         }
         return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+    }
+
+    /********************* PANTALLA DE LOGROS *****************************/
+
+    public boolean[] getNumOfTables(){
+        boolean[] createdTables = new boolean[5];
+        int tablesSize = getAllTables().size();
+        Arrays.fill(createdTables, true);
+
+        if (tablesSize < 20){
+            createdTables[4] = false;
+        }
+        if (tablesSize < 15){
+            createdTables[3] = false;
+        }
+        if (tablesSize < 10){
+            createdTables[2] = false;
+        }
+        if (tablesSize < 5){
+            createdTables[1] = false;
+        }
+        if (tablesSize < 1){
+            createdTables[0] = false;
+        }
+
+        return createdTables;
+    }
+
+    public boolean[] existDayTable(){
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+        boolean dayTable[] = new boolean[7];
+
+        for (int i = 0; i < weekDays.length; i++){
+            if(getAllTablesFilterByDay(weekDays[i]).size() >= 1) {
+                dayTable[i] = true;
+            }else{
+                dayTable[i] = false;
+            }
+        }
+        return dayTable;
+    }
+
+    public boolean[] getNumExercises(){
+        boolean[] numExercises = new boolean[4];
+        Arrays.fill(numExercises, true);
+        ArrayList<TrainingTable> allTables = getAllTables();
+        int maxExercises = 0;
+
+        for (int i = 0; i < allTables.size(); i++){
+            int numExercisesFromTable = getAllExercisesFromTable(allTables.get(i)).size();
+            if (numExercisesFromTable > maxExercises){
+                maxExercises = numExercisesFromTable;
+            }
+        }
+
+        if (maxExercises < 4){
+            numExercises[0] = false;
+        }
+        if (maxExercises < 5){
+            numExercises[1] = false;
+        }
+        if (maxExercises < 6){
+            numExercises[2] = false;
+        }
+        if (maxExercises < 7){
+            numExercises[3] = false;
+        }
+
+        return numExercises;
     }
 }

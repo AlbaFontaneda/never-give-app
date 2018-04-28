@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchievementAdapter.MyViewHolder> {
 
@@ -38,8 +38,8 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
     public CustomAchievementAdapter(Context mContext, ArrayList<Achievement> achievements, String type) {
         this.mContext = mContext;
-        this.achievements = achievements;
         this.type = type;
+        this.achievements = achievements;
         db = new DataBaseContract(this.mContext);
     }
 
@@ -54,7 +54,47 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
         holder.title.setText(achievements.get(position).getTitle());
         holder.description.setText(achievements.get(position).getDescription());
-        //holder.points.setText(achievements.get(position).getPoints());
+        holder.points.setText(achievements.get(position).getPoints());
+        holder.itemType.setImageResource(R.drawable.ic_logro_no_completado);
+        if (type == "training"){
+            db.open();
+            boolean[] createdTables = db.getNumOfTables();
+            db.close();
+            if (position < 5){
+                if (createdTables[position]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
+            if (position >= 5 && position < 13){
+                //String[] dia = holder.itemView.getContext().getResources().getStringArray(R.array.diasSemana);
+                db.open();
+                boolean[] existTableOnDay = db.existDayTable();
+                db.close();
+
+                if (position == 12){
+                    if (Arrays.toString(existTableOnDay).contains("T")){
+                        holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                    }
+                } else {
+                    if (existTableOnDay[position - 5]){
+                        holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                    }
+                }
+            }
+            if (position >= 13 && position < 20){
+                //                  Rellenar
+            }
+            if (position >= 20){
+                db.open();
+                boolean[] numExercises = db.getNumExercises();
+                db.close();
+                if (numExercises[position - 20]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
+        }else if (type == "comidas"){
+
+        }
     }
 
     @Override

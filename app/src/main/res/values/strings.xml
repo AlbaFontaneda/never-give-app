@@ -133,61 +133,73 @@
     <string name="location_permission_denied">Esta aplicación requiere los permisos de localización activos.\nSi los permisos han sido denegados permanentemente, puede activarlos desde: Ajustes &gt; Aplicaciones &gt; NeverGiveApp.</string>
 
     //ACHIEVEMENTS
-    <string-array name="achievementTitles">
-        // Entrenamiento
-        <item>Primera tabla</item>
-        <item>Iniciado del entrenamiento</item>
-        <item>Novato del entrenamiento</item>
-        <item>Aprendiz del entrenamiento</item>
-        <item>Experto del entrenamiento</item>
 
-        <item>Lunes de entrenamiento</item>
-        <item>Martes de entrenamiento</item>
-        <item>Miércoles de entrenamiento</item>
-        <item>Jueves de entrenamiento</item>
-        <item>Viernes de entrenamiento</item>
-        <item>Sábado de entrenamiento</item>
-        <item>Domingo de entrenamiento</item>
-        <item>Entrena toda la semana</item>
-
-        <item>Pecho lobo</item>
-        <item>Espalda koala</item>
-        <item>Bíceps gorila</item>
-        <item>Ala de murciélago</item>
-        <item>Tableta de chocolate</item>
-        <item>Pata negra</item>
-        <item>To tocho</item>
-
-        <item>Día vago</item>
-        <item>Día tranquilo</item>
-        <item>Día difícil</item>
-        <item>Día duro</item>
-
-        // Comidas
-        <item>Primera comida</item>
-        <item>Segunda comida</item>
-        <item>Tercera comida</item>
-        <item>Cuarta comida</item>
-        <item>Quinta comida</item>
-        <item>Estás en los huesos</item>
-        <item>Necesitas comer más</item>
-        <item>Deberías comer más</item>
-        <item>Alimentación pobre</item>
-        <item>Alimentación buena</item>
-        <item>Alimentación óptima</item>
-
-        <item>Como un colibrí</item>
-        <item>Como una persona</item>
-        <item>Comiendo se crece</item>
-        <item>Semana en construcción</item>
-        <item>Semana ligera</item>
-        <item>Comida diaria</item>
-        <item>Semana incompleta</item>
-        <item>Planificación semanal</item>
-
+    <string-array name="diasSemana">
+        <item>LU</item>
+        <item>M</item>
+        <item>X</item>
+        <item>JU</item>
+        <item>VI</item>
+        <item>SA</item>
+        <item>DO</item>
     </string-array>
 
-    <string-array name="achievementDescriptions">
+    <string-array name="achievementsTrainingTitles">
+        // Entrenamiento
+        0<item>Primera tabla</item>
+        1<item>Iniciado del entrenamiento</item>
+        2<item>Novato del entrenamiento</item>
+        3<item>Aprendiz del entrenamiento</item>
+        4<item>Experto del entrenamiento</item>
+
+        5<item>Lunes de entrenamiento</item>
+        6<item>Martes de entrenamiento</item>
+        7<item>Miércoles de entrenamiento</item>
+        8<item>Jueves de entrenamiento</item>
+        9<item>Viernes de entrenamiento</item>
+        10<item>Sábado de entrenamiento</item>
+        11<item>Domingo de entrenamiento</item>
+        12<item>Entrena toda la semana</item>
+
+        13<item>Pecho lobo</item>
+        14<item>Espalda koala</item>
+        15<item>Bíceps gorila</item>
+        16<item>Ala de murciélago</item>
+        17<item>Tableta de chocolate</item>
+        18<item>Pata negra</item>
+        19<item>To tocho</item>
+
+        20<item>Día vago</item>
+        21<item>Día tranquilo</item>
+        22<item>Día difícil</item>
+        23<item>Día duro</item>
+    </string-array>
+
+    <string-array name="achievementsFoodsTitles">
+        // Comidas
+        0<item>Primera comida</item>
+        1<item>Segunda comida</item>
+        2<item>Tercera comida</item>
+        3<item>Cuarta comida</item>
+        4<item>Quinta comida</item>
+        5<item>Estás en los huesos</item>
+        6<item>Necesitas comer más</item>
+        7<item>Deberías comer más</item>
+        8<item>Alimentación pobre</item>
+        9<item>Alimentación buena</item>
+        10<item>Alimentación óptima</item>
+
+        11<item>Como un colibrí</item>
+        12<item>Como una persona</item>
+        13<item>Comiendo se crece</item>
+        14<item>Semana en construcción</item>
+        15<item>Semana ligera</item>
+        16<item>Comida diaria</item>
+        17<item>Semana incompleta</item>
+        18<item>Planificación semanal</item>
+    </string-array>
+
+    <string-array name="achievementsTrainingDescriptions">
         // Entrenamiento
         <item>Crea tu primera tabla personalizada.</item>
         <item>Crea 5 tablas personalizadas.</item>
@@ -195,14 +207,14 @@
         <item>Crea 15 tablas personalizadas.</item>
         <item>Crea 20 tablas personalizadas.</item>
 
-        <item>Crea una tabla personalizada para cada el Lunes.</item>
-        <item>Crea una tabla personalizada para cada el Martes.</item>
-        <item>Crea una tabla personalizada para cada el Miércoles.</item>
-        <item>Crea una tabla personalizada para cada el Jueves.</item>
-        <item>Crea una tabla personalizada para cada el Viernes.</item>
-        <item>Crea una tabla personalizada para cada el Sábado.</item>
-        <item>Crea una tabla personalizada para cada el Domingo.</item>
-        <item>Crea una tabla personalizada para cada día de la semana.</item>
+        <item>Crea una tabla personalizada para el Lunes.</item>
+        <item>Crea una tabla personalizada para el Martes.</item>
+        <item>Crea una tabla personalizada para el Miércoles.</item>
+        <item>Crea una tabla personalizada para el Jueves.</item>
+        <item>Crea una tabla personalizada para el Viernes.</item>
+        <item>Crea una tabla personalizada para el Sábado.</item>
+        <item>Crea una tabla personalizada para el Domingo.</item>
+        <item>Crea una tabla personalizada para día de la semana.</item>
 
         <item>Crea una tabla personalizada para pecho.</item>
         <item>Crea una tabla personalizada para hombro y espalda.</item>
@@ -216,7 +228,9 @@
         <item>Incluye hasta 5 ejercicios en una tabla.</item>
         <item>Incluye hasta 6 ejercicios en una tabla.</item>
         <item>Incluye hasta 7 ejercicios en una tabla.</item>
+    </string-array>
 
+    <string-array name="achievementsFoodsDescriptions">
         // Comidas
         <item>Crea tu primera comida.</item>
         <item>Crea 2 comidas.</item>
@@ -238,10 +252,9 @@
         <item>Crea las 5 comidas para un día de la semana.</item>
         <item>Crea las 5 comidas para tres días de la semana.</item>
         <item>Crea las 5 comidas para todos los días de la semana.</item>
-
     </string-array>
 
-    <string-array name="achievementPoints">
+    <string-array name="achievementsTrainingPoints">
         // Entrenamiento
         <item>1</item>
         <item>3</item>
@@ -270,7 +283,9 @@
         <item>3</item>
         <item>3</item>
         <item>5</item>
+    </string-array>
 
+    <string-array name="achievementsFoodsPoints">
         // Comidas
         <item>1</item>
         <item>1</item>
@@ -292,7 +307,6 @@
         <item>5</item>
         <item>5</item>
         <item>10</item>
-
     </string-array>
 
 </resources>

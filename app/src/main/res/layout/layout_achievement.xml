@@ -47,7 +47,7 @@
                 style="@style/FoodsOptionsButton"
                 android:layout_marginRight="25dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_logros"/>
+                android:src="@drawable/ic_logro_no_completado"/>
 
             <TextView
                 android:id="@+id/item_points"

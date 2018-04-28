@@ -3,16 +3,16 @@ package com.rigobertosl.nevergiveapp;
 
 public class Achievement {
 
-    private String title, description, type;
-    private int points;
+    private String title, description, type, points;
 
-    public Achievement(String title, String description, String type, int points) {
+    public Achievement(String title, String description, String type, String points) {
         this.title = title;
         this.description = description;
         this.type = type;
         this.points = points;
     }
 
+    /*
     public Achievement(String title, String description, String type, String dificultad) {
         this.title = title;
         this.description = description;
@@ -26,6 +26,7 @@ public class Achievement {
             this.points = 1;
         }
     }
+    */
 
     public String getTitle() {
         return title;
@@ -51,11 +52,11 @@ public class Achievement {
         this.type = type;
     }
 
-    public int getPoints() {
+    public String getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(String points) {
         this.points = points;
     }
 }
