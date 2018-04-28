@@ -17,6 +17,106 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--CARD VIEWS -->
+    //General
+    <style name="cardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="cardMaxElevation">4dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    //Relative layout
+    <style name="cardViewRelativeLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    //Titulo
+    <style name="cardViewTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/titlesColor</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Botón de opciones
+    <style name="cardViewOptions">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_init_options_menu</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:src">@drawable/ic_options</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+
+    //Recyclerview (tablas de entrenamiento)
+    <style name="cardViewRecycler">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">140dp</item>
+        <item name="android:background">@color/cardViewContent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_below">@id/item_title</item>
+    </style>
+
+    //LinearLayout (comidas)
+    <style name="cardViewLinear">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">140dp</item>
+        <item name="android:background">@color/cardViewContent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_below">@id/item_title</item>
+    </style>
+
+    //Imagen (comidas)
+    <style name="cardViewImage">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    //Informacion (comidas)
+    <style name="cardViewInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    //Dias (comidas)
+    <style name="cardViewSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    //Dias (comidas)
+    <style name="cardViewContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+
     <!-- ESTILOS VENTANA DE INICIO -->
     <style name="InitRows">
         <item name="android:layout_width">match_parent</item>
