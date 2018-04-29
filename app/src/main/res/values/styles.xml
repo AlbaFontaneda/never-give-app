@@ -190,14 +190,83 @@
         <item name="android:textSize">25sp</item>
         <item name="android:padding">15dp</item>
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     //Imagen
     <style name="resumeImage">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">180dp</item>
+        <item name="android:layout_height">150dp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
+
+    //Layout Info
+    <style name="resumeInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    //Info data
+    <style name="resumeData">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+    //Info rep y series
+    <style name="resumeDataNumber">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="resumeDataName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/bpblack</item>
+    </style>
+
+    //Layout descanso
+    <style name="resumeDescansoData">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+    //Descanso Buttons
+    <style name="resumeDescansoButtons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/bpblack</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    //Resume description
+    <style name="resumeDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+
 
 
 
