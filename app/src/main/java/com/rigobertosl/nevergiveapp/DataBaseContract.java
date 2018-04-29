@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -884,7 +885,6 @@ public class DataBaseContract {
                 maxExercises = numExercisesFromTable;
             }
         }
-
         if (maxExercises < 4){
             numExercises[0] = false;
         }
@@ -897,7 +897,34 @@ public class DataBaseContract {
         if (maxExercises < 7){
             numExercises[3] = false;
         }
-
         return numExercises;
+    }
+
+    public boolean[] getNumTypeExercises() {
+        boolean[] typeExercises = new boolean[7];
+        String[] types = {"pecho", "espalda", "biceps", "triceps", "abdominales", "pierna"};
+        Arrays.fill(typeExercises, false);
+        ArrayList<TrainingTable> allTables = getAllTables();
+        for (int i = 0; i < allTables.size(); i++){
+            int[] contador = new int[types.length];
+            ArrayList<Exercise> exercises = getAllExercisesFromTable(allTables.get(i));
+            for (int j = 0; j < exercises.size(); j++){
+                for (int z = 0; z < contador.length; z++){
+                    Log.e("PR:", exercises.get(j).getTipo());
+                    if (exercises.get(j).getTipo().equals(types[z])){
+                        contador[z]++;
+                        if (contador[z] >= 3){
+                            typeExercises[z] = true;
+                            break;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (contador[0] >= 1 && contador[1] >= 1 && contador[2] >= 1 && contador[3] >= 1 && contador[4] >= 1 && contador[5] >= 1){
+                typeExercises[6] = true;
+            }
+        }
+        return typeExercises;
     }
 }

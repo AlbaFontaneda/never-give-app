@@ -82,7 +82,13 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
                 }
             }
             if (position >= 13 && position < 20){
-                //                  Rellenar
+                db.open();
+                boolean[] typeExercises = db.getNumTypeExercises();
+                db.close();
+
+                if (typeExercises[position - 13]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
             }
             if (position >= 20){
                 db.open();

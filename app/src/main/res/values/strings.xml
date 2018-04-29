@@ -223,13 +223,13 @@
         <item>Crea una tabla personalizada para el Domingo.</item>
         <item>Crea una tabla personalizada para día de la semana.</item>
 
-        <item>Crea una tabla personalizada para pecho.</item>
-        <item>Crea una tabla personalizada para hombro y espalda.</item>
-        <item>Crea una tabla personalizada para bíceps.</item>
-        <item>Crea una tabla personalizada para tríceps.</item>
-        <item>Crea una tabla personalizada para abdominales.</item>
-        <item>Crea una tabla personalizada para pierna.</item>
-        <item>Crea una tabla personalizada para cada parte del cuerpo.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pecho.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de hombro y espalda.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de bíceps.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de tríceps.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de abdominales.</item>
+        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pierna.</item>
+        <item>Crea una tabla personalizada que contenga al menos 1 ejercicio de cada parte del cuerpo.</item>
 
         <item>Incluye hasta 4 ejercicios en una tabla.</item>
         <item>Incluye hasta 5 ejercicios en una tabla.</item>
