@@ -13,10 +13,10 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_main_training"
-            style="@style/FoodsList" />
+            style="@style/cardViewList" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_main_foods"
-            style="@style/FoodsList" />
+            style="@style/cardViewList" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

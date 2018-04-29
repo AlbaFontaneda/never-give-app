@@ -14,7 +14,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--CARD VIEWS -->
@@ -115,6 +114,161 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <!--CARDVIEW LIST -->
+    <style name="cardViewList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:divider">#FFFFFF</item>
+    </style>
+
+    <!--CARDVIEW EXERCISES -->
+    //General
+    <style name="exerciseCardView">
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">140dp</item>
+        <item name="cardMaxElevation">2dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="exerciseRelativeLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
+    //Imagen del ejercicio
+    <style name="exerciseImage">
+        <item name="android:layout_width">65dp</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    //Nombre del ejercicio
+    <style name="exerciseName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@id/image</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    //Series del ejercicio
+    <style name="exerciseSeries">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@id/title</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/bpblack</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    //Repeticiones del ejercicio
+    <style name="exerciseRepeticiones">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@id/num_series</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/bpblack</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- RESUMEN DE LAS TABLAS DE ENTRENAMIENTO -->
+    //Titulo
+    <style name="resumeTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Imagen
+    <style name="resumeImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    //Layout Info
+    <style name="resumeInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    //Info data
+    <style name="resumeData">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+    //Info rep y series
+    <style name="resumeDataNumber">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="resumeDataName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/bpblack</item>
+    </style>
+
+    //Layout descanso
+    <style name="resumeDescansoData">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+    //Descanso Buttons
+    <style name="resumeDescansoButtons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/bpblack</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    //Resume description
+    <style name="resumeDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/layouts_resume_table</item>
+    </style>
+
+
+
+
 
 
     <!-- ESTILOS VENTANA DE INICIO -->
@@ -164,12 +318,7 @@
     </style>
     <!-- /ESTILOS VENTANA DE INICIO -->
     <!-- ESTILOS VENTANA DE COMIDAS -->
-    <style name="FoodsList">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:dividerHeight">5dp</item>
-        <item name="android:divider">#FFFFFF</item>
-    </style>
+
 
     <style name="FoodsRows">
         <item name="android:layout_width">match_parent</item>
