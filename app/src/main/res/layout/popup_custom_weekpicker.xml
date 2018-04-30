@@ -12,117 +12,106 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/colorAccent">
+            style="@style/popUpTitle">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/titlesColor"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="Escoge unos días" />
+                android:text="@string/weekPicker"
+                style="@style/popUpTextTitle"/>
         </LinearLayout>
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ToggleButton
-                android:id="@+id/button_lunes"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="LU"
-                android:textOff="LU"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_martes"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="M"
-                android:textOff="M"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_miercoles"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="X"
-                android:textOff="X"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_jueves"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="JU"
-                android:textOff="JU"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_viernes"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="VI"
-                android:textOff="VI"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_sabado"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/circle"
-                android:textOn="SA"
-                android:textOff="SA"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-            <ToggleButton
-                android:id="@+id/button_domingo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle"
-                android:textOn="DO"
-                android:textOff="DO"
-                android:textStyle="bold"
-                android:textColor="#fff" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            style="@style/popUpData"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ToggleButton
+                    android:id="@+id/button_lunes"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekLU"
+                    android:textOff="@string/weekLU"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_martes"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekM"
+                    android:textOff="@string/weekM"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_miercoles"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekX"
+                    android:textOff="@string/weekX"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_jueves"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekJU"
+                    android:textOff="@string/weekJU"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_viernes"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekVI"
+                    android:textOff="@string/weekVI"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_sabado"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekSA"
+                    android:textOff="@string/weekSA"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+                <ToggleButton
+                    android:id="@+id/button_domingo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/circle"
+                    android:textOn="@string/weekDO"
+                    android:textOff="@string/weekDO"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
             <CheckBox
                 android:id="@+id/check_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seleccionar todos"
+                android:layout_marginTop="10dp"
+                android:text="@string/weekCheck"
+                android:layout_gravity="center_horizontal"
                 android:textStyle="bold"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="1dp"
-            android:gravity="center">
+            style="@style/popUpButtons"
+            android:paddingTop="10dp">
+
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"

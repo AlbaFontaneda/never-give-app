@@ -10,75 +10,66 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/colorAccent">
+            style="@style/popUpTitle">
+
             <TextView
+                android:text="@string/newExercise"
+                style="@style/popUpTextTitle"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/popUpData">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/titlesColor"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="Establece numero de series, repeticiones y tiempo de descando" />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/numeroRepeticiones"
+                    style="@style/popUpNames" />
+                <EditText
+                    android:id="@+id/num_repeticiones"
+                    style="@style/popUpEdits"
+                    android:inputType="number"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/numeroSeries"
+                    style="@style/popUpNames"/>
+                <EditText
+                    android:id="@+id/num_series"
+                    style="@style/popUpEdits"
+                    android:inputType="number"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/tiempoDescando"
+                    style="@style/popUpNames"/>
+                <EditText
+                    android:id="@+id/tiempo_descanso"
+                    style="@style/popUpEdits"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/num_series"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:maxLines="1"
-                android:hint="Número de series"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/num_repeticiones"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:maxLines="1"
-                android:hint="Número de repeticiones"/>
-        </LinearLayout>
+            style="@style/popUpButtons">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/tiempo_descanso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:inputType="date"
-                android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
-                android:hint="Tiempo de descanso" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:gravity="center">
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"

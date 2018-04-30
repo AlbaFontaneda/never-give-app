@@ -53,6 +53,36 @@
     <string name="totalSeries">Series completadas:</string>
     <string name="descripcionResume">Descripción:</string>
 
+    //Popups
+    <string name="newTable">Empieza a crear tú tabla</string>
+    <string name="newExercise">Vamos con el siguiente paso</string>
+    <string name="numeroSeries">Número total de series: </string>
+    <string name="numeroRepeticiones">Número de repeticiones: </string>
+    <string name="tiempoDescando">Tiempo de descanso: </string>
+    <string name="editTable">Modifica los datos de tu tabla</string>
+    <string name="nombreEntrenamiento">Nombre de la tabla:</string>
+    <string name="diasEntrenamiento">Días de entrenamiento:</string>
+    <string name="continuar">Continuar</string>
+    <string name="editar">Editar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="nseries">Series:</string>
+    <string name="nrep">Rep:</string>
+    <string name="ndescanso">Descanso:</string>
+    <string name="newFood">Datos para la comida</string>
+    <string name="nombreComida">Nombre del plato:</string>
+    <string name="diasComida">Días para este plato:</string>
+    <string name="weekPicker">Escoge unos días</string>
+    <string name="weekCheck">Sellecionar todos</string>
+    <string name="weekLU">LU</string>
+    <string name="weekM">M</string>
+    <string name="weekX">X</string>
+    <string name="weekJU">JU</string>
+    <string name="weekVI">VI</string>
+    <string name="weekSA">SA</string>
+    <string name="weekDO">DO</string>
+    <string name="titleDescanso">Establece un tiempo de descando</string>
+    <string name="segundos">Segundos</string>
+    <string name="minutos">Minutos</string>
 
 
     //Menús de los elementos de cada actividad
@@ -83,10 +113,6 @@
     <string name="history">Historial</string>
     <string name="title_activity_settings_main">Settings</string>
 
-    //Popup Nueva tabla
-    <string name="continuar">Continuar</string>
-    <string name="editar">Editar</string>
-    <string name="cancel">Cancelar</string>
 
     //Pantalla tipos de ejercicios
     <string name="pecho">Pecho</string>
@@ -105,9 +131,6 @@
     //Popup edición de una tabla
     <string name="nombreTabla">Nombre:</string>
     <string name="ndias">Días:</string>
-    <string name="nseries">Series:</string>
-    <string name="nrep">Rep:</string>
-    <string name="ndescanso">Descanso:</string>
     <string name="title_activity_food_resume">FoodResumeActivity</string>
 
     //Tablas de entrenamiento

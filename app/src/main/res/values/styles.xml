@@ -266,7 +266,90 @@
         <item name="android:background">@drawable/layouts_resume_table</item>
     </style>
 
+    <!-- POP UPS -->
+    //Title
+    <style name="popUpTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
 
+    //Title text
+    <style name="popUpTextTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/titlesColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Layout data
+    <style name="popUpData">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">25dp</item>
+        <item name="android:paddingEnd">25dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    //Edit titles
+    <style name="popUpNames">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">-5dp</item>
+    </style>
+
+    //Edit data
+    <style name="popUpEdits">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+    //RecycleView (solo editar tablas)
+    <style name="popUpRecycler">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:dividerHeight">6dp</item>
+        <item name="android:divider">@color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    //Popup Buttons
+    <style name="popUpButtons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    //Textminutos:segundos
+    <style name="popUpTimePicker">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/bpblack</item>
+    </style>
+
+    <style name="numberPicker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="np_width">65dp</item>
+        <item name="np_height">180dp</item>
+        <item name="np_dividerColor">@color/colorPrimary</item>
+        <item name="np_max">59</item>
+        <item name="np_min">0</item>
+        <item name="np_selectedTextColor">@color/colorAccent</item>
+        <item name="np_textColor">@color/colorPrimary</item>
+    </style>
 
 
 
