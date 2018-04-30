@@ -57,10 +57,11 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
         holder.points.setText(achievements.get(position).getPoints());
         holder.itemType.setImageResource(R.drawable.ic_logro_no_completado);
         if (type == "training"){
-            db.open();
-            boolean[] createdTables = db.getNumOfTables();
-            db.close();
+
             if (position < 5){
+                db.open();
+                boolean[] createdTables = db.getNumOfTables();
+                db.close();
                 if (createdTables[position]){
                     holder.itemType.setImageResource(R.drawable.ic_logro_completado);
                 }
@@ -98,7 +99,42 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
                     holder.itemType.setImageResource(R.drawable.ic_logro_completado);
                 }
             }
-        }else if (type == "comidas"){
+        }else if (type == "foods"){
+
+            if (position < 11){
+                db.open();
+                boolean[] createdFoods = db.getNumOfFoods();
+                db.close();
+                if (createdFoods[position]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
+            if (position >= 11 && position < 13){
+                db.open();
+                boolean[] numFoodsForDay = db.getNumFoodsForDay();
+                db.close();
+                if (numFoodsForDay[position - 11]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
+            if (position >= 13 && position < 16){
+                String[] shortTypes = {"Desayuno", "Comida", "Cena"};
+                db.open();
+                boolean[] breakfastLaunchDinner = db.getBreakfastLaunchDinner(shortTypes);
+                db.close();
+                if (breakfastLaunchDinner[position - 13]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
+            if (position >= 16){
+                String[] shortTypes = {"Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
+                db.open();
+                boolean[] breakfastLaunchDinner = db.getBreakfastLaunchDinner(shortTypes);
+                db.close();
+                if (breakfastLaunchDinner[position - 16]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+                }
+            }
 
         }
     }

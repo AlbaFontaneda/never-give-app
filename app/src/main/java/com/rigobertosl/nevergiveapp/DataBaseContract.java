@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import java.sql.Array;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -837,6 +838,7 @@ public class DataBaseContract {
 
     public boolean[] getNumOfTables(){
         boolean[] createdTables = new boolean[5];
+
         int tablesSize = getAllTables().size();
         Arrays.fill(createdTables, true);
 
@@ -860,8 +862,9 @@ public class DataBaseContract {
     }
 
     public boolean[] existDayTable(){
-        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
         boolean dayTable[] = new boolean[7];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
 
         for (int i = 0; i < weekDays.length; i++){
             if(getAllTablesFilterByDay(weekDays[i]).size() >= 1) {
@@ -875,6 +878,7 @@ public class DataBaseContract {
 
     public boolean[] getNumExercises(){
         boolean[] numExercises = new boolean[4];
+
         Arrays.fill(numExercises, true);
         ArrayList<TrainingTable> allTables = getAllTables();
         int maxExercises = 0;
@@ -902,6 +906,7 @@ public class DataBaseContract {
 
     public boolean[] getNumTypeExercises() {
         boolean[] typeExercises = new boolean[7];
+
         String[] types = {"pecho", "espalda", "biceps", "triceps", "abdominales", "pierna"};
         Arrays.fill(typeExercises, false);
         ArrayList<TrainingTable> allTables = getAllTables();
@@ -926,5 +931,98 @@ public class DataBaseContract {
             }
         }
         return typeExercises;
+    }
+
+    public boolean[] getNumOfFoods(){
+        boolean[] createdFoods = new boolean[11];
+
+        int foodsSize = getAllFoodTables().size();
+        Arrays.fill(createdFoods, true);
+
+        if (foodsSize < 35){
+            createdFoods[10] = false;
+        }
+        if (foodsSize < 30){
+            createdFoods[9] = false;
+        }
+        if (foodsSize < 25){
+            createdFoods[8] = false;
+        }
+        if (foodsSize < 20){
+            createdFoods[7] = false;
+        }
+        if (foodsSize < 15){
+            createdFoods[6] = false;
+        }
+        if (foodsSize < 10){
+            createdFoods[5] = false;
+        }
+        if (foodsSize < 5){
+            createdFoods[4] = false;
+        }
+        if (foodsSize < 4){
+            createdFoods[3] = false;
+        }
+        if (foodsSize < 3){
+            createdFoods[2] = false;
+        }
+        if (foodsSize < 2){
+            createdFoods[1] = false;
+        }
+        if (foodsSize < 1){
+            createdFoods[0] = false;
+        }
+        return createdFoods;
+    }
+
+    public boolean[] getNumFoodsForDay(){
+        boolean[] numOfFoodsForDay = new boolean[2];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+
+        for (int i = 0; i < weekDays.length; i++){
+            if (getAllFoodsFilterByDay(weekDays[i]).size() >= 3){
+                numOfFoodsForDay[0] = true;
+            }
+            if (getAllFoodsFilterByDay(weekDays[i]).size() >= 5){
+                numOfFoodsForDay[1] = true;
+                break;
+            }
+        }
+        return numOfFoodsForDay;
+    }
+
+    public boolean[] getBreakfastLaunchDinner(String[] types){
+        boolean[] breakfastLaunchDinner = new boolean[3];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+
+        int countDays = 0;
+        for (int i = 0; i < weekDays.length; i++){
+            int[] countFood = new int[types.length];
+            ArrayList<FoodTable> foods = getAllFoodsFilterByDay(weekDays[i]);
+            for (FoodTable food : foods){
+                for (int j = 0; j < types.length; j++){
+                    if (food.getType().equals(types[j])){
+                        countFood[j]++;
+                        break;
+                    }
+                }
+                if (countFood[0] >= 1 && countFood[1] >= 1 && countFood[2] >= 1) {
+                    countDays++;
+                    break;
+                }
+            }
+        }
+        if (countDays >= 1) {
+            breakfastLaunchDinner[0] = true;
+        }
+        if (countDays >= 3) {
+            breakfastLaunchDinner[1] = true;
+        }
+        if (countDays >= 5) {
+            breakfastLaunchDinner[2] = true;
+        }
+        return  breakfastLaunchDinner;
     }
 }

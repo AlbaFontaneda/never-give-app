@@ -239,26 +239,28 @@
 
     <string-array name="achievementsFoodsDescriptions">
         // Comidas
-        <item>Crea tu primera comida.</item>
-        <item>Crea 2 comidas.</item>
-        <item>Crea 3 comidas.</item>
-        <item>Crea 4 comidas.</item>
-        <item>Crea 5 comidas.</item>
-        <item>Crea 10 comidas.</item>
-        <item>Crea 15 comidas.</item>
-        <item>Crea 20 comidas.</item>
-        <item>Crea 25 comidas.</item>
-        <item>Crea 30 comidas.</item>
-        <item>Crea 35 comidas.</item>
+        0<item>Crea tu primera comida.</item>
+        1<item>Crea 2 comidas.</item>
+        2<item>Crea 3 comidas.</item>
+        3<item>Crea 4 comidas.</item>
+        4<item>Crea 5 comidas.</item>
+        5<item>Crea 10 comidas.</item>
+        6<item>Crea 15 comidas.</item>
+        7<item>Crea 20 comidas.</item>
+        8<item>Crea 25 comidas.</item>
+        9<item>Crea 30 comidas.</item>
+        10<item>Crea 35 comidas.</item>
 
-        <item>Crea 3 comidas para un día de la semana.</item>
-        <item>Crea 5 comidas para un día de la semana.</item>
-        <item>Crea desayuno, comida y cena para un día de la semana.</item>
-        <item>Crea desayuno, comida y cena para 3 días de la semana.</item>
-        <item>Crea desayuno, comida y cena para todos los días de la semana.</item>
-        <item>Crea las 5 comidas para un día de la semana.</item>
-        <item>Crea las 5 comidas para tres días de la semana.</item>
-        <item>Crea las 5 comidas para todos los días de la semana.</item>
+        11<item>Crea 3 comidas para un día de la semana.</item>
+        12<item>Crea 5 comidas para un día de la semana.</item>
+
+        13<item>Crea desayuno, comida y cena para un día de la semana.</item>
+        14<item>Crea desayuno, comida y cena para tres días de la semana.</item>
+        15<item>Crea desayuno, comida y cena para todos los días de la semana.</item>
+
+        16<item>Crea desayuno, almuerzo, comida, merienda y cena para un día de la semana.</item>
+        17<item>Crea desayuno, almuerzo, comida, merienda y cena para tres días de la semana.</item>
+        18<item>Crea desayuno, almuerzo, comida, merienda y cena para todos los días de la semana.</item>
     </string-array>
 
     <string-array name="achievementsTrainingPoints">
