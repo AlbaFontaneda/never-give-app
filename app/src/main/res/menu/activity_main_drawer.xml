@@ -23,7 +23,7 @@
             android:title="@string/eventos" />
         <item
             android:id="@+id/nav_logros"
-            android:icon="@drawable/ic_logros"
+            android:icon="@drawable/ic_logro_no_completado"
             android:title="@string/logros" />
     </group>
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchievementAdapter.MyViewHolder> {
 
@@ -38,8 +38,8 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
     public CustomAchievementAdapter(Context mContext, ArrayList<Achievement> achievements, String type) {
         this.mContext = mContext;
-        this.achievements = achievements;
         this.type = type;
+        this.achievements = achievements;
         db = new DataBaseContract(this.mContext);
     }
 
@@ -54,7 +54,11 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
         holder.title.setText(achievements.get(position).getTitle());
         holder.description.setText(achievements.get(position).getDescription());
-        //holder.points.setText(achievements.get(position).getPoints());
+        holder.points.setText(achievements.get(position).getPoints());
+        holder.itemType.setImageResource(R.drawable.ic_logro_no_completado);
+        if (achievements.get(position).isCompleted()){
+            holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+        }
     }
 
     @Override

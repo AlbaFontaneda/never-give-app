@@ -33,15 +33,16 @@ public class AchievementsFragment extends Fragment {
             achievementType = "foods";
         }else if (page == 2){
             achievementType = "training";
-        }else if (page == 3){
-            achievementType = "events";
         }
+
+        String[] achievementTitles,  achievementDescription, achievementPoints;
 
         // SUSTITUIR POR LA BASE DE DATOS Y FILTRAR DENTRO DEL CustomAchievementAdapter
         ArrayList<Achievement> achievements = new ArrayList<Achievement>();
-        Achievement newAchievement = new Achievement("Crea tu primera tabla", "Ve a las tablas de entrenamiento y crea tu primera tabla", "entrenamiento", 1);
-        achievements.add(newAchievement);
 
+        db.open();
+        achievements = db.getAllAchievementsByType(achievementType);
+        db.close();
         RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
         recyclerView.setAdapter(adapterTrain);
 

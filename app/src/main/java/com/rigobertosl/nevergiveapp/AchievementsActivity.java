@@ -44,16 +44,21 @@ public class AchievementsActivity extends AppCompatActivity {
             }
         });
 
+        db = new DataBaseContract(this);
+        db.open();
+        db.newAchievements("both");
+        db.close();
+
+        db.reloadAchievements("both");
+
 
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
         fragments.add(new AchievementsResumeFragment());
-        for (int i = 0; i<3; i++){
+        for (int i = 0; i < 2; i++){
             Fragment f = new AchievementsFragment();
             fragments.add(f);
         }
-
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
@@ -119,7 +124,7 @@ public class AchievementsActivity extends AppCompatActivity {
         }
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 

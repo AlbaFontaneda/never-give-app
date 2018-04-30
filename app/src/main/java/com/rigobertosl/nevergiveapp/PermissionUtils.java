@@ -164,9 +164,7 @@ public abstract class PermissionUtils {
                             // Do not finish the Activity while requesting permission.
                             mFinishActivity = false;
                         }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create();
+                    }).create();
         }
 
         @Override

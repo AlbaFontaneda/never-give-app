@@ -94,6 +94,8 @@ public class MyLocationDemoActivity extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
+
+
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
@@ -116,7 +118,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Pulse sobre su ubicación para mostrar los centros deportivos más cercanos.", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -126,7 +128,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
     public void onMyLocationClick(@NonNull Location location) {
         myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
         new FindPlaces().execute();
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -140,6 +142,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
+            Toast.makeText(this, "Debe activar el GPS para detectar su ubicación. Puede tardar unos segundos.", Toast.LENGTH_SHORT).show();
         } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;

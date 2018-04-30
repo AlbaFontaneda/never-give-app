@@ -129,7 +129,6 @@
         <item>3</item>
         <item>12</item>
         <item>00:30</item>
-        <!--<item>Aqui va el descanso</item>-->
     </string-array>
 
     //Ejercicios de espalda
@@ -138,25 +137,192 @@
     </string-array>
 
     <string name="title_activity_default_resume">DefaultResume</string>
-    <string name="title_activity_achievements2">Achievements2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
     <string name="title_activity_events">Events</string>
 
     // Permissions
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+    <string name="permission_rationale_location">Para acceder a su localización es necesario conceder los permisos de ubicación en su dispositivo.\nY activar el GPS para detectar su ubicación.</string>
     <string name="location_permission_denied">Esta aplicación requiere los permisos de localización activos.\nSi los permisos han sido denegados permanentemente, puede activarlos desde: Ajustes &gt; Aplicaciones &gt; NeverGiveApp.</string>
-    <string name="permission_required_toast">Location permission is required for this demo.</string>
 
-    //UI Settings
-    <string name="zoom_buttons">Zoom Buttons</string>
-    <string name="compass">Compass</string>
-    <string name="mylocation_button">My Location Button</string>
-    <string name="mylocation_layer">My Location Layer</string>
-    <string name="scroll">Scroll Gestures</string>
-    <string name="zoom_gestures">Zoom Gestures</string>
-    <string name="tilt">Tilt Gestures</string>
-    <string name="rotate">Rotate Gestures</string>
+    //ACHIEVEMENTS
+
+    <string-array name="diasSemana">
+        <item>LU</item>
+        <item>M</item>
+        <item>X</item>
+        <item>JU</item>
+        <item>VI</item>
+        <item>SA</item>
+        <item>DO</item>
+    </string-array>
+
+    <string-array name="achievementsTrainingTitles">
+        // Entrenamiento
+        0<item>Primera tabla</item>
+        1<item>Iniciado del entrenamiento</item>
+        2<item>Novato del entrenamiento</item>
+        3<item>Aprendiz del entrenamiento</item>
+        4<item>Experto del entrenamiento</item>
+
+        5<item>Lunes de entrenamiento</item>
+        6<item>Martes de entrenamiento</item>
+        7<item>Miércoles de entrenamiento</item>
+        8<item>Jueves de entrenamiento</item>
+        9<item>Viernes de entrenamiento</item>
+        10<item>Sábado de entrenamiento</item>
+        11<item>Domingo de entrenamiento</item>
+        12<item>Entrena toda la semana</item>
+
+        13<item>Pecho lobo</item>
+        14<item>Espalda koala</item>
+        15<item>Bíceps gorila</item>
+        16<item>Ala de murciélago</item>
+        17<item>Tableta de chocolate</item>
+        18<item>Pata negra</item>
+        19<item>To tocho</item>
+
+        20<item>Día vago</item>
+        21<item>Día tranquilo</item>
+        22<item>Día difícil</item>
+        23<item>Día duro</item>
+    </string-array>
+
+    <string-array name="achievementsFoodsTitles">
+        // Comidas
+        0<item>Primera comida</item>
+        1<item>Segunda comida</item>
+        2<item>Tercera comida</item>
+        3<item>Cuarta comida</item>
+        4<item>Quinta comida</item>
+        5<item>Estás en los huesos</item>
+        6<item>Necesitas comer más</item>
+        7<item>Deberías comer más</item>
+        8<item>Alimentación pobre</item>
+        9<item>Alimentación buena</item>
+        10<item>Alimentación óptima</item>
+
+        11<item>Como un colibrí</item>
+        12<item>Como una persona</item>
+        13<item>Comiendo se crece</item>
+        14<item>Semana en construcción</item>
+        15<item>Semana ligera</item>
+        16<item>Comida diaria</item>
+        17<item>Semana incompleta</item>
+        18<item>Planificación semanal</item>
+    </string-array>
+
+    <string-array name="achievementsTrainingDescriptions">
+        // Entrenamiento
+        0<item>Crea tu primera tabla personalizada.</item>
+        1<item>Crea 5 tablas personalizadas.</item>
+        2<item>Crea 10 tablas personalizadas.</item>
+        3<item>Crea 15 tablas personalizadas.</item>
+        4<item>Crea 20 tablas personalizadas.</item>
+
+        5<item>Crea una tabla personalizada para el Lunes.</item>
+        6<item>Crea una tabla personalizada para el Martes.</item>
+        7<item>Crea una tabla personalizada para el Miércoles.</item>
+        8<item>Crea una tabla personalizada para el Jueves.</item>
+        9<item>Crea una tabla personalizada para el Viernes.</item>
+        10<item>Crea una tabla personalizada para el Sábado.</item>
+        11<item>Crea una tabla personalizada para el Domingo.</item>
+        12<item>Crea una tabla personalizada para día de la semana.</item>
+
+        13<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pecho.</item>
+        14<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de hombro y espalda.</item>
+        15<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de bíceps.</item>
+        16<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de tríceps.</item>
+        17<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de abdominales.</item>
+        18<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pierna.</item>
+        19<item>Crea una tabla personalizada que contenga al menos 1 ejercicio de cada parte del cuerpo.</item>
+
+        20<item>Incluye hasta 4 ejercicios en una tabla.</item>
+        21<item>Incluye hasta 5 ejercicios en una tabla.</item>
+        22<item>Incluye hasta 6 ejercicios en una tabla.</item>
+        23<item>Incluye hasta 7 ejercicios en una tabla.</item>
+    </string-array>
+
+    <string-array name="achievementsFoodsDescriptions">
+        // Comidas
+        0<item>Crea tu primera comida.</item>
+        1<item>Crea 2 comidas.</item>
+        2<item>Crea 3 comidas.</item>
+        3<item>Crea 4 comidas.</item>
+        4<item>Crea 5 comidas.</item>
+        5<item>Crea 10 comidas.</item>
+        6<item>Crea 15 comidas.</item>
+        7<item>Crea 20 comidas.</item>
+        8<item>Crea 25 comidas.</item>
+        9<item>Crea 30 comidas.</item>
+        10<item>Crea 35 comidas.</item>
+
+        11<item>Crea 3 comidas para un día de la semana.</item>
+        12<item>Crea 5 comidas para un día de la semana.</item>
+
+        13<item>Crea desayuno, comida y cena para un día de la semana.</item>
+        14<item>Crea desayuno, comida y cena para tres días de la semana.</item>
+        15<item>Crea desayuno, comida y cena para todos los días de la semana.</item>
+
+        16<item>Crea desayuno, almuerzo, comida, merienda y cena para un día de la semana.</item>
+        17<item>Crea desayuno, almuerzo, comida, merienda y cena para tres días de la semana.</item>
+        18<item>Crea desayuno, almuerzo, comida, merienda y cena para todos los días de la semana.</item>
+    </string-array>
+
+    <string-array name="achievementsTrainingPoints">
+        // Entrenamiento
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>10</item>
+
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>10</item>
+
+        <item>1</item>
+        <item>3</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="achievementsFoodsPoints">
+        // Comidas
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+
+        <item>3</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+        <item>5</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
 
 </resources>
