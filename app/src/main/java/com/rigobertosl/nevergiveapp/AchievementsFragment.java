@@ -40,29 +40,11 @@ public class AchievementsFragment extends Fragment {
         // SUSTITUIR POR LA BASE DE DATOS Y FILTRAR DENTRO DEL CustomAchievementAdapter
         ArrayList<Achievement> achievements = new ArrayList<Achievement>();
 
-        if (page == 1){
-            achievementTitles = getResources().getStringArray(R.array.achievementsFoodsTitles);
-            achievementDescription = getResources().getStringArray(R.array.achievementsFoodsDescriptions);
-            achievementPoints = getResources().getStringArray(R.array.achievementsFoodsPoints);
-
-            for (int i = 0; i < achievementTitles.length; i++){
-                Achievement newAchievement = new Achievement(achievementTitles[i], achievementDescription[i], achievementType, achievementPoints[i]);
-                achievements.add(newAchievement);
-            }
-            RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
-            recyclerView.setAdapter(adapterTrain);
-
-        } else if (page == 2){
-            achievementTitles = getResources().getStringArray(R.array.achievementsTrainingTitles);
-            achievementDescription = getResources().getStringArray(R.array.achievementsTrainingDescriptions);
-            achievementPoints = getResources().getStringArray(R.array.achievementsTrainingPoints);
-            for (int i = 0; i < achievementTitles.length ; i++){
-                Achievement newAchievement = new Achievement(achievementTitles[i], achievementDescription[i], achievementType, achievementPoints[i]);
-                achievements.add(newAchievement);
-            }
-            RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
-            recyclerView.setAdapter(adapterTrain);
-        }
+        db.open();
+        achievements = db.getAllAchievementsByType(achievementType);
+        db.close();
+        RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
+        recyclerView.setAdapter(adapterTrain);
 
         return rootView;
     }

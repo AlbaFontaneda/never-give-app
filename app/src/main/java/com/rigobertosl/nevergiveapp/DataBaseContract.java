@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -893,8 +893,7 @@ public class DataBaseContract {
             values.put(DataBaseAchievementsTraining.COLUMN_POINTS, points);
             values.put(DataBaseAchievementsTraining.COLUMN_COMPLETED, completed);
             mDb.insert(DataBaseAchievementsTraining.TABLE_NAME, null, values);
-        }
-        if (type.equals("foods")){
+        } else if (type.equals("foods")){
             values.put(DataBaseAchievementsFoods.COLUMN_TITLE, title);
             values.put(DataBaseAchievementsFoods.COLUMN_DESCRIPTION, description);
             values.put(DataBaseAchievementsFoods.COLUMN_POINTS, points);
@@ -927,22 +926,6 @@ public class DataBaseContract {
                     createAchievement("foods", titles[i], descriptions[i], points[i], "false");
                 }
             }
-        }
-    }
-
-    /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
-    public void updateAchievement(long id, String type, boolean completed){
-        mDb = mDbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        if (type.equals("training")){
-            values.put(DataBaseAchievementsTraining.COLUMN_COMPLETED, String.valueOf(completed));
-            mDb.update(DataBaseAchievementsTraining.TABLE_NAME, values, DataBaseAchievementsTraining._ID + "= ?",
-                    new String[] { String.valueOf(id) });
-        }
-        if (type.equals("foods")){
-            values.put(DataBaseAchievementsFoods.COLUMN_COMPLETED, String.valueOf(completed));
-            mDb.update(DataBaseAchievementsFoods.TABLE_NAME, values, DataBaseAchievementsFoods._ID + "= ?",
-                    new String[] { String.valueOf(id) });
         }
     }
 
@@ -982,7 +965,7 @@ public class DataBaseContract {
             String[] shortTypes = {"Desayuno", "Comida", "Cena"};
             boolean[] breakfastLaunchDinner = getBreakfastLaunchDinner(shortTypes);
             String[] Types = {"Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
-            boolean[] allFoodsPerDay = getBreakfastLaunchDinner(shortTypes);
+            boolean[] allFoodsPerDay = getBreakfastLaunchDinner(Types);
 
             int tamaño = achievements.length;
             achievements = Arrays.copyOf(achievements, achievements.length + numFoodsForDay.length);
@@ -999,18 +982,121 @@ public class DataBaseContract {
             for ( int i = tamaño; i < achievements.length; i++){
                 achievements[i] = allFoodsPerDay[i-tamaño];
             }
-
             for (int i = 0; i < achievements.length; i++){
                 updateAchievement(i+1, "foods", achievements[i]);
             }
         }
-
     }
 
-    public boolean[] fillAchievements(String type){
-        boolean[] achievements = new boolean[3];
+    /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
+    public void updateAchievement(long id, String type, boolean completed){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (type.equals("training")){
+            values.put(DataBaseAchievementsTraining.COLUMN_COMPLETED, String.valueOf(completed));
+            mDb.update(DataBaseAchievementsTraining.TABLE_NAME, values, DataBaseAchievementsTraining._ID + "= ?",
+                    new String[] { String.valueOf(id) });
+        }else if (type.equals("foods")){
+            values.put(DataBaseAchievementsFoods.COLUMN_COMPLETED, String.valueOf(completed));
+            mDb.update(DataBaseAchievementsFoods.TABLE_NAME, values, DataBaseAchievementsFoods._ID + "= ?",
+                    new String[] { String.valueOf(id) });
+        }
+    }
 
+    public ArrayList<Achievement> getAllAchievementsByType(String type){
+        ArrayList<Achievement> achievements = new ArrayList<Achievement>();
+
+        if (type.equals("training")){
+            String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+            mDb = mDbHelper.getReadableDatabase();
+            Cursor cursor = mDb.rawQuery(selectQuery, null);
+            if(cursor.moveToFirst()) {
+                do {
+                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining._ID))),
+                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_DESCRIPTION)),
+                            "training", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)),
+                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED))));
+                    achievements.add(achievement);
+                } while (cursor.moveToNext());
+            }
+        } else if (type.equals("foods")){
+            String selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+            mDb = mDbHelper.getReadableDatabase();
+            Cursor cursor = mDb.rawQuery(selectQuery, null);
+            if(cursor.moveToFirst()) {
+                do {
+                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods._ID))),
+                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_DESCRIPTION)),
+                            "training", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)),
+                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED))));
+                    achievements.add(achievement);
+                } while (cursor.moveToNext());
+            }
+        }
         return achievements;
+    }
+
+    /** Devuelve un array de los valores de la columna de COMPLETED de los logros de un tipo **/
+    public boolean[] getAchievementsCompletedOrNot(String type){
+        ArrayList<String> achievements_list = new ArrayList<>();
+
+        if (type.equals("training")){
+            String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+            mDb = mDbHelper.getReadableDatabase();
+            Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+            if(cursor.moveToFirst()) {
+                do {
+                    String completed = (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)));
+                    achievements_list.add(completed);
+                } while (cursor.moveToNext());
+            }
+        } else if (type.equals("foods")){
+            String selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+            mDb = mDbHelper.getReadableDatabase();
+            Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+            if(cursor.moveToFirst()) {
+                do {
+                    String completed = (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)));
+                    achievements_list.add(completed);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        String[] achievements_array = achievements_list.toArray(new String[achievements_list.size()]);
+        boolean[] achievements_boolean = new boolean[achievements_array.length];
+
+        for (int i = 0; i < achievements_array.length; i++){
+            achievements_boolean[i] = Boolean.parseBoolean(achievements_array[i]);
+        }
+        return achievements_boolean;
+    }
+
+    public int getTotalPoints(){
+        int points = 0;
+
+        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
+                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)));
+                }
+            } while (cursor.moveToNext());
+        }
+        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+        cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
+                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return points;
     }
 
     /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 0 a 4 **/

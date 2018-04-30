@@ -49,8 +49,8 @@ public class AchievementsActivity extends AppCompatActivity {
         db.newAchievements("both");
         db.close();
 
-        //db.updateAchievement(1, "training", true);
         db.reloadAchievements("both");
+
 
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
