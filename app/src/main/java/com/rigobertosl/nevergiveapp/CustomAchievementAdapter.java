@@ -56,6 +56,7 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
         holder.description.setText(achievements.get(position).getDescription());
         holder.points.setText(achievements.get(position).getPoints());
         holder.itemType.setImageResource(R.drawable.ic_logro_no_completado);
+        /*
         if (type == "training"){
 
             if (position < 5){
@@ -127,8 +128,9 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
                     holder.itemType.setImageResource(R.drawable.ic_logro_completado);
                 }
             }
-
         }
+
+        */
     }
 
     @Override

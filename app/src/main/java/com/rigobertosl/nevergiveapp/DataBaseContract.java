@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -884,6 +884,7 @@ public class DataBaseContract {
 
     /********************* PANTALLA DE LOGROS *****************************/
 
+    /** Crea un logro dentro de la base de datos, ya sea de entrenamiento o de comidas **/
     private void createAchievement(String type, String title, String description, String points, String completed) {
         ContentValues values = new ContentValues();
         if (type.equals("training")){
@@ -902,31 +903,118 @@ public class DataBaseContract {
         }
     }
 
-    public void newAchievementsTraining(String type){
+    /** Carga todos los logros, tanto de entrenamiento como de comidas como ambos, en la base de datos **/
+    public void newAchievements(String type){
         Cursor cursor = mDb.rawQuery("SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME, null);
         if (!cursor.moveToFirst()){
             String[] titles = {""};
             String[] descriptions = {""};
             String[] points = {""};
 
-            if (type.equals("training")){
+            if (type.equals("training") || type.equals("both")){
                 titles = context.getResources().getStringArray(R.array.achievementsTrainingTitles);
                 descriptions = context.getResources().getStringArray(R.array.achievementsTrainingDescriptions);
                 points = context.getResources().getStringArray(R.array.achievementsTrainingPoints);
-
-            } else if (type.equals("foods")){
+                for (int i = 0; i < titles.length; i++){
+                    createAchievement("training", titles[i], descriptions[i], points[i], "false");
+                }
+            }
+            if (type.equals("foods") || type.equals("both")){
                 titles = context.getResources().getStringArray(R.array.achievementsFoodsTitles);
                 descriptions = context.getResources().getStringArray(R.array.achievementsFoodsDescriptions);
                 points = context.getResources().getStringArray(R.array.achievementsFoodsPoints);
-            }
-
-            for (int i = 0; i < titles.length; i++){
-                createAchievement(type, titles[i], descriptions[i], points[i], "false");
+                for (int i = 0; i < titles.length; i++){
+                    createAchievement("foods", titles[i], descriptions[i], points[i], "false");
+                }
             }
         }
     }
 
-    public boolean[] getNumOfTables(){
+    /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
+    public void updateAchievement(long id, String type, boolean completed){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (type.equals("training")){
+            values.put(DataBaseAchievementsTraining.COLUMN_COMPLETED, String.valueOf(completed));
+            mDb.update(DataBaseAchievementsTraining.TABLE_NAME, values, DataBaseAchievementsTraining._ID + "= ?",
+                    new String[] { String.valueOf(id) });
+        }
+        if (type.equals("foods")){
+            values.put(DataBaseAchievementsFoods.COLUMN_COMPLETED, String.valueOf(completed));
+            mDb.update(DataBaseAchievementsFoods.TABLE_NAME, values, DataBaseAchievementsFoods._ID + "= ?",
+                    new String[] { String.valueOf(id) });
+        }
+    }
+
+    /** Actualiza el valor de completed de todos los logros dentro de la base de datos, tanto de entrenamiento como de comidas como ambos **/
+    public void reloadAchievements(String type){
+
+        if (type.equals("training") || type.equals("both")){
+            boolean[] achievements = getNumOfTables();
+            boolean[] existTableOnDay = existDayTable();
+            boolean[] typeExercises = getNumTypeExercises();
+            boolean[] numExercises = getNumExercises();
+
+            int tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + existTableOnDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = existTableOnDay[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + typeExercises.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = typeExercises[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + numExercises.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = numExercises[i-tamaño];
+            }
+
+            for (int i = 0; i < achievements.length; i++){
+                updateAchievement(i+1, "training", achievements[i]);
+            }
+        }
+        if (type.equals("foods") || type.equals("both")){
+
+            boolean[] achievements = getNumOfFoods();
+            boolean[] numFoodsForDay = getNumFoodsForDay();
+            String[] shortTypes = {"Desayuno", "Comida", "Cena"};
+            boolean[] breakfastLaunchDinner = getBreakfastLaunchDinner(shortTypes);
+            String[] Types = {"Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
+            boolean[] allFoodsPerDay = getBreakfastLaunchDinner(shortTypes);
+
+            int tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + numFoodsForDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = numFoodsForDay[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + breakfastLaunchDinner.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = breakfastLaunchDinner[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + allFoodsPerDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = allFoodsPerDay[i-tamaño];
+            }
+
+            for (int i = 0; i < achievements.length; i++){
+                updateAchievement(i+1, "foods", achievements[i]);
+            }
+        }
+
+    }
+
+    public boolean[] fillAchievements(String type){
+        boolean[] achievements = new boolean[3];
+
+        return achievements;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 0 a 4 **/
+    private boolean[] getNumOfTables(){
         boolean[] createdTables = new boolean[5];
 
         int tablesSize = getAllTables().size();
@@ -951,7 +1039,8 @@ public class DataBaseContract {
         return createdTables;
     }
 
-    public boolean[] existDayTable(){
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 5 a 12 **/
+    private boolean[] existDayTable(){
         boolean dayTable[] = new boolean[7];
 
         String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
@@ -970,7 +1059,8 @@ public class DataBaseContract {
         return dayTable;
     }
 
-    public boolean[] getNumExercises(){
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 13 a 19 **/
+    private boolean[] getNumExercises(){
         boolean[] numExercises = new boolean[4];
 
         Arrays.fill(numExercises, true);
@@ -998,7 +1088,8 @@ public class DataBaseContract {
         return numExercises;
     }
 
-    public boolean[] getNumTypeExercises() {
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 20 a 23 **/
+    private boolean[] getNumTypeExercises() {
         boolean[] typeExercises = new boolean[7];
 
         String[] types = {"pecho", "espalda", "biceps", "triceps", "abdominales", "pierna"};
@@ -1009,7 +1100,6 @@ public class DataBaseContract {
             ArrayList<Exercise> exercises = getAllExercisesFromTable(allTables.get(i));
             for (int j = 0; j < exercises.size(); j++){
                 for (int z = 0; z < contador.length; z++){
-                    Log.e("PR:", exercises.get(j).getTipo());
                     if (exercises.get(j).getTipo().equals(types[z])){
                         contador[z]++;
                         if (contador[z] >= 3){
@@ -1027,7 +1117,8 @@ public class DataBaseContract {
         return typeExercises;
     }
 
-    public boolean[] getNumOfFoods(){
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 0 a 10 **/
+    private boolean[] getNumOfFoods(){
         boolean[] createdFoods = new boolean[11];
 
         int foodsSize = getAllFoodTables().size();
@@ -1069,7 +1160,8 @@ public class DataBaseContract {
         return createdFoods;
     }
 
-    public boolean[] getNumFoodsForDay(){
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 11 a 12 **/
+    private boolean[] getNumFoodsForDay(){
         boolean[] numOfFoodsForDay = new boolean[2];
 
         String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
@@ -1086,7 +1178,8 @@ public class DataBaseContract {
         return numOfFoodsForDay;
     }
 
-    public boolean[] getBreakfastLaunchDinner(String[] types){
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 13 a 18 **/
+    private boolean[] getBreakfastLaunchDinner(String[] types){
         boolean[] breakfastLaunchDinner = new boolean[3];
 
         String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
