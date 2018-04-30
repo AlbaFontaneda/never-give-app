@@ -215,33 +215,33 @@
 
     <string-array name="achievementsTrainingDescriptions">
         // Entrenamiento
-        <item>Crea tu primera tabla personalizada.</item>
-        <item>Crea 5 tablas personalizadas.</item>
-        <item>Crea 10 tablas personalizadas.</item>
-        <item>Crea 15 tablas personalizadas.</item>
-        <item>Crea 20 tablas personalizadas.</item>
+        0<item>Crea tu primera tabla personalizada.</item>
+        1<item>Crea 5 tablas personalizadas.</item>
+        2<item>Crea 10 tablas personalizadas.</item>
+        3<item>Crea 15 tablas personalizadas.</item>
+        4<item>Crea 20 tablas personalizadas.</item>
 
-        <item>Crea una tabla personalizada para el Lunes.</item>
-        <item>Crea una tabla personalizada para el Martes.</item>
-        <item>Crea una tabla personalizada para el Miércoles.</item>
-        <item>Crea una tabla personalizada para el Jueves.</item>
-        <item>Crea una tabla personalizada para el Viernes.</item>
-        <item>Crea una tabla personalizada para el Sábado.</item>
-        <item>Crea una tabla personalizada para el Domingo.</item>
-        <item>Crea una tabla personalizada para día de la semana.</item>
+        5<item>Crea una tabla personalizada para el Lunes.</item>
+        6<item>Crea una tabla personalizada para el Martes.</item>
+        7<item>Crea una tabla personalizada para el Miércoles.</item>
+        8<item>Crea una tabla personalizada para el Jueves.</item>
+        9<item>Crea una tabla personalizada para el Viernes.</item>
+        10<item>Crea una tabla personalizada para el Sábado.</item>
+        11<item>Crea una tabla personalizada para el Domingo.</item>
+        12<item>Crea una tabla personalizada para día de la semana.</item>
 
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pecho.</item>
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de hombro y espalda.</item>
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de bíceps.</item>
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de tríceps.</item>
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de abdominales.</item>
-        <item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pierna.</item>
-        <item>Crea una tabla personalizada que contenga al menos 1 ejercicio de cada parte del cuerpo.</item>
+        13<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pecho.</item>
+        14<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de hombro y espalda.</item>
+        15<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de bíceps.</item>
+        16<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de tríceps.</item>
+        17<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de abdominales.</item>
+        18<item>Crea una tabla personalizada que contenga al menos 3 ejercicios de pierna.</item>
+        19<item>Crea una tabla personalizada que contenga al menos 1 ejercicio de cada parte del cuerpo.</item>
 
-        <item>Incluye hasta 4 ejercicios en una tabla.</item>
-        <item>Incluye hasta 5 ejercicios en una tabla.</item>
-        <item>Incluye hasta 6 ejercicios en una tabla.</item>
-        <item>Incluye hasta 7 ejercicios en una tabla.</item>
+        20<item>Incluye hasta 4 ejercicios en una tabla.</item>
+        21<item>Incluye hasta 5 ejercicios en una tabla.</item>
+        22<item>Incluye hasta 6 ejercicios en una tabla.</item>
+        23<item>Incluye hasta 7 ejercicios en una tabla.</item>
     </string-array>
 
     <string-array name="achievementsFoodsDescriptions">

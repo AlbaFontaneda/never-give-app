@@ -71,22 +71,14 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
                 db.open();
                 boolean[] existTableOnDay = db.existDayTable();
                 db.close();
-
-                if (position == 12){
-                    if (Arrays.toString(existTableOnDay).contains("T")){
-                        holder.itemType.setImageResource(R.drawable.ic_logro_completado);
-                    }
-                } else {
-                    if (existTableOnDay[position - 5]){
-                        holder.itemType.setImageResource(R.drawable.ic_logro_completado);
-                    }
+                if (existTableOnDay[position - 5]){
+                    holder.itemType.setImageResource(R.drawable.ic_logro_completado);
                 }
             }
             if (position >= 13 && position < 20){
                 db.open();
                 boolean[] typeExercises = db.getNumTypeExercises();
                 db.close();
-
                 if (typeExercises[position - 13]){
                     holder.itemType.setImageResource(R.drawable.ic_logro_completado);
                 }

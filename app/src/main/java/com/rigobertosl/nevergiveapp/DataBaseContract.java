@@ -199,6 +199,48 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseDefaultLinkTable.TABLE_NAME;
     }
 
+    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
+    public static class DataBaseAchievementsTraining implements BaseColumns {
+        public static final String TABLE_NAME = "tabla_logros_entrenamiento";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_POINTS = "points";
+        public static final String COLUMN_COMPLETED = "completed";
+
+
+        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING =
+                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME + " (" +
+                        DataBaseContract.DataBaseAchievementsTraining._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
+                        DataBaseAchievementsTraining.COLUMN_COMPLETED + TEXT_TYPE + " )";
+
+        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING =
+                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME;
+    }
+
+    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
+    public static class DataBaseAchievementsFoods implements BaseColumns {
+        public static final String TABLE_NAME = "tabla_logros_comidas";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_POINTS = "points";
+        public static final String COLUMN_COMPLETED = "completed";
+
+
+        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS =
+                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME + " (" +
+                        DataBaseContract.DataBaseAchievementsFoods._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
+                        DataBaseAchievementsFoods.COLUMN_COMPLETED + TEXT_TYPE + " )";
+
+        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS =
+                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME;
+    }
+
 
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
@@ -221,6 +263,8 @@ public class DataBaseContract {
             db.execSQL(DataBaseDefaultTable.SQL_CREATE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_CREATE_DEFAULT_EXERCISES);
             db.execSQL(DataBaseDefaultLinkTable.SQL_CREATE_ENTRIES_DEFAULT_LINK);
+            db.execSQL(DataBaseAchievementsTraining.SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING);
+            db.execSQL(DataBaseAchievementsFoods.SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS);
         }
 
         public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
@@ -232,6 +276,8 @@ public class DataBaseContract {
             db.execSQL(DataBaseDefaultTable.SQL_DELETE_DEFAULT_TABLE);
             db.execSQL(DataBaseDefaultExercises.SQL_DELETE_DEFAULT_EXERCISES);
             db.execSQL(DataBaseDefaultLinkTable.SQL_DELETE_ENTRIES_DEFAULT_LINK);
+            db.execSQL(DataBaseAchievementsTraining.SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING);
+            db.execSQL(DataBaseAchievementsFoods.SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS);
             onCreate(db);
         }
 
@@ -836,6 +882,28 @@ public class DataBaseContract {
 
     /********************* PANTALLA DE LOGROS *****************************/
 
+    private void createAchievementTraining(String title, String description, String points){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseAchievementsTraining.COLUMN_TITLE, title);
+        values.put(DataBaseAchievementsTraining.COLUMN_DESCRIPTION, description);
+        values.put(DataBaseAchievementsTraining.COLUMN_POINTS, points);
+
+        mDb.insert(DataBaseAchievementsTraining.TABLE_NAME, null, values);
+    }
+
+    public void loadAchievementsTraining(){
+        String[] trainingTitles = context.getResources().getStringArray(R.array.achievementsTrainingTitles);
+        String[] trainingDescriptions = context.getResources().getStringArray(R.array.achievementsTrainingDescriptions);
+        String[] trainingPoints = context.getResources().getStringArray(R.array.achievementsTrainingPoints);
+
+        for (int i = 0; i < trainingTitles.length; i++){
+            createAchievementTraining(trainingTitles[i], trainingDescriptions[i], trainingPoints[i]);
+        }
+    }
+
+
+
+
     public boolean[] getNumOfTables(){
         boolean[] createdTables = new boolean[5];
 
@@ -869,9 +937,13 @@ public class DataBaseContract {
         for (int i = 0; i < weekDays.length; i++){
             if(getAllTablesFilterByDay(weekDays[i]).size() >= 1) {
                 dayTable[i] = true;
-            }else{
-                dayTable[i] = false;
             }
+        }
+        dayTable = Arrays.copyOf(dayTable, dayTable.length + 1);
+        if (Arrays.toString(dayTable).contains("t")){
+
+
+            dayTable[dayTable.length - 1] = true;
         }
         return dayTable;
     }
