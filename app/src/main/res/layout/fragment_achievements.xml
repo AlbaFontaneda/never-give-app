@@ -9,6 +9,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_achivements"
-        style="@style/FoodsList" />
+        style="@style/cardViewList" />
 
 </android.support.constraint.ConstraintLayout>
