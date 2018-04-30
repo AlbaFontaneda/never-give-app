@@ -44,6 +44,11 @@ public class AchievementsActivity extends AppCompatActivity {
             }
         });
 
+        db = new DataBaseContract(this);
+        db.open();
+        db.newAchievementsTraining("foods");
+        db.newAchievementsTraining("training");
+        db.close();
 
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
@@ -52,8 +57,6 @@ public class AchievementsActivity extends AppCompatActivity {
             Fragment f = new AchievementsFragment();
             fragments.add(f);
         }
-
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);

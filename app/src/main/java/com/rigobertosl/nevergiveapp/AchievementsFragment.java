@@ -33,8 +33,6 @@ public class AchievementsFragment extends Fragment {
             achievementType = "foods";
         }else if (page == 2){
             achievementType = "training";
-        }else if (page == 3){
-            achievementType = "events";
         }
 
         String[] achievementTitles,  achievementDescription, achievementPoints;

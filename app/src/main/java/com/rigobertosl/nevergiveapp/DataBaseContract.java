@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -202,6 +202,7 @@ public class DataBaseContract {
     /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
     public static class DataBaseAchievementsTraining implements BaseColumns {
         public static final String TABLE_NAME = "tabla_logros_entrenamiento";
+        public static final String COLUMN_ACHIEVEMENT_TRAINING_ID = "_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_POINTS = "points";
@@ -210,7 +211,7 @@ public class DataBaseContract {
 
         private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING =
                 "CREATE TABLE " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsTraining._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_ACHIEVEMENT_TRAINING_ID + " INTEGER PRIMARY KEY," +
                         DataBaseContract.DataBaseAchievementsTraining.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseAchievementsTraining.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseAchievementsTraining.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
@@ -223,6 +224,7 @@ public class DataBaseContract {
     /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
     public static class DataBaseAchievementsFoods implements BaseColumns {
         public static final String TABLE_NAME = "tabla_logros_comidas";
+        public static final String COLUMN_ACHIEVEMENT_FOODS_ID = "_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_POINTS = "points";
@@ -231,7 +233,7 @@ public class DataBaseContract {
 
         private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS =
                 "CREATE TABLE " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsFoods._ID + " INTEGER PRIMARY KEY," +
+                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_ACHIEVEMENT_FOODS_ID + " INTEGER PRIMARY KEY," +
                         DataBaseContract.DataBaseAchievementsFoods.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseAchievementsFoods.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                         DataBaseContract.DataBaseAchievementsFoods.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
@@ -882,27 +884,47 @@ public class DataBaseContract {
 
     /********************* PANTALLA DE LOGROS *****************************/
 
-    private void createAchievementTraining(String title, String description, String points){
+    private void createAchievement(String type, String title, String description, String points, String completed) {
         ContentValues values = new ContentValues();
-        values.put(DataBaseAchievementsTraining.COLUMN_TITLE, title);
-        values.put(DataBaseAchievementsTraining.COLUMN_DESCRIPTION, description);
-        values.put(DataBaseAchievementsTraining.COLUMN_POINTS, points);
-
-        mDb.insert(DataBaseAchievementsTraining.TABLE_NAME, null, values);
-    }
-
-    public void loadAchievementsTraining(){
-        String[] trainingTitles = context.getResources().getStringArray(R.array.achievementsTrainingTitles);
-        String[] trainingDescriptions = context.getResources().getStringArray(R.array.achievementsTrainingDescriptions);
-        String[] trainingPoints = context.getResources().getStringArray(R.array.achievementsTrainingPoints);
-
-        for (int i = 0; i < trainingTitles.length; i++){
-            createAchievementTraining(trainingTitles[i], trainingDescriptions[i], trainingPoints[i]);
+        if (type.equals("training")){
+            values.put(DataBaseAchievementsTraining.COLUMN_TITLE, title);
+            values.put(DataBaseAchievementsTraining.COLUMN_DESCRIPTION, description);
+            values.put(DataBaseAchievementsTraining.COLUMN_POINTS, points);
+            values.put(DataBaseAchievementsTraining.COLUMN_COMPLETED, completed);
+            mDb.insert(DataBaseAchievementsTraining.TABLE_NAME, null, values);
+        }
+        if (type.equals("foods")){
+            values.put(DataBaseAchievementsFoods.COLUMN_TITLE, title);
+            values.put(DataBaseAchievementsFoods.COLUMN_DESCRIPTION, description);
+            values.put(DataBaseAchievementsFoods.COLUMN_POINTS, points);
+            values.put(DataBaseAchievementsFoods.COLUMN_COMPLETED, completed);
+            mDb.insert(DataBaseAchievementsFoods.TABLE_NAME, null, values);
         }
     }
 
+    public void newAchievementsTraining(String type){
+        Cursor cursor = mDb.rawQuery("SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME, null);
+        if (!cursor.moveToFirst()){
+            String[] titles = {""};
+            String[] descriptions = {""};
+            String[] points = {""};
 
+            if (type.equals("training")){
+                titles = context.getResources().getStringArray(R.array.achievementsTrainingTitles);
+                descriptions = context.getResources().getStringArray(R.array.achievementsTrainingDescriptions);
+                points = context.getResources().getStringArray(R.array.achievementsTrainingPoints);
 
+            } else if (type.equals("foods")){
+                titles = context.getResources().getStringArray(R.array.achievementsFoodsTitles);
+                descriptions = context.getResources().getStringArray(R.array.achievementsFoodsDescriptions);
+                points = context.getResources().getStringArray(R.array.achievementsFoodsPoints);
+            }
+
+            for (int i = 0; i < titles.length; i++){
+                createAchievement(type, titles[i], descriptions[i], points[i], "false");
+            }
+        }
+    }
 
     public boolean[] getNumOfTables(){
         boolean[] createdTables = new boolean[5];
