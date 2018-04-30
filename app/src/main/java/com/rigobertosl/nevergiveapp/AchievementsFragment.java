@@ -35,13 +35,8 @@ public class AchievementsFragment extends Fragment {
             achievementType = "training";
         }
 
-        String[] achievementTitles,  achievementDescription, achievementPoints;
-
-        // SUSTITUIR POR LA BASE DE DATOS Y FILTRAR DENTRO DEL CustomAchievementAdapter
-        ArrayList<Achievement> achievements = new ArrayList<Achievement>();
-
         db.open();
-        achievements = db.getAllAchievementsByType(achievementType);
+        ArrayList<Achievement> achievements = db.getAllAchievementsByType(achievementType);
         db.close();
         RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
         recyclerView.setAdapter(adapterTrain);

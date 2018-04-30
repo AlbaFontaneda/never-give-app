@@ -47,10 +47,8 @@ public class AchievementsActivity extends AppCompatActivity {
         db = new DataBaseContract(this);
         db.open();
         db.newAchievements("both");
-        db.close();
-
         db.reloadAchievements("both");
-
+        db.close();
 
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 

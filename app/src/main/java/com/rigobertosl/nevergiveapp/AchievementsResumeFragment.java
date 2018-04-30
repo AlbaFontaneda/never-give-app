@@ -32,7 +32,7 @@ public class AchievementsResumeFragment extends Fragment {
         db.open();
         numExercises.setText(String.valueOf(db.getAllExercisesOfDataBase().size()));
         achievementsPoints.setText(String.valueOf(db.getTotalPoints()));
-        //numDuration.setText(db.getTimeOfTables());
+        numDuration.setText(db.getTimeOfTables());
         db.close();
 
         return rootView;

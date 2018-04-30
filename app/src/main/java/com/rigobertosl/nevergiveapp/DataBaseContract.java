@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -845,7 +845,7 @@ public class DataBaseContract {
     }
 
 
-    /********************* PANTALLA DE EVENTOS *****************************/
+    /********************* PANTALLA DE LOGROS *****************************/
 
     /** Devuelve todos los ejercicios de todas las tablas como un ArrayList<Exercise> **/
     public ArrayList<Exercise> getAllExercisesOfDataBase() {
@@ -870,8 +870,9 @@ public class DataBaseContract {
 
     /** Develve el tiempo o la duración de todas las tablas como un string del formato mm:ss **/
     public String getTimeOfTables(){
-        long minutes = 0;
-        long seconds = getAllExercisesOfDataBase().size()*30; //Suponemos que la duración de la realización de cada ejercicio es de 30 segundos
+        int totalTimeFromExercises = getAllExercisesOfDataBase().size()*30;
+        long seconds = totalTimeFromExercises % 60; //Suponemos que la duración de la realización de cada ejercicio es de 30 segundos
+        long minutes = totalTimeFromExercises / 60;
         ArrayList<Exercise> allExercises = getAllExercisesOfDataBase();
         for(Exercise exercise : allExercises){
             String exercise_time = exercise.getDescanso();
@@ -881,8 +882,6 @@ public class DataBaseContract {
         }
         return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
     }
-
-    /********************* PANTALLA DE LOGROS *****************************/
 
     /** Crea un logro dentro de la base de datos, ya sea de entrenamiento o de comidas **/
     private void createAchievement(String type, String title, String description, String points, String completed) {
@@ -1036,43 +1035,6 @@ public class DataBaseContract {
         return achievements;
     }
 
-    /** Devuelve un array de los valores de la columna de COMPLETED de los logros de un tipo **/
-    public boolean[] getAchievementsCompletedOrNot(String type){
-        ArrayList<String> achievements_list = new ArrayList<>();
-
-        if (type.equals("training")){
-            String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
-            mDb = mDbHelper.getReadableDatabase();
-            Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-            if(cursor.moveToFirst()) {
-                do {
-                    String completed = (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)));
-                    achievements_list.add(completed);
-                } while (cursor.moveToNext());
-            }
-        } else if (type.equals("foods")){
-            String selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
-            mDb = mDbHelper.getReadableDatabase();
-            Cursor cursor = mDb.rawQuery(selectQuery, null);
-
-            if(cursor.moveToFirst()) {
-                do {
-                    String completed = (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)));
-                    achievements_list.add(completed);
-                } while (cursor.moveToNext());
-            }
-        }
-
-        String[] achievements_array = achievements_list.toArray(new String[achievements_list.size()]);
-        boolean[] achievements_boolean = new boolean[achievements_array.length];
-
-        for (int i = 0; i < achievements_array.length; i++){
-            achievements_boolean[i] = Boolean.parseBoolean(achievements_array[i]);
-        }
-        return achievements_boolean;
-    }
-
     public int getTotalPoints(){
         int points = 0;
 
@@ -1138,8 +1100,6 @@ public class DataBaseContract {
         }
         dayTable = Arrays.copyOf(dayTable, dayTable.length + 1);
         if (Arrays.toString(dayTable).contains("t")){
-
-
             dayTable[dayTable.length - 1] = true;
         }
         return dayTable;
