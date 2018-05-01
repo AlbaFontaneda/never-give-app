@@ -28,8 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:padding="1dp"
-                    android:text="+"/>
+                    android:padding="1dp" />
                 <ImageView
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"

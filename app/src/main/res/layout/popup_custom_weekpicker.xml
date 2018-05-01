@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,73 +28,39 @@
                 android:layout_height="wrap_content">
                 <ToggleButton
                     android:id="@+id/button_lunes"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekLU"
-                    android:textOff="@string/weekLU"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekLU" />
                 <ToggleButton
                     android:id="@+id/button_martes"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekM"
-                    android:textOff="@string/weekM"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekM" />
                 <ToggleButton
                     android:id="@+id/button_miercoles"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekX"
-                    android:textOff="@string/weekX"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekX" />
                 <ToggleButton
                     android:id="@+id/button_jueves"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekJU"
-                    android:textOff="@string/weekJU"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekJU" />
                 <ToggleButton
                     android:id="@+id/button_viernes"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekVI"
-                    android:textOff="@string/weekVI"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekVI" />
                 <ToggleButton
                     android:id="@+id/button_sabado"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekSA"
-                    android:textOff="@string/weekSA"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekSA" />
                 <ToggleButton
                     android:id="@+id/button_domingo"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/circle"
+                    style="@style/botonDias"
                     android:textOn="@string/weekDO"
-                    android:textOff="@string/weekDO"
-                    android:textStyle="bold"
-                    android:textColor="#fff" />
+                    android:textOff="@string/weekDO" />
             </LinearLayout>
 
             <CheckBox

@@ -212,9 +212,9 @@
     //Info data
     <style name="resumeData">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">200dp</item>
         <item name="android:padding">10dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/layouts_resume_table</item>
     </style>
@@ -236,17 +236,6 @@
         <item name="android:textColor">@color/bpblack</item>
     </style>
 
-    //Layout descanso
-    <style name="resumeDescansoData">
-        <item name="android:layout_width">180dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_gravity">end</item>
-        <item name="android:background">@drawable/layouts_resume_table</item>
-    </style>
-
     //Descanso Buttons
     <style name="resumeDescansoButtons">
         <item name="android:layout_width">wrap_content</item>
@@ -261,7 +250,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>
-        <item name="android:layout_margin">15dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/layouts_resume_table</item>
     </style>
@@ -330,7 +320,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    //Textminutos:segundos
+    //Text minutos:segundos
     <style name="popUpTimePicker">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -350,6 +340,20 @@
         <item name="np_selectedTextColor">@color/colorAccent</item>
         <item name="np_textColor">@color/colorPrimary</item>
     </style>
+
+    <!-- WEEKPICKER -->
+    //Buttons días
+    <style name="botonDias">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:background">@drawable/circle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!-- FOOD RESUMEN -->
 
 
 
