@@ -57,6 +57,7 @@ public class ExerciseResumeFragment extends Fragment {
         TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
         TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
+        TextView description = (TextView)rootView.findViewById(R.id.description);
         countDown = (TextView)rootView.findViewById(R.id.temporizador);
         ImageButton play = (ImageButton)rootView.findViewById(R.id.play);
         ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
@@ -95,6 +96,7 @@ public class ExerciseResumeFragment extends Fragment {
         exerciseTitle.setText((String) ejercicio.getNombre());
         exerciseSeries.setText((String) ejercicio.getSeries());
         exerciseRep.setText((String) ejercicio.getRepeticiones());
+        description.setText(ejercicio.getDescription());
 
         //exerciseDescanso.setText((String) ejercicio.getDescanso());
 

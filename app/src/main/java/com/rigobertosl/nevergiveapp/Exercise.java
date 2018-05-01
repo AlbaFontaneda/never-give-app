@@ -3,14 +3,17 @@ package com.rigobertosl.nevergiveapp;
 public class Exercise {
 
     private long id;
-    private String nombre, series, repeticiones, descanso, tipo;
+    private String nombre, series, repeticiones, descanso, tipo, description;
+    private byte[] image;
 
-    public Exercise(String nombre, String series, String repeticiones, String descanso, String tipo) {
+    public Exercise(String nombre, String series, String repeticiones, String descanso, String tipo,  byte[] image, String description) {
         this.nombre = nombre;
         this.series = series;
         this.repeticiones = repeticiones;
         this.descanso = descanso;
         this.tipo = tipo;
+        this.image = image;
+        this.description = description;
     }
 
     public long getId() {
@@ -59,5 +62,21 @@ public class Exercise {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
