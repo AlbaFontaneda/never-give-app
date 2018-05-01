@@ -89,13 +89,10 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
 
         db = new DataBaseContract(holder.title.getContext());
         db.open();
-
-
-        ArrayList<TrainingTable> trainingTables;
-
-        trainingTables = db.getAllDefaultTables();
-
+        ArrayList<TrainingTable> trainingTables = db.getAllDefaultTables();
         exerciseList = db.getAllDefaultExercisesFromTable(trainingTables.get(position));
+        db.close();
+
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
     }

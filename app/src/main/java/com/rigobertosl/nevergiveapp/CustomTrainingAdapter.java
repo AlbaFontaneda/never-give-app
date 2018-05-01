@@ -110,19 +110,13 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                         return false;
                     }
                 });
-                //displaying the popup
                 popup.show();
 
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.title.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
         db = new DataBaseContract(holder.title.getContext());
         db.open();
-
-
         ArrayList<TrainingTable> trainingTables;
         if(filterDay == null) {
             trainingTables = db.getAllTables();
@@ -130,6 +124,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
             trainingTables = db.getAllTablesFilterByDay(filterDay);
         }
         exerciseList = db.getAllExercisesFromTable(trainingTables.get(position));
+        db.close();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.title.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
     }

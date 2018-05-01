@@ -1,7 +1,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,103 +29,64 @@
                 android:layout_weight="1"/>
 
             <TextView
-                style="@style/ElementRows"
+                style="@style/cardViewTitle"
+                android:textColor="#000"
                 android:text="Puntos de logro: "
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/achievements_points"
-                style="@style/ElementRows"
+                style="@style/summary"
                 android:text="0"
                 android:layout_weight="1"/>
         </LinearLayout>
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:layout_marginTop="5dp"
+            android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical"
             android:background="@drawable/layouts_resume_table">
+            <TextView
+                style="@style/cardViewTitle"
+                android:textColor="#000"
+                android:text="@string/total_exercises" />
+            <TextView
+                android:id="@+id/num_exercises"
+                android:layout_marginLeft="5dp"
+                style="@style/summary"
+                android:text="0" />
 
-            <TableRow
-                android:id="@+id/summary_dates"
-                style="@style/AchievementsRow"
-                android:background="@drawable/achievements_border_top">
-
-                <TextView
-                    android:id="@+id/num_exercises"
-                    android:layout_marginRight="25dp"
-                    style="@style/summary"
-                    android:text="0" />
-
-                <TextView
-                    android:id="@+id/num_kcal"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginLeft="25dp"
-                    style="@style/summary"
-                    android:text="0" />
-
-                <TextView
-                    android:id="@+id/duration"
-                    style="@style/summary"
-                    android:layout_marginLeft="25dp"
-                    android:text="0" />
-            </TableRow>
-            <TableRow
-                style="@style/AchievementsRow"
-                android:background="@drawable/achievements_border_bottom">
-
-                <TextView
-                    style="@style/ElementRows"
-                    android:layout_marginRight="25dp"
-                    android:text="@string/exercise" />
-
-                <TextView
-                    style="@style/ElementRows"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginLeft="25dp"
-                    android:text="@string/kcal" />
-
-                <TextView
-                    style="@style/ElementRows"
-                    android:layout_marginLeft="25dp"
-                    android:text="@string/duration" />
-            </TableRow>
-        </TableLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:padding="5dp"
             android:background="@drawable/layouts_resume_table">
+
             <TextView
                 android:id="@+id/title_history"
-                style="@style/ElementRows"
-                android:text="@string/history" />
+                style="@style/cardViewTitle"
+                android:layout_gravity="center"
+                android:textColor="#000"
+                android:layout_margin="5dp"
+                android:text="@string/logros_completados" />
 
-            <LinearLayout
-                android:id="@+id/History_content1"
-                android:layout_marginTop="5dp"
-                style="@style/LastAchievementsContent"
-                android:background="@drawable/layouts_resume_table">
-            </LinearLayout>
+            <View
+                android:layout_width = "fill_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
 
-            <LinearLayout
-                android:id="@+id/History_content2"
-                android:layout_marginTop="5dp"
-                style="@style/LastAchievementsContent"
-                android:background="@drawable/layouts_resume_table">
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/History_content3"
-                android:layout_marginTop="5dp"
-                style="@style/LastAchievementsContent"
-                android:background="@drawable/layouts_resume_table">
-            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_achivements"
+                style="@style/cardViewList" />
         </LinearLayout>
 
 
