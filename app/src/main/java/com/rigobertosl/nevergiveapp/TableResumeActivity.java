@@ -82,7 +82,6 @@ public class TableResumeActivity extends TrainingActivity {
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_edit_table, null);
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
-        dialog.setTitle(table.getName());
         dialog.show();
 
         final EditText tableName = (EditText) dialogLayout.findViewById(R.id.table_name);

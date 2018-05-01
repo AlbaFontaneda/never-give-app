@@ -4,81 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/colorAccent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/titlesColor"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="Añade una nueva comida... Be healthy :P" />
-        </LinearLayout>
+            style="@style/popUpTitle">
 
+            <TextView
+                android:text="@string/newFood"
+                style="@style/popUpTextTitle"/>
+        </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/popUpData">
+
+            <TextView
+                android:text="@string/nombreComida"
+                style="@style/popUpNames"/>
+
             <EditText
                 android:id="@+id/name_food"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:maxLines="1"
-                android:hint="Pon nombre a tu plato"/>
-        </LinearLayout>
+                style="@style/popUpEdits"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/diasComida"
+                style="@style/popUpNames" />
+
             <EditText
                 android:id="@+id/food_days"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
+                style="@style/popUpEdits"
                 android:inputType="date"
                 android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
-                android:hint="Días de la semana" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:clickable="true"/>
             <Spinner
                 android:id="@+id/food_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"/>
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:gravity="center">
+            style="@style/popUpButtons">
+
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"

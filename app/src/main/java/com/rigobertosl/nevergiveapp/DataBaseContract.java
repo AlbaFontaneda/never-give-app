@@ -28,6 +28,7 @@ public class DataBaseContract {
 
     private static final int DATABASE_VERSION = 2;
 
+
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String LONG_TYPE = " LONG";

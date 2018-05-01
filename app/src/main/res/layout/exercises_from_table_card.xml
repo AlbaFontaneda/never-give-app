@@ -9,70 +9,68 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         app:cardMaxElevation="2dp"
         app:cardElevation="1dp"
         card_view:cardCornerRadius="10dp"
         android:layout_centerInParent="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/nombre_ejercicio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre ejercicio"
-                android:layout_centerHorizontal="true"
-                android:textSize="20dp"
-                android:textColor="@color/colorAccent"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeMaxTextSize="25sp"
-                android:padding="2dp" />
+                android:text="sadsadasd"
+                style="@style/exerciseName"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:padding="3dp"
-                android:columnCount="6"
-                android:rowCount="1"
-                android:orientation="horizontal"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/nombre_ejercicio">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <TextView
                     android:id="@+id/series"
                     style="@style/AttributeExerciseText"
-                    android:text="@string/nseries"
-                    android:layout_column="0" />
+                    android:text="@string/nseries" />
                 <EditText
                     android:id="@+id/num_series"
-                    style="@style/ContentExerciseAttributeShort"
-                    android:layout_column="1"/>
+                    android:gravity="center"
+                    style="@style/ContentExerciseAttributeShort" />
                 <TextView
                     android:id="@+id/repeticiones"
+                    android:layout_marginStart="15dp"
                     style="@style/AttributeExerciseText"
-                    android:text="@string/nrep"
-                    android:layout_column="2" />
+                    android:text="@string/repeticiones" />
                 <EditText
                     android:id="@+id/num_repeticiones"
-                    style="@style/ContentExerciseAttributeShort"
-                    android:layout_column="3"/>
+                    android:gravity="center"
+                    style="@style/ContentExerciseAttributeShort"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <TextView
                     android:id="@+id/descanso"
                     style="@style/AttributeExerciseText"
-                    android:text="@string/ndescanso"
-                    android:layout_column="4" />
+                    android:text="@string/ndescanso" />
                 <EditText
                     android:id="@+id/num_descanso"
                     style="@style/ContentExerciseAttributeLarge"
                     android:inputType="date"
                     android:focusable="false"
-                    android:clickable="true"
-                    android:layout_column="5"/>
-            </GridLayout>
-        </RelativeLayout>
+                    android:gravity="center"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </android.support.v7.widget.CardView>
