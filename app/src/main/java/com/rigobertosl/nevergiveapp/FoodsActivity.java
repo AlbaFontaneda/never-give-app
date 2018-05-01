@@ -43,7 +43,7 @@ import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFra
 
 import java.util.ArrayList;
 
-public class FoodsActivity extends MainActivity {
+public class FoodsActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;

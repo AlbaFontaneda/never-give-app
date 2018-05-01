@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -500,6 +500,18 @@ public class DataBaseContract {
             } while (cursor.moveToNext());
         }
         return tableByDay;
+    }
+
+    /** Comprueba si existe la tabla de ejercicios **/
+    public boolean checkifTrainTableisEmpty() {
+        boolean isEmpty = true;
+        String count = "SELECT count(*) FROM " + DataBaseEntryNameTrain.TABLE_NAME;
+        mDb = mDbHelper.getWritableDatabase();
+        Cursor mcursor = mDb.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount > 0) isEmpty = false;
+        return isEmpty;
     }
 
 
