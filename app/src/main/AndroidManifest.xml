@@ -49,7 +49,6 @@
             android:name=".ExercisesTypeActivity"
             android:label="@string/title_activity_exercisies_type"
             android:parentActivityName=".TrainingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChestActivity"
