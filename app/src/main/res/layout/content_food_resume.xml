@@ -178,7 +178,8 @@
                     android:text="@string/totalKcal"/>
                 <TextView
                     android:id="@+id/num_kcal"
-                    style="@style/totalKcal" />
+                    style="@style/totalKcal"
+                    android:text="0"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
