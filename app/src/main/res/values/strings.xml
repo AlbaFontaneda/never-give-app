@@ -84,6 +84,24 @@
     <string name="segundos">Segundos</string>
     <string name="minutos">Minutos</string>
 
+    //Comidas
+    <string name="tipoComda">Tipo de comida:</string>
+    <string name="listKcal">Escoge ingredientes de la lista para saber las kcal totales:</string>
+    <string name="pasta">Pasta</string>
+    <string name="huevos">Huevos</string>
+    <string name="leche">Leche</string>
+    <string name="carne">Carne</string>
+    <string name="pescado">Pescado</string>
+    <string name="verdura">Verdura</string>
+    <string name="bolleria">Bollería</string>
+    <string name="cereales">Cereales</string>
+    <string name="legumbre">Legumbre</string>
+    <string name="embutido">Embutido</string>
+    <string name="queso">Queso</string>
+    <string name="yogurt">Yogurt</string>
+    <string name="totalKcal">Total de Kcal:</string>
+    <string name="foodImage">Cambiar imagen</string>
+
 
     //Menús de los elementos de cada actividad
     <string name="element_settings">Opciones</string>
