@@ -57,12 +57,12 @@ public class ExercisesTypeActivity extends AppCompatActivity {
             }
         });
 
-        RadioButton pechoRadioButton = (RadioButton) findViewById(R.id.radioButtonPecho);
-        RadioButton espaldaRadioButton = (RadioButton) findViewById(R.id.radioButtonEspalda);
-        RadioButton tricepsRadioButton = (RadioButton) findViewById(R.id.radioButtonTriceps);
-        RadioButton bicepsRadioButton = (RadioButton) findViewById(R.id.radioButtonBiceps);
-        RadioButton abdominalesRadioButton = (RadioButton) findViewById(R.id.radioButtonAbdominales);
-        RadioButton piernaRadioButton = (RadioButton) findViewById(R.id.radioButtonPierna);
+        LinearLayout pechoRadioButton = (LinearLayout) findViewById(R.id.radioButtonPecho);
+        LinearLayout espaldaRadioButton = (LinearLayout) findViewById(R.id.radioButtonEspalda);
+        LinearLayout tricepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonTriceps);
+        LinearLayout bicepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonBiceps);
+        LinearLayout abdominalesRadioButton = (LinearLayout) findViewById(R.id.radioButtonAbdominales);
+        LinearLayout piernaRadioButton = (LinearLayout) findViewById(R.id.radioButtonPierna);
 
         pechoRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
