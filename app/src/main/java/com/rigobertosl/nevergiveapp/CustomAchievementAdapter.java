@@ -17,10 +17,7 @@ import java.util.Arrays;
 
 public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchievementAdapter.MyViewHolder> {
 
-    private Context mContext;
     private ArrayList<Achievement> achievements;
-    private String type;
-    private DataBaseContract db;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,11 +33,8 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
         }
     }
 
-    public CustomAchievementAdapter(Context mContext, ArrayList<Achievement> achievements, String type) {
-        this.mContext = mContext;
-        this.type = type;
+    public CustomAchievementAdapter(ArrayList<Achievement> achievements) {
         this.achievements = achievements;
-        db = new DataBaseContract(this.mContext);
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

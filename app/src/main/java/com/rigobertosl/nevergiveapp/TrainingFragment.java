@@ -35,7 +35,6 @@ public class TrainingFragment extends Fragment {
         db = new DataBaseContract(getActivity());
         db.open();
         ArrayList<TrainingTable> trainingTable = db.getAllTables();
-        trainingTable.size();
         db.close();
         if(trainingTable.size() == 0) {
             View itemView = LayoutInflater.from(container.getContext())

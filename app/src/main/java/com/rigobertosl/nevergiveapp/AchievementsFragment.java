@@ -38,7 +38,7 @@ public class AchievementsFragment extends Fragment {
         db.open();
         ArrayList<Achievement> achievements = db.getAllAchievementsByType(achievementType);
         db.close();
-        RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(getContext(), achievements, achievementType);
+        RecyclerView.Adapter adapterTrain = new CustomAchievementAdapter(achievements);
         recyclerView.setAdapter(adapterTrain);
 
         return rootView;

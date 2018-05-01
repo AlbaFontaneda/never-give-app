@@ -848,6 +848,33 @@ public class DataBaseContract {
 
     /********************* PANTALLA DE LOGROS *****************************/
 
+    /** Devuelve el total de puntos proveniente de los logros **/
+    public int getTotalPoints(){
+        int points = 0;
+
+        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
+                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)));
+                }
+            } while (cursor.moveToNext());
+        }
+        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+        cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
+                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return points;
+    }
+
     /** Devuelve todos los ejercicios de todas las tablas como un ArrayList<Exercise> **/
     public ArrayList<Exercise> getAllExercisesOfDataBase() {
         ArrayList<Exercise> exercises = new ArrayList<>();
@@ -869,19 +896,39 @@ public class DataBaseContract {
         return exercises;
     }
 
-    /** Develve el tiempo o la duración de todas las tablas como un string del formato mm:ss **/
-    public String getTimeOfTables(){
-        int totalTimeFromExercises = getAllExercisesOfDataBase().size()*30;
-        long seconds = totalTimeFromExercises % 60; //Suponemos que la duración de la realización de cada ejercicio es de 30 segundos
-        long minutes = totalTimeFromExercises / 60;
-        ArrayList<Exercise> allExercises = getAllExercisesOfDataBase();
-        for(Exercise exercise : allExercises){
-            String exercise_time = exercise.getDescanso();
-            String[] min_sec = exercise_time.split(":");
-            minutes += valueOf(min_sec[0])*60*valueOf(exercise.getSeries());
-            seconds += valueOf(min_sec[1])*valueOf(exercise.getSeries());
+    public ArrayList<Achievement> getAllAchievementsCompleted(){
+        ArrayList<Achievement> achievements = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
+                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining._ID))),
+                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_DESCRIPTION)),
+                            "training", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)),
+                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED))));
+                    achievements.add(achievement);
+                }
+            } while (cursor.moveToNext());
         }
-        return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+        cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
+                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods._ID))),
+                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_DESCRIPTION)),
+                            "foods", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)),
+                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED))));
+                    achievements.add(achievement);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return achievements;
     }
 
     /** Crea un logro dentro de la base de datos, ya sea de entrenamiento o de comidas **/
@@ -1003,6 +1050,7 @@ public class DataBaseContract {
         }
     }
 
+    /** Devuelve una lista de Logros del tipo que desees **/
     public ArrayList<Achievement> getAllAchievementsByType(String type){
         ArrayList<Achievement> achievements = new ArrayList<Achievement>();
 
@@ -1027,39 +1075,13 @@ public class DataBaseContract {
                 do {
                     Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods._ID))),
                             cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_DESCRIPTION)),
-                            "training", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)),
+                            "foods", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)),
                             Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED))));
                     achievements.add(achievement);
                 } while (cursor.moveToNext());
             }
         }
         return achievements;
-    }
-
-    public int getTotalPoints(){
-        int points = 0;
-
-        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
-        mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
-            do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
-                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)));
-                }
-            } while (cursor.moveToNext());
-        }
-        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
-        cursor = mDb.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
-            do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
-                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)));
-                }
-            } while (cursor.moveToNext());
-        }
-
-        return points;
     }
 
     /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 0 a 4 **/

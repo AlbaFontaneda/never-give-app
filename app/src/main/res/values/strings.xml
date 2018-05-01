@@ -107,11 +107,9 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     //Fragmento achievements_init
-    <string name="exercise">Ejercicios</string>
-    <string name="kcal">KCal</string>
-    <string name="duration">Duración</string>
+    <string name="total_exercises">Total de ejercicios:</string>
     <string name="history">Historial</string>
-    <string name="title_activity_settings_main">Settings</string>
+    <string name="logros_completados">Logros completados</string>
 
 
     //Pantalla tipos de ejercicios
