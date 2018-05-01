@@ -32,12 +32,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if(FoodResumeActivity.listKcal == null) {
             new FoodsApi().execute();
         }
 
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);
+        db.open();
+        if(!db.checkifTrainTableisEmpty()) {
+            ArrayList<TrainingTable> allTrainTables = db.getAllTables();
+            for (TrainingTable trainTable : allTrainTables) {
+                ArrayList<Exercise> tableExercises = db.getAllExercisesFromTable(trainTable);
+                if (tableExercises.size() == 0) db.deleteTable(trainTable.getId());
+            }
+        }
+        db.close();
+
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable

@@ -1,10 +1,12 @@
 package com.rigobertosl.nevergiveapp;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -61,12 +63,21 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
         return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(foodTables.get(position).getName());
         holder.days.setText(foodTables.get(position).getDays());
-        holder.kcal.setText(foodTables.get(position).getKcal());
+        if(foodTables.get(position).getKcal() == null) {
+            holder.kcal.setText("Parece que no guardaste el plato correctamente.\nPuedes editarlo para añadir las Kcal.");
+            holder.kcal.setTextColor(R.color.bpblack);
+            holder.kcal.setTextSize(10);
+            holder.kcal.setAllCaps(false);
+            holder.kcal.setTypeface(holder.kcal.getTypeface(), Typeface.ITALIC);
+        } else {
+            holder.kcal.setText(foodTables.get(position).getKcal());
+        }
         byte[] b = foodTables.get(position).getImage();
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);
