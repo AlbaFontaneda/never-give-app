@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -356,86 +355,69 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-
     <!-- FOOD RESUMEN -->
-
-
-
-
-    <!-- ESTILOS VENTANA DE INICIO -->
-    <style name="InitRows">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/colorRow</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="InitHeaders">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorRow</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:weightSum">10</item>
-    </style>
-
-    <style name="InitText">
+    <style name="foodResumeTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="foodResumeContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:layout_weight">9</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="InitOptionsButton">
+    <style name="checksFoods">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/selector_init_options_menu</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:src">@drawable/ic_options</item>
         <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="InitContent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:background">@color/colorCotent</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-    <!-- /ESTILOS VENTANA DE INICIO -->
-    <!-- ESTILOS VENTANA DE COMIDAS -->
-
-
-    <style name="FoodsRows">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/colorRow</item>
-        <item name="android:layout_margin">5dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="FoodsHeaders">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorRow</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:weightSum">10</item>
-    </style>
-
-    <style name="FoodsText">
+    <style name="totalKcal">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:layout_weight">9</item>
     </style>
+
+    <!-- LISTA DE EJERCICIOS -->
+    //Button
+    <style name="buttonExercise">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/exercise_buttons</item>
+    </style>
+
+    //Imagen
+    <style name="imageExercise">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">120dp</item>
+    </style>
+
+    //Nomber ejercicio
+    <style name="nombreEjercicio">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/bpblack</item>
+        <item name="android:autoLink">all</item>
+    </style>
+
+
 
     <style name="FoodsOptionsButton">
         <item name="android:layout_width">wrap_content</item>
@@ -449,13 +431,6 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <style name="FoodsContent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:background">@color/colorAccent</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-    <!-- /ESTILOS VENTANA DE COMIDAS -->
 
     <!-- ESTILOS VENTANA DE LOGROS -->
     <style name="AchievementsContent">
@@ -499,53 +474,6 @@
         <item name="android:background">@drawable/achievements_border_bottom</item>
     </style>
 
-    <!-- ESTILOS PANTALLA TIPOS DE EJERCICIOS -->
-    <style name="Button_exercices_type">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:clickable">true</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:background">@color/colorRow</item>
-    </style>
-
-    <style name="Image_exercise_type">
-        <item name="android:layout_width">150dp</item>
-        <item name="android:layout_height">90dp</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-
-    <style name="Text_button_exercise_type">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_margin">30dp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:layout_weight">2</item>
-    </style>
-
-    <!-- ESTILOS POPUP EDICIÓN DE TABLA -->
-    <style name="AtributteTableText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">5dp</item>
-    </style>
-
-    <style name="ContentTableAttribute">
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:maxLines">1</item>
-    </style>
 
     <!-- DENTRO DEL RECYCLERVIEW -->
     <style name="AttributeExerciseText">
@@ -575,7 +503,6 @@
         <item name="android:inputType">number</item>
         <item name="android:maxLines">1</item>
     </style>
-
 
     <!-- COLLAPSING BAR -->
     <style name="ToolbarExpandedTitle">

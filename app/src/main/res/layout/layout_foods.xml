@@ -25,7 +25,8 @@
                 style="@style/cardViewOptions" />
 
             <LinearLayout
-                style="@style/cardViewLinear" >
+                style="@style/cardViewLinear"
+                android:background="@color/bpWhite">
 
                 <ImageView
                     android:id="@+id/item_image"
