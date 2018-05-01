@@ -1,6 +1,8 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 
@@ -20,6 +22,10 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -28,6 +34,9 @@ public class MainActivity extends AppCompatActivity
     private DataBaseContract db;
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
+
+    private static final String DATABASE_NAME = "dbNeverGiveApp.db";
+    private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,33 @@ public class MainActivity extends AppCompatActivity
                 if (tableExercises.size() == 0) db.deleteTable(trainTable.getId());
             }
         }
+
+        SharedPreferences mPreferences = this.getSharedPreferences("first_time", Context.MODE_PRIVATE);
+        Boolean firstTime = mPreferences.getBoolean("firstTime", true);
+        if (firstTime) {
+            try {
+                String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
+
+                System.out.println("Traza: no existe el fichero");
+                InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
+                OutputStream out = new FileOutputStream(destPath);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+                in.close();
+                out.flush();
+                out.close();
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("firstTime", false);
+                editor.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         db.close();
 
         //Finds ID

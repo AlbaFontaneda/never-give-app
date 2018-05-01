@@ -84,10 +84,10 @@ public class TrainingActivity extends AppCompatActivity {
             }
         });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
-
+        /*
         db.open();
         if(db.checkifTableisEmpty()) {
-            String[] tableNames = getResources().getStringArray(R.array.defaultTables);
+            String[] tableNames = getResources().getStringArray(R.array.all_exercises_names);
             String[] pechoEjercicios = getResources().getStringArray(R.array.ejerciciosPecho);
             String[] espaldaEjercicios = getResources().getStringArray(R.array.ejerciciosEspalda);
             String[] ejerciciosValues = getResources().getStringArray(R.array.ejerciciosValues);
@@ -107,6 +107,7 @@ public class TrainingActivity extends AppCompatActivity {
             }
         }
         db.close();
+        */
     }
 
     @Override
