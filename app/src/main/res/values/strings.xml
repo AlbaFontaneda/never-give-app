@@ -161,18 +161,18 @@
     <string-array name="achievementsTrainingTitles">
         // Entrenamiento
         0<item>Primera tabla</item>
-        1<item>Iniciado del entrenamiento</item>
-        2<item>Novato del entrenamiento</item>
-        3<item>Aprendiz del entrenamiento</item>
-        4<item>Experto del entrenamiento</item>
+        1<item>Iniciado</item>
+        2<item>Novato</item>
+        3<item>Aprendiz</item>
+        4<item>Experto</item>
 
-        5<item>Lunes de entrenamiento</item>
-        6<item>Martes de entrenamiento</item>
-        7<item>Miércoles de entrenamiento</item>
-        8<item>Jueves de entrenamiento</item>
-        9<item>Viernes de entrenamiento</item>
-        10<item>Sábado de entrenamiento</item>
-        11<item>Domingo de entrenamiento</item>
+        5<item>Lunes lunete</item>
+        6<item>Martes martete</item>
+        7<item>Miércoles miertete</item>
+        8<item>Jueves juevete</item>
+        9<item>Viernes viernete</item>
+        10<item>Sábado sabadete</item>
+        11<item>Domingo dominguete</item>
         12<item>Entrena toda la semana</item>
 
         13<item>Pecho lobo</item>
@@ -206,7 +206,7 @@
         11<item>Como un colibrí</item>
         12<item>Como una persona</item>
         13<item>Comiendo se crece</item>
-        14<item>Semana en construcción</item>
+        14<item>Semana incompleta</item>
         15<item>Semana ligera</item>
         16<item>Comida diaria</item>
         17<item>Semana incompleta</item>
