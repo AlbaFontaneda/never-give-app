@@ -11,45 +11,43 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/popUpTitle">
+
             <TextView
-                style="@style/AtributteTableText"
-                android:text="@string/nombreTabla" />
+                android:text="@string/editTable"
+                style="@style/popUpTextTitle"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/popUpData">
+
+            <TextView
+                android:text="@string/nombreEntrenamiento"
+                style="@style/popUpNames"/>
 
             <EditText
                 android:id="@+id/table_name"
-                style="@style/ContentTableAttribute"/>
-        </LinearLayout>
+                style="@style/popUpEdits"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <TextView
-                style="@style/AtributteTableText"
-                android:text="@string/ndias" />
+                android:text="@string/diasEntrenamiento"
+                style="@style/popUpNames" />
+
             <EditText
                 android:id="@+id/table_days"
-                style="@style/ContentTableAttribute"
-                android:inputType="number"/>
-        </LinearLayout>
-
+                style="@style/popUpEdits"
+                android:inputType="date"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recylcer_exercises"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dividerHeight="3dp"
-                android:divider="#FFFFFF"
-                android:orientation="vertical">
-
+                style="@style/popUpRecycler">
             </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:gravity="center">
+            style="@style/popUpButtons">
+
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
