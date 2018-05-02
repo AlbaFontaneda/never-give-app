@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardViewContent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rigobertosl.nevergiveapp.ChestActivity"
     tools:showIn="@layout/activity_chest">
@@ -15,86 +16,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cardViewContent"
             android:orientation="vertical"
             android:padding="5dp">
 
             <LinearLayout
-                android:id="@+id/press_superior"
+                android:id="@+id/ejercicioUno"
                 style="@style/buttonExercise">
 
                 <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioUnoImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    android:id="@+id/press_superior_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Aperturas con mancuerna" />
+                    android:id="@+id/ejercicioUnoText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/press_banca"
+                android:id="@+id/ejercicioDos"
                 style="@style/buttonExercise">
 
                 <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioDosImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    android:id="@+id/press_banca_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Press de banca al cuello" />
+                    android:id="@+id/ejercicioDosText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/polea_alta"
+                android:id="@+id/ejercicioTres"
                 style="@style/buttonExercise">
 
                 <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioTresImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    android:id="@+id/polea_alta_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Cruces en polea alta" />
+                    android:id="@+id/ejercicioTresText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pullover"
+                android:id="@+id/ejercicioCuatro"
                 style="@style/buttonExercise">
 
                 <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioCuatroImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    android:id="@+id/pullover_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Pullover en banco declinado" />
+                    android:id="@+id/ejercicioCuatroText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/fondos"
+                android:id="@+id/ejercicioCinco"
                 style="@style/buttonExercise">
 
                 <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioCincoImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    android:id="@+id/fondos_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Fondos entre bancos" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/press_barra"
-                style="@style/buttonExercise">
-
-                <ImageView
-                    style="@style/imageExercise"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    android:id="@+id/press_barra_text_view"
-                    style="@style/nombreEjercicio"
-                    android:text="Press con barra en banco declinado" />
+                    android:id="@+id/ejercicioCincoText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
         </LinearLayout>

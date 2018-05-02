@@ -1,5 +1,9 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -54,6 +59,7 @@ public class ExerciseResumeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);
 
+        ImageView exerciseImage = (ImageView) rootView.findViewById(R.id.imageExercise);
         TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
         TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
@@ -97,6 +103,10 @@ public class ExerciseResumeFragment extends Fragment {
         exerciseSeries.setText((String) ejercicio.getSeries());
         exerciseRep.setText((String) ejercicio.getRepeticiones());
         description.setText(ejercicio.getDescription());
+
+        byte[] b = ejercicio.getImage();
+        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        exerciseImage.setImageBitmap(bmp);
 
         //exerciseDescanso.setText((String) ejercicio.getDescanso());
 
