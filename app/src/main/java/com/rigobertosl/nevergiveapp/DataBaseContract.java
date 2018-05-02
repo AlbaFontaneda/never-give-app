@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -331,7 +331,7 @@ public class DataBaseContract {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_IMAGE)), null);
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_IMAGE)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCRIPTION)));
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain.COLUMN_LIST_ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
@@ -340,13 +340,14 @@ public class DataBaseContract {
     }
 
     /** Crear lista_ejercicos en la base de datos **/
-    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo, byte[] image){
+    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo, byte[] image, String description){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
         values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
         values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
         values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, descanso);
         values.put(DataBaseEntryListTrain.COLUMN_TYPE, tipo);
+        values.put(DataBaseEntryListTrain.COLUMN_DESCRIPTION, description);
         values.put(DataBaseEntryListTrain.COLUMN_IMAGE, image);
 
         return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
@@ -774,6 +775,24 @@ public class DataBaseContract {
             } while (cursor.moveToNext());
         }
         return b;
+    }
+
+    /** Coge una imagen a partir de un nombre **/
+    public String getExerciseDescription(String exerciseName) {
+        String description = null;
+
+        String selectQuery = "SELECT descripcion FROM exercise_image WHERE exercise_image.name = '" + exerciseName + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                description = cursor.getString(cursor.getColumnIndex("descripcion"));
+
+            } while (cursor.moveToNext());
+        }
+        return description;
     }
 
 
