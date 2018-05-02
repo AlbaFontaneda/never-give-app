@@ -102,6 +102,7 @@ public class TricepsActivity extends AppCompatActivity {
 
         db.open();
         final byte[] image = db.getExerciseImage(name);
+        final String description = db.getExerciseDescription(name);
         db.close();
 
         descansoEditText.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,7 @@ public class TricepsActivity extends AppCompatActivity {
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "biceps", image);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "triceps", image, description);
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
