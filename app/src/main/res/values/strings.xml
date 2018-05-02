@@ -136,6 +136,15 @@
     <string name="hombro">Hombro</string>
     <string name="pierna">Pierna</string>
 
+    <string-array name="exerciseTypes">
+        <item>Ejercicios de espalda</item>
+        <item>Ejercicios de pecho</item>
+        <item>Ejercicios de biceps</item>
+        <item>Ejercicios de triceps</item>
+        <item>Ejercicios de pierna</item>
+        <item>Abdominales de hierro</item>
+    </string-array>
+
     //Pantalla de pecho
     <string name="press_superior">Press superior</string>
     <string name="title_activity_espalda">EspaldaActivity</string>
@@ -168,7 +177,7 @@
         8<item>Flexiones en diamante</item>
 
         9<item>Flexiones hindúes</item>
-        10<item>Tríceps en suelo</item>
+        10<item>Biceps en suelo</item>
         11<item>Extensiones de tríceps</item>
         12<item>Tríceps en silla</item>
 
@@ -199,10 +208,10 @@
         7<item>Pecho</item>
         8<item>Pecho</item>
 
-        9<item>Brazo</item>
-        10<item>Brazo</item>
-        11<item>Brazo</item>
-        12<item>Brazo</item>
+        9<item>Biceps</item>
+        10<item>Biceps</item>
+        11<item>Triceps</item>
+        12<item>Triceps</item>
 
         13<item>Abdominales</item>
         14<item>Abdominales</item>
@@ -226,7 +235,7 @@
         3<item>Comienza de pie. Baja y mantén la posición de sentadilla y pon las manos en el suelo.\nEstira las piernas y brazos a la vez. Vuelve de inmediato a la posición de sentadilla. Salta desde la posición de sentadilla.</item>
 
         4<item>Suba y baje el cuerpo con los brazos, mantenga el cuerpo recto. Procure que los codos formen 45º con el tronco.</item>
-        5<item>Comiensa en posición de flexión pero con las manos en alto sobre una silla o banco.\nLuego presiona el cuerpo hacia abajo con la fuerza de los brazos. Recuerda mantener el torso en línea recta.</item>
+        5<item>Comienza en posición de flexión pero con las manos en alto sobre una silla o banco.\nLuego presiona el cuerpo hacia abajo con la fuerza de los brazos. Recuerda mantener el torso en línea recta.</item>
         6<item>Comienza en posición de flexión con las rodillas tocando el suelo, sin que los pies toquen el suelo.\nLuego presiona la parte superior del cuerpo arriba y abajo.</item>
         7<item>Comienza en posición de flexión pero con las manos más abiertas que los hombros.\nLuego presiona el cuerpo arriba y abajo manteniendo el torso en línea recta.</item>
         8<item>Comienza a cuatro patas con las rodillas a la altura de las caderas y las manos debajo de los hombros.\nLuego crea una forma de diamante debajo del pecho juntando los dedos índices y pulgares y luego presiona el cuerpo hacia arriba y abajo.\nRecuerda mantener el torso en línea recta.</item>

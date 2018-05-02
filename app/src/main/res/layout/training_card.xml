@@ -14,8 +14,7 @@
 
             <ImageView
                 android:id="@+id/image"
-                style="@style/exerciseImage"
-                android:src="@drawable/achievements_logo" />
+                style="@style/exerciseImage" />
 
             <TextView
                 android:id="@+id/title"

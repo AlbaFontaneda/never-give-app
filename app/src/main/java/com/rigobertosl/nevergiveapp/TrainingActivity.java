@@ -43,7 +43,6 @@ public class TrainingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_training);
 
         db = new DataBaseContract(this);
-        db.open();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,30 +83,6 @@ public class TrainingActivity extends AppCompatActivity {
             }
         });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
-        /*
-        db.open();
-        if(db.checkifTableisEmpty()) {
-            String[] tableNames = getResources().getStringArray(R.array.all_exercises_names);
-            String[] pechoEjercicios = getResources().getStringArray(R.array.ejerciciosPecho);
-            String[] espaldaEjercicios = getResources().getStringArray(R.array.ejerciciosEspalda);
-            String[] ejerciciosValues = getResources().getStringArray(R.array.ejerciciosValues);
-            for(String name: tableNames) {
-                TrainingTable defaultTable = db.createDefaultTable(name);
-                if(defaultTable.getId() == 1) {
-                    for(String ejercicio: pechoEjercicios) {
-                        long ejerciciosPechoId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
-                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosPechoId);
-                    }
-                } else if(defaultTable.getId() == 2) {
-                    for (String ejercicio : espaldaEjercicios) {
-                        long ejerciciosEspaldaId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
-                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosEspaldaId);
-                    }
-                }
-            }
-        }
-        db.close();
-        */
     }
 
     @Override
@@ -123,7 +98,9 @@ public class TrainingActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Toast.makeText(TrainingActivity.this,
                     "Settings pulsado", Toast.LENGTH_LONG).show();
+            db.open();
             db.resetTrainingTables();
+            db.close();
             finish();
             startActivity(getIntent());
             return true;

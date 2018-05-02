@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -319,7 +319,7 @@ public class DataBaseContract {
     public ArrayList<Exercise> getAllExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
+        String selectQuery = "SELECT tl.*, te.id_list FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
                 + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
@@ -331,7 +331,7 @@ public class DataBaseContract {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
                         cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), null, null);
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_IMAGE)), null);
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain.COLUMN_LIST_ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
@@ -340,13 +340,14 @@ public class DataBaseContract {
     }
 
     /** Crear lista_ejercicos en la base de datos **/
-    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo){
+    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo, byte[] image){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
         values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
         values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
         values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, descanso);
         values.put(DataBaseEntryListTrain.COLUMN_TYPE, tipo);
+        values.put(DataBaseEntryListTrain.COLUMN_IMAGE, image);
 
         return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
     }
@@ -706,8 +707,8 @@ public class DataBaseContract {
 
         if(cursor.moveToFirst()) {
             do {
-                TrainingTable trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex("tabla_default._id"))),
-                        cursor.getString(cursor.getColumnIndex("tabla_default.name")), cursor.getString(cursor.getColumnIndex("tabla_default.days")));
+                TrainingTable trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("days")));
                 table.add(trainingTable);
             } while (cursor.moveToNext());
         }
@@ -737,7 +738,7 @@ public class DataBaseContract {
     public ArrayList<Exercise> getAllDefaultExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM tabla_default tn, ejercicios_default tl, link_default te WHERE tn.name = '" + mTrainingTable.getName() + "'" +
+        String selectQuery = "SELECT tl.*, te.id_list FROM tabla_default tn, ejercicios_default tl, link_default te WHERE tn.name = '" + mTrainingTable.getName() + "'" +
                 " AND tn._id = te.id_name AND tl._id = te.id_list";
 
         mDb = mDbHelper.getReadableDatabase();
@@ -745,14 +746,34 @@ public class DataBaseContract {
 
         if(cursor.moveToFirst()) {
             do {
-                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex("ejercicios_default.name")),cursor.getString(cursor.getColumnIndex("ejercicios_default.series")),
-                        cursor.getString(cursor.getColumnIndex("ejercicios_default.repeticiones")), cursor.getString(cursor.getColumnIndex("ejercicios_default.descanso")), null,
-                        cursor.getBlob(cursor.getColumnIndex("ejercicios_default.image")), cursor.getString(cursor.getColumnIndex("ejercicios_default.descripcion")));
-                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex("link_default.id_list"))));
+                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex("name")),cursor.getString(cursor.getColumnIndex("series")),
+                        cursor.getString(cursor.getColumnIndex("repeticiones")), cursor.getString(cursor.getColumnIndex("descanso")), null,
+                        cursor.getBlob(cursor.getColumnIndex("image")), cursor.getString(cursor.getColumnIndex("descripcion")));
+                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex("id_list"))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
         }
         return exercises;
+    }
+
+    /********************* IMAGENES Y DESCRIPCIONES DE LOS EJERCICIOS *****************************/
+
+    /** Coge una imagen a partir de un nombre **/
+    public byte[] getExerciseImage(String exerciseName) {
+        byte[] b = new byte[]{};
+
+        String selectQuery = "SELECT image FROM exercise_image WHERE exercise_image.name = '" + exerciseName + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                b = cursor.getBlob(cursor.getColumnIndex("image"));
+
+            } while (cursor.moveToNext());
+        }
+        return b;
     }
 
 

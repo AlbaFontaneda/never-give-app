@@ -22,8 +22,7 @@
 
         <ImageView
             android:id="@+id/imageExercise"
-            style="@style/resumeImage"
-            android:src="@drawable/achievements_logo" />
+            style="@style/resumeImage" />
 
         <LinearLayout
             style="@style/resumeInfo">

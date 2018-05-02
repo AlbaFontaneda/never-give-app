@@ -24,9 +24,9 @@
                 style="@style/buttonExercise">
 
                 <TextView
+                    android:id="@+id/exerciseEspalda"
                     style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Ejercicios de espalda" />
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -34,19 +34,9 @@
                 style="@style/buttonExercise">
 
                 <TextView
+                    android:id="@+id/exercisePecho"
                     style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Ejercicios de pecho" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/radioButtonTriceps"
-                style="@style/buttonExercise">
-
-                <TextView
-                    style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Ejercicios de triceps" />
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -54,9 +44,19 @@
                 style="@style/buttonExercise">
 
                 <TextView
+                    android:id="@+id/exerciseBiceps"
                     style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Ejercicios de biceps" />
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/radioButtonTriceps"
+                style="@style/buttonExercise">
+
+                <TextView
+                    android:id="@+id/exerciseTriceps"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -64,9 +64,9 @@
                 style="@style/buttonExercise">
 
                 <TextView
+                    android:id="@+id/exercisePierna"
                     style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Ejercicios de pierna" />
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,9 +74,9 @@
                 style="@style/buttonExercise">
 
                 <TextView
+                    android:id="@+id/exerciseAbdominales"
                     style="@style/nombreEjercicio"
-                    android:gravity="center"
-                    android:text="Abdominales de hierro" />
+                    android:gravity="center" />
             </LinearLayout>
 
         </LinearLayout>
