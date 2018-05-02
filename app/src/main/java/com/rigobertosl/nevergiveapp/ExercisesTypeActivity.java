@@ -94,6 +94,30 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 startActivity(new Intent(ExercisesTypeActivity.this, ChestActivity.class));
             }
         });
+
+        bicepsRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, BicepsActivity.class));
+            }
+        });
+
+        tricepsRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, TricepsActivity.class));
+            }
+        });
+
+        piernaRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, PiernaActivity.class));
+            }
+        });
+
+        abdominalesRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, AbsActivity.class));
+            }
+        });
     }
 
     /** Sobrescripción del botón de atrás del propio móvil
