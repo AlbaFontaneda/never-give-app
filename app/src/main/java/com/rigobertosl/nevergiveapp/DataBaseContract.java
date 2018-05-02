@@ -1085,7 +1085,9 @@ public class DataBaseContract {
                             if (contador[z] >= 2){
                                 typeExercises[z] = true;
                                 break;
-                            } else if (contador[z] >= 3){
+                            }
+                        } else {
+                            if (contador[z] >= 3) {
                                 typeExercises[z] = true;
                                 break;
                             }
