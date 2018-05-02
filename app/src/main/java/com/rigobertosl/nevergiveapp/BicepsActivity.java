@@ -3,9 +3,10 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +21,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Locale;
 
-public class EspaldaActivity extends TrainingActivity {
+public class BicepsActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private DataBaseContract db;
     public long rowId;
@@ -29,7 +29,7 @@ public class EspaldaActivity extends TrainingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_espalda);
+        setContentView(R.layout.activity_biceps);
 
         db = new DataBaseContract(this);
 
@@ -40,25 +40,17 @@ public class EspaldaActivity extends TrainingActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EspaldaActivity.this, TrainingActivity.class));
+                startActivity(new Intent(BicepsActivity.this, TrainingActivity.class));
             }
         });
 
-
-        String[] espaldaExercises = getResources().getStringArray(R.array.all_exercises_titles);
+        String[] bicepsExercises = getResources().getStringArray(R.array.all_exercises_titles);
 
         final TextView textUno = findViewById(R.id.ejercicioUnoText);
-        textUno.setText(espaldaExercises[0]);
+        textUno.setText(bicepsExercises[9]);
 
         final TextView textDos = findViewById(R.id.ejercicioDosText);
-        textDos.setText(espaldaExercises[1]);
-
-        final TextView textTres = findViewById(R.id.ejercicioTresText);
-        textTres.setText(espaldaExercises[2]);
-
-        final TextView textCuatro = findViewById(R.id.ejercicioCuatroText);
-        textCuatro.setText(espaldaExercises[3]);
-
+        textDos.setText(bicepsExercises[10]);
 
         final ImageView imageUno = findViewById(R.id.ejercicioUnoImage);
         imageUno.setImageBitmap(setImage(textUno.getText().toString()));
@@ -66,17 +58,8 @@ public class EspaldaActivity extends TrainingActivity {
         final ImageView imageDos = findViewById(R.id.ejercicioDosImage);
         imageDos.setImageBitmap(setImage(textDos.getText().toString()));
 
-        final ImageView imageTres = findViewById(R.id.ejercicioTresImage);
-        imageTres.setImageBitmap(setImage(textTres.getText().toString()));
-
-        final ImageView imageCuatro = findViewById(R.id.ejercicioCuatroImage);
-        imageCuatro.setImageBitmap(setImage(textCuatro.getText().toString()));
-
-
         LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
         LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
-        LinearLayout tresLinear = (LinearLayout) findViewById(R.id.ejercicioTres);
-        LinearLayout cuatroLinear = (LinearLayout) findViewById(R.id.ejercicioCuatro);
 
         unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,19 +73,6 @@ public class EspaldaActivity extends TrainingActivity {
                 openDialog(view, textDos.getText().toString());
             }
         });
-        tresLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(view, textTres.getText().toString());
-            }
-        });
-        cuatroLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(view, textCuatro.getText().toString());
-            }
-        });
-
     }
 
     public Bitmap setImage(String exerciseName) {
@@ -112,7 +82,6 @@ public class EspaldaActivity extends TrainingActivity {
         db.close();
         return bmp;
     }
-
 
     public void openDialog(View view, final String name) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -148,12 +117,12 @@ public class EspaldaActivity extends TrainingActivity {
                 String numRepeticiones = repeticionesEditText.getText().toString();
                 String tiempoDescanso = descansoEditText.getText().toString();
                 if (numSeries.matches("") || numRepeticiones.matches("") || tiempoDescanso.matches("")) {
-                    Toast.makeText(EspaldaActivity.this,
+                    Toast.makeText(BicepsActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "espalda", image);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "biceps", image);
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
@@ -256,7 +225,7 @@ public class EspaldaActivity extends TrainingActivity {
      **/
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(EspaldaActivity.this, ExercisesTypeActivity.class);
+        Intent setIntent = new Intent(BicepsActivity.this, ExercisesTypeActivity.class);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(setIntent);

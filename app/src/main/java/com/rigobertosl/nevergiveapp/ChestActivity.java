@@ -1,6 +1,5 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,12 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 public class ChestActivity extends TrainingActivity {
