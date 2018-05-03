@@ -11,13 +11,13 @@ import android.os.Handler;
  * Link: https://stackoverflow.com/questions/8857590/android-countdowntimer-skips-last-ontick/8858608
 **/
 
-public class MyCountDownTimer {
+public class CountDownTimer {
     private long START_TIMER;
     private long millisInFuture;
     private long countDownInterval;
     private boolean status, reset;
 
-    public MyCountDownTimer(long pMillisInFuture, long pCountDownInterval) {
+    public CountDownTimer(long pMillisInFuture, long pCountDownInterval) {
         this.START_TIMER = pMillisInFuture;
         this.millisInFuture = pMillisInFuture;
         this.countDownInterval = pCountDownInterval;

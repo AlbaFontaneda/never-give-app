@@ -35,10 +35,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="inicio">Inicio</string>
     <string name="calendario_comidas">Calendario de comidas</string>
-    <string name="eventos">Eventos</string>
+    <string name="localizacion">Localización</string>
     <string name="logros">Logros</string>
-    <string name="compartir">Compartir</string>
-    <string name="reports">Reports</string>
+    <string name="reinicio">Reiniciar base de datos</string>
 
     //CardViews
     <string name="titleCard">Título</string>
@@ -149,13 +148,11 @@
     //Pantalla de pecho
     <string name="press_superior">Press superior</string>
     <string name="title_activity_espalda">EspaldaActivity</string>
-    <string name="title_activity_scrolling">TableResumeActivity</string>
+    <string name="title_table_resume_activity">Resumen de la tabla</string>
     <string name="large_text">Contenido de la tabla. Ya hace scrolling.</string>
 
     //Popup edición de una tabla
-    <string name="nombreTabla">Nombre:</string>
-    <string name="ndias">Días:</string>
-    <string name="title_activity_food_resume">FoodResumeActivity</string>
+    <string name="title_activity_food_resume">Resumen de la comida</string>
 
     //Tablas de entrenamiento
     <string-array name="defaultTables">
@@ -355,11 +352,11 @@
         <item>Dominadas</item>
     </string-array>
 
-    <string name="title_activity_default_resume">DefaultResume</string>
+    <string name="title_activity_default_resume">Resumen de la tabla</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
-    <string name="title_activity_events">Events</string>
+    <string name="title_activity_events">Localización</string>
 
     // Permissions
     <string name="permission_rationale_location">Para acceder a su localización es necesario conceder los permisos de ubicación en su dispositivo.\nY activar el GPS para detectar su ubicación.</string>

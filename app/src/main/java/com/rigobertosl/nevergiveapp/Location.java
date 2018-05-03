@@ -18,7 +18,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -54,7 +53,7 @@ import java.util.ArrayList;
  * Permission for {@link Manifest.permission#ACCESS_FINE_LOCATION} is requested at run
  * time. If the permission has not been granted, the Activity is finished with an error message.
  */
-public class MyLocationDemoActivity extends AppCompatActivity
+public class Location extends AppCompatActivity
         implements
         OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
@@ -108,7 +107,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
-            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+            LocationPermissions.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
@@ -125,7 +124,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMyLocationClick(@NonNull Location location) {
+    public void onMyLocationClick(@NonNull android.location.Location location) {
         myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
         new FindPlaces().execute();
         //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
@@ -138,7 +137,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
             return;
         }
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+        if (LocationPermissions.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
@@ -163,7 +162,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
      * Displays a dialog with error message explaining that the location permission is missing.
      */
     private void showMissingPermissionError() {
-        PermissionUtils.PermissionDeniedDialog
+        LocationPermissions.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 

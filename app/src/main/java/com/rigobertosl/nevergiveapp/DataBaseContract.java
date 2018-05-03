@@ -1121,10 +1121,18 @@ public class DataBaseContract {
                 for (int z = 0; z < contador.length; z++){
                     if (exercises.get(j).getTipo().equals(types[z])){
                         contador[z]++;
-                        if (contador[z] >= 3){
-                            typeExercises[z] = true;
-                            break;
+                        if (types[z].equals("biceps") || types[z].equals("triceps")){
+                            if (contador[z] >= 2){
+                                typeExercises[z] = true;
+                                break;
+                            }
+                        } else {
+                            if (contador[z] >= 3) {
+                                typeExercises[z] = true;
+                                break;
+                            }
                         }
+
                         break;
                     }
                 }

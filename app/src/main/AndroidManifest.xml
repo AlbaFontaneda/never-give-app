@@ -80,7 +80,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TableResumeActivity"
-            android:label="@string/title_activity_scrolling"
+            android:label="@string/title_table_resume_activity"
             android:parentActivityName=".TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -103,9 +103,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MyLocationDemoActivity"
-            android:label="@string/title_activity_events"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Location"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_events"/>
+
     </application>
 
 </manifest>

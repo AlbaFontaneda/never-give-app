@@ -127,28 +127,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    //Función para abrir el menu de opciones del app bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    //Función para dar funcionalidades a cada item del menu del app bar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_delete) {
-            Toast.makeText(MainActivity.this,
-                    "Settings pulsado", Toast.LENGTH_LONG).show();
-            db.open();
-            db.resetDataBase();
-            db.close();
-            finish();
-            startActivity(getIntent());
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     //Función para dar funcionalidad a cada elemento del menu desplegable de la pantalla de inicio
     @SuppressWarnings("StatementWithEmptyBody")
@@ -164,16 +142,18 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_calendario) {
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_eventos) {
-            Intent intent = new Intent(MainActivity.this, MyLocationDemoActivity.class);
+        } else if (id == R.id.nav_localizacion) {
+            Intent intent = new Intent(MainActivity.this, Location.class);
             startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_compartir) {
-
-        } else if (id == R.id.nav_report) {
-
+        } else if (id == R.id.nav_reinicio) {
+            db.open();
+            db.resetDataBase();
+            db.close();
+            finish();
+            startActivity(getIntent());
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -204,12 +184,3 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
-
-//Todo: Condicionar en el Dialog la entrada a la siguiente pantalla y activar el botón Cancel
-//Todo: HACER PANTALLA DE FRAGMENTS
-//Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
-//Todo: arreglar el transito entre pantallas. Cerrar fragments
-//Todo: Arreglar posicionamiento de tabs al girar pantalla
-//Todo: HACER ACTIVIDAD EVENTOS
-
-//Todo: Alba* hay que hacer otro custom adapter para el inicio, ya que para cada tab es totalmente distinto lo que sale y hay que tener en cuenta comidas y entrenamientos
