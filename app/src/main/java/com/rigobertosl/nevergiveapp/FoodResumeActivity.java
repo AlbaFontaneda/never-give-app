@@ -23,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -118,6 +119,13 @@ public class FoodResumeActivity extends FoodsActivity {
                         foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
         });
+
+        if(listKcal.size() == 0) {
+            LinearLayout apiAviso = findViewById(R.id.apiAviso);
+            LinearLayout layoutKcal = findViewById(R.id.listKcal);
+            apiAviso.setVisibility(View.VISIBLE);
+            layoutKcal.setVisibility(View.GONE);
+        }
 
         checks = new boolean[12];
 

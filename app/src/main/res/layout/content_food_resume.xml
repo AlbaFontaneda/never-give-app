@@ -79,6 +79,22 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/apiAviso"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/foodResumeTitle"
+                android:textStyle="bold"
+                android:paddingStart="0dp"
+                android:text="@string/avisoApi" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/listKcal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -92,6 +108,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_weight="3"
                 android:orientation="horizontal">
 

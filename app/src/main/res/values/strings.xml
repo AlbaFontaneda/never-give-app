@@ -86,6 +86,7 @@
     //Comidas
     <string name="tipoComda">Tipo de comida:</string>
     <string name="listKcal">Escoge ingredientes de la lista para saber las kcal totales:</string>
+    <string name="avisoApi">Vaya :(\nParece que no hemos podido cargar los datos, comprueba que estas conectado a Internet y recarga la vista.</string>
     <string name="pasta">Pasta</string>
     <string name="huevos">Huevos</string>
     <string name="leche">Leche</string>
