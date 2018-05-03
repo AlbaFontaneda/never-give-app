@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 public class ExercisesTypeActivity extends AppCompatActivity {
     private DataBaseContract db;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,8 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.create();
                 dialog.setView(dialogLayout);
                 dialog.show();
-
+                TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+                textoAviso.setText(R.string.avisoVolver);
                 final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
                 final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
@@ -55,6 +58,20 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 });
             }
         });
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ExercisesTypeActivity.this, TrainingActivity.class));
+            }
+        });
+
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
 
         String[] exerciseTypes = getResources().getStringArray(R.array.exerciseTypes);
 
@@ -146,7 +163,8 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
         dialog.show();
-
+        TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+        textoAviso.setText(R.string.avisoVolver);
         final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
         final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 

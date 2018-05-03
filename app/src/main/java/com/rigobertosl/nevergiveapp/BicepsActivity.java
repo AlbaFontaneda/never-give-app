@@ -44,6 +44,12 @@ public class BicepsActivity extends AppCompatActivity {
             }
         });
 
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
+
         String[] bicepsExercises = getResources().getStringArray(R.array.all_exercises_titles);
 
         final TextView textUno = findViewById(R.id.ejercicioUnoText);

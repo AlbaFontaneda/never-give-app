@@ -81,6 +81,13 @@
     <string name="titleDescanso">Establece un tiempo de descando</string>
     <string name="segundos">Segundos</string>
     <string name="minutos">Minutos</string>
+    <string name="cuidado">¡CUIDADO COMPAÑERO!</string>
+    <string name="avisoVolver">Si sales de esta pantalla no se guardaran los datos, ¿estas seguro?</string>
+    <string name="avisoTrain">Estas a punto de borrar todas tus tablas de entrenamiento, ¿estas seguro de que deseas continuar?</string>
+    <string name="avisoFood">Estas a punto de borrar todas tus comidas, ¿estas seguro de que deseas continuar?</string>
+    <string name="avisoMain">Estas a punto de eliminar todos los datos guardadosav, ¿estas seguro de que deseas continuar?</string>
+    <string name="acceptButton">Sí, estoy seguro</string>
+    <string name="noAcceptButton">No, seguir aquí</string>
 
     //Comidas
     <string name="tipoComda">Tipo de comida:</string>
@@ -106,6 +113,7 @@
     <string name="element_settings">Opciones</string>
     <string name="element_edit">Editar</string>
     <string name="element_delete">Eliminar</string>
+    <string name="all_delete">Eliminar todos las tablas</string>
 
     //Pantalla de inicio
     <string name="comidas_hoy">Comidas de hoy</string>
@@ -146,11 +154,8 @@
     </string-array>
 
     //Pantalla de pecho
-    <string name="press_superior">Press superior</string>
-    <string name="title_activity_espalda">EspaldaActivity</string>
+    <string name="title_activity_espalda">Ejercicios de espalda</string>
     <string name="title_table_resume_activity">Resumen de la tabla</string>
-    <string name="large_text">Contenido de la tabla. Ya hace scrolling.</string>
-
     //Popup edición de una tabla
     <string name="title_activity_food_resume">Resumen de la comida</string>
 
@@ -626,8 +631,9 @@
         <item>5</item>
         <item>10</item>
     </string-array>
-    <string name="title_activity_triceps">TricepsActivity</string>
-    <string name="title_activity_pierna">PiernaActivity</string>
-    <string name="title_activity_abs">AbsActivity</string>
+    <string name="title_activity_triceps">Ejercicios de triceps</string>
+    <string name="title_activity_pierna">Ejercicios de pierna</string>
+    <string name="title_activity_abs">Ejercicios de abdominales</string>
+    <string name="title_activity_biceps">Ejercicios de biceps</string>
 
 </resources>

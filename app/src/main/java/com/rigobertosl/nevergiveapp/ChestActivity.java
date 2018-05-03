@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Locale;
 
-public class ChestActivity extends TrainingActivity {
+public class ChestActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private DataBaseContract db;
     public long rowId;
@@ -43,6 +44,12 @@ public class ChestActivity extends TrainingActivity {
                 startActivity(new Intent(ChestActivity.this, TrainingActivity.class));
             }
         });
+
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
 
         String[] pechoExercises = getResources().getStringArray(R.array.all_exercises_titles);
 

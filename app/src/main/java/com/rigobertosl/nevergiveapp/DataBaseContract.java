@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -320,7 +320,7 @@ public class DataBaseContract {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
         String selectQuery = "SELECT tl.*, te.id_list FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
-                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain._ID + " = '" + mTrainingTable.getId() + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
 
@@ -362,6 +362,18 @@ public class DataBaseContract {
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
     }
 
+    /** Sabemos si una tabla tiene algun ejercicio metido **/
+    public boolean controlExerciseInput(long idName){
+        boolean isEmpty = true;
+
+        String selectQuery = "SELECT id_name from tabla_ejercicios WHERE id_name = '" + idName +"'";
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            isEmpty = false;
+        }
+        return isEmpty;
+    }
+
     /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/
     public void deleteTable(TrainingTable trainingTable, boolean deleteAllData) {
         mDb = mDbHelper.getWritableDatabase();
@@ -399,10 +411,11 @@ public class DataBaseContract {
     }
 
     /** Edit Table **/
-    public int editTable(TrainingTable table, String newName, ArrayList<Exercise> newExercises){
+    public int editTable(TrainingTable table, String newName, String newDays, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryNameTrain.COLUMN_NAME, newName);
+        values.put(DataBaseEntryNameTrain.COLUMN_DAYS, newDays);
 
         ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
         editExercisesFromTable(table, oldExercises, newExercises);

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -52,9 +53,7 @@ public class TrainingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(TrainingActivity.this, MainActivity.class);
-                //Para matar la actividad anterior
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //Para leer la nueva actividad (volver al main)
                 startActivity(intent);
             }
         });
@@ -88,7 +87,7 @@ public class TrainingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_training, menu);
+        getMenuInflater().inflate(R.menu.activity_menu_train, menu);
         return true;
     }
 
@@ -96,13 +95,34 @@ public class TrainingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Toast.makeText(TrainingActivity.this,
-                    "Settings pulsado", Toast.LENGTH_LONG).show();
-            db.open();
-            db.resetTrainingTables();
-            db.close();
-            finish();
-            startActivity(getIntent());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoTrain);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetTrainingTables();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                    dialog.cancel();
+                }
+            });
             return true;
         }
         return super.onOptionsItemSelected(item);

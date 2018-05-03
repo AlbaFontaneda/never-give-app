@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
-public class DefaultResume extends TrainingActivity {
+public class DefaultResume extends AppCompatActivity {
 
     private Context mContext;
     private DataBaseContract db;

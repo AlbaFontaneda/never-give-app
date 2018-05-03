@@ -7,25 +7,30 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
-public class TableResumeActivity extends TrainingActivity {
+public class TableResumeActivity extends AppCompatActivity {
 
     private Context mContext;
     private DataBaseContract db;
@@ -36,6 +41,8 @@ public class TableResumeActivity extends TrainingActivity {
     private ViewPager mViewPager;
     private int numPaginas;
     private TrainingTable trainingTable;
+    public String weekDays = "";
+    EditText tableDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +87,20 @@ public class TableResumeActivity extends TrainingActivity {
         dialog.show();
 
         final EditText tableName = (EditText) dialogLayout.findViewById(R.id.table_name);
-        EditText tableDays = (EditText) dialogLayout.findViewById(R.id.table_days);
+        tableDays = (EditText) dialogLayout.findViewById(R.id.table_days);
         final Button editar = (Button)dialogLayout.findViewById(R.id.button_edit);
         final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
         tableName.setText(table.getName());
         tableDays.setText(table.getDays());
+        tableDays.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDays();
+            }
+        });
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView = (RecyclerView)dialogLayout.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
         ArrayList<Exercise> exerciseList = db.getAllExercisesFromTable(table);
@@ -106,10 +119,183 @@ public class TableResumeActivity extends TrainingActivity {
             @Override
             public void onClick(View view) {
 
-                db.editTable(trainingTable, tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
+                db.editTable(trainingTable, tableName.getText().toString(), tableDays.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
                 dialog.cancel();
                 finish();
                 startActivity(getIntent());
+            }
+        });
+    }
+
+    public void selectDays() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_weekpicker, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(dialogLayout);
+        dialog.show();
+
+        final ToggleButton lunes = (ToggleButton)dialogLayout.findViewById(R.id.button_lunes);
+        final ToggleButton martes = (ToggleButton)dialogLayout.findViewById(R.id.button_martes);
+        final ToggleButton miercoles = (ToggleButton)dialogLayout.findViewById(R.id.button_miercoles);
+        final ToggleButton jueves = (ToggleButton)dialogLayout.findViewById(R.id.button_jueves);
+        final ToggleButton viernes = (ToggleButton)dialogLayout.findViewById(R.id.button_viernes);
+        final ToggleButton sabado = (ToggleButton)dialogLayout.findViewById(R.id.button_sabado);
+        final ToggleButton domingo = (ToggleButton)dialogLayout.findViewById(R.id.button_domingo);
+
+        final CheckBox checkAll = (CheckBox) dialogLayout.findViewById(R.id.check_all);
+
+        final ArrayList<String> myDays = new ArrayList<>();
+
+        final boolean[] lunesChecked = new boolean[1];
+        final boolean[] martesChecked = new boolean[1];
+        final boolean[] miercolesChecked = new boolean[1];
+        final boolean[] juevesChecked = new boolean[1];
+        final boolean[] viernesChecked = new boolean[1];
+        final boolean[] sabadoChecked = new boolean[1];
+        final boolean[] domingoChecked = new boolean[1];
+
+        final boolean[] checks = new boolean[7];
+
+        lunes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunesChecked[0] = true;
+                } else {
+                    lunesChecked[0] = false;
+                }
+                checks[0] = lunesChecked[0];
+            }
+        });
+
+        martes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    martesChecked[0] = true;
+                } else {
+                    martesChecked[0] = false;
+                }
+                checks[1] = martesChecked[0];
+            }
+        });
+
+        miercoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    miercolesChecked[0] = true;
+                } else {
+                    miercolesChecked[0] = false;
+                }
+                checks[2] = miercolesChecked[0];
+            }
+        });
+
+        jueves.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    juevesChecked[0] = true;
+                } else {
+                    juevesChecked[0] = false;
+                }
+                checks[3] = juevesChecked[0];
+            }
+        });
+
+        viernes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    viernesChecked[0] = true;
+                } else {
+                    viernesChecked[0] = false;
+                }
+                checks[4] = viernesChecked[0];
+            }
+        });
+
+        sabado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sabadoChecked[0] = true;
+                } else {
+                    sabadoChecked[0] = false;
+                }
+                checks[5] = sabadoChecked[0];
+            }
+        });
+
+        domingo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    domingoChecked[0] = true;
+                } else {
+                    domingoChecked[0] = false;
+                }
+                checks[6] = domingoChecked[0];
+            }
+        });
+
+        checkAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lunes.setChecked(true);
+                    martes.setChecked(true);
+                    miercoles.setChecked(true);
+                    jueves.setChecked(true);
+                    viernes.setChecked(true);
+                    sabado.setChecked(true);
+                    domingo.setChecked(true);
+                } else {
+                    lunes.setChecked(false);
+                    martes.setChecked(false);
+                    miercoles.setChecked(false);
+                    jueves.setChecked(false);
+                    viernes.setChecked(false);
+                    sabado.setChecked(false);
+                    domingo.setChecked(false);
+                }
+            }
+        });
+
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(checks[0] == true){
+                    myDays.add("LU");
+                }
+                if (checks[1] == true) {
+                    myDays.add("M");
+                }
+                if (checks[2] == true) {
+                    myDays.add("X");
+                }
+                if (checks[3] == true) {
+                    myDays.add("JU");
+                }
+                if (checks[4] == true) {
+                    myDays.add("VI");
+                }
+                if (checks[5] == true) {
+                    myDays.add("SA");
+                }
+                if (checks[6] == true) {
+                    myDays.add("DO");
+                }
+
+                weekDays = myDays.toString();
+                if(!weekDays.equals("[]")) {
+                    tableDays.setText(weekDays.substring(1, weekDays.length() - 1));
+                }
+                dialog.cancel();
+
+            }
+        });
+
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
             }
         });
     }

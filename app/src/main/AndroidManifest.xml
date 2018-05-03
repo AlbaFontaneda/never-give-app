@@ -61,6 +61,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BicepsActivity"
+            android:label="@string/title_activity_biceps"
             android:parentActivityName=".ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

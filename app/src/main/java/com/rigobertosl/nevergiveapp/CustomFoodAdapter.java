@@ -108,8 +108,6 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                                 if(FoodResumeActivity.listKcal.size() == 0) {
                                     new FoodsApi().execute();
                                 }
-                                Toast.makeText(mContext,
-                                        "Edit pulsado", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(mContext, FoodResumeActivity.class);
                                 if(mContext.getClass() == MainActivity.class){
                                     intent.putExtra("fromFoods", false);
@@ -125,7 +123,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                                 db.deleteFood(foodTable.get(holder.getAdapterPosition()));
                                 db.close();
                                 Toast.makeText(mContext,
-                                        "Delete pulsado", Toast.LENGTH_LONG).show();
+                                        "Comida eliminada", Toast.LENGTH_LONG).show();
 
                                 foodTables.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());

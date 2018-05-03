@@ -82,8 +82,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
                         switch (item.getItemId()) {
                             case R.id.menu_training_elements_edit:
-                                Toast.makeText(mContext,
-                                        "Edit pulsado", Toast.LENGTH_LONG).show();
 
                                 Intent intent = new Intent(mContext, TableResumeActivity.class);
                                 if(mContext.getClass() == MainActivity.class){
@@ -103,7 +101,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                                 db.deleteTable(trainingTable.get(holder.getAdapterPosition()), true);
                                 db.close();
                                 Toast.makeText(mContext,
-                                        "Delete pulsado", Toast.LENGTH_LONG).show();
+                                        "Tabla eliminada", Toast.LENGTH_LONG).show();
 
                                 trainingTables.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
