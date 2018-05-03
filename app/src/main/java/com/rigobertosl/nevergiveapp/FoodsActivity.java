@@ -127,6 +127,7 @@ public class FoodsActivity extends AppCompatActivity {
                     db.close();
                     finish();
                     startActivity(getIntent());
+                    dialog.cancel();
                 }
             });
             return true;

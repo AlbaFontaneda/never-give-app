@@ -320,7 +320,7 @@ public class DataBaseContract {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
         String selectQuery = "SELECT tl.*, te.id_list FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
-                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain._ID + " = '" + mTrainingTable.getId() + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
 
@@ -411,10 +411,11 @@ public class DataBaseContract {
     }
 
     /** Edit Table **/
-    public int editTable(TrainingTable table, String newName, ArrayList<Exercise> newExercises){
+    public int editTable(TrainingTable table, String newName, String newDays, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryNameTrain.COLUMN_NAME, newName);
+        values.put(DataBaseEntryNameTrain.COLUMN_DAYS, newDays);
 
         ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
         editExercisesFromTable(table, oldExercises, newExercises);

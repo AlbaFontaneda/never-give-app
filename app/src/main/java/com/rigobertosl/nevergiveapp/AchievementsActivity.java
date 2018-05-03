@@ -57,11 +57,8 @@ public class AchievementsActivity extends AppCompatActivity {
             Fragment f = new AchievementsFragment();
             fragments.add(f);
         }
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
 
-        // Set up the ViewPager with the sections adapter.
         vistaPagina = (ViewPager) findViewById(R.id.container);
         vistaPagina.setAdapter(seleccionPagina);
 
@@ -70,29 +67,6 @@ public class AchievementsActivity extends AppCompatActivity {
         vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_achievements2, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**

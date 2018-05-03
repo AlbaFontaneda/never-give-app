@@ -120,6 +120,7 @@ public class TrainingActivity extends AppCompatActivity {
                     db.close();
                     finish();
                     startActivity(getIntent());
+                    dialog.cancel();
                 }
             });
             return true;

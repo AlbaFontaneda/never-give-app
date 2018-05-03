@@ -47,8 +47,24 @@ public class MainFragment extends Fragment{
             filterDay = "DO";
         }
         isType = false;
-        ArrayList<TrainingTable> trainingTable = db.getAllTablesFilterByDay(filterDay);
-        ArrayList<FoodTable> foodTable = db.getAllFoodsFilterByDay(filterDay);
+        ArrayList<TrainingTable> trainingTable = new ArrayList<>();
+        ArrayList<TrainingTable> auxTrain = db.getAllTablesFilterByDay(filterDay);
+        if(auxTrain.size() > 1) {
+            trainingTable.add(0, auxTrain.get(0));
+            trainingTable.add(1, auxTrain.get(1));
+        } else {
+            trainingTable = auxTrain;
+        }
+
+        ArrayList<FoodTable> foodTable = new ArrayList<>();
+        ArrayList<FoodTable> auxFood = db.getAllFoodsFilterByDay(filterDay);
+
+        if(auxFood.size() > 1) {
+            foodTable.add(0, auxFood.get(0));
+            foodTable.add(1, auxFood.get(1));
+        } else {
+            foodTable = auxFood;
+        }
 
         if(trainingTable.size() == 0 && foodTable.size() == 0) {
 
@@ -59,10 +75,10 @@ public class MainFragment extends Fragment{
 
         } else {
 
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerViewTraining.setLayoutManager(layoutManager);
 
-            RecyclerView.LayoutManager layoutManagerFood = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            RecyclerView.LayoutManager layoutManagerFood = new LinearLayoutManager(getActivity());
             recyclerViewFoods.setLayoutManager(layoutManagerFood);
 
             RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
