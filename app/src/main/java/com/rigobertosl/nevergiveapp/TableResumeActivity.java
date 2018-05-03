@@ -59,6 +59,13 @@ public class TableResumeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                onBackPressed();
+            }
+        });
+
         numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         for (int i = 0; i<numPaginas; i++){

@@ -1,5 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -68,51 +69,77 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
             public void onClick(View view) {
                 PopupMenu popup = new PopupMenu(mContext, holder.itemOptions);
                 //inflating menu from xml resource
-                popup.inflate(R.menu.menu_training_elements);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        ArrayList<TrainingTable> trainingTable;
-                        if(filterDay == null) {
-                            trainingTable = db.getAllTables();
-                        } else {
-                            trainingTable = db.getAllTablesFilterByDay(filterDay);
-                        }
+                if(mContext.getClass() == TrainingActivity.class) {
+                    popup.inflate(R.menu.menu_training_elements);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            ArrayList<TrainingTable> trainingTable;
+                            if(filterDay == null) {
+                                trainingTable = db.getAllTables();
+                            } else {
+                                trainingTable = db.getAllTablesFilterByDay(filterDay);
+                            }
 
-                        switch (item.getItemId()) {
-                            case R.id.menu_training_elements_edit:
+                            switch (item.getItemId()) {
+                                case R.id.menu_training_elements_edit:
 
-                                Intent intent = new Intent(mContext, TableResumeActivity.class);
-                                if(mContext.getClass() == MainActivity.class){
-                                    intent.putExtra("fromTraining", false);
-                                }else if (mContext.getClass() == TrainingActivity.class){
+                                    Intent intent = new Intent(mContext, TableResumeActivity.class);
                                     intent.putExtra("fromTraining", true);
-                                }
-                                intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
-                                intent.putExtra("isDefault", false);
-                                mContext.startActivity(intent);
+                                    intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
+                                    intent.putExtra("isDefault", false);
+                                    mContext.startActivity(intent);
 
-                                break;
-                            case R.id.menu_training_elements_delete:
+                                    break;
+                                case R.id.menu_training_elements_delete:
 
-                                db = new DataBaseContract(mContext);
-                                db.open();
-                                db.deleteTable(trainingTable.get(holder.getAdapterPosition()), true);
-                                db.close();
-                                Toast.makeText(mContext,
-                                        "Tabla eliminada", Toast.LENGTH_LONG).show();
+                                    db = new DataBaseContract(mContext);
+                                    db.open();
+                                    db.deleteTable(trainingTable.get(holder.getAdapterPosition()), true);
+                                    db.close();
+                                    Toast.makeText(mContext,
+                                            "Tabla eliminada", Toast.LENGTH_LONG).show();
 
-                                trainingTables.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                notifyItemRangeChanged(holder.getAdapterPosition(), trainingTables.size());
-
-                                break;
+                                    trainingTables.remove(holder.getAdapterPosition());
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    notifyItemRangeChanged(holder.getAdapterPosition(), trainingTables.size());
+                                    break;
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
-                popup.show();
+                    });
+                    popup.show();
+                } else {
+                    popup.inflate(R.menu.menu_train_elements_main);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            ArrayList<TrainingTable> trainingTable;
+                            if(filterDay == null) {
+                                trainingTable = db.getAllTables();
+                            } else {
+                                trainingTable = db.getAllTablesFilterByDay(filterDay);
+                            }
+
+                            switch (item.getItemId()) {
+                                case R.id.menu_training_elements_edit:
+
+                                    Intent intent = new Intent(mContext, TableResumeActivity.class);
+                                    intent.putExtra("fromTraining", false);
+                                    intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
+                                    intent.putExtra("isDefault", false);
+                                    mContext.startActivity(intent);
+
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    popup.show();
+                }
+
 
             }
         });
