@@ -20,7 +20,7 @@
         <item
             android:id="@+id/nav_localizacion"
             android:icon="@drawable/ic_eventos"
-            android:title="@string/eventos" />
+            android:title="@string/localizacion" />
         <item
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logro_no_completado"

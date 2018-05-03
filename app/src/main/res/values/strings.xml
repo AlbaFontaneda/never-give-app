@@ -35,7 +35,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="inicio">Inicio</string>
     <string name="calendario_comidas">Calendario de comidas</string>
-    <string name="eventos">Eventos</string>
+    <string name="localizacion">Localización</string>
     <string name="logros">Logros</string>
     <string name="reinicio">Reiniciar base de datos</string>
 
