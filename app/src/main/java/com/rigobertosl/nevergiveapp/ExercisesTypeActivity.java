@@ -20,7 +20,7 @@ public class ExercisesTypeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_type);
-
+        db = new DataBaseContract(ExercisesTypeActivity.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,7 +39,6 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 volver.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        db = new DataBaseContract(ExercisesTypeActivity.this);
                         db.open();
                         db.deleteTable(TrainingActivity.trainingTable, true);
                         db.close();
@@ -57,21 +56,66 @@ public class ExercisesTypeActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout pechoRadioButton = (LinearLayout) findViewById(R.id.radioButtonPecho);
+        String[] exerciseTypes = getResources().getStringArray(R.array.exerciseTypes);
+
+        TextView textEspalda = findViewById(R.id.exerciseEspalda);
+        textEspalda.setText(exerciseTypes[0]);
+
+        TextView textPecho = findViewById(R.id.exercisePecho);
+        textPecho.setText(exerciseTypes[1]);
+
+        TextView textBiceps = findViewById(R.id.exerciseBiceps);
+        textBiceps.setText(exerciseTypes[2]);
+
+        TextView textTriceps = findViewById(R.id.exerciseTriceps);
+        textTriceps.setText(exerciseTypes[3]);
+
+        TextView textPierna = findViewById(R.id.exercisePierna);
+        textPierna.setText(exerciseTypes[4]);
+
+        TextView textAbs = findViewById(R.id.exerciseAbdominales);
+        textAbs.setText(exerciseTypes[5]);
+
         LinearLayout espaldaRadioButton = (LinearLayout) findViewById(R.id.radioButtonEspalda);
-        LinearLayout tricepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonTriceps);
+        LinearLayout pechoRadioButton = (LinearLayout) findViewById(R.id.radioButtonPecho);
         LinearLayout bicepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonBiceps);
-        LinearLayout abdominalesRadioButton = (LinearLayout) findViewById(R.id.radioButtonAbdominales);
+        LinearLayout tricepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonTriceps);
         LinearLayout piernaRadioButton = (LinearLayout) findViewById(R.id.radioButtonPierna);
+        LinearLayout abdominalesRadioButton = (LinearLayout) findViewById(R.id.radioButtonAbdominales);
+
+        espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
+            }
+        });
 
         pechoRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ExercisesTypeActivity.this, ChestActivity.class));
             }
         });
-        espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
+
+        bicepsRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
+                startActivity(new Intent(ExercisesTypeActivity.this, BicepsActivity.class));
+            }
+        });
+
+        tricepsRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, TricepsActivity.class));
+            }
+        });
+
+        piernaRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, PiernaActivity.class));
+            }
+        });
+
+        abdominalesRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, AbsActivity.class));
             }
         });
     }
@@ -109,7 +153,6 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db = new DataBaseContract(ExercisesTypeActivity.this);
                 db.open();
                 db.deleteTable(TrainingActivity.trainingTable, true);
                 db.close();

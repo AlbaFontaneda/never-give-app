@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Locale;
 
-public class ChestActivity extends TrainingActivity {
+public class AbsActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private DataBaseContract db;
     public long rowId;
@@ -29,10 +30,10 @@ public class ChestActivity extends TrainingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chest);
+        setContentView(R.layout.activity_abs);
 
         db = new DataBaseContract(this);
-        
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,26 +41,38 @@ public class ChestActivity extends TrainingActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChestActivity.this, TrainingActivity.class));
+                startActivity(new Intent(AbsActivity.this, TrainingActivity.class));
             }
         });
 
-        String[] pechoExercises = getResources().getStringArray(R.array.all_exercises_titles);
+        String[] absExercises = getResources().getStringArray(R.array.all_exercises_titles);
 
         final TextView textUno = findViewById(R.id.ejercicioUnoText);
-        textUno.setText(pechoExercises[4]);
+        textUno.setText(absExercises[13]);
 
         final TextView textDos = findViewById(R.id.ejercicioDosText);
-        textDos.setText(pechoExercises[5]);
+        textDos.setText(absExercises[14]);
 
         final TextView textTres = findViewById(R.id.ejercicioTresText);
-        textTres.setText(pechoExercises[6]);
+        textTres.setText(absExercises[15]);
 
         final TextView textCuatro = findViewById(R.id.ejercicioCuatroText);
-        textCuatro.setText(pechoExercises[7]);
+        textCuatro.setText(absExercises[16]);
 
         final TextView textCinco = findViewById(R.id.ejercicioCincoText);
-        textCinco.setText(pechoExercises[8]);
+        textCinco.setText(absExercises[17]);
+
+        final TextView textSeis = findViewById(R.id.ejercicioSeisText);
+        textSeis.setText(absExercises[18]);
+
+        final TextView textSiete = findViewById(R.id.ejercicioSieteText);
+        textSiete.setText(absExercises[19]);
+
+        final TextView textOcho = findViewById(R.id.ejercicioOchoText);
+        textOcho.setText(absExercises[20]);
+
+        final TextView textNueve = findViewById(R.id.ejercicioNueveText);
+        textNueve.setText(absExercises[21]);
 
         final ImageView imageUno = findViewById(R.id.ejercicioUnoImage);
         imageUno.setImageBitmap(setImage(textUno.getText().toString()));
@@ -76,11 +89,27 @@ public class ChestActivity extends TrainingActivity {
         final ImageView imageCinco = findViewById(R.id.ejercicioCincoImage);
         imageCinco.setImageBitmap(setImage(textCinco.getText().toString()));
 
+        final ImageView imageSeis = findViewById(R.id.ejercicioSeisImage);
+        imageSeis.setImageBitmap(setImage(textSeis.getText().toString()));
+
+        final ImageView imageSiete = findViewById(R.id.ejercicioSieteImage);
+        imageSiete.setImageBitmap(setImage(textSiete.getText().toString()));
+
+        final ImageView imageOcho = findViewById(R.id.ejercicioOchoImage);
+        imageOcho.setImageBitmap(setImage(textOcho.getText().toString()));
+
+        final ImageView imageNueve = findViewById(R.id.ejercicioNueveImage);
+        imageNueve.setImageBitmap(setImage(textNueve.getText().toString()));
+
         LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
         LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
         LinearLayout tresLinear = (LinearLayout) findViewById(R.id.ejercicioTres);
         LinearLayout cuatroLinear = (LinearLayout) findViewById(R.id.ejercicioCuatro);
         LinearLayout cincoLinear = (LinearLayout) findViewById(R.id.ejercicioCinco);
+        LinearLayout seisLinear = (LinearLayout) findViewById(R.id.ejercicioSeis);
+        LinearLayout sieteLinear = (LinearLayout) findViewById(R.id.ejercicioSiete);
+        LinearLayout ochoLinear = (LinearLayout) findViewById(R.id.ejercicioOcho);
+        LinearLayout nueveLinear = (LinearLayout) findViewById(R.id.ejercicioNueve);
 
         unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +140,34 @@ public class ChestActivity extends TrainingActivity {
             @Override
             public void onClick(View view) {
                 openDialog(view, textCinco.getText().toString());
+            }
+        });
+
+        seisLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog(view, textSeis.getText().toString());
+            }
+        });
+
+        sieteLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog(view, textSiete.getText().toString());
+            }
+        });
+
+        ochoLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog(view, textOcho.getText().toString());
+            }
+        });
+
+        nueveLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog(view, textNueve.getText().toString());
             }
         });
     }
@@ -158,12 +215,12 @@ public class ChestActivity extends TrainingActivity {
                 String numRepeticiones = repeticionesEditText.getText().toString();
                 String tiempoDescanso = descansoEditText.getText().toString();
                 if (numSeries.matches("") || numRepeticiones.matches("") || tiempoDescanso.matches("")) {
-                    Toast.makeText(ChestActivity.this,
+                    Toast.makeText(AbsActivity.this,
                             "Necesitas rellenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "pecho", image, description);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "abdominales", image, description);
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
@@ -206,7 +263,7 @@ public class ChestActivity extends TrainingActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal){
                 //Display the newly selected number from picker
-                 selectedMinute[0] = newVal;
+                selectedMinute[0] = newVal;
             }
         });
 
@@ -266,9 +323,10 @@ public class ChestActivity extends TrainingActivity {
      **/
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(ChestActivity.this, ExercisesTypeActivity.class);
+        Intent setIntent = new Intent(AbsActivity.this, ExercisesTypeActivity.class);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(setIntent);
     }
+
 }

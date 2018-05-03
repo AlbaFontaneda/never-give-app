@@ -15,7 +15,6 @@
     <uses-permission
         android:name="android.permission.MEDIA_CONTENT_CONTROL"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -61,6 +60,25 @@
             android:parentActivityName=".ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".BicepsActivity"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TricepsActivity"
+            android:label="@string/title_activity_triceps"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PiernaActivity"
+            android:label="@string/title_activity_pierna"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AbsActivity"
+            android:label="@string/title_activity_abs"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".TableResumeActivity"
             android:label="@string/title_table_resume_activity"
             android:parentActivityName=".TrainingActivity"
@@ -88,7 +106,7 @@
             android:name=".Location"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_events"/>
-      
+
     </application>
 
 </manifest>

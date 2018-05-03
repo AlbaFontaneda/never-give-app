@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/cardViewContent"
-    tools:context="com.rigobertosl.nevergiveapp.EspaldaActivity"
-    tools:showIn="@layout/activity_espalda">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.AbsActivity"
+    tools:showIn="@layout/activity_abs">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -64,6 +64,66 @@
                     style="@style/imageExercise" />
                 <TextView
                     android:id="@+id/ejercicioCuatroText"
+                    style="@style/nombreEjercicio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ejercicioCinco"
+                style="@style/buttonExercise">
+
+                <ImageView
+                    android:id="@+id/ejercicioCincoImage"
+                    style="@style/imageExercise" />
+                <TextView
+                    android:id="@+id/ejercicioCincoText"
+                    style="@style/nombreEjercicio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ejercicioSeis"
+                style="@style/buttonExercise">
+
+                <ImageView
+                    android:id="@+id/ejercicioSeisImage"
+                    style="@style/imageExercise" />
+                <TextView
+                    android:id="@+id/ejercicioSeisText"
+                    style="@style/nombreEjercicio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ejercicioSiete"
+                style="@style/buttonExercise">
+
+                <ImageView
+                    android:id="@+id/ejercicioSieteImage"
+                    style="@style/imageExercise" />
+                <TextView
+                    android:id="@+id/ejercicioSieteText"
+                    style="@style/nombreEjercicio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ejercicioOcho"
+                style="@style/buttonExercise">
+
+                <ImageView
+                    android:id="@+id/ejercicioOchoImage"
+                    style="@style/imageExercise" />
+                <TextView
+                    android:id="@+id/ejercicioOchoText"
+                    style="@style/nombreEjercicio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ejercicioNueve"
+                style="@style/buttonExercise">
+
+                <ImageView
+                    android:id="@+id/ejercicioNueveImage"
+                    style="@style/imageExercise" />
+                <TextView
+                    android:id="@+id/ejercicioNueveText"
                     style="@style/nombreEjercicio" />
             </LinearLayout>
 

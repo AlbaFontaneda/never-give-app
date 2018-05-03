@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(FoodResumeActivity.listKcal == null) {
+        if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
 

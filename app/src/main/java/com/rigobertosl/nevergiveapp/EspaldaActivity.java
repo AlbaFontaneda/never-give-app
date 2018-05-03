@@ -1,25 +1,24 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import android.widget.TimePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 public class EspaldaActivity extends TrainingActivity {
@@ -45,50 +44,76 @@ public class EspaldaActivity extends TrainingActivity {
             }
         });
 
-        LinearLayout dominadasLinear = (LinearLayout) findViewById(R.id.dominadas);
-        LinearLayout dominadasCerradoLinear = (LinearLayout) findViewById(R.id.dominadas_cerrado);
-        LinearLayout remoBarraLinear = (LinearLayout) findViewById(R.id.remo_barra);
-        LinearLayout remoPoleaLinear = (LinearLayout) findViewById(R.id.remo_polea);
-        LinearLayout pesoMuertoLinear = (LinearLayout) findViewById(R.id.peso_muerto);
-        LinearLayout pulloverBancoLinear = (LinearLayout) findViewById(R.id.pullover_banco);
 
-        dominadasLinear.setOnClickListener(new View.OnClickListener() {
+        String[] espaldaExercises = getResources().getStringArray(R.array.all_exercises_titles);
+
+        final TextView textUno = findViewById(R.id.ejercicioUnoText);
+        textUno.setText(espaldaExercises[0]);
+
+        final TextView textDos = findViewById(R.id.ejercicioDosText);
+        textDos.setText(espaldaExercises[1]);
+
+        final TextView textTres = findViewById(R.id.ejercicioTresText);
+        textTres.setText(espaldaExercises[2]);
+
+        final TextView textCuatro = findViewById(R.id.ejercicioCuatroText);
+        textCuatro.setText(espaldaExercises[3]);
+
+
+        final ImageView imageUno = findViewById(R.id.ejercicioUnoImage);
+        imageUno.setImageBitmap(setImage(textUno.getText().toString()));
+
+        final ImageView imageDos = findViewById(R.id.ejercicioDosImage);
+        imageDos.setImageBitmap(setImage(textDos.getText().toString()));
+
+        final ImageView imageTres = findViewById(R.id.ejercicioTresImage);
+        imageTres.setImageBitmap(setImage(textTres.getText().toString()));
+
+        final ImageView imageCuatro = findViewById(R.id.ejercicioCuatroImage);
+        imageCuatro.setImageBitmap(setImage(textCuatro.getText().toString()));
+
+
+        LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
+        LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
+        LinearLayout tresLinear = (LinearLayout) findViewById(R.id.ejercicioTres);
+        LinearLayout cuatroLinear = (LinearLayout) findViewById(R.id.ejercicioCuatro);
+
+        unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Dominadas");
+                openDialog(view, textUno.getText().toString());
             }
         });
-        dominadasCerradoLinear.setOnClickListener(new View.OnClickListener() {
+        dosCerradoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Dominadas con agarre cerrado");
+                openDialog(view, textDos.getText().toString());
             }
         });
-        remoBarraLinear.setOnClickListener(new View.OnClickListener() {
+        tresLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Remo con barra");
+                openDialog(view, textTres.getText().toString());
             }
         });
-        remoPoleaLinear.setOnClickListener(new View.OnClickListener() {
+        cuatroLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Remo en polea sentado");
+                openDialog(view, textCuatro.getText().toString());
             }
         });
-        pesoMuertoLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(view, "Peso muerto");
-            }
-        });
-        pulloverBancoLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(view, "Pullover banco declinado");
-            }
-        });
+
     }
+
+    public Bitmap setImage(String exerciseName) {
+        db.open();
+        byte[] b = db.getExerciseImage(exerciseName);
+        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        db.close();
+        return bmp;
+    }
+
+
     public void openDialog(View view, final String name) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_exercise, null);
@@ -103,6 +128,11 @@ public class EspaldaActivity extends TrainingActivity {
         final EditText repeticionesEditText = (EditText)dialogLayout.findViewById(R.id.num_repeticiones);
 
         final EditText descansoEditText = (EditText)dialogLayout.findViewById(R.id.tiempo_descanso);
+
+        db.open();
+        final byte[] image = db.getExerciseImage(name);
+        final String description = db.getExerciseDescription(name);
+        db.close();
 
         descansoEditText.setOnClickListener(new View.OnClickListener() {
 
@@ -124,7 +154,7 @@ public class EspaldaActivity extends TrainingActivity {
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "espalda");
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "espalda", image, description);
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();

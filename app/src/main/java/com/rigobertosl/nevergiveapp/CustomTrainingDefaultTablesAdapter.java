@@ -2,6 +2,10 @@ package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -137,6 +141,10 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
             holder.title.setText(exercises.get(position).getNombre());
             holder.series.setText(exercises.get(position).getSeries()+" series");
             holder.repeticiones.setText(exercises.get(position).getRepeticiones()+" repeticiones");
+            byte[] b = exercises.get(position).getImage();
+            Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+            final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);
+            holder.imageView.setImageDrawable(d);
         }
 
         @Override
