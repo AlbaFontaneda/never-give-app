@@ -45,6 +45,12 @@ public class PiernaActivity extends AppCompatActivity {
             }
         });
 
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
+
         String[] piernaExercises = getResources().getStringArray(R.array.all_exercises_titles);
 
         final TextView textUno = findViewById(R.id.ejercicioUnoText);

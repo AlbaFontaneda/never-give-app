@@ -93,7 +93,7 @@ public class FoodsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_foods, menu);
+        getMenuInflater().inflate(R.menu.activity_menu_food, menu);
         return true;
     }
 
@@ -101,16 +101,35 @@ public class FoodsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_foods_visual | id == R.id.menu_foods_settings | id == R.id.menu_foods_edit) {
-            Toast.makeText(getApplicationContext(),
-                    item.getTitle(), Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_settings) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoFood);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetFoods();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                }
+            });
             return true;
-        } if(id == R.id.menu_foods_delete) {
-           db.open();
-           db.resetFoods();
-           db.close();
-           finish();
-           startActivity(getIntent());
         }
         return super.onOptionsItemSelected(item);
     }

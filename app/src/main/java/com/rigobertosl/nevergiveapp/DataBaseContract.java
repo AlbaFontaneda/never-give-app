@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -360,6 +360,18 @@ public class DataBaseContract {
         values.put(DataBaseEntryTrain.COLUMN_LIST_ID, idList);
 
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
+    }
+
+    /** Sabemos si una tabla tiene algun ejercicio metido **/
+    public boolean controlExerciseInput(long idName){
+        boolean isEmpty = true;
+
+        String selectQuery = "SELECT id_name from tabla_ejercicios WHERE id_name = '" + idName +"'";
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            isEmpty = false;
+        }
+        return isEmpty;
     }
 
     /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/

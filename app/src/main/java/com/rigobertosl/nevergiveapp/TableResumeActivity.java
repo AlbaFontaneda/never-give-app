@@ -87,9 +87,9 @@ public class TableResumeActivity extends TrainingActivity {
         tableDays.setText(table.getDays());
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView = (RecyclerView)dialogLayout.findViewById(R.id.recylcer_exercises);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         ArrayList<Exercise> exerciseList = db.getAllExercisesFromTable(table);
         exerciseResumeAdapter = new ExerciseResumeAdapter(exerciseList);
         recyclerView.setLayoutManager(linearLayoutManager);

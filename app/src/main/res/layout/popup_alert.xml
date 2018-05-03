@@ -10,41 +10,36 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/colorAccent">
+            style="@style/popUpTitle">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/titlesColor"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="Si sales de esta pantalla no se guardaran los datos, ¿estas seguro?" />
+                android:id="@+id/titleAlert"
+                android:text="@string/cuidado"
+                style="@style/popUpTextTitle"/>
         </LinearLayout>
 
+        <LinearLayout
+            style="@style/popUpData">
+
+            <TextView
+                android:id="@+id/textoAviso"
+                style="@style/popUpNames"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <Button
-                android:id="@+id/button_volver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:text="Sí, estoy seguro"/>
+            style="@style/popUpButtons">
             <Button
                 android:id="@+id/button_quedarse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:text="No, seguir editando "/>
+                android:text="@string/noAcceptButton"/>
+            <Button
+                android:id="@+id/button_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                android:text="@string/acceptButton"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -596,7 +596,8 @@ public class FoodResumeActivity extends FoodsActivity {
             final AlertDialog dialog = builder.create();
             dialog.setView(dialogLayout);
             dialog.show();
-
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoVolver);
             final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
             final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
@@ -624,7 +625,8 @@ public class FoodResumeActivity extends FoodsActivity {
             final AlertDialog dialog = builder.create();
             dialog.setView(dialogLayout);
             dialog.show();
-
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoVolver);
             final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
             final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
