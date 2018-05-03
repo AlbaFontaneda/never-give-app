@@ -88,53 +88,85 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
             public void onClick(View view) {
                 PopupMenu popup = new PopupMenu(mContext, holder.itemOptions);
                 //inflating menu from xml resource
-                popup.inflate(R.menu.menu_foods_elements);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        db = new DataBaseContract(mContext);
-                        db.open();
-                        ArrayList<FoodTable> foodTable;
-                        if(isType) {
-                            foodTable = db.getAllFoodsFilterByType(filterDay);
-                        } else {
-                            foodTable = db.getAllFoodsFilterByDay(filterDay);
-                        }
+                if(mContext.getClass() == FoodsActivity.class) {
+                    popup.inflate(R.menu.menu_foods_elements);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            db = new DataBaseContract(mContext);
+                            db.open();
+                            ArrayList<FoodTable> foodTable;
+                            if(isType) {
+                                foodTable = db.getAllFoodsFilterByType(filterDay);
+                            } else {
+                                foodTable = db.getAllFoodsFilterByDay(filterDay);
+                            }
 
-                        db.close();
-                        switch (item.getItemId()) {
-                            case R.id.menu_foods_elements_edit:
-                                if(FoodResumeActivity.listKcal.size() == 0) {
-                                    new FoodsApi().execute();
-                                }
-                                Intent intent = new Intent(mContext, FoodResumeActivity.class);
-                                if(mContext.getClass() == MainActivity.class){
-                                    intent.putExtra("fromFoods", false);
-                                }else if (mContext.getClass() == FoodsActivity.class){
+                            db.close();
+                            switch (item.getItemId()) {
+                                case R.id.menu_foods_elements_edit:
+                                    if(FoodResumeActivity.listKcal.size() == 0) {
+                                        new FoodsApi().execute();
+                                    }
+                                    Intent intent = new Intent(mContext, FoodResumeActivity.class);
                                     intent.putExtra("fromFoods", true);
-                                }
-                                intent.putExtra("foodId", foodTable.get(holder.getAdapterPosition()).getId());
-                                intent.putExtra("fromResume", true);
-                                mContext.startActivity(intent);
-                                break;
-                            case R.id.menu_foods_elements_delete:
-                                db.open();
-                                db.deleteFood(foodTable.get(holder.getAdapterPosition()));
-                                db.close();
-                                Toast.makeText(mContext,
-                                        "Comida eliminada", Toast.LENGTH_LONG).show();
+                                    intent.putExtra("foodId", foodTable.get(holder.getAdapterPosition()).getId());
+                                    intent.putExtra("fromResume", true);
+                                    mContext.startActivity(intent);
+                                    break;
+                                case R.id.menu_foods_elements_delete:
+                                    db.open();
+                                    db.deleteFood(foodTable.get(holder.getAdapterPosition()));
+                                    db.close();
+                                    Toast.makeText(mContext,
+                                            "Comida eliminada", Toast.LENGTH_LONG).show();
 
-                                foodTables.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                notifyItemRangeChanged(holder.getAdapterPosition(), foodTables.size());
-                                break;
+                                    foodTables.remove(holder.getAdapterPosition());
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    notifyItemRangeChanged(holder.getAdapterPosition(), foodTables.size());
+                                    break;
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
-                //displaying the popup
-                popup.show();
+                    });
+                    //displaying the popup
+                    popup.show();
+                } else {
+                    popup.inflate(R.menu.menu_train_elements_main);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            db = new DataBaseContract(mContext);
+                            db.open();
+                            ArrayList<FoodTable> foodTable;
+                            if(isType) {
+                                foodTable = db.getAllFoodsFilterByType(filterDay);
+                            } else {
+                                foodTable = db.getAllFoodsFilterByDay(filterDay);
+                            }
+
+                            db.close();
+                            switch (item.getItemId()) {
+                                case R.id.menu_training_elements_edit:
+                                    if(FoodResumeActivity.listKcal.size() == 0) {
+                                        new FoodsApi().execute();
+                                    }
+                                    Intent intent = new Intent(mContext, FoodResumeActivity.class);
+                                    intent.putExtra("fromFoods", false);
+                                    intent.putExtra("foodId", foodTable.get(holder.getAdapterPosition()).getId());
+                                    intent.putExtra("fromResume", true);
+                                    mContext.startActivity(intent);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
+                }
+
 
             }
         });
