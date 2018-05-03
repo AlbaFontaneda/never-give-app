@@ -18,7 +18,7 @@
             android:icon="@drawable/ic_calendario"
             android:title="@string/calendario_comidas" />
         <item
-            android:id="@+id/nav_eventos"
+            android:id="@+id/nav_localizacion"
             android:icon="@drawable/ic_eventos"
             android:title="@string/eventos" />
         <item
@@ -27,16 +27,12 @@
             android:title="@string/logros" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Opciones">
         <menu>
             <item
-                android:id="@+id/nav_compartir"
-                android:icon="@drawable/ic_compartir"
-                android:title="@string/compartir" />
-            <item
-                android:id="@+id/nav_report"
+                android:id="@+id/nav_reinicio"
                 android:icon="@drawable/ic_report"
-                android:title="@string/reports" />
+                android:title="@string/reinicio" />
         </menu>
     </item>
 

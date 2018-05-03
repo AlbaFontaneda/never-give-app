@@ -29,8 +29,6 @@ public class DefaultResume extends TrainingActivity {
     private long tableID;
     private int numPaginas;
     private TrainingTable trainingTable;
-    private RecyclerView recyclerView;
-    private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
 
@@ -47,7 +45,6 @@ public class DefaultResume extends TrainingActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
 
         numPaginas = (int)db.getAllDefaultExercisesFromTable(trainingTable).size();
@@ -58,7 +55,6 @@ public class DefaultResume extends TrainingActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 

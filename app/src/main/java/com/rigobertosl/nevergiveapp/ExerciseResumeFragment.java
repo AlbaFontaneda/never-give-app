@@ -1,7 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +30,7 @@ public class ExerciseResumeFragment extends Fragment {
     private TextView countDown;
     private ProgressBar progressBar;
 
-    private MyCountDownTimer mycounter;
+    private CountDownTimer mycounter;
 
     TrainingTable trainingTable;
 
@@ -67,7 +66,7 @@ public class ExerciseResumeFragment extends Fragment {
         //updateCountDown();
         progressBar.setProgress(100);
         setStartTime(ejercicio.getDescanso());
-        mycounter = new MyCountDownTimer(START_TIME, 1000);
+        mycounter = new CountDownTimer(START_TIME, 1000);
         RefreshTimer();
 
         stop.setOnClickListener(new View.OnClickListener() {

@@ -47,13 +47,9 @@ public class TableResumeActivity extends TrainingActivity {
         db.open();
         tableID = (long) getIntent().getSerializableExtra("tablaID");
         trainingTable = db.getTrainingTableByID(tableID);
-        CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
-        TextView toolbar_days = (TextView)findViewById(R.id.toolbar_days);
-        toolbar_days.setText(trainingTable.getDays());
-        //colToolbar.setTitleEnabled(false);
+        db.close();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
 
         numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
@@ -64,7 +60,6 @@ public class TableResumeActivity extends TrainingActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 

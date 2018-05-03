@@ -69,6 +69,7 @@ public class FoodResumeActivity extends FoodsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_resume);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
@@ -76,8 +77,6 @@ public class FoodResumeActivity extends FoodsActivity {
         foodId = (long) getIntent().getSerializableExtra("foodId");
         final FoodTable foodTable = db.getFoodById(foodId);
         db.close();
-        toolbar.setTitle(foodTable.getName());
-        setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
