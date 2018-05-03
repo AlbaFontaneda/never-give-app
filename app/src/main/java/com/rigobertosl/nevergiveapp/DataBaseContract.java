@@ -815,23 +815,20 @@ public class DataBaseContract {
     public int getTotalPoints(){
         int points = 0;
 
-        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+        String selectQuery = "SELECT points FROM tabla_logros_entrenamiento WHERE completed = 'true'";
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
-                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)));
-                }
+                points += Integer.valueOf(cursor.getString(cursor.getColumnIndex("points")));
+
             } while (cursor.moveToNext());
         }
-        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+        selectQuery = "SELECT points FROM tabla_logros_comidas WHERE completed = 'true'";
         cursor = mDb.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
-                    points += Integer.valueOf(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)));
-                }
+                points += Integer.valueOf(cursor.getString(cursor.getColumnIndex("points")));
             } while (cursor.moveToNext());
         }
 
@@ -862,32 +859,29 @@ public class DataBaseContract {
     public ArrayList<Achievement> getAllAchievementsCompleted(){
         ArrayList<Achievement> achievements = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + DataBaseAchievementsTraining.TABLE_NAME;
+        String selectQuery = "SELECT * FROM tabla_logros_entrenamiento WHERE completed = 'true'";
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED)).equals("true")) {
-                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining._ID))),
-                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_DESCRIPTION)),
-                            "training", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_POINTS)),
-                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsTraining.COLUMN_COMPLETED))));
-                    achievements.add(achievement);
-                }
+                Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("title")), cursor.getString(cursor.getColumnIndex("description")),
+                        "training", cursor.getString(cursor.getColumnIndex("points")),
+                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("completed"))));
+                achievements.add(achievement);
+
             } while (cursor.moveToNext());
         }
 
-        selectQuery = "SELECT * FROM " + DataBaseAchievementsFoods.TABLE_NAME;
+        selectQuery = "SELECT * FROM tabla_logros_comidas WHERE completed = 'true'";
         cursor = mDb.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                if (cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED)).equals("true")) {
-                    Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods._ID))),
-                            cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_TITLE)), cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_DESCRIPTION)),
-                            "foods", cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_POINTS)),
-                            Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(DataBaseAchievementsFoods.COLUMN_COMPLETED))));
-                    achievements.add(achievement);
-                }
+                Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("title")), cursor.getString(cursor.getColumnIndex("description")),
+                        "training", cursor.getString(cursor.getColumnIndex("points")),
+                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("completed"))));
+                achievements.add(achievement);
             } while (cursor.moveToNext());
         }
 
@@ -925,7 +919,7 @@ public class DataBaseContract {
                 descriptions = context.getResources().getStringArray(R.array.achievementsTrainingDescriptions);
                 points = context.getResources().getStringArray(R.array.achievementsTrainingPoints);
                 for (int i = 0; i < titles.length; i++){
-                    createAchievement("training", titles[i], descriptions[i], points[i], "false");
+                    //createAchievement("training", titles[i], descriptions[i], points[i], "false");
                 }
             }
             if (type.equals("foods") || type.equals("both")){
@@ -933,7 +927,7 @@ public class DataBaseContract {
                 descriptions = context.getResources().getStringArray(R.array.achievementsFoodsDescriptions);
                 points = context.getResources().getStringArray(R.array.achievementsFoodsPoints);
                 for (int i = 0; i < titles.length; i++){
-                    createAchievement("foods", titles[i], descriptions[i], points[i], "false");
+                    //createAchievement("foods", titles[i], descriptions[i], points[i], "false");
                 }
             }
         }
