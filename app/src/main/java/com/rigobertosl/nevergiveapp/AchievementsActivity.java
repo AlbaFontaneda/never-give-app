@@ -46,7 +46,6 @@ public class AchievementsActivity extends AppCompatActivity {
 
         db = new DataBaseContract(this);
         db.open();
-        db.newAchievements("both");
         db.reloadAchievements("both");
         db.close();
 
