@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -20,6 +21,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
@@ -149,13 +153,40 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_reinicio) {
-            db.open();
-            db.resetDataBase();
-            db.close();
-            finish();
-            startActivity(getIntent());
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoMain);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetDataBase();
+                    db.resetAchievements();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                    dialog.cancel();
+                }
+            });
         }
+
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
