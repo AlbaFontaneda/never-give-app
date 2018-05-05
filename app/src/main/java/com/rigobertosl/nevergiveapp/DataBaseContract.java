@@ -7,14 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
-import java.sql.Array;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import static java.lang.Long.valueOf;
 
@@ -26,7 +22,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -152,51 +148,6 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseEntryKcal.TABLE_NAME;
     }
 
-    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
-    public static class DataBaseAchievementsTraining implements BaseColumns {
-        public static final String TABLE_NAME = "tabla_logros_entrenamiento";
-        public static final String COLUMN_ACHIEVEMENT_TRAINING_ID = "_id";
-        public static final String COLUMN_TITLE = "title";
-        public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_COMPLETED = "completed";
-
-
-        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING =
-                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_ACHIEVEMENT_TRAINING_ID + " INTEGER PRIMARY KEY," +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
-                        DataBaseAchievementsTraining.COLUMN_COMPLETED + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING =
-                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME;
-    }
-
-    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
-    public static class DataBaseAchievementsFoods implements BaseColumns {
-        public static final String TABLE_NAME = "tabla_logros_comidas";
-        public static final String COLUMN_ACHIEVEMENT_FOODS_ID = "_id";
-        public static final String COLUMN_TITLE = "title";
-        public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_COMPLETED = "completed";
-
-
-        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS =
-                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_ACHIEVEMENT_FOODS_ID + " INTEGER PRIMARY KEY," +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
-                        DataBaseAchievementsFoods.COLUMN_COMPLETED + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS =
-                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME;
-    }
-
-
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
@@ -204,7 +155,7 @@ public class DataBaseContract {
 
     public static class DataBaseHelper extends SQLiteOpenHelper {
 
-        public DataBaseHelper(Context context) {
+        private DataBaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -215,8 +166,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_CREATE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_CREATE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_CREATE_ENTRIES_KCAL);
-            //db.execSQL(DataBaseAchievementsTraining.SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING);
-            //db.execSQL(DataBaseAchievementsFoods.SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS);
         }
 
         public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
@@ -225,8 +174,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_DELETE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_DELETE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_DELETE_ENTRIES_KCAL);
-            //db.execSQL(DataBaseAchievementsTraining.SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING);
-            //db.execSQL(DataBaseAchievementsFoods.SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS);
             onCreate(db);
         }
 
@@ -390,7 +337,7 @@ public class DataBaseContract {
     }
 
     /** Delete ejercicios **/
-    public void deleteExercisesFromTable(long ejercicioId) {
+    private void deleteExercisesFromTable(long ejercicioId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryListTrain.TABLE_NAME, DataBaseEntryListTrain._ID + " = ?",
                 new String[] { String.valueOf(ejercicioId) });
@@ -404,7 +351,7 @@ public class DataBaseContract {
     }
 
     /** Delete link table **/
-    public void deleteLinkTable(long tableId) {
+    private void deleteLinkTable(long tableId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryTrain.TABLE_NAME, DataBaseEntryTrain.COLUMN_NAME_ID + " = ?",
                 new String[] { String.valueOf(tableId) });
@@ -418,22 +365,22 @@ public class DataBaseContract {
         values.put(DataBaseEntryNameTrain.COLUMN_DAYS, newDays);
 
         ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
-        editExercisesFromTable(table, oldExercises, newExercises);
+        editExercisesFromTable(oldExercises, newExercises);
 
         return mDb.update(DataBaseEntryNameTrain.TABLE_NAME, values,
                 DataBaseContract.DataBaseEntryNameTrain._ID + " = ?",
                 new String[] { String.valueOf(table.getId()) });
     }
 
-    public void editExercisesFromTable(TrainingTable table, ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
+    private void editExercisesFromTable(ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
 
-        for(int i=0; i<oldExercises.size(); i++){
+        for(int i=0; i < oldExercises.size(); i++){
             editExercise(oldExercises.get(i), newExercises.get(i));
         }
     }
 
-    public int editExercise(Exercise oldExercise, Exercise newExercise){
+    private int editExercise(Exercise oldExercise, Exercise newExercise){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, newExercise.getNombre());
@@ -510,7 +457,7 @@ public class DataBaseContract {
     }
 
     /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
-    public ArrayList<FoodTable> getAllFoodTables() {
+    private ArrayList<FoodTable> getAllFoodTables() {
         ArrayList<FoodTable> table = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
         mDb = mDbHelper.getReadableDatabase();
@@ -619,7 +566,7 @@ public class DataBaseContract {
     }
 
     /** Borra un row de lista de kcal **/
-    public void deleteKcal(FoodTable foodTable) {
+    private void deleteKcal(FoodTable foodTable) {
         long tableId = foodTable.getId();
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryKcal.TABLE_NAME, DataBaseEntryKcal.COLUMN_FOOD_ID + " = ?",
@@ -942,7 +889,7 @@ public class DataBaseContract {
     }
 
     /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
-    public void updateAchievement(long id, String type, boolean completed){
+    private void updateAchievement(long id, String type, boolean completed){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         if (type.equals("training")){

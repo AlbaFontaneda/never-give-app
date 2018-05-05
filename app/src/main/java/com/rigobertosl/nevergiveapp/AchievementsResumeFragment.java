@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static java.lang.Integer.valueOf;
-
 public class AchievementsResumeFragment extends Fragment {
 
     private DataBaseContract db;

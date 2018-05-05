@@ -82,7 +82,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                             }
 
                             switch (item.getItemId()) {
-                                case R.id.menu_training_elements_edit:
+                                case R.id.menu_training_resume:
 
                                     Intent intent = new Intent(mContext, TableResumeActivity.class);
                                     intent.putExtra("fromTraining", true);
@@ -110,7 +110,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                     });
                     popup.show();
                 } else {
-                    popup.inflate(R.menu.menu_train_elements_main);
+                    popup.inflate(R.menu.menu_default_training);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
@@ -122,7 +122,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                             }
 
                             switch (item.getItemId()) {
-                                case R.id.menu_training_elements_edit:
+                                case R.id.menu_default_resume:
 
                                     Intent intent = new Intent(mContext, TableResumeActivity.class);
                                     intent.putExtra("fromTraining", false);

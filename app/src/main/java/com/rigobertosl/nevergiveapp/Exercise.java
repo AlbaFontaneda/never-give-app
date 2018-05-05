@@ -7,6 +7,10 @@ public class Exercise {
     private byte[] image;
 
     public Exercise(String nombre, String series, String repeticiones, String descanso, String tipo,  byte[] image, String description) {
+        // Para limpiar todos los ceros a la izquierda tanto en repeticiones como en descanso
+        series = series.replaceFirst ("^0*", "");
+        repeticiones = repeticiones.replaceFirst ("^0*", "");
+
         this.nombre = nombre;
         this.series = series;
         this.repeticiones = repeticiones;
@@ -26,10 +30,6 @@ public class Exercise {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getSeries() {
@@ -58,10 +58,6 @@ public class Exercise {
 
     public String getTipo() {
         return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getDescription() {

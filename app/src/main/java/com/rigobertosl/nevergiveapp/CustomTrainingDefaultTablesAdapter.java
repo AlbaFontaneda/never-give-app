@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,7 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
                         ArrayList<TrainingTable> trainingTable = db.getAllDefaultTables();
 
                         switch (menuItem.getItemId()) {
-                            case R.id.menu_default_table_show:
+                            case R.id.menu_default_resume:
                                 Intent intent = new Intent(mContext, DefaultResume.class);
                                 intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
                                 intent.putExtra("isDefault", true);

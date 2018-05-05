@@ -42,10 +42,8 @@ public class CountDownTimer {
         status = true;
         reset = false;
     }
-    public void Initialize()
-    {
+    public void Initialize() {
         final Handler handler = new Handler();
-        //Log.v("status", "starting");
         final Runnable counter = new Runnable(){
 
             public void run(){
@@ -59,7 +57,6 @@ public class CountDownTimer {
                             handler.postDelayed(this, countDownInterval);
                             status = false;
                         } else {
-                            //Log.v("status", Long.toString(sec) + " seconds remain");
                             millisInFuture -= countDownInterval;
                             handler.postDelayed(this, countDownInterval);
                         }
@@ -67,13 +64,11 @@ public class CountDownTimer {
                         if (reset){
                             millisInFuture = START_TIMER;
                         }
-                        //Log.v("status", Long.toString(sec) + " seconds remain and timer has stopped!");
                         handler.postDelayed(this, countDownInterval);
                     }
                 }
             }
         };
-
         handler.postDelayed(counter, countDownInterval);
     }
 }
