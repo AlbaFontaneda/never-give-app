@@ -30,8 +30,7 @@ public class ExerciseResumeFragment extends Fragment {
     private DataBaseContract db;
     private ArrayList<Exercise> ejercicios;
 
-    private long START_TIME = 1000;
-    private long timeLeft = START_TIME;
+    private long START_TIME;
     private TextView countDown;
     private ProgressBar progressBar;
 
@@ -146,7 +145,7 @@ public class ExerciseResumeFragment extends Fragment {
 
     public void setStartTime(String sTime){
         String[] time = sTime.split(":");
-        START_TIME *= Long.parseLong(time[0])*60+Long.parseLong(time[1]);
+        START_TIME = 1000 * (Long.parseLong(time[0])*60+Long.parseLong(time[1]));
     }
 
 }
