@@ -133,7 +133,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
                     //displaying the popup
                     popup.show();
                 } else {
-                    popup.inflate(R.menu.menu_train_elements_main);
+                    popup.inflate(R.menu.menu_foods_elements_main);
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override

@@ -108,7 +108,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                     });
                     popup.show();
                 } else {
-                    popup.inflate(R.menu.menu_train_elements_main);
+                    popup.inflate(R.menu.menu_default_training);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {

@@ -116,7 +116,8 @@
 
     //Menús de los elementos de cada actividad
     <string name="element_edit">Editar</string>
-    <string name="element_resume">Ver detalles</string>
+    <string name="element_details">Ver detalles</string>
+    <string name="element_resume">Ver tabla</string>
     <string name="element_delete">Eliminar</string>
     <string name="all_delete_training">Eliminar todas las tablas</string>
     <string name="all_delete_foods">Eliminar todas las comidas</string>
