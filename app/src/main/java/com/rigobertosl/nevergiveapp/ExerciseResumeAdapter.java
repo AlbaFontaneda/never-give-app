@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -147,7 +148,7 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
             minutosPikcer.setValue(0);
             minutosPikcer.setMinValue(0);
-            minutosPikcer.setMaxValue(20);
+            minutosPikcer.setMaxValue(5);
             minutosPikcer.setWrapSelectorWheel(true);
 
             minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -174,9 +175,14 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
             continuar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
-                    descansoEditText.setText(timeLeftFormatted);
-                    dialog.cancel();
+                    if(selectedSeconds[0] == 0 && selectedMinute[0] == 0){
+                        Toast.makeText(view.getContext(), "Debe tomarse un descanso entre serie y serie.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                        descansoEditText.setText(timeLeftFormatted);
+                        dialog.cancel();
+                    }
                 }
             });
             cancelar.setOnClickListener(new View.OnClickListener() {
