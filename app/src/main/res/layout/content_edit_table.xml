@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rigobertosl.nevergiveapp.EditTableActivity"
+    tools:showIn="@layout/activity_edit_table">
+
+    <LinearLayout
+        style="@style/popUpData"
+        android:padding="10dp">
+
+        <TextView
+            android:text="@string/nombreEntrenamiento"
+            style="@style/popUpNames"/>
+
+        <EditText
+            android:id="@+id/table_name"
+            style="@style/popUpEdits"/>
+
+        <TextView
+            android:text="@string/diasEntrenamiento"
+            style="@style/popUpNames" />
+
+        <EditText
+            android:id="@+id/table_days"
+            style="@style/popUpEdits"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylcer_exercises"
+            style="@style/popUpRecycler"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

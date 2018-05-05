@@ -1,7 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,14 +55,11 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private CardView cardView;
         private TextView title, series, repeticiones, descanso;
         private EditText nSeries, nRepeticiones, nDescanso;
 
         MyViewHolder(View view) {
             super(view);
-
-            cardView = (CardView)view.findViewById(R.id.card_view);
 
             title = (TextView)view.findViewById(R.id.nombre_ejercicio);
             series = (TextView)view.findViewById(R.id.series);

@@ -9,6 +9,7 @@
     <string name="title_activity_pierna">Ejercicios de pierna</string>
     <string name="title_activity_abs">Ejercicios de abdominales</string>
     <string name="title_activity_biceps">Ejercicios de biceps</string>
+    <string name="title_activity_edit_table">Edición de la tabla</string>
 
     //AppBar (Toolbar)
     <string name="app_name">NeverGiveApp</string>
