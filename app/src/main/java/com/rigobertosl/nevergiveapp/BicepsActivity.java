@@ -165,7 +165,7 @@ public class BicepsActivity extends AppCompatActivity {
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);
-        minutosPikcer.setMaxValue(59);
+        minutosPikcer.setMaxValue(5);
         minutosPikcer.setWrapSelectorWheel(true);
 
         minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -192,9 +192,14 @@ public class BicepsActivity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
-                descansoEditText.setText(timeLeftFormatted);
-                dialog.cancel();
+                if(selectedSeconds[0] == 0 && selectedMinute[0] == 0){
+                    Toast.makeText(getApplicationContext(), "Debe tomarse un descanso entre serie y serie.", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                    descansoEditText.setText(timeLeftFormatted);
+                    dialog.cancel();
+                }
             }
         });
         cancelar.setOnClickListener(new View.OnClickListener() {

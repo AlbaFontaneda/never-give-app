@@ -25,7 +25,7 @@ public class AchievementsResumeFragment extends Fragment {
         TextView numExercises = (TextView)rootView.findViewById(R.id.num_exercises);
 
         db.open();
-        numExercises.setText(String.valueOf(db.getAllExercisesOfDataBase().size()));
+        numExercises.setText(String.valueOf(db.getAllExercisesOfDataBase()));
         achievementsPoints.setText(String.valueOf(db.getTotalPoints()));
         db.close();
 

@@ -26,7 +26,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -836,24 +836,18 @@ public class DataBaseContract {
     }
 
     /** Devuelve todos los ejercicios de todas las tablas como un ArrayList<Exercise> **/
-    public ArrayList<Exercise> getAllExercisesOfDataBase() {
-        ArrayList<Exercise> exercises = new ArrayList<>();
+    public int getAllExercisesOfDataBase() {
+        int contador = 0;
 
         String selectQuery = "SELECT * FROM " + DataBaseEntryListTrain.TABLE_NAME;
         mDb = mDbHelper.getReadableDatabase();
-
         Cursor cursor = mDb.rawQuery(selectQuery, null);
-
         if(cursor.moveToFirst()) {
             do {
-                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), null, null);
-                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain._ID))));
-                exercises.add(newExercise);
+                contador++;
             } while (cursor.moveToNext());
         }
-        return exercises;
+        return contador;
     }
 
     public ArrayList<Achievement> getAllAchievementsCompleted(){

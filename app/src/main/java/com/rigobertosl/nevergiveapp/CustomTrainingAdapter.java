@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -112,7 +111,6 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                     popup.show();
                 } else {
                     popup.inflate(R.menu.menu_train_elements_main);
-                    //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
@@ -176,15 +174,12 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         }
 
         public class ExerciseViewHolder extends RecyclerView.ViewHolder {
-            CardView cardView;
             TextView title, series, repeticiones;
             ImageView imageView;
 
             ExerciseViewHolder(View view) {
                 super(view);
-                cardView = (CardView)view.findViewById(R.id.card_view);
                 imageView = (ImageView)view.findViewById(R.id.image);
-                //imageView.setImageResource(R.drawable.achievements_logo);
                 title = (TextView)view.findViewById(R.id.title);
                 series = (TextView)view.findViewById(R.id.num_series);
                 repeticiones = (TextView)view.findViewById(R.id.num_repeticiones);
