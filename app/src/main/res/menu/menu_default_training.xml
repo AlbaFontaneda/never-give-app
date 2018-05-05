@@ -2,7 +2,7 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_default_table_show"
+    <item android:id="@+id/menu_default_resume"
         android:title="@string/element_resume"
         android:orderInCategory="100"
         app:showAsAction="never" />

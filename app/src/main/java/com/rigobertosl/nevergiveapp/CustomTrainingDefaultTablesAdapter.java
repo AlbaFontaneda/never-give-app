@@ -73,7 +73,7 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
                         ArrayList<TrainingTable> trainingTable = db.getAllDefaultTables();
 
                         switch (menuItem.getItemId()) {
-                            case R.id.menu_default_table_show:
+                            case R.id.menu_default_resume:
                                 Intent intent = new Intent(mContext, DefaultResume.class);
                                 intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
                                 intent.putExtra("isDefault", true);

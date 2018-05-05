@@ -149,7 +149,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
                             db.close();
                             switch (item.getItemId()) {
-                                case R.id.menu_training_elements_edit:
+                                case R.id.menu_foods_elements_edit:
                                     if(FoodResumeActivity.listKcal.size() == 0) {
                                         new FoodsApi().execute();
                                     }

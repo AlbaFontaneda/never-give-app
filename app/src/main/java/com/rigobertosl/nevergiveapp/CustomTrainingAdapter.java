@@ -1,5 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,7 +82,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                             }
 
                             switch (item.getItemId()) {
-                                case R.id.menu_training_elements_edit:
+                                case R.id.menu_training_resume:
 
                                     Intent intent = new Intent(mContext, TableResumeActivity.class);
                                     intent.putExtra("fromTraining", true);
@@ -120,7 +122,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
                             }
 
                             switch (item.getItemId()) {
-                                case R.id.menu_training_elements_edit:
+                                case R.id.menu_default_resume:
 
                                     Intent intent = new Intent(mContext, TableResumeActivity.class);
                                     intent.putExtra("fromTraining", false);
