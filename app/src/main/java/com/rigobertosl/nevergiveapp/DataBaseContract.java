@@ -152,51 +152,6 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseEntryKcal.TABLE_NAME;
     }
 
-    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
-    public static class DataBaseAchievementsTraining implements BaseColumns {
-        public static final String TABLE_NAME = "tabla_logros_entrenamiento";
-        public static final String COLUMN_ACHIEVEMENT_TRAINING_ID = "_id";
-        public static final String COLUMN_TITLE = "title";
-        public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_COMPLETED = "completed";
-
-
-        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING =
-                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_ACHIEVEMENT_TRAINING_ID + " INTEGER PRIMARY KEY," +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsTraining.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
-                        DataBaseAchievementsTraining.COLUMN_COMPLETED + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING =
-                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsTraining.TABLE_NAME;
-    }
-
-    /********************* COLUMNAS PARA TABLAS DE LOGROS *****************************/
-    public static class DataBaseAchievementsFoods implements BaseColumns {
-        public static final String TABLE_NAME = "tabla_logros_comidas";
-        public static final String COLUMN_ACHIEVEMENT_FOODS_ID = "_id";
-        public static final String COLUMN_TITLE = "title";
-        public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_COMPLETED = "completed";
-
-
-        private static final String SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS =
-                "CREATE TABLE " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_ACHIEVEMENT_FOODS_ID + " INTEGER PRIMARY KEY," +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseAchievementsFoods.COLUMN_POINTS + TEXT_TYPE + COMMA_SEP +
-                        DataBaseAchievementsFoods.COLUMN_COMPLETED + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS =
-                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseAchievementsFoods.TABLE_NAME;
-    }
-
-
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
@@ -215,8 +170,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_CREATE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_CREATE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_CREATE_ENTRIES_KCAL);
-            //db.execSQL(DataBaseAchievementsTraining.SQL_CREATE_ENTRIES_ACHIEVEMENTS_TRAINING);
-            //db.execSQL(DataBaseAchievementsFoods.SQL_CREATE_ENTRIES_ACHIEVEMENTS_FOODS);
         }
 
         public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
@@ -225,8 +178,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_DELETE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_DELETE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_DELETE_ENTRIES_KCAL);
-            //db.execSQL(DataBaseAchievementsTraining.SQL_DELETE_ENTRIES_ACHIEVEMENTS_TRAINING);
-            //db.execSQL(DataBaseAchievementsFoods.SQL_DELETE_ENTRIES_ACHIEVEMENTS_FOODS);
             onCreate(db);
         }
 
