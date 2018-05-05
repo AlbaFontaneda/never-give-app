@@ -115,10 +115,11 @@
 
 
     //Menús de los elementos de cada actividad
-    <string name="element_settings">Opciones</string>
     <string name="element_edit">Editar</string>
+    <string name="element_resume">Ver detalles</string>
     <string name="element_delete">Eliminar</string>
-    <string name="all_delete">Eliminar todos las tablas</string>
+    <string name="all_delete_training">Eliminar todas las tablas</string>
+    <string name="all_delete_foods">Eliminar todas las comidas</string>
 
     //Pantalla de inicio
     <string name="comidas_hoy">Comidas de hoy</string>

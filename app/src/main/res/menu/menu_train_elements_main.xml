@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_training_elements_edit"
-        android:title="@string/element_edit"
+        android:title="@string/element_resume"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>
