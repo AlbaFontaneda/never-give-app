@@ -2,8 +2,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -68,7 +66,6 @@ public class ExerciseResumeFragment extends Fragment {
         ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
-        //updateCountDown();
         progressBar.setProgress(100);
         setStartTime(ejercicio.getDescanso());
         mycounter = new CountDownTimer(START_TIME, 1000);
@@ -106,11 +103,7 @@ public class ExerciseResumeFragment extends Fragment {
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         exerciseImage.setImageBitmap(bmp);
 
-        //exerciseDescanso.setText((String) ejercicio.getDescanso());
-
-
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new TableResumeActivity.CheckboxAdapter(ejercicio);

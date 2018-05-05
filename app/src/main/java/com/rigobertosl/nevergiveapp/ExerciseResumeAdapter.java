@@ -56,16 +56,13 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView title, series, repeticiones, descanso;
+        private TextView title;
         private EditText nSeries, nRepeticiones, nDescanso;
 
         MyViewHolder(View view) {
             super(view);
 
             title = (TextView)view.findViewById(R.id.nombre_ejercicio);
-            series = (TextView)view.findViewById(R.id.series);
-            repeticiones = (TextView)view.findViewById(R.id.repeticiones);
-            descanso = (TextView)view.findViewById(R.id.descanso);
 
             nSeries = (EditText)view.findViewById(R.id.num_series);
             nSeries.addTextChangedListener(new TextWatcher() {

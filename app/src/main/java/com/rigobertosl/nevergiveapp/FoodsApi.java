@@ -1,15 +1,11 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,15 +16,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
 
     final String FOODS_KEY = "LTplIb5O1cbc2giBWN3Kf0N3ZuLgsIsgHsLAptbZ";
-    //final String[] FOOD_NO = {"45001659", "45049771", "01083"}; //Pasta, Huevos, Leche
     final String FOOD_NO = "?ndbno=45001659&ndbno=45049771&ndbno=01083&ndbno=45048329&ndbno=45034090" +
             "&ndbno=45002256&ndbno=45001849&ndbno=45013375&ndbno=45056459&ndbno=45003803&ndbno=45002292&ndbno=45038434";
-    //Pasta, Huevos, Leche, Carne, Pescado, Verdura, Bolleria, Cereales, Legumbre, Embutido, Queso
 
     final String TYPE_REQUEST = "s";
     final String FORMAT_REQUEST = "json";
@@ -52,7 +44,6 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
     private ArrayList<FoodKcal> makeCall(String stringURL) {
         URL url = null;
         InputStream is = null;
-        JSONObject jsonObject;
         ArrayList<FoodKcal> temp = new ArrayList<FoodKcal>();
 
         try {
