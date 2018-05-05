@@ -22,7 +22,7 @@ public class DataBaseContract {
         this.context = context;
     }
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
@@ -155,7 +155,7 @@ public class DataBaseContract {
 
     public static class DataBaseHelper extends SQLiteOpenHelper {
 
-        public DataBaseHelper(Context context) {
+        private DataBaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -337,7 +337,7 @@ public class DataBaseContract {
     }
 
     /** Delete ejercicios **/
-    public void deleteExercisesFromTable(long ejercicioId) {
+    private void deleteExercisesFromTable(long ejercicioId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryListTrain.TABLE_NAME, DataBaseEntryListTrain._ID + " = ?",
                 new String[] { String.valueOf(ejercicioId) });
@@ -351,7 +351,7 @@ public class DataBaseContract {
     }
 
     /** Delete link table **/
-    public void deleteLinkTable(long tableId) {
+    private void deleteLinkTable(long tableId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryTrain.TABLE_NAME, DataBaseEntryTrain.COLUMN_NAME_ID + " = ?",
                 new String[] { String.valueOf(tableId) });
@@ -365,22 +365,22 @@ public class DataBaseContract {
         values.put(DataBaseEntryNameTrain.COLUMN_DAYS, newDays);
 
         ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
-        editExercisesFromTable(table, oldExercises, newExercises);
+        editExercisesFromTable(oldExercises, newExercises);
 
         return mDb.update(DataBaseEntryNameTrain.TABLE_NAME, values,
                 DataBaseContract.DataBaseEntryNameTrain._ID + " = ?",
                 new String[] { String.valueOf(table.getId()) });
     }
 
-    public void editExercisesFromTable(TrainingTable table, ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
+    private void editExercisesFromTable(ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
 
-        for(int i=0; i<oldExercises.size(); i++){
+        for(int i=0; i < oldExercises.size(); i++){
             editExercise(oldExercises.get(i), newExercises.get(i));
         }
     }
 
-    public int editExercise(Exercise oldExercise, Exercise newExercise){
+    private int editExercise(Exercise oldExercise, Exercise newExercise){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, newExercise.getNombre());
@@ -457,7 +457,7 @@ public class DataBaseContract {
     }
 
     /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
-    public ArrayList<FoodTable> getAllFoodTables() {
+    private ArrayList<FoodTable> getAllFoodTables() {
         ArrayList<FoodTable> table = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
         mDb = mDbHelper.getReadableDatabase();
@@ -566,7 +566,7 @@ public class DataBaseContract {
     }
 
     /** Borra un row de lista de kcal **/
-    public void deleteKcal(FoodTable foodTable) {
+    private void deleteKcal(FoodTable foodTable) {
         long tableId = foodTable.getId();
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryKcal.TABLE_NAME, DataBaseEntryKcal.COLUMN_FOOD_ID + " = ?",
@@ -889,7 +889,7 @@ public class DataBaseContract {
     }
 
     /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
-    public void updateAchievement(long id, String type, boolean completed){
+    private void updateAchievement(long id, String type, boolean completed){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         if (type.equals("training")){

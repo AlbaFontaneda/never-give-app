@@ -47,6 +47,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+
+
+
 /**
  * This demo shows how GMS Location can be used to check for changes to the users location.  The
  * "My Location" button uses GMS Location to set the blue dot representing the users location.
@@ -76,7 +79,6 @@ public class Location extends AppCompatActivity
     private GoogleMap mMap;
     private final String type = "gym";
     private final String radius = "1000";
-    private ArrayList<GooglePlace> foundPlaces;
     private GooglePlace myLocation;
 
     @Override
@@ -117,7 +119,7 @@ public class Location extends AppCompatActivity
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Pulse sobre su ubicación para mostrar los centros deportivos más cercanos.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Pulse sobre su ubicación para mostrar los centros deportivos más cercanos.", Toast.LENGTH_LONG).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -127,7 +129,6 @@ public class Location extends AppCompatActivity
     public void onMyLocationClick(@NonNull android.location.Location location) {
         myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
         new FindPlaces().execute();
-        //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -232,7 +233,6 @@ public class Location extends AppCompatActivity
         }
 
         protected void onPostExecute(ArrayList<GooglePlace> result) {
-            foundPlaces = result;
             for(GooglePlace place : result){
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
@@ -248,12 +248,6 @@ class GooglePlace {
 
     private String name;
     private double latitude, longitude;
-
-    public GooglePlace() {
-        this.name = "";
-        this.latitude = 0;
-        this.longitude = 0;
-    }
 
     public GooglePlace(String name, double latitude, double longitude) {
         this.name = name;
@@ -273,16 +267,9 @@ class GooglePlace {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }
 
