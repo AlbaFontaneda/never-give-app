@@ -1,26 +1,28 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import android.widget.TimePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
-import java.util.Calendar;
 import java.util.Locale;
 
-public class ChestActivity extends TrainingActivity {
+public class ChestActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private DataBaseContract db;
     public long rowId;
@@ -43,50 +45,91 @@ public class ChestActivity extends TrainingActivity {
             }
         });
 
-        LinearLayout pressSuperiorLinear = (LinearLayout) findViewById(R.id.press_superior);
-        LinearLayout pressBancaLinear = (LinearLayout) findViewById(R.id.press_banca);
-        LinearLayout poleaAltaLinear = (LinearLayout) findViewById(R.id.polea_alta);
-        LinearLayout pullOverLinear = (LinearLayout) findViewById(R.id.pullover);
-        LinearLayout fondosLinear = (LinearLayout) findViewById(R.id.fondos);
-        LinearLayout pressBarraLinear = (LinearLayout) findViewById(R.id.press_barra);
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
 
-        pressSuperiorLinear.setOnClickListener(new View.OnClickListener() {
+        String[] pechoExercises = getResources().getStringArray(R.array.all_exercises_titles);
+
+        final TextView textUno = findViewById(R.id.ejercicioUnoText);
+        textUno.setText(pechoExercises[4]);
+
+        final TextView textDos = findViewById(R.id.ejercicioDosText);
+        textDos.setText(pechoExercises[5]);
+
+        final TextView textTres = findViewById(R.id.ejercicioTresText);
+        textTres.setText(pechoExercises[6]);
+
+        final TextView textCuatro = findViewById(R.id.ejercicioCuatroText);
+        textCuatro.setText(pechoExercises[7]);
+
+        final TextView textCinco = findViewById(R.id.ejercicioCincoText);
+        textCinco.setText(pechoExercises[8]);
+
+        final ImageView imageUno = findViewById(R.id.ejercicioUnoImage);
+        imageUno.setImageBitmap(setImage(textUno.getText().toString()));
+
+        final ImageView imageDos = findViewById(R.id.ejercicioDosImage);
+        imageDos.setImageBitmap(setImage(textDos.getText().toString()));
+
+        final ImageView imageTres = findViewById(R.id.ejercicioTresImage);
+        imageTres.setImageBitmap(setImage(textTres.getText().toString()));
+
+        final ImageView imageCuatro = findViewById(R.id.ejercicioCuatroImage);
+        imageCuatro.setImageBitmap(setImage(textCuatro.getText().toString()));
+
+        final ImageView imageCinco = findViewById(R.id.ejercicioCincoImage);
+        imageCinco.setImageBitmap(setImage(textCinco.getText().toString()));
+
+        LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
+        LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
+        LinearLayout tresLinear = (LinearLayout) findViewById(R.id.ejercicioTres);
+        LinearLayout cuatroLinear = (LinearLayout) findViewById(R.id.ejercicioCuatro);
+        LinearLayout cincoLinear = (LinearLayout) findViewById(R.id.ejercicioCinco);
+
+        unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Aperturas con mancuernas");
+                openDialog(view, textUno.getText().toString());
             }
         });
-        pressBancaLinear.setOnClickListener(new View.OnClickListener() {
+        dosCerradoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Press de banca al cuello");
+                openDialog(view, textDos.getText().toString());
             }
         });
-        poleaAltaLinear.setOnClickListener(new View.OnClickListener() {
+        tresLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Cruces en polea alta");
+                openDialog(view, textTres.getText().toString());
             }
         });
-        pullOverLinear.setOnClickListener(new View.OnClickListener() {
+        cuatroLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Pullover");
+                openDialog(view, textCuatro.getText().toString());
             }
         });
-        fondosLinear.setOnClickListener(new View.OnClickListener() {
+
+        cincoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, "Fondos entre bancos");
-            }
-        });
-        pressBarraLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(view, "Press con barra");
+                openDialog(view, textCinco.getText().toString());
             }
         });
     }
+
+    public Bitmap setImage(String exerciseName) {
+        db.open();
+        byte[] b = db.getExerciseImage(exerciseName);
+        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        db.close();
+        return bmp;
+    }
+
     public void openDialog(View view, final String name) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_new_exercise, null);
@@ -100,6 +143,11 @@ public class ChestActivity extends TrainingActivity {
         final EditText seriesEditText = (EditText)dialogLayout.findViewById(R.id.num_series);
         final EditText repeticionesEditText = (EditText)dialogLayout.findViewById(R.id.num_repeticiones);
         final EditText descansoEditText = (EditText)dialogLayout.findViewById(R.id.tiempo_descanso);
+
+        db.open();
+        final byte[] image = db.getExerciseImage(name);
+        final String description = db.getExerciseDescription(name);
+        db.close();
 
         descansoEditText.setOnClickListener(new View.OnClickListener() {
 
@@ -122,7 +170,7 @@ public class ChestActivity extends TrainingActivity {
                 } else {
                     fab.setVisibility(View.VISIBLE);
                     db.open();
-                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso);
+                    long id = db.createTableListTraining(name, numSeries, numRepeticiones, tiempoDescanso, "pecho", image, description);
                     rowId = id;
                     db.createTableTraining(TrainingActivity.lastRowId, rowId);
                     db.close();
@@ -158,7 +206,7 @@ public class ChestActivity extends TrainingActivity {
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);
-        minutosPikcer.setMaxValue(59);
+        minutosPikcer.setMaxValue(5);
         minutosPikcer.setWrapSelectorWheel(true);
 
         minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -185,9 +233,14 @@ public class ChestActivity extends TrainingActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
-                descansoEditText.setText(timeLeftFormatted);
-                dialog.cancel();
+                if(selectedSeconds[0] == 0 && selectedMinute[0] == 0){
+                    Toast.makeText(getApplicationContext(), "Debe tomarse un descanso entre serie y serie.", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                    descansoEditText.setText(timeLeftFormatted);
+                    dialog.cancel();
+                }
             }
         });
         cancelar.setOnClickListener(new View.OnClickListener() {

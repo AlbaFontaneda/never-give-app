@@ -1,26 +1,18 @@
 package com.rigobertosl.nevergiveapp;
 
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
 public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchievementAdapter.MyViewHolder> {
 
-    private Context mContext;
     private ArrayList<Achievement> achievements;
-    private String type;
-    private DataBaseContract db;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,11 +28,8 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
         }
     }
 
-    public CustomAchievementAdapter(Context mContext, ArrayList<Achievement> achievements, String type) {
-        this.mContext = mContext;
+    public CustomAchievementAdapter(ArrayList<Achievement> achievements) {
         this.achievements = achievements;
-        this.type = type;
-        db = new DataBaseContract(this.mContext);
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,7 +43,11 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
         holder.title.setText(achievements.get(position).getTitle());
         holder.description.setText(achievements.get(position).getDescription());
-        //holder.points.setText(achievements.get(position).getPoints());
+        holder.points.setText(achievements.get(position).getPoints());
+        holder.itemType.setImageResource(R.drawable.ic_logro_no_completado);
+        if (achievements.get(position).isCompleted()){
+            holder.itemType.setImageResource(R.drawable.ic_logro_completado);
+        }
     }
 
     @Override

@@ -15,7 +15,6 @@
     <uses-permission
         android:name="android.permission.MEDIA_CONTENT_CONTROL"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -36,11 +35,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FoodsActivity"
-            android:label="@string/title_activity_foods"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training"
             android:parentActivityName=".MainActivity"
@@ -49,7 +43,6 @@
             android:name=".ExercisesTypeActivity"
             android:label="@string/title_activity_exercisies_type"
             android:parentActivityName=".TrainingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChestActivity"
@@ -62,19 +55,48 @@
             android:parentActivityName=".ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".BicepsActivity"
+            android:label="@string/title_activity_biceps"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TricepsActivity"
+            android:label="@string/title_activity_triceps"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PiernaActivity"
+            android:label="@string/title_activity_pierna"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AbsActivity"
+            android:label="@string/title_activity_abs"
+            android:parentActivityName=".ExercisesTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".TableResumeActivity"
-            android:label="@string/title_activity_scrolling"
+            android:label="@string/title_table_resume_activity"
             android:parentActivityName=".TrainingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditTableActivity"
+            android:label="@string/title_activity_edit_table"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DefaultResume"
+            android:label="@string/title_activity_default_resume"
+            android:parentActivityName=".TrainingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FoodsActivity"
+            android:label="@string/title_activity_foods"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FoodResumeActivity"
             android:label="@string/title_activity_food_resume"
             android:parentActivityName=".FoodsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".DefaultResume"
-            android:label="@string/title_activity_default_resume"
-            android:parentActivityName=".TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AchievementsActivity"
@@ -84,17 +106,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
-            android:name=".EventsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".Location"
             android:label="@string/title_activity_events"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".MyLocationDemoActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_events"/>
-      
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

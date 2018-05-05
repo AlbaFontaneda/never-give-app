@@ -5,259 +5,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardViewContent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rigobertosl.nevergiveapp.ExercisesTypeActivity"
     tools:showIn="@layout/activity_exercises_type">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/exercises_types_background"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/layoutEspalda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/espacioEspalda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="\n\n\n\n\n"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/espacioEspalda"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/espacioEspalda2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"/>
-                <RadioButton
-                    android:id="@+id/radioButtonEspalda"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="── Hombro y espalda"
-                    android:layout_toRightOf="@+id/espacioEspalda2"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutPecho"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/espacioPecho"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t\t\t\t\t\t"/>
-                <RadioButton
-                    android:id="@+id/radioButtonPecho"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pecho ──────"
-                    android:layoutDirection="rtl"
-                    android:textAlignment="textStart"
-                    android:layout_gravity="start"
-                    android:layout_toRightOf="@+id/espacioPecho"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutTriceps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/espacioTriceps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t"/>
-                <RadioButton
-                    android:id="@+id/radioButtonTriceps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Triceps ─"
-                    android:layoutDirection="rtl"
-                    android:textAlignment="textStart"
-                    android:layout_gravity="start"
-                    android:layout_toRightOf="@+id/espacioTriceps"/>
-                <TextView
-                    android:id="@+id/espacio2Triceps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                    android:layout_toRightOf="@id/radioButtonTriceps"/>
-                <RadioButton
-                    android:id="@+id/radioButtonBiceps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="──── Biceps"
-                    android:layout_toRightOf="@+id/espacio2Triceps"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutAbdominales"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/espacioAbdominales"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/espacioAbdominales"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/espacioAbdominales2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"/>
-                <RadioButton
-                    android:id="@+id/radioButtonAbdominales"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="───── Abdominales"
-                    android:layout_toRightOf="@+id/espacioAbdominales2"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutPierna"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/espacioPierna"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="\n\n\n"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/espacioPierna"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/espacioPierna2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\t\t\t\t\t\t\t"/>
-                <RadioButton
-                    android:id="@+id/radioButtonPierna"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:textAlignment="textStart"
-                    android:layout_gravity="start"
-                    android:text="Pierna ───"
-                    android:layout_toRightOf="@+id/espacioPierna2"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-   <!--
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableLayout
-            android:id="@+id/table_exercises"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
-                android:id="@+id/pecho"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    android:id="@+id/pecho_text_view"
-                    style="@style/Text_button_exercise_type"
-                    android:autoLink="all"
-                    android:text="@string/pecho" />
+                android:id="@+id/radioButtonEspalda"
+                style="@style/buttonExercise">
 
+                <TextView
+                    android:id="@+id/exerciseEspalda"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/espalda"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/espalda_text_view"
-                    android:autoLink="all"
-                    android:text="@string/espalda" />
+                android:id="@+id/radioButtonPecho"
+                style="@style/buttonExercise">
 
+                <TextView
+                    android:id="@+id/exercisePecho"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/biceps"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/biceps_text_view"
-                    android:autoLink="all"
-                    android:text="@string/biceps" />
+                android:id="@+id/radioButtonBiceps"
+                style="@style/buttonExercise">
 
+                <TextView
+                    android:id="@+id/exerciseBiceps"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/triceps"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/triceps_text_view"
-                    android:autoLink="all"
-                    android:text="@string/triceps" />
+                android:id="@+id/radioButtonTriceps"
+                style="@style/buttonExercise">
 
+                <TextView
+                    android:id="@+id/exerciseTriceps"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/hombro"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/hombro_text_view"
-                    android:autoLink="all"
-                    android:text="@string/hombro" />
+                android:id="@+id/radioButtonPierna"
+                style="@style/buttonExercise">
 
+                <TextView
+                    android:id="@+id/exercisePierna"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/pierna"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
+                android:id="@+id/radioButtonAbdominales"
+                style="@style/buttonExercise">
+
                 <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/pierna_text_view"
-                    android:autoLink="all"
-                    android:text="@string/pierna" />
-
+                    android:id="@+id/exerciseAbdominales"
+                    style="@style/nombreEjercicio"
+                    android:gravity="center" />
             </LinearLayout>
-        </TableLayout>
 
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    -->
 </android.support.design.widget.CoordinatorLayout>

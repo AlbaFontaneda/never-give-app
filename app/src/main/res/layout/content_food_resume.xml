@@ -11,25 +11,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_height="140dp"
                 android:orientation="vertical"
                 android:gravity="center">
-                <ImageButton
-                    android:id="@+id/image_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:padding="1dp"
-                    android:text="+"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageButton
+                        android:id="@+id/image_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:padding="1dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textSize="20sp"
+                        android:background="@color/white"
+                        android:textColor="@color/bpblack"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:text="@string/foodImage" />
+                </RelativeLayout>
+
                 <ImageView
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"
@@ -38,180 +53,149 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="left"
-                android:layout_weight="7">
+                android:gravity="start" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="Días de la semana:" />
+                    style="@style/foodResumeTitle"
+                    android:text="@string/diasComida" />
                 <TextView
                     android:id="@+id/food_days"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
-                    android:textAllCaps="true"
-                    android:text="LU, M, X, Ju, Vu, Sa, Do"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="Tipo de comida:" />
-                    <TextView
-                        android:id="@+id/food_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
-                        android:text="XXX"/>
-                </LinearLayout>
+                    style="@style/foodResumeContent" />
+
+                <TextView
+                    style="@style/foodResumeTitle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tipoComda" />
+                <TextView
+                    android:id="@+id/food_type"
+                    style="@style/foodResumeContent" />
+
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/apiAviso"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/layouts_resume_table"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="15dp"
+                style="@style/foodResumeTitle"
                 android:textStyle="bold"
-                android:text="Escoge ingredientes de la lista para saber las kcal totales:" />
+                android:paddingStart="0dp"
+                android:text="@string/avisoApi" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/listKcal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/foodResumeTitle"
+                android:textStyle="bold"
+                android:paddingStart="0dp"
+                android:text="@string/listKcal" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layouts_resume_table"
+
+                android:layout_weight="3"
                 android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layouts_resume_table"
-                    android:orientation="vertical">
+                    style="@style/checksFoods">
                     <CheckBox
                         android:id="@+id/pasta_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pasta"/>
+                        android:text="@string/pasta"/>
                     <CheckBox
                         android:id="@+id/huevos_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Huevos"/>
+                        android:text="@string/huevos"/>
                     <CheckBox
                         android:id="@+id/leche_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Leche"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layouts_resume_table"
-                    android:orientation="vertical">
+                        android:text="@string/leche"/>
                     <CheckBox
                         android:id="@+id/carne_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carne"/>
+                        android:text="@string/carne"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/checksFoods">
                     <CheckBox
                         android:id="@+id/pescado_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pescado"/>
+                        android:text="@string/pescado"/>
                     <CheckBox
                         android:id="@+id/verdura_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Verdura"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layouts_resume_table"
-                    android:orientation="vertical">
+                        android:text="@string/verdura"/>
                     <CheckBox
                         android:id="@+id/bolleria_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bollería"/>
+                        android:text="@string/bolleria"/>
                     <CheckBox
                         android:id="@+id/cereales_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cereales"/>
+                        android:text="@string/cereales"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/checksFoods">
                     <CheckBox
                         android:id="@+id/legumbre_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Legumbre"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layouts_resume_table"
-                    android:orientation="vertical">
+                        android:text="@string/legumbre"/>
                     <CheckBox
                         android:id="@+id/embutido_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Embutido"/>
+                        android:text="@string/embutido"/>
                     <CheckBox
                         android:id="@+id/queso_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Queso"/>
+                        android:text="@string/queso"/>
                     <CheckBox
                         android:id="@+id/yogur_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Yogurt"/>
+                        android:text="@string/yogurt"/>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layouts_resume_table"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textStyle="bold"
+                    style="@style/totalKcal"
                     android:textColor="@color/bpblack"
-                    android:textSize="17dp"
-                    android:text="Total de Kcal:"/>
+                    android:text="@string/totalKcal"/>
                 <TextView
                     android:id="@+id/num_kcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:padding="5dp"
+                    style="@style/totalKcal"
                     android:text="0"/>
             </LinearLayout>
         </LinearLayout>

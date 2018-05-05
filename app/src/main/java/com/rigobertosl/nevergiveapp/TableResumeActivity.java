@@ -3,35 +3,28 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
-public class TableResumeActivity extends TrainingActivity {
+public class TableResumeActivity extends AppCompatActivity {
 
     private Context mContext;
     private DataBaseContract db;
     private long tableID;
-    private RecyclerView recyclerView;
-    private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
     private int numPaginas;
@@ -47,14 +40,17 @@ public class TableResumeActivity extends TrainingActivity {
         db.open();
         tableID = (long) getIntent().getSerializableExtra("tablaID");
         trainingTable = db.getTrainingTableByID(tableID);
-        CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
-        TextView toolbar_days = (TextView)findViewById(R.id.toolbar_days);
-        toolbar_days.setText(trainingTable.getDays());
-        //colToolbar.setTitleEnabled(false);
+        db.close();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                onBackPressed();
+            }
+        });
 
         numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
@@ -64,7 +60,6 @@ public class TableResumeActivity extends TrainingActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 
@@ -72,50 +67,10 @@ public class TableResumeActivity extends TrainingActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(view, trainingTable);
-            }
-        });
-    }
-
-    public void openDialog(View view, TrainingTable table) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_edit_table, null);
-        final AlertDialog dialog = builder.create();
-        dialog.setView(dialogLayout);
-        dialog.setTitle(table.getName());
-        dialog.show();
-
-        final EditText tableName = (EditText) dialogLayout.findViewById(R.id.table_name);
-        EditText tableDays = (EditText) dialogLayout.findViewById(R.id.table_days);
-        final Button editar = (Button)dialogLayout.findViewById(R.id.button_edit);
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
-        tableName.setText(table.getName());
-        tableDays.setText(table.getDays());
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        recyclerView = (RecyclerView)dialogLayout.findViewById(R.id.recylcer_exercises);
-        recyclerView.setHasFixedSize(true);
-        ArrayList<Exercise> exerciseList = db.getAllExercisesFromTable(table);
-        exerciseResumeAdapter = new ExerciseResumeAdapter(exerciseList);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(exerciseResumeAdapter);
-
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
-
-        editar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-                db.editTable(trainingTable, tableName.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
-                dialog.cancel();
-                finish();
-                startActivity(getIntent());
+                Intent intent = new Intent(mContext, EditTableActivity.class);
+                intent.putExtra("tablaID", tableID);
+                intent.putExtra("fromTraining", getIntent().getSerializableExtra("fromTraining"));
+                mContext.startActivity(intent);
             }
         });
     }

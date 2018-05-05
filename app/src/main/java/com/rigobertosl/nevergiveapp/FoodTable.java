@@ -1,7 +1,5 @@
 package com.rigobertosl.nevergiveapp;
 
-import java.sql.Blob;
-
 public class FoodTable {
     private long id;
     private String name, days, type, kcal;

@@ -1,26 +1,26 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ExercisesTypeActivity extends AppCompatActivity {
     private DataBaseContract db;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_type);
-
+        db = new DataBaseContract(ExercisesTypeActivity.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,14 +32,14 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.create();
                 dialog.setView(dialogLayout);
                 dialog.show();
-
+                TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+                textoAviso.setText(R.string.avisoVolver);
                 final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
                 final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
                 volver.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        db = new DataBaseContract(ExercisesTypeActivity.this);
                         db.open();
                         db.deleteTable(TrainingActivity.trainingTable, true);
                         db.close();
@@ -57,21 +57,80 @@ public class ExercisesTypeActivity extends AppCompatActivity {
             }
         });
 
-        RadioButton pechoRadioButton = (RadioButton) findViewById(R.id.radioButtonPecho);
-        RadioButton espaldaRadioButton = (RadioButton) findViewById(R.id.radioButtonEspalda);
-        RadioButton tricepsRadioButton = (RadioButton) findViewById(R.id.radioButtonTriceps);
-        RadioButton bicepsRadioButton = (RadioButton) findViewById(R.id.radioButtonBiceps);
-        RadioButton abdominalesRadioButton = (RadioButton) findViewById(R.id.radioButtonAbdominales);
-        RadioButton piernaRadioButton = (RadioButton) findViewById(R.id.radioButtonPierna);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ExercisesTypeActivity.this, TrainingActivity.class));
+            }
+        });
+
+        db.open();
+        if(!db.controlExerciseInput(TrainingActivity.lastRowId)) {
+            fab.setVisibility(View.VISIBLE);
+        }
+        db.close();
+
+        String[] exerciseTypes = getResources().getStringArray(R.array.exerciseTypes);
+
+        TextView textEspalda = findViewById(R.id.exerciseEspalda);
+        textEspalda.setText(exerciseTypes[0]);
+
+        TextView textPecho = findViewById(R.id.exercisePecho);
+        textPecho.setText(exerciseTypes[1]);
+
+        TextView textBiceps = findViewById(R.id.exerciseBiceps);
+        textBiceps.setText(exerciseTypes[2]);
+
+        TextView textTriceps = findViewById(R.id.exerciseTriceps);
+        textTriceps.setText(exerciseTypes[3]);
+
+        TextView textPierna = findViewById(R.id.exercisePierna);
+        textPierna.setText(exerciseTypes[4]);
+
+        TextView textAbs = findViewById(R.id.exerciseAbdominales);
+        textAbs.setText(exerciseTypes[5]);
+
+        LinearLayout espaldaRadioButton = (LinearLayout) findViewById(R.id.radioButtonEspalda);
+        LinearLayout pechoRadioButton = (LinearLayout) findViewById(R.id.radioButtonPecho);
+        LinearLayout bicepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonBiceps);
+        LinearLayout tricepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonTriceps);
+        LinearLayout piernaRadioButton = (LinearLayout) findViewById(R.id.radioButtonPierna);
+        LinearLayout abdominalesRadioButton = (LinearLayout) findViewById(R.id.radioButtonAbdominales);
+
+        espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
+            }
+        });
 
         pechoRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(ExercisesTypeActivity.this, ChestActivity.class));
             }
         });
-        espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
+
+        bicepsRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(ExercisesTypeActivity.this, EspaldaActivity.class));
+                startActivity(new Intent(ExercisesTypeActivity.this, BicepsActivity.class));
+            }
+        });
+
+        tricepsRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, TricepsActivity.class));
+            }
+        });
+
+        piernaRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, PiernaActivity.class));
+            }
+        });
+
+        abdominalesRadioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(ExercisesTypeActivity.this, AbsActivity.class));
             }
         });
     }
@@ -102,14 +161,14 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
         dialog.setView(dialogLayout);
         dialog.show();
-
+        TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+        textoAviso.setText(R.string.avisoVolver);
         final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
         final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
         volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db = new DataBaseContract(ExercisesTypeActivity.this);
                 db.open();
                 db.deleteTable(TrainingActivity.trainingTable, true);
                 db.close();

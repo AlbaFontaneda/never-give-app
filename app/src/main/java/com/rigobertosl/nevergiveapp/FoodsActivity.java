@@ -1,49 +1,33 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
-
 import java.util.ArrayList;
 
-public class FoodsActivity extends MainActivity {
+public class FoodsActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
@@ -93,7 +77,7 @@ public class FoodsActivity extends MainActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_foods, menu);
+        getMenuInflater().inflate(R.menu.activity_menu_food, menu);
         return true;
     }
 
@@ -101,16 +85,36 @@ public class FoodsActivity extends MainActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_foods_visual | id == R.id.menu_foods_settings | id == R.id.menu_foods_edit) {
-            Toast.makeText(getApplicationContext(),
-                    item.getTitle(), Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_settings) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoFood);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetFoods();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                    dialog.cancel();
+                }
+            });
             return true;
-        } if(id == R.id.menu_foods_delete) {
-           db.open();
-           db.resetFoods();
-           db.close();
-           finish();
-           startActivity(getIntent());
         }
         return super.onOptionsItemSelected(item);
     }

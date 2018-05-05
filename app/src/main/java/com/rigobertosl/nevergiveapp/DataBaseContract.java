@@ -8,10 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import static java.lang.Long.valueOf;
 
@@ -24,6 +23,7 @@ public class DataBaseContract {
     }
 
     private static final int DATABASE_VERSION = 1;
+
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -52,6 +52,9 @@ public class DataBaseContract {
         public static final String COLUMN_SERIES = "series";
         public static final String COLUMN_REPETICIONES = "repeticiones";
         public static final String COLUMN_DESCANSO = "descanso";
+        public static final String COLUMN_TYPE = "tipo";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_DESCRIPTION= "description";
 
 
         private static final String SQL_CREATE_ENTRIES_LIST_TRAIN =
@@ -60,7 +63,10 @@ public class DataBaseContract {
                         DataBaseEntryListTrain.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                         DataBaseEntryListTrain.COLUMN_SERIES + TEXT_TYPE + COMMA_SEP +
                         DataBaseEntryListTrain.COLUMN_REPETICIONES + TEXT_TYPE + COMMA_SEP +
-                        DataBaseEntryListTrain.COLUMN_DESCANSO + TEXT_TYPE + " )";
+                        DataBaseEntryListTrain.COLUMN_DESCANSO + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryListTrain.COLUMN_TYPE + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryListTrain.COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                        DataBaseEntryListTrain.COLUMN_IMAGE + " BLOB" + " )";
 
         private static final String SQL_DELETE_ENTRIES_LIST_TRAIN =
                 "DROP TABLE IF EXISTS " + DataBaseEntryListTrain.TABLE_NAME;
@@ -70,7 +76,6 @@ public class DataBaseContract {
         public static final String TABLE_NAME = "tabla_ejercicios";
         public static final String COLUMN_NAME_ID = "id_name";
         public static final String COLUMN_LIST_ID = "id_list";
-
 
         private static final String SQL_CREATE_ENTRIES_TRAIN =
                 "CREATE TABLE " + DataBaseEntryTrain.TABLE_NAME + " (" +
@@ -143,59 +148,6 @@ public class DataBaseContract {
                 "DROP TABLE IF EXISTS " + DataBaseEntryKcal.TABLE_NAME;
     }
 
-    /********************* COLUMNAS PARA TABLAS DE ENTRENAMIENTO POR DEFECTO *****************************/
-    public static class DataBaseDefaultTable implements BaseColumns {
-        public static final String TABLE_NAME = "tabla_default";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_DAYS = "days";
-
-        private static final String SQL_CREATE_DEFAULT_TABLE =
-                "CREATE TABLE " + DataBaseContract.DataBaseDefaultTable.TABLE_NAME + " (" +
-                        DataBaseContract.DataBaseDefaultTable._ID + " INTEGER PRIMARY KEY," +
-                        DataBaseContract.DataBaseDefaultTable.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
-                        DataBaseContract.DataBaseDefaultTable.COLUMN_DAYS + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_DEFAULT_TABLE =
-                "DROP TABLE IF EXISTS " + DataBaseContract.DataBaseDefaultTable.TABLE_NAME;
-    }
-
-    public static class DataBaseDefaultExercises implements BaseColumns {
-        public static final String TABLE_NAME = "ejercicios_default";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_SERIES = "series";
-        public static final String COLUMN_REPETICIONES = "repeticiones";
-        public static final String COLUMN_DESCANSO = "descanso";
-
-
-        private static final String SQL_CREATE_DEFAULT_EXERCISES =
-                "CREATE TABLE " + DataBaseDefaultExercises.TABLE_NAME + " (" +
-                        DataBaseDefaultExercises._ID + " INTEGER PRIMARY KEY," +
-                        DataBaseDefaultExercises.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
-                        DataBaseDefaultExercises.COLUMN_SERIES + TEXT_TYPE + COMMA_SEP +
-                        DataBaseDefaultExercises.COLUMN_REPETICIONES + TEXT_TYPE + COMMA_SEP +
-                        DataBaseDefaultExercises.COLUMN_DESCANSO + TEXT_TYPE + " )";
-
-        private static final String SQL_DELETE_DEFAULT_EXERCISES =
-                "DROP TABLE IF EXISTS " + DataBaseDefaultExercises.TABLE_NAME;
-    }
-
-    public static class DataBaseDefaultLinkTable implements BaseColumns {
-        public static final String TABLE_NAME = "link_default";
-        public static final String COLUMN_NAME_ID = "id_name";
-        public static final String COLUMN_LIST_ID = "id_list";
-
-
-        private static final String SQL_CREATE_ENTRIES_DEFAULT_LINK =
-                "CREATE TABLE " + DataBaseDefaultLinkTable.TABLE_NAME + " (" +
-                        DataBaseDefaultLinkTable._ID + " INTEGER PRIMARY KEY," +
-                        DataBaseDefaultLinkTable.COLUMN_NAME_ID + LONG_TYPE + COMMA_SEP +
-                        DataBaseDefaultLinkTable.COLUMN_LIST_ID + LONG_TYPE + " )";
-
-        private static final String SQL_DELETE_ENTRIES_DEFAULT_LINK =
-                "DROP TABLE IF EXISTS " + DataBaseDefaultLinkTable.TABLE_NAME;
-    }
-
-
     private DataBaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
@@ -203,7 +155,7 @@ public class DataBaseContract {
 
     public static class DataBaseHelper extends SQLiteOpenHelper {
 
-        public DataBaseHelper(Context context) {
+        private DataBaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -214,9 +166,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_CREATE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_CREATE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_CREATE_ENTRIES_KCAL);
-            db.execSQL(DataBaseDefaultTable.SQL_CREATE_DEFAULT_TABLE);
-            db.execSQL(DataBaseDefaultExercises.SQL_CREATE_DEFAULT_EXERCISES);
-            db.execSQL(DataBaseDefaultLinkTable.SQL_CREATE_ENTRIES_DEFAULT_LINK);
         }
 
         public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
@@ -225,9 +174,6 @@ public class DataBaseContract {
             db.execSQL(DataBaseEntryTrain.SQL_DELETE_ENTRIES_TRAIN);
             db.execSQL(DataBaseEntryFoods.SQL_DELETE_ENTRIES_FOODS);
             db.execSQL(DataBaseEntryKcal.SQL_DELETE_ENTRIES_KCAL);
-            db.execSQL(DataBaseDefaultTable.SQL_DELETE_DEFAULT_TABLE);
-            db.execSQL(DataBaseDefaultExercises.SQL_DELETE_DEFAULT_EXERCISES);
-            db.execSQL(DataBaseDefaultLinkTable.SQL_DELETE_ENTRIES_DEFAULT_LINK);
             onCreate(db);
         }
 
@@ -320,8 +266,8 @@ public class DataBaseContract {
     public ArrayList<Exercise> getAllExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
-                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
+        String selectQuery = "SELECT tl.*, te.id_list FROM " + DataBaseEntryNameTrain.TABLE_NAME + " tn, " + DataBaseEntryListTrain.TABLE_NAME
+                + " tl, " + DataBaseEntryTrain.TABLE_NAME + " te WHERE tn." + DataBaseEntryNameTrain._ID + " = '" + mTrainingTable.getId() + "'" +
                 " AND tn." + DataBaseEntryNameTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_NAME_ID +
                 " AND tl." + DataBaseEntryListTrain._ID + " = te." + DataBaseEntryTrain.COLUMN_LIST_ID;
 
@@ -331,7 +277,8 @@ public class DataBaseContract {
         if(cursor.moveToFirst()) {
             do {
                 Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)),
+                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_TYPE)), cursor.getBlob(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_IMAGE)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCRIPTION)));
                 newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain.COLUMN_LIST_ID))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
@@ -340,12 +287,15 @@ public class DataBaseContract {
     }
 
     /** Crear lista_ejercicos en la base de datos **/
-    public long createTableListTraining(String name,  String series, String repeticiones, String descanso){
+    public long createTableListTraining(String name,  String series, String repeticiones, String descanso, String tipo, byte[] image, String description){
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, name);
         values.put(DataBaseEntryListTrain.COLUMN_SERIES, series);
         values.put(DataBaseEntryListTrain.COLUMN_REPETICIONES, repeticiones);
         values.put(DataBaseEntryListTrain.COLUMN_DESCANSO, descanso);
+        values.put(DataBaseEntryListTrain.COLUMN_TYPE, tipo);
+        values.put(DataBaseEntryListTrain.COLUMN_DESCRIPTION, description);
+        values.put(DataBaseEntryListTrain.COLUMN_IMAGE, image);
 
         return mDb.insert(DataBaseEntryListTrain.TABLE_NAME, null, values);
     }
@@ -357,6 +307,18 @@ public class DataBaseContract {
         values.put(DataBaseEntryTrain.COLUMN_LIST_ID, idList);
 
         return mDb.insert(DataBaseEntryTrain.TABLE_NAME, null, values);
+    }
+
+    /** Sabemos si una tabla tiene algun ejercicio metido **/
+    public boolean controlExerciseInput(long idName){
+        boolean isEmpty = true;
+
+        String selectQuery = "SELECT id_name from tabla_ejercicios WHERE id_name = '" + idName +"'";
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            isEmpty = false;
+        }
+        return isEmpty;
     }
 
     /** Delete row from nombre_ejercicios y por consiguiente todos los ejercicios asociados a la misma **/
@@ -375,7 +337,7 @@ public class DataBaseContract {
     }
 
     /** Delete ejercicios **/
-    public void deleteExercisesFromTable(long ejercicioId) {
+    private void deleteExercisesFromTable(long ejercicioId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryListTrain.TABLE_NAME, DataBaseEntryListTrain._ID + " = ?",
                 new String[] { String.valueOf(ejercicioId) });
@@ -389,35 +351,36 @@ public class DataBaseContract {
     }
 
     /** Delete link table **/
-    public void deleteLinkTable(long tableId) {
+    private void deleteLinkTable(long tableId) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryTrain.TABLE_NAME, DataBaseEntryTrain.COLUMN_NAME_ID + " = ?",
                 new String[] { String.valueOf(tableId) });
     }
 
     /** Edit Table **/
-    public int editTable(TrainingTable table, String newName, ArrayList<Exercise> newExercises){
+    public int editTable(TrainingTable table, String newName, String newDays, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryNameTrain.COLUMN_NAME, newName);
+        values.put(DataBaseEntryNameTrain.COLUMN_DAYS, newDays);
 
         ArrayList<Exercise> oldExercises = getAllExercisesFromTable(table);
-        editExercisesFromTable(table, oldExercises, newExercises);
+        editExercisesFromTable(oldExercises, newExercises);
 
         return mDb.update(DataBaseEntryNameTrain.TABLE_NAME, values,
                 DataBaseContract.DataBaseEntryNameTrain._ID + " = ?",
                 new String[] { String.valueOf(table.getId()) });
     }
 
-    public void editExercisesFromTable(TrainingTable table, ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
+    private void editExercisesFromTable(ArrayList<Exercise> oldExercises, ArrayList<Exercise> newExercises){
         mDb = mDbHelper.getWritableDatabase();
 
-        for(int i=0; i<oldExercises.size(); i++){
+        for(int i=0; i < oldExercises.size(); i++){
             editExercise(oldExercises.get(i), newExercises.get(i));
         }
     }
 
-    public int editExercise(Exercise oldExercise, Exercise newExercise){
+    private int editExercise(Exercise oldExercise, Exercise newExercise){
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataBaseEntryListTrain.COLUMN_NAME, newExercise.getNombre());
@@ -445,6 +408,18 @@ public class DataBaseContract {
             } while (cursor.moveToNext());
         }
         return tableByDay;
+    }
+
+    /** Comprueba si existe la tabla de ejercicios **/
+    public boolean checkifTrainTableisEmpty() {
+        boolean isEmpty = true;
+        String count = "SELECT count(*) FROM " + DataBaseEntryNameTrain.TABLE_NAME;
+        mDb = mDbHelper.getWritableDatabase();
+        Cursor mcursor = mDb.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount > 0) isEmpty = false;
+        return isEmpty;
     }
 
 
@@ -482,7 +457,7 @@ public class DataBaseContract {
     }
 
     /** Devuelve un ArrayList con todas las tablas (tabla_comidas) que existen en la base de datos **/
-    public ArrayList<FoodTable> getAllFoodTables() {
+    private ArrayList<FoodTable> getAllFoodTables() {
         ArrayList<FoodTable> table = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + DataBaseEntryFoods.TABLE_NAME;
         mDb = mDbHelper.getReadableDatabase();
@@ -591,7 +566,7 @@ public class DataBaseContract {
     }
 
     /** Borra un row de lista de kcal **/
-    public void deleteKcal(FoodTable foodTable) {
+    private void deleteKcal(FoodTable foodTable) {
         long tableId = foodTable.getId();
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(DataBaseEntryKcal.TABLE_NAME, DataBaseEntryKcal.COLUMN_FOOD_ID + " = ?",
@@ -684,32 +659,17 @@ public class DataBaseContract {
 
     /********************* TABLAS DE ENTRENAMIENTO POR DEFECTO *****************************/
 
-    /** Metemos los datos a las tablas por defecto **/
-    public TrainingTable createDefaultTable(String name){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseDefaultTable.COLUMN_NAME, name);
-        //values.put(DataBaseEntryNameTrain.COLUMN_DAYS, days);
-        mDb.insert(DataBaseDefaultTable.TABLE_NAME, null, values);
-
-        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME;
-        mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor = mDb.rawQuery(selectQuery, null);
-        cursor.moveToLast();
-
-        return new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),name, null);
-    }
-
     /** Devuelve un arraylist con todas las tablas creadas por defecto **/
     public ArrayList<TrainingTable> getAllDefaultTables() {
         ArrayList<TrainingTable> table = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME;
+        String selectQuery = "SELECT * FROM tabla_default";
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {
             do {
-                TrainingTable trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),
-                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_DAYS)));
+                TrainingTable trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("days")));
                 table.add(trainingTable);
             } while (cursor.moveToNext());
         }
@@ -720,14 +680,14 @@ public class DataBaseContract {
     public TrainingTable getDefaultTableByID(long ID){
         TrainingTable trainingTable = null;
 
-        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME + " WHERE " + DataBaseDefaultTable._ID + " = '" + ID + "'";
+        String selectQuery = "SELECT * FROM tabla_default WHERE _id = '" + ID + "'";
 
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()){
             do{
-                trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable._ID))),
-                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultTable.COLUMN_DAYS)));
+                trainingTable = new TrainingTable(valueOf(cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("days")));
 
             } while (cursor.moveToNext());
         }
@@ -735,95 +695,461 @@ public class DataBaseContract {
         return trainingTable;
     }
 
-    /** Crear la lista de ejercicios por defecto en la base de datos **/
-    public long createTableListDefaultTraining(String name,  String series, String repeticiones, String descanso){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseDefaultExercises.COLUMN_NAME, name);
-        values.put(DataBaseDefaultExercises.COLUMN_SERIES, series);
-        values.put(DataBaseDefaultExercises.COLUMN_REPETICIONES, repeticiones);
-        values.put(DataBaseDefaultExercises.COLUMN_DESCANSO, descanso);
-
-        return mDb.insert(DataBaseDefaultExercises.TABLE_NAME, null, values);
-    }
-
     /** Devuelve TODOS los ejercicios de la tabla cuyo nombre es "nombre" en un ArrayList<Exercise> **/
     public ArrayList<Exercise> getAllDefaultExercisesFromTable(TrainingTable mTrainingTable) {
         ArrayList<Exercise> exercises = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + DataBaseDefaultTable.TABLE_NAME + " tn, " + DataBaseDefaultExercises.TABLE_NAME
-                + " tl, " + DataBaseDefaultLinkTable.TABLE_NAME + " te WHERE tn." + DataBaseDefaultTable.COLUMN_NAME + " = '" + mTrainingTable.getName() + "'" +
-                " AND tn." + DataBaseDefaultTable._ID + " = te." + DataBaseDefaultLinkTable.COLUMN_NAME_ID +
-                " AND tl." + DataBaseDefaultExercises._ID + " = te." + DataBaseDefaultLinkTable.COLUMN_LIST_ID;
+        String selectQuery = "SELECT tl.*, te.id_list FROM tabla_default tn, ejercicios_default tl, link_default te WHERE tn.name = '" + mTrainingTable.getName() + "'" +
+                " AND tn._id = te.id_name AND tl._id = te.id_list";
 
         mDb = mDbHelper.getReadableDatabase();
         Cursor cursor = mDb.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {
             do {
-                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseDefaultExercises.COLUMN_DESCANSO)));
-                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseDefaultLinkTable.COLUMN_LIST_ID))));
+                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex("name")),cursor.getString(cursor.getColumnIndex("series")),
+                        cursor.getString(cursor.getColumnIndex("repeticiones")), cursor.getString(cursor.getColumnIndex("descanso")), null,
+                        cursor.getBlob(cursor.getColumnIndex("image")), cursor.getString(cursor.getColumnIndex("descripcion")));
+                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex("id_list"))));
                 exercises.add(newExercise);
             } while (cursor.moveToNext());
         }
         return exercises;
     }
 
-    /** Crear tabla_link (asignación de varios ejercicios por defecto a una tabla de ejercicios) **/
-    public long createDefaultLinkTraining(long idName,  long idList){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseDefaultLinkTable.COLUMN_NAME_ID, idName);
-        values.put(DataBaseDefaultLinkTable.COLUMN_LIST_ID, idList);
+    /********************* IMAGENES Y DESCRIPCIONES DE LOS EJERCICIOS *****************************/
 
-        return mDb.insert(DataBaseDefaultLinkTable.TABLE_NAME, null, values);
+    /** Coge una imagen a partir de un nombre **/
+    public byte[] getExerciseImage(String exerciseName) {
+        byte[] b = new byte[]{};
+
+        String selectQuery = "SELECT image FROM exercise_image WHERE exercise_image.name = '" + exerciseName + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                b = cursor.getBlob(cursor.getColumnIndex("image"));
+
+            } while (cursor.moveToNext());
+        }
+        return b;
     }
 
-    /** Comprueba si existe la tabla de ejercicios por defecto **/
-    public boolean checkifTableisEmpty() {
-        boolean isEmpty = true;
-        String count = "SELECT count(*) FROM " + DataBaseDefaultTable.TABLE_NAME;
-        mDb = mDbHelper.getWritableDatabase();
-        Cursor mcursor = mDb.rawQuery(count, null);
-        mcursor.moveToFirst();
-        int icount = mcursor.getInt(0);
-        if(icount > 0) isEmpty = false;
-        return isEmpty;
+    /** Coge una imagen a partir de un nombre **/
+    public String getExerciseDescription(String exerciseName) {
+        String description = null;
+
+        String selectQuery = "SELECT descripcion FROM exercise_image WHERE exercise_image.name = '" + exerciseName + "'";
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                description = cursor.getString(cursor.getColumnIndex("descripcion"));
+
+            } while (cursor.moveToNext());
+        }
+        return description;
     }
 
 
-    /********************* PANTALLA DE EVENTOS *****************************/
+    /********************* PANTALLA DE LOGROS *****************************/
+
+    /** Devuelve el total de puntos proveniente de los logros **/
+    public int getTotalPoints(){
+        int points = 0;
+
+        String selectQuery = "SELECT points FROM tabla_logros_entrenamiento WHERE completed = 'true'";
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                points += Integer.valueOf(cursor.getString(cursor.getColumnIndex("points")));
+
+            } while (cursor.moveToNext());
+        }
+        selectQuery = "SELECT points FROM tabla_logros_comidas WHERE completed = 'true'";
+        cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                points += Integer.valueOf(cursor.getString(cursor.getColumnIndex("points")));
+            } while (cursor.moveToNext());
+        }
+
+        return points;
+    }
 
     /** Devuelve todos los ejercicios de todas las tablas como un ArrayList<Exercise> **/
-    public ArrayList<Exercise> getAllExercisesOfDataBase() {
-        ArrayList<Exercise> exercises = new ArrayList<>();
+    public int getAllExercisesOfDataBase() {
+        int contador = 0;
 
         String selectQuery = "SELECT * FROM " + DataBaseEntryListTrain.TABLE_NAME;
         mDb = mDbHelper.getReadableDatabase();
-
         Cursor cursor = mDb.rawQuery(selectQuery, null);
-
         if(cursor.moveToFirst()) {
             do {
-                Exercise newExercise = new Exercise(cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_NAME)),cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_SERIES)),
-                        cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_REPETICIONES)), cursor.getString(cursor.getColumnIndex(DataBaseEntryListTrain.COLUMN_DESCANSO)));
-                newExercise.setId(valueOf(cursor.getString(cursor.getColumnIndex(DataBaseEntryTrain._ID))));
-                exercises.add(newExercise);
+                contador++;
             } while (cursor.moveToNext());
         }
-        return exercises;
+        return contador;
     }
 
-    /** Develve el tiempo o la duración de todas las tablas como un string del formato mm:ss **/
-    public String getTimeOfTables(){
-        long minutes = 0;
-        long seconds = getAllExercisesOfDataBase().size()*30; //Suponemos que la duración de la realización de cada ejercicio es de 30 segundos
-        ArrayList<Exercise> allExercises = getAllExercisesOfDataBase();
-        for(Exercise exercise : allExercises){
-            String exercise_time = exercise.getDescanso();
-            String[] min_sec = exercise_time.split(":");
-            minutes += valueOf(min_sec[0])*60*valueOf(exercise.getSeries());
-            seconds += valueOf(min_sec[1])*valueOf(exercise.getSeries());
+    public ArrayList<Achievement> getAllAchievementsCompleted(){
+        ArrayList<Achievement> achievements = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM tabla_logros_entrenamiento WHERE completed = 'true'";
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("title")), cursor.getString(cursor.getColumnIndex("description")),
+                        "training", cursor.getString(cursor.getColumnIndex("points")),
+                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("completed"))));
+                achievements.add(achievement);
+
+            } while (cursor.moveToNext());
         }
-        return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        selectQuery = "SELECT * FROM tabla_logros_comidas WHERE completed = 'true'";
+        cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("title")), cursor.getString(cursor.getColumnIndex("description")),
+                        "training", cursor.getString(cursor.getColumnIndex("points")),
+                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("completed"))));
+                achievements.add(achievement);
+            } while (cursor.moveToNext());
+        }
+
+        return achievements;
+    }
+
+    /** Actualiza el valor de completed de todos los logros dentro de la base de datos, tanto de entrenamiento como de comidas como ambos **/
+    public void reloadAchievements(String type){
+
+        if (type.equals("training") || type.equals("both")){
+            boolean[] achievements = getNumOfTables();
+            boolean[] existTableOnDay = existDayTable();
+            boolean[] typeExercises = getNumTypeExercises();
+            boolean[] numExercises = getNumExercises();
+
+            int tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + existTableOnDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = existTableOnDay[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + typeExercises.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = typeExercises[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + numExercises.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = numExercises[i-tamaño];
+            }
+
+            for (int i = 0; i < achievements.length; i++){
+                updateAchievement(i+1, "training", achievements[i]);
+            }
+        }
+        if (type.equals("foods") || type.equals("both")){
+
+            boolean[] achievements = getNumOfFoods();
+            boolean[] numFoodsForDay = getNumFoodsForDay();
+            String[] shortTypes = {"Desayuno", "Comida", "Cena"};
+            boolean[] breakfastLaunchDinner = getBreakfastLaunchDinner(shortTypes);
+            String[] Types = {"Desayuno", "Almuerzo", "Comida", "Merienda", "Cena"};
+            boolean[] allFoodsPerDay = getBreakfastLaunchDinner(Types);
+
+            int tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + numFoodsForDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = numFoodsForDay[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + breakfastLaunchDinner.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = breakfastLaunchDinner[i-tamaño];
+            }
+            tamaño = achievements.length;
+            achievements = Arrays.copyOf(achievements, achievements.length + allFoodsPerDay.length);
+            for ( int i = tamaño; i < achievements.length; i++){
+                achievements[i] = allFoodsPerDay[i-tamaño];
+            }
+            for (int i = 0; i < achievements.length; i++){
+                updateAchievement(i+1, "foods", achievements[i]);
+            }
+        }
+    }
+
+    /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
+    private void updateAchievement(long id, String type, boolean completed){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (type.equals("training")){
+            values.put("completed", String.valueOf(completed));
+            mDb.update("tabla_logros_entrenamiento", values, "_id = ? AND completed = 'false'",
+                    new String[] { String.valueOf(id) });
+        }else if (type.equals("foods")){
+            values.put("completed", String.valueOf(completed));
+            mDb.update("tabla_logros_comidas", values, "_id = ? AND completed = 'false'",
+                    new String[] { String.valueOf(id) });
+        }
+    }
+
+    /** Actualiza el valor de completed de un logro cualquiera dentro de la base de datos **/
+    public void resetAchievements(){
+        mDb = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        ArrayList<Achievement> achievementsTraining  = getAllAchievementsByType("training");
+        values.put("completed", "false");
+        for (int i = 0; i < achievementsTraining.size(); i++){
+            mDb.update("tabla_logros_entrenamiento", values,  "_id = ?",
+                    new String[] { String.valueOf(i + 1) });
+        }
+
+        ArrayList<Achievement> achievementsFoods  = getAllAchievementsByType("foods");
+        for (int i = 0; i < achievementsFoods.size(); i++){
+            mDb.update("tabla_logros_comidas", values,  "_id = ?",
+                    new String[] { String.valueOf(i + 1) });
+        }
+    }
+
+    /** Devuelve una lista de Logros del tipo que desees **/
+    public ArrayList<Achievement> getAllAchievementsByType(String type){
+        ArrayList<Achievement> achievements = new ArrayList<Achievement>();
+        String selectQuery = "";
+        if (type.equals("training")){
+            selectQuery = "SELECT * FROM tabla_logros_entrenamiento";
+        } else if (type.equals("foods")){
+            selectQuery = "SELECT * FROM tabla_logros_comidas";
+        }
+
+        mDb = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                Achievement achievement = new Achievement((cursor.getString(cursor.getColumnIndex("_id"))),
+                        cursor.getString(cursor.getColumnIndex("title")), cursor.getString(cursor.getColumnIndex("description")),
+                        "training", cursor.getString(cursor.getColumnIndex("points")),
+                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("completed"))));
+                achievements.add(achievement);
+            } while (cursor.moveToNext());
+        }
+        
+        
+        return achievements;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 0 a 4 **/
+    private boolean[] getNumOfTables(){
+        boolean[] createdTables = new boolean[5];
+
+        int tablesSize = getAllTables().size();
+        Arrays.fill(createdTables, true);
+
+        if (tablesSize < 20){
+            createdTables[4] = false;
+        }
+        if (tablesSize < 15){
+            createdTables[3] = false;
+        }
+        if (tablesSize < 10){
+            createdTables[2] = false;
+        }
+        if (tablesSize < 5){
+            createdTables[1] = false;
+        }
+        if (tablesSize < 1){
+            createdTables[0] = false;
+        }
+
+        return createdTables;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 5 a 12 **/
+    private boolean[] existDayTable(){
+        boolean dayTable[] = new boolean[7];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+
+        for (int i = 0; i < weekDays.length; i++){
+            if(getAllTablesFilterByDay(weekDays[i]).size() >= 1) {
+                dayTable[i] = true;
+            }
+        }
+        dayTable = Arrays.copyOf(dayTable, dayTable.length + 1);
+        if (Arrays.toString(dayTable).contains("t")){
+            dayTable[dayTable.length - 1] = true;
+        }
+        return dayTable;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 13 a 19 **/
+    private boolean[] getNumExercises(){
+        boolean[] numExercises = new boolean[4];
+
+        Arrays.fill(numExercises, true);
+        ArrayList<TrainingTable> allTables = getAllTables();
+        int maxExercises = 0;
+
+        for (int i = 0; i < allTables.size(); i++){
+            int numExercisesFromTable = getAllExercisesFromTable(allTables.get(i)).size();
+            if (numExercisesFromTable > maxExercises){
+                maxExercises = numExercisesFromTable;
+            }
+        }
+        if (maxExercises < 4){
+            numExercises[0] = false;
+        }
+        if (maxExercises < 5){
+            numExercises[1] = false;
+        }
+        if (maxExercises < 6){
+            numExercises[2] = false;
+        }
+        if (maxExercises < 7){
+            numExercises[3] = false;
+        }
+        return numExercises;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de entrenamiento de 20 a 23 **/
+    private boolean[] getNumTypeExercises() {
+        boolean[] typeExercises = new boolean[7];
+
+        String[] types = {"pecho", "espalda", "biceps", "triceps", "abdominales", "pierna"};
+        Arrays.fill(typeExercises, false);
+        ArrayList<TrainingTable> allTables = getAllTables();
+        for (int i = 0; i < allTables.size(); i++){
+            int[] contador = new int[types.length];
+            ArrayList<Exercise> exercises = getAllExercisesFromTable(allTables.get(i));
+            for (int j = 0; j < exercises.size(); j++){
+                for (int z = 0; z < contador.length; z++){
+                    if (exercises.get(j).getTipo().equals(types[z])){
+                        contador[z]++;
+                        if (types[z].equals("biceps") || types[z].equals("triceps")){
+                            if (contador[z] >= 2){
+                                typeExercises[z] = true;
+                                break;
+                            }
+                        } else {
+                            if (contador[z] >= 3) {
+                                typeExercises[z] = true;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+            if (contador[0] >= 1 && contador[1] >= 1 && contador[2] >= 1 && contador[3] >= 1 && contador[4] >= 1 && contador[5] >= 1){
+                typeExercises[6] = true;
+            }
+        }
+        return typeExercises;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 0 a 10 **/
+    private boolean[] getNumOfFoods(){
+        boolean[] createdFoods = new boolean[11];
+
+        int foodsSize = getAllFoodTables().size();
+        Arrays.fill(createdFoods, true);
+
+        if (foodsSize < 35){
+            createdFoods[10] = false;
+        }
+        if (foodsSize < 30){
+            createdFoods[9] = false;
+        }
+        if (foodsSize < 25){
+            createdFoods[8] = false;
+        }
+        if (foodsSize < 20){
+            createdFoods[7] = false;
+        }
+        if (foodsSize < 15){
+            createdFoods[6] = false;
+        }
+        if (foodsSize < 10){
+            createdFoods[5] = false;
+        }
+        if (foodsSize < 5){
+            createdFoods[4] = false;
+        }
+        if (foodsSize < 4){
+            createdFoods[3] = false;
+        }
+        if (foodsSize < 3){
+            createdFoods[2] = false;
+        }
+        if (foodsSize < 2){
+            createdFoods[1] = false;
+        }
+        if (foodsSize < 1){
+            createdFoods[0] = false;
+        }
+        return createdFoods;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 11 a 12 **/
+    private boolean[] getNumFoodsForDay(){
+        boolean[] numOfFoodsForDay = new boolean[2];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+
+        for (int i = 0; i < weekDays.length; i++){
+            if (getAllFoodsFilterByDay(weekDays[i]).size() >= 3){
+                numOfFoodsForDay[0] = true;
+            }
+            if (getAllFoodsFilterByDay(weekDays[i]).size() >= 5){
+                numOfFoodsForDay[1] = true;
+                break;
+            }
+        }
+        return numOfFoodsForDay;
+    }
+
+    /** Devuelve un array de booleans que representan si están completos o no los logros de comidas de 13 a 18 **/
+    private boolean[] getBreakfastLaunchDinner(String[] types){
+        boolean[] breakfastLaunchDinner = new boolean[3];
+
+        String[] weekDays = {"LU", "M", "X", "JU", "VI", "SA", "DO"};
+
+        int countDays = 0;
+        for (int i = 0; i < weekDays.length; i++){
+            int[] countFood = new int[types.length];
+            ArrayList<FoodTable> foods = getAllFoodsFilterByDay(weekDays[i]);
+            for (FoodTable food : foods){
+                for (int j = 0; j < types.length; j++){
+                    if (food.getType().equals(types[j])){
+                        countFood[j]++;
+                        break;
+                    }
+                }
+                if (countFood[0] >= 1 && countFood[1] >= 1 && countFood[2] >= 1) {
+                    countDays++;
+                    break;
+                }
+            }
+        }
+        if (countDays >= 1) {
+            breakfastLaunchDinner[0] = true;
+        }
+        if (countDays >= 3) {
+            breakfastLaunchDinner[1] = true;
+        }
+        if (countDays >= 5) {
+            breakfastLaunchDinner[2] = true;
+        }
+        return  breakfastLaunchDinner;
     }
 }

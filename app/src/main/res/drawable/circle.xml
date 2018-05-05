@@ -21,7 +21,7 @@
             <solid android:color="@color/colorAccent" />
             <stroke
                 android:width="2dip"
-                android:color="@color/colorAccent" />
+                android:color="@color/colorAccentDark" />
             <padding
                 android:bottom="4dp"
                 android:left="4dp"

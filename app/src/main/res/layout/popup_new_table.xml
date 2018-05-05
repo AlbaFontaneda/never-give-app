@@ -4,67 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/colorAccent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textAlignment="center"
-            android:textColor="@color/titlesColor"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:text="Establece nombre y dias de entrenamiento" />
-     </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/popUpTitle">
+
+            <TextView
+                android:text="@string/newTable"
+                style="@style/popUpTextTitle"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/popUpData">
+
+            <TextView
+                android:text="@string/nombreEntrenamiento"
+                style="@style/popUpNames"/>
+
             <EditText
                 android:id="@+id/table_name"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:maxLines="1"
-                android:hint="Nombre de la tabla"/>
-        </LinearLayout>
+                style="@style/popUpEdits"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/diasEntrenamiento"
+                style="@style/popUpNames" />
+
             <EditText
                 android:id="@+id/table_days"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
+                style="@style/popUpEdits"
                 android:inputType="date"
                 android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
-                android:hint="Dias de entrenamiento" />
+                android:clickable="true"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:gravity="center">
+            style="@style/popUpButtons">
+
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"

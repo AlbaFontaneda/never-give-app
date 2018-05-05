@@ -5,6 +5,11 @@
     <string name="title_activity_achievements">Logros</string>
     <string name="title_activity_exercisies_type">Tipos de ejercicios</string>
     <string name="title_activity_chest">Ejercicios de pecho</string>
+    <string name="title_activity_triceps">Ejercicios de triceps</string>
+    <string name="title_activity_pierna">Ejercicios de pierna</string>
+    <string name="title_activity_abs">Ejercicios de abdominales</string>
+    <string name="title_activity_biceps">Ejercicios de biceps</string>
+    <string name="title_activity_edit_table">Edición de la tabla</string>
 
     //AppBar (Toolbar)
     <string name="app_name">NeverGiveApp</string>
@@ -35,16 +40,87 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="inicio">Inicio</string>
     <string name="calendario_comidas">Calendario de comidas</string>
-    <!--<string name="tablas_entrenamiento">Tablas de entrenamiento</string>-->
-    <string name="eventos">Eventos</string>
+    <string name="localizacion">Localización</string>
     <string name="logros">Logros</string>
-    <string name="compartir">Compartir</string>
-    <string name="reports">Reports</string>
+    <string name="reinicio">Reiniciar base de datos</string>
+
+    //CardViews
+    <string name="titleCard">Título</string>
+    <string name="infoDays">Días de la semana:</string>
+    <string name="infoKcal">Todal de Kcal:</string>
+
+    //Entrenamientos
+    <string name="series">Series:</string>
+    <string name="repeticiones">Repeticiones:</string>
+    <string name="descanso">Descanso:</string>
+    <string name="totalSeries">Series completadas:</string>
+    <string name="descripcionResume">Descripción:</string>
+
+    //Popups
+    <string name="newTable">Empieza a crear tú tabla</string>
+    <string name="newExercise">Vamos con el siguiente paso</string>
+    <string name="numeroSeries">Número total de series: </string>
+    <string name="numeroRepeticiones">Número de repeticiones: </string>
+    <string name="tiempoDescando">Tiempo de descanso: </string>
+    <string name="editTable">Modifica los datos de tu tabla</string>
+    <string name="nombreEntrenamiento">Nombre de la tabla:</string>
+    <string name="diasEntrenamiento">Días de entrenamiento:</string>
+    <string name="continuar">Continuar</string>
+    <string name="editar">Editar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="nseries">Series:</string>
+    <string name="nrep">Rep:</string>
+    <string name="ndescanso">Descanso:</string>
+    <string name="newFood">Datos para la comida</string>
+    <string name="nombreComida">Nombre del plato:</string>
+    <string name="diasComida">Días para este plato:</string>
+    <string name="weekPicker">Escoge unos días</string>
+    <string name="weekCheck">Sellecionar todos</string>
+    <string name="weekLU">LU</string>
+    <string name="weekM">M</string>
+    <string name="weekX">X</string>
+    <string name="weekJU">JU</string>
+    <string name="weekVI">VI</string>
+    <string name="weekSA">SA</string>
+    <string name="weekDO">DO</string>
+    <string name="titleDescanso">Establece un tiempo de descando</string>
+    <string name="segundos">Segundos</string>
+    <string name="minutos">Minutos</string>
+    <string name="cuidado">¡CUIDADO COMPAÑERO!</string>
+    <string name="avisoVolver">Si sales de esta pantalla no se guardaran los datos, ¿estas seguro?</string>
+    <string name="avisoTrain">Estas a punto de borrar todas tus tablas de entrenamiento, ¿estas seguro de que deseas continuar?</string>
+    <string name="avisoFood">Estas a punto de borrar todas tus comidas, ¿estas seguro de que deseas continuar?</string>
+    <string name="avisoMain">Estas a punto de eliminar todos los datos guardados, ¿estas seguro de que deseas continuar?</string>
+    <string name="acceptButton">Sí, estoy seguro</string>
+    <string name="noAcceptButton">No, seguir aquí</string>
+
+    //Comidas
+    <string name="tipoComda">Tipo de comida:</string>
+    <string name="listKcal">Escoge ingredientes de la lista para saber las kcal totales:</string>
+    <string name="avisoApi">Vaya :(\nParece que no hemos podido cargar los datos, comprueba que estas conectado a Internet y recarga la vista.</string>
+    <string name="pasta">Pasta</string>
+    <string name="huevos">Huevos</string>
+    <string name="leche">Leche</string>
+    <string name="carne">Carne</string>
+    <string name="pescado">Pescado</string>
+    <string name="verdura">Verdura</string>
+    <string name="bolleria">Bollería</string>
+    <string name="cereales">Cereales</string>
+    <string name="legumbre">Legumbre</string>
+    <string name="embutido">Embutido</string>
+    <string name="queso">Queso</string>
+    <string name="yogurt">Yogurt</string>
+    <string name="totalKcal">Total de Kcal:</string>
+    <string name="foodImage">Cambiar imagen</string>
+
 
     //Menús de los elementos de cada actividad
-    <string name="element_settings">Opciones</string>
     <string name="element_edit">Editar</string>
+    <string name="element_details">Ver detalles</string>
+    <string name="element_resume">Ver tabla</string>
     <string name="element_delete">Eliminar</string>
+    <string name="all_delete_training">Eliminar todas las tablas</string>
+    <string name="all_delete_foods">Eliminar todas las comidas</string>
 
     //Pantalla de inicio
     <string name="comidas_hoy">Comidas de hoy</string>
@@ -59,20 +135,13 @@
     <string name="merienda">MERIENDA</string>
     <string name="cena">CENA</string>
 
-
     <string name="section_format">Hello World from section: %1$d</string>
 
     //Fragmento achievements_init
-    <string name="exercise">Ejercicios</string>
-    <string name="kcal">KCal</string>
-    <string name="duration">Duración</string>
+    <string name="total_exercises">Total de ejercicios:</string>
     <string name="history">Historial</string>
-    <string name="title_activity_settings_main">Settings</string>
+    <string name="logros_completados">Logros completados</string>
 
-    //Popup Nueva tabla
-    <string name="continuar">Continuar</string>
-    <string name="editar">Editar</string>
-    <string name="cancel">Cancelar</string>
 
     //Pantalla tipos de ejercicios
     <string name="pecho">Pecho</string>
@@ -82,19 +151,20 @@
     <string name="hombro">Hombro</string>
     <string name="pierna">Pierna</string>
 
-    //Pantalla de pecho
-    <string name="press_superior">Press superior</string>
-    <string name="title_activity_espalda">EspaldaActivity</string>
-    <string name="title_activity_scrolling">TableResumeActivity</string>
-    <string name="large_text">Contenido de la tabla. Ya hace scrolling.</string>
+    <string-array name="exerciseTypes">
+        <item>Ejercicios de espalda</item>
+        <item>Ejercicios de pecho</item>
+        <item>Ejercicios de biceps</item>
+        <item>Ejercicios de triceps</item>
+        <item>Ejercicios de pierna</item>
+        <item>Abdominales de hierro</item>
+    </string-array>
 
+    //Pantalla de pecho
+    <string name="title_activity_espalda">Ejercicios de espalda</string>
+    <string name="title_table_resume_activity">Resumen de la tabla</string>
     //Popup edición de una tabla
-    <string name="nombreTabla">Nombre:</string>
-    <string name="ndias">Días:</string>
-    <string name="nseries">Series:</string>
-    <string name="nrep">Rep:</string>
-    <string name="ndescanso">Descanso:</string>
-    <string name="title_activity_food_resume">FoodResumeActivity</string>
+    <string name="title_activity_food_resume">Resumen de la comida</string>
 
     //Tablas de entrenamiento
     <string-array name="defaultTables">
@@ -104,45 +174,80 @@
         <item>Entrenamiento de pierna</item>
     </string-array>
 
-    //Ejercicios de pecho
-    <string-array name="ejerciciosPecho">
-        <item>Press de banca al cuello</item>
-        <item>Pullover en banco declinado</item>
+    <string-array name="all_exercises_titles">
+        0
+        <item>Saltos de tijera</item>
+        1
+        <item>Flexiones en caja</item>
+        2
+        <item>Estiramiento de cobra</item>
+        3
+        <item>Burpees</item>
+
+        4
+        <item>Flexiones</item>
+        5
+        <item>Flexiones con inclinación</item>
+        6
+        <item>Flexiones con apoyo de rodillas</item>
+        7
+        <item>Flexiones con brazos abiertos</item>
+        8
+        <item>Flexiones en diamante</item>
+
+        9
+        <item>Flexiones hindúes</item>
+        10
+        <item>Biceps en suelo</item>
+        11
+        <item>Extensiones de tríceps</item>
+        12
+        <item>Tríceps en silla</item>
+
+        13
+        <item>Crunch abdominales</item>
+        14
+        <item>Platusa</item>
+        15
+        <item>Puente lateral derecho</item>
+        16
+        <item>Crunch de bicicleta</item>
+        17
+        <item>Abdominal en V</item>
+        18
+        <item>Twist ruso</item>
+        19
+        <item>Escalada de montaña</item>
+        20
+        <item>Toque al talón</item>
+        21
+        <item>Flexión y rotación</item>
+
+        22
+        <item>Zancada cruzada</item>
+        23
+        <item>Sentadilla de sumo</item>
+        24
+        <item>Sentadillas con salto</item>
     </string-array>
 
-    //Ejercicios valores (Series, rep, descanso)
-    <string-array name="ejerciciosValues">
-        <item>3</item>
-        <item>12</item>
-        <item>00:30</item>
-        <!--<item>Aqui va el descanso</item>-->
-    </string-array>
-
-    //Ejercicios de espalda
-    <string-array name="ejerciciosEspalda">
-        <item>Dominadas</item>
-    </string-array>
-
-    <string name="title_activity_default_resume">DefaultResume</string>
-    <string name="title_activity_achievements2">Achievements2</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
-    <string name="title_activity_events">Events</string>
+    <string name="title_activity_default_resume">Resumen de la tabla</string>
+    <string name="title_activity_events">Localización</string>
 
     // Permissions
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+    <string name="permission_rationale_location">Para acceder a su localización es necesario conceder los permisos de ubicación en su dispositivo.\nY activar el GPS para detectar su ubicación.</string>
     <string name="location_permission_denied">Esta aplicación requiere los permisos de localización activos.\nSi los permisos han sido denegados permanentemente, puede activarlos desde: Ajustes &gt; Aplicaciones &gt; NeverGiveApp.</string>
-    <string name="permission_required_toast">Location permission is required for this demo.</string>
 
-    //UI Settings
-    <string name="zoom_buttons">Zoom Buttons</string>
-    <string name="compass">Compass</string>
-    <string name="mylocation_button">My Location Button</string>
-    <string name="mylocation_layer">My Location Layer</string>
-    <string name="scroll">Scroll Gestures</string>
-    <string name="zoom_gestures">Zoom Gestures</string>
-    <string name="tilt">Tilt Gestures</string>
-    <string name="rotate">Rotate Gestures</string>
+    //ACHIEVEMENTS
+
+    <string-array name="diasSemana">
+        <item>LU</item>
+        <item>M</item>
+        <item>X</item>
+        <item>JU</item>
+        <item>VI</item>
+        <item>SA</item>
+        <item>DO</item>
+    </string-array>
 
 </resources>

@@ -18,7 +18,6 @@ package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,13 +47,16 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+
+
+
 /**
  * This demo shows how GMS Location can be used to check for changes to the users location.  The
  * "My Location" button uses GMS Location to set the blue dot representing the users location.
  * Permission for {@link Manifest.permission#ACCESS_FINE_LOCATION} is requested at run
  * time. If the permission has not been granted, the Activity is finished with an error message.
  */
-public class MyLocationDemoActivity extends AppCompatActivity
+public class Location extends AppCompatActivity
         implements
         OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
@@ -77,7 +79,6 @@ public class MyLocationDemoActivity extends AppCompatActivity
     private GoogleMap mMap;
     private final String type = "gym";
     private final String radius = "1000";
-    private ArrayList<GooglePlace> foundPlaces;
     private GooglePlace myLocation;
 
     @Override
@@ -94,6 +95,8 @@ public class MyLocationDemoActivity extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
+
+
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
@@ -106,7 +109,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
-            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+            LocationPermissions.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
@@ -116,17 +119,16 @@ public class MyLocationDemoActivity extends AppCompatActivity
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Pulse sobre su ubicación para mostrar los centros deportivos más cercanos.", Toast.LENGTH_LONG).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
     }
 
     @Override
-    public void onMyLocationClick(@NonNull Location location) {
+    public void onMyLocationClick(@NonNull android.location.Location location) {
         myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
         new FindPlaces().execute();
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -136,10 +138,11 @@ public class MyLocationDemoActivity extends AppCompatActivity
             return;
         }
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+        if (LocationPermissions.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
+            Toast.makeText(this, "Debe activar el GPS para detectar su ubicación. Puede tardar unos segundos.", Toast.LENGTH_SHORT).show();
         } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
@@ -160,7 +163,7 @@ public class MyLocationDemoActivity extends AppCompatActivity
      * Displays a dialog with error message explaining that the location permission is missing.
      */
     private void showMissingPermissionError() {
-        PermissionUtils.PermissionDeniedDialog
+        LocationPermissions.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
@@ -230,7 +233,6 @@ public class MyLocationDemoActivity extends AppCompatActivity
         }
 
         protected void onPostExecute(ArrayList<GooglePlace> result) {
-            foundPlaces = result;
             for(GooglePlace place : result){
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
@@ -246,12 +248,6 @@ class GooglePlace {
 
     private String name;
     private double latitude, longitude;
-
-    public GooglePlace() {
-        this.name = "";
-        this.latitude = 0;
-        this.longitude = 0;
-    }
 
     public GooglePlace(String name, double latitude, double longitude) {
         this.name = name;
@@ -271,16 +267,9 @@ class GooglePlace {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }
 

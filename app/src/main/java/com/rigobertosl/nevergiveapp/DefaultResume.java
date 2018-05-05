@@ -3,9 +3,6 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,15 +19,13 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
-public class DefaultResume extends TrainingActivity {
+public class DefaultResume extends AppCompatActivity {
 
     private Context mContext;
     private DataBaseContract db;
     private long tableID;
     private int numPaginas;
     private TrainingTable trainingTable;
-    private RecyclerView recyclerView;
-    private ExerciseResumeAdapter exerciseResumeAdapter;
     private ExercisePageAdapter mExercisePageAdapter;
     private ViewPager mViewPager;
 
@@ -47,7 +42,6 @@ public class DefaultResume extends TrainingActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(trainingTable.getName());
         setSupportActionBar(toolbar);
 
         numPaginas = (int)db.getAllDefaultExercisesFromTable(trainingTable).size();
@@ -58,7 +52,6 @@ public class DefaultResume extends TrainingActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 

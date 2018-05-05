@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class FoodResumeActivity extends FoodsActivity {
+public class FoodResumeActivity extends AppCompatActivity {
 
     private Context mContext;
     private DataBaseContract db;
@@ -63,21 +65,21 @@ public class FoodResumeActivity extends FoodsActivity {
     ImageButton imageButton;
 
     KcalTable kcalTable;
+    FoodTable foodTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_resume);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mContext = getApplicationContext();
         db = new DataBaseContract(mContext);
         db.open();
         foodId = (long) getIntent().getSerializableExtra("foodId");
-        final FoodTable foodTable = db.getFoodById(foodId);
+        foodTable = db.getFoodById(foodId);
         db.close();
-        toolbar.setTitle(foodTable.getName());
-        setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +120,13 @@ public class FoodResumeActivity extends FoodsActivity {
                         foodTable.getType() + " guardado con exito", Toast.LENGTH_LONG).show();
             }
         });
+
+        if(listKcal.size() == 0) {
+            LinearLayout apiAviso = findViewById(R.id.apiAviso);
+            LinearLayout layoutKcal = findViewById(R.id.listKcal);
+            apiAviso.setVisibility(View.VISIBLE);
+            layoutKcal.setVisibility(View.GONE);
+        }
 
         checks = new boolean[12];
 
@@ -416,7 +425,6 @@ public class FoodResumeActivity extends FoodsActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 db.open();
-                //db.updateKcal(foodTable, kcal.getText().toString());
                 db.close();
             }
         });
@@ -590,7 +598,8 @@ public class FoodResumeActivity extends FoodsActivity {
             final AlertDialog dialog = builder.create();
             dialog.setView(dialogLayout);
             dialog.show();
-
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoVolver);
             final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
             final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
@@ -618,7 +627,8 @@ public class FoodResumeActivity extends FoodsActivity {
             final AlertDialog dialog = builder.create();
             dialog.setView(dialogLayout);
             dialog.show();
-
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoVolver);
             final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
             final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 

@@ -26,12 +26,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 /**
  * Utility class for access to runtime permissions.
  */
-public abstract class PermissionUtils {
+public abstract class LocationPermissions {
 
     /**
      * Requests the fine location permission. If a rationale with an additional explanation should
@@ -40,7 +39,7 @@ public abstract class PermissionUtils {
     public static void requestPermission(AppCompatActivity activity, int requestId,  String permission, boolean finishActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
-            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity).show(activity.getSupportFragmentManager(), "dialog");
+            LocationPermissions.RationaleDialog.newInstance(requestId, finishActivity).show(activity.getSupportFragmentManager(), "dialog");
         } else {
             // Location permission has not been granted yet, request it.
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
@@ -164,23 +163,7 @@ public abstract class PermissionUtils {
                             // Do not finish the Activity while requesting permission.
                             mFinishActivity = false;
                         }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create();
-        }
-
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            super.onDismiss(dialog);
-            if (mFinishActivity) {
-                /*
-                Toast.makeText(getActivity(), R.string.location_permission_denied, Toast.LENGTH_SHORT).show();
-                getActivity().finish();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                */
-            }
+                    }).create();
         }
     }
 }

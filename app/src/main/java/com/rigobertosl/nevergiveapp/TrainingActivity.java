@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,15 +19,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
-
-import java.sql.Time;
 import java.util.ArrayList;
 
-public class TrainingActivity extends MainActivity {
+public class TrainingActivity extends AppCompatActivity {
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
     public FloatingActionButton fab;
@@ -42,7 +41,6 @@ public class TrainingActivity extends MainActivity {
         setContentView(R.layout.activity_training);
 
         db = new DataBaseContract(this);
-        db.open();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,9 +50,7 @@ public class TrainingActivity extends MainActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(TrainingActivity.this, MainActivity.class);
-                //Para matar la actividad anterior
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //Para leer la nueva actividad (volver al main)
                 startActivity(intent);
             }
         });
@@ -83,35 +79,12 @@ public class TrainingActivity extends MainActivity {
             }
         });
         trainTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
-
-        db.open();
-        if(db.checkifTableisEmpty()) {
-            String[] tableNames = getResources().getStringArray(R.array.defaultTables);
-            String[] pechoEjercicios = getResources().getStringArray(R.array.ejerciciosPecho);
-            String[] espaldaEjercicios = getResources().getStringArray(R.array.ejerciciosEspalda);
-            String[] ejerciciosValues = getResources().getStringArray(R.array.ejerciciosValues);
-            for(String name: tableNames) {
-                TrainingTable defaultTable = db.createDefaultTable(name);
-                if(defaultTable.getId() == 1) {
-                    for(String ejercicio: pechoEjercicios) {
-                        long ejerciciosPechoId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
-                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosPechoId);
-                    }
-                } else if(defaultTable.getId() == 2) {
-                    for (String ejercicio : espaldaEjercicios) {
-                        long ejerciciosEspaldaId = db.createTableListDefaultTraining(ejercicio, ejerciciosValues[0], ejerciciosValues[1], ejerciciosValues[2]);
-                        db.createDefaultLinkTraining(defaultTable.getId(), ejerciciosEspaldaId);
-                    }
-                }
-            }
-        }
-        db.close();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_training, menu);
+        getMenuInflater().inflate(R.menu.activity_menu_train, menu);
         return true;
     }
 
@@ -119,11 +92,34 @@ public class TrainingActivity extends MainActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Toast.makeText(TrainingActivity.this,
-                    "Settings pulsado", Toast.LENGTH_LONG).show();
-            db.resetTrainingTables();
-            finish();
-            startActivity(getIntent());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoTrain);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetTrainingTables();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                    dialog.cancel();
+                }
+            });
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,25 +1,30 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.Menu;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import android.widget.Toast;
-
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -29,15 +34,56 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter seleccionPagina;
     private ViewPager vistaPagina;
 
+    private static final String DATABASE_NAME = "dbNeverGiveApp.db";
+    private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(FoodResumeActivity.listKcal == null) {
+
+        if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
 
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);
+        db.open();
+        if(!db.checkifTrainTableisEmpty()) {
+            ArrayList<TrainingTable> allTrainTables = db.getAllTables();
+            for (TrainingTable trainTable : allTrainTables) {
+                ArrayList<Exercise> tableExercises = db.getAllExercisesFromTable(trainTable);
+                if (tableExercises.size() == 0) db.deleteTable(trainTable.getId());
+            }
+        }
+
+        SharedPreferences mPreferences = this.getSharedPreferences("first_time", Context.MODE_PRIVATE);
+        Boolean firstTime = mPreferences.getBoolean("firstTime", true);
+        if (firstTime) {
+            try {
+                String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
+
+                System.out.println("Traza: no existe el fichero");
+                InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
+                OutputStream out = new FileOutputStream(destPath);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+                in.close();
+                out.flush();
+                out.close();
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("firstTime", false);
+                editor.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        db.close();
+
         //Finds ID
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
@@ -80,28 +126,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    //Función para abrir el menu de opciones del app bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    //Función para dar funcionalidades a cada item del menu del app bar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_delete) {
-            Toast.makeText(MainActivity.this,
-                    "Settings pulsado", Toast.LENGTH_LONG).show();
-            db.open();
-            db.resetDataBase();
-            db.close();
-            finish();
-            startActivity(getIntent());
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     //Función para dar funcionalidad a cada elemento del menu desplegable de la pantalla de inicio
     @SuppressWarnings("StatementWithEmptyBody")
@@ -117,18 +141,47 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_calendario) {
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_eventos) {
-            Intent intent = new Intent(MainActivity.this, MyLocationDemoActivity.class);
+        } else if (id == R.id.nav_localizacion) {
+            Intent intent = new Intent(MainActivity.this, Location.class);
             startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_compartir) {
+        } else if (id == R.id.nav_reinicio) {
 
-        } else if (id == R.id.nav_report) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_alert, null);
+            final AlertDialog dialog = builder.create();
+            dialog.setView(dialogLayout);
+            dialog.show();
+            TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
+            textoAviso.setText(R.string.avisoMain);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
+            quedarse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            volver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.open();
+                    db.resetDataBase();
+                    db.resetAchievements();
+                    db.close();
+                    finish();
+                    startActivity(getIntent());
+                    dialog.cancel();
+                }
+            });
         }
+
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -157,12 +210,3 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
-
-//Todo: Condicionar en el Dialog la entrada a la siguiente pantalla y activar el botón Cancel
-//Todo: HACER PANTALLA DE FRAGMENTS
-//Todo: cambiar el tamaño del tabLayout cuando se gira el movil, puesto que el toolbar cambia de tamaño
-//Todo: arreglar el transito entre pantallas. Cerrar fragments
-//Todo: Arreglar posicionamiento de tabs al girar pantalla
-//Todo: HACER ACTIVIDAD EVENTOS
-
-//Todo: Alba* hay que hacer otro custom adapter para el inicio, ya que para cada tab es totalmente distinto lo que sale y hay que tener en cuenta comidas y entrenamientos

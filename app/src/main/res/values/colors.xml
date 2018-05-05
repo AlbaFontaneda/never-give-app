@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="ActionBarEnd">#4dacb6</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorAccentLigth">#FFFF80AB</color>
-    <color name="colorAccentDark">#be2e5f</color>
+    <color name="colorPrimary">#2c2c2c</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="ActionBarEnd">#2c2c2c</color>
+    <color name="colorAccent">#df0101</color>
+    <color name="colorAccentLigth">#ff5333</color>
+    <color name="colorAccentDark">#a40000</color>
+
+
     <color name="colorRow">#a9a8a8</color>
     <color name="colorCotent">#FF1E7881</color>
     <color name="colorHeader">#1c8f31</color>

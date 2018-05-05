@@ -2,6 +2,10 @@ package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +73,7 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
                         ArrayList<TrainingTable> trainingTable = db.getAllDefaultTables();
 
                         switch (menuItem.getItemId()) {
-                            case R.id.menu_default_table_show:
+                            case R.id.menu_default_resume:
                                 Intent intent = new Intent(mContext, DefaultResume.class);
                                 intent.putExtra("tablaID", trainingTable.get(holder.getAdapterPosition()).getId());
                                 intent.putExtra("isDefault", true);
@@ -89,13 +92,10 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
 
         db = new DataBaseContract(holder.title.getContext());
         db.open();
-
-
-        ArrayList<TrainingTable> trainingTables;
-
-        trainingTables = db.getAllDefaultTables();
-
+        ArrayList<TrainingTable> trainingTables = db.getAllDefaultTables();
         exerciseList = db.getAllDefaultExercisesFromTable(trainingTables.get(position));
+        db.close();
+
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         recyclerView.setAdapter(exerciseAdapter);
     }
@@ -140,6 +140,10 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
             holder.title.setText(exercises.get(position).getNombre());
             holder.series.setText(exercises.get(position).getSeries()+" series");
             holder.repeticiones.setText(exercises.get(position).getRepeticiones()+" repeticiones");
+            byte[] b = exercises.get(position).getImage();
+            Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+            final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);
+            holder.imageView.setImageDrawable(d);
         }
 
         @Override

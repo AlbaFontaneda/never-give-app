@@ -1,7 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -50,25 +50,30 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
         return exercises.size();
     }
 
+    public boolean exercisesFilled(){
+        boolean fill = true;
+        for (Exercise exercise : exercisesEdited){
+            if(exercise.getRepeticiones().equals("") || exercise.getSeries().equals("")){
+                fill = false;
+                break;
+            }
+        }
+        return fill;
+    }
+
     public  ArrayList<Exercise> getExercisesEdited(){
         return exercisesEdited;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private CardView cardView;
-        private TextView title, series, repeticiones, descanso;
+        private TextView title;
         private EditText nSeries, nRepeticiones, nDescanso;
 
         MyViewHolder(View view) {
             super(view);
 
-            cardView = (CardView)view.findViewById(R.id.card_view);
-
             title = (TextView)view.findViewById(R.id.nombre_ejercicio);
-            series = (TextView)view.findViewById(R.id.series);
-            repeticiones = (TextView)view.findViewById(R.id.repeticiones);
-            descanso = (TextView)view.findViewById(R.id.descanso);
 
             nSeries = (EditText)view.findViewById(R.id.num_series);
             nSeries.addTextChangedListener(new TextWatcher() {
@@ -79,7 +84,9 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setSeries(charSequence.toString());
+                    if(!charSequence.equals("")) {
+                        exercisesEdited.get(getAdapterPosition()).setSeries(charSequence.toString());
+                    }
                 }
 
                 @Override
@@ -97,7 +104,9 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setRepeticiones(charSequence.toString());
+                    if(!charSequence.equals("")) {
+                        exercisesEdited.get(getAdapterPosition()).setRepeticiones(charSequence.toString());
+                    }
                 }
 
                 @Override
@@ -121,7 +130,10 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setDescanso(charSequence.toString());
+                    if(!charSequence.equals("")){
+                        exercisesEdited.get(getAdapterPosition()).setDescanso(charSequence.toString());
+                    }
+
                 }
 
                 @Override
@@ -133,7 +145,6 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
         public void openDatePicker(View view, final EditText descansoEditText){
             final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-            //final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_timepicker, null);
             View dialogLayout = LayoutInflater.from(view.getContext())
                     .inflate(R.layout.popup_custom_timepicker, null);
             final AlertDialog dialog = builder.create();
@@ -151,7 +162,7 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
             minutosPikcer.setValue(0);
             minutosPikcer.setMinValue(0);
-            minutosPikcer.setMaxValue(20);
+            minutosPikcer.setMaxValue(5);
             minutosPikcer.setWrapSelectorWheel(true);
 
             minutosPikcer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -178,9 +189,14 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
             continuar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
-                    descansoEditText.setText(timeLeftFormatted);
-                    dialog.cancel();
+                    if(selectedSeconds[0] == 0 && selectedMinute[0] == 0){
+                        Toast.makeText(view.getContext(), "Debe tomarse un descanso entre serie y serie.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedMinute[0], selectedSeconds[0]);
+                        descansoEditText.setText(timeLeftFormatted);
+                        dialog.cancel();
+                    }
                 }
             });
             cancelar.setOnClickListener(new View.OnClickListener() {

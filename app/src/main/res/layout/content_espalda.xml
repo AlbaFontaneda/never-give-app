@@ -6,96 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/cardViewContent"
     tools:context="com.rigobertosl.nevergiveapp.EspaldaActivity"
     tools:showIn="@layout/activity_espalda">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableLayout
-            android:id="@+id/table_chest_exercises"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
-                android:id="@+id/dominadas"
-                style="@style/Button_exercices_type">
+                android:id="@+id/ejercicioUno"
+                style="@style/buttonExercise">
+
                 <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioUnoImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/dominadas_text_view"
-                    android:autoLink="all"
-                    android:text="Dominadas" />
+                    android:id="@+id/ejercicioUnoText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dominadas_cerrado"
-                style="@style/Button_exercices_type">
+                android:id="@+id/ejercicioDos"
+                style="@style/buttonExercise">
+
                 <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioDosImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/dominadas_cerrado_text_view"
-                    android:autoLink="all"
-                    android:text="Dominadas con agarre cerrado" />
+                    android:id="@+id/ejercicioDosText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/remo_barra"
-                style="@style/Button_exercices_type">
+                android:id="@+id/ejercicioTres"
+                style="@style/buttonExercise">
+
                 <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioTresImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/remo_barra_text_view"
-                    android:autoLink="all"
-                    android:text="Remo con barra" />
+                    android:id="@+id/ejercicioTresText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/remo_polea"
-                style="@style/Button_exercices_type">
+                android:id="@+id/ejercicioCuatro"
+                style="@style/buttonExercise">
+
                 <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
+                    android:id="@+id/ejercicioCuatroImage"
+                    style="@style/imageExercise" />
                 <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/remo_polea_view"
-                    android:autoLink="all"
-                    android:text="Remo en polea sentado" />
+                    android:id="@+id/ejercicioCuatroText"
+                    style="@style/nombreEjercicio" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/peso_muerto"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/peso_muerto_text_view"
-                    android:autoLink="all"
-                    android:text="Peso muerto" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pullover_banco"
-                style="@style/Button_exercices_type">
-                <ImageView
-                    style="@style/Image_exercise_type"
-                    android:src="@drawable/achievements_logo" />
-                <TextView
-                    style="@style/Text_button_exercise_type"
-                    android:id="@+id/pullover_banco_text_view"
-                    android:autoLink="all"
-                    android:text="Pullover banco declinado" />
-            </LinearLayout>
-        </TableLayout>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>
