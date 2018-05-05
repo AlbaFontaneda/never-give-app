@@ -50,6 +50,17 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
         return exercises.size();
     }
 
+    public boolean exercisesFilled(){
+        boolean fill = true;
+        for (Exercise exercise : exercisesEdited){
+            if(exercise.getRepeticiones().equals("") || exercise.getSeries().equals("")){
+                fill = false;
+                break;
+            }
+        }
+        return fill;
+    }
+
     public  ArrayList<Exercise> getExercisesEdited(){
         return exercisesEdited;
     }
@@ -73,7 +84,9 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setSeries(charSequence.toString());
+                    if(!charSequence.equals("")) {
+                        exercisesEdited.get(getAdapterPosition()).setSeries(charSequence.toString());
+                    }
                 }
 
                 @Override
@@ -91,7 +104,9 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setRepeticiones(charSequence.toString());
+                    if(!charSequence.equals("")) {
+                        exercisesEdited.get(getAdapterPosition()).setRepeticiones(charSequence.toString());
+                    }
                 }
 
                 @Override
@@ -115,7 +130,10 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    exercisesEdited.get(getAdapterPosition()).setDescanso(charSequence.toString());
+                    if(!charSequence.equals("")){
+                        exercisesEdited.get(getAdapterPosition()).setDescanso(charSequence.toString());
+                    }
+
                 }
 
                 @Override
@@ -127,7 +145,6 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
 
         public void openDatePicker(View view, final EditText descansoEditText){
             final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-            //final View dialogLayout = getLayoutInflater().inflate(R.layout.popup_custom_timepicker, null);
             View dialogLayout = LayoutInflater.from(view.getContext())
                     .inflate(R.layout.popup_custom_timepicker, null);
             final AlertDialog dialog = builder.create();

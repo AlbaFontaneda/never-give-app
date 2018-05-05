@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -77,13 +78,18 @@ public class EditTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                db.editTable(table, tableName.getText().toString(), tableDays.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
-                Intent intent = new Intent(mContext, TableResumeActivity.class);
-                intent.putExtra("tablaID", tableID);
-                intent.putExtra("fromTraining", getIntent().getSerializableExtra("fromTraining"));
-                intent.putExtra("isDefault", false);
-                mContext.startActivity(intent);
-                finish();
+                if (tableName.getText().toString().equals("") || !exerciseResumeAdapter.exercisesFilled()) {
+                    Toast.makeText(EditTableActivity.this,
+                            "Necesita rellenar todos los campos.", Toast.LENGTH_LONG).show();
+                } else {
+                    db.editTable(table, tableName.getText().toString(), tableDays.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
+                    Intent intent = new Intent(mContext, TableResumeActivity.class);
+                    intent.putExtra("tablaID", tableID);
+                    intent.putExtra("fromTraining", getIntent().getSerializableExtra("fromTraining"));
+                    intent.putExtra("isDefault", false);
+                    mContext.startActivity(intent);
+                    finish();
+                }
             }
         });
     }
