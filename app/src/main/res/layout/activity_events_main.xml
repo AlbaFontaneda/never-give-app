@@ -21,6 +21,32 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/colorSecundary">
+
+            <LinearLayout
+                style="@style/nextEvent"
+                android:padding="10dp">
+
+                <TextView
+                    android:text="@string/proximo_evento"
+                    style="@style/TitleNextEvent"/>
+
+                <TableLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="0,1,2"
+                    android:gravity="center">
+                    
+                </TableLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
