@@ -22,6 +22,10 @@
             android:icon="@drawable/ic_eventos"
             android:title="@string/localizacion" />
         <item
+            android:id="@+id/nav_eventos"
+            android:icon="@drawable/ic_eventos"
+            android:title="@string/title_activity_events_main" />
+        <item
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logro_no_completado"
             android:title="@string/logros" />

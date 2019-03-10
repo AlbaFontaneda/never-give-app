@@ -82,7 +82,7 @@
         <activity
             android:name=".EditTableActivity"
             android:label="@string/title_activity_edit_table"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DefaultResume"
             android:label="@string/title_activity_default_resume"
@@ -102,10 +102,15 @@
             android:name=".AchievementsActivity"
             android:label="@string/title_activity_achievements"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EventsMainActivity"
+            android:label="@string/title_activity_events_main"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".Location"
             android:label="@string/title_activity_events"

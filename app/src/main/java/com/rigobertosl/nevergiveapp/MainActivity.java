@@ -57,31 +57,38 @@ public class MainActivity extends AppCompatActivity
         }
 
         SharedPreferences mPreferences = this.getSharedPreferences("first_time", Context.MODE_PRIVATE);
-        Boolean firstTime = mPreferences.getBoolean("firstTime", true);
-        if (firstTime) {
+        if (mPreferences.getBoolean("firstTime", true)) {
+            String destPath = this.getDatabasePath(DATABASE_NAME).getAbsolutePath();
+            System.out.println("Traza: Es la primera vez que se abre la app. Se crea una nueva BBDD.");
+            InputStream in = null;
+            OutputStream out = null;
             try {
-                String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
-
-                System.out.println("Traza: no existe el fichero");
-                InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
-                OutputStream out = new FileOutputStream(destPath);
+                in = getAssets().open(PRELOADED_DATABASE_NAME);
+                out = new FileOutputStream(destPath);
 
                 byte[] buffer = new byte[1024];
-                int length;
-                while ((length = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, length);
+                while (in.read(buffer) > 0) {
+                    out.write(buffer);
                 }
-                in.close();
-                out.flush();
-                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putBoolean("firstTime", false);
                 editor.commit();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    if (out != null) {
+                        out.close();
+                    }
+                    if (in != null){
+                        in.close();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
         db.close();
 
         //Finds ID
@@ -146,6 +153,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_eventos) {
+            Intent intent = new Intent(MainActivity.this, EventsMainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_reinicio) {
 

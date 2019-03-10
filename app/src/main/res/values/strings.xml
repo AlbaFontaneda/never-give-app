@@ -250,4 +250,27 @@
         <item>DO</item>
     </string-array>
 
+    // EVENTS
+
+    <string name="title_activity_events_main">Eventos</string>
+    <string name="buscar_eventos">Buscar eventos</string>
+    <string name="crear_eventos">Crear eventos</string>
+    <string name="busqueda_avanzada">Búsqueda avanzada</string>
+
+    <string name="proximo_evento">Próximo evento</string>
+    <string name="actividad">Actividad</string>
+    <string name="dia">Día</string>
+    <string name="hora">Hora</string>
+    <string name="lugar">Lugar</string>
+    <string name="asistentes">Asistentes</string>
+    <string name="distancia">Distancia</string>
+
+    <string name="email">Email</string>
+    <string name="alias">Alias</string>
+    <string name="sexo">Sexo</string>
+    <string name="edad">Edad</string>
+    <string name="altura">Altura</string>
+    <string name="peso">Peso</string>
+    <string name="tlf">Teléfono</string>
+
 </resources>
