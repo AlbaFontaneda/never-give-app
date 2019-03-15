@@ -1,21 +1,42 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class EventsMainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EventsMainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     FloatingActionButton fab;
     private DataBaseContract db;
+    GoogleMap mMap;
+    FrameLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +48,8 @@ public class EventsMainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        layout = findViewById(R.id.map);
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +57,42 @@ public class EventsMainActivity extends AppCompatActivity {
                 startActivity(new Intent(EventsMainActivity.this, MainActivity.class));
             }
         });
+
+        initializeMap();
     }
+
+    private void initializeMap() {
+        if (mMap == null) {
+            FragmentManager fm = getSupportFragmentManager();
+            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
+            fm.beginTransaction().replace(layout.getId(), supportMapFragment).commit();
+            if (supportMapFragment != null) {
+                supportMapFragment.getMapAsync(EventsMainActivity.this);
+            }
+            // check if map is created successfully or not
+            if (mMap == null) {
+                Toast.makeText(getApplicationContext(), "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //}
+        //mMap.setMyLocationEnabled(true);
+        List<Marker> markerList = new ArrayList<>();
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
+        markerList.add(marker);
+
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(marker.getPosition().latitude, marker.getPosition().latitude), 17f, 60, 0);
+        //mMap.moveCamera(cameraPosition);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+    }
+
+
+
 
     /** Sobrescripción del botón de atrás del propio móvil
      * Código extraido de: Ekawas.
@@ -68,5 +126,4 @@ public class EventsMainActivity extends AppCompatActivity {
         finish();
         startActivity(setIntent);
     }
-
 }
