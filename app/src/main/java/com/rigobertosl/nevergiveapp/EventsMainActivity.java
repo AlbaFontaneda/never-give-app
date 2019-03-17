@@ -1,24 +1,15 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,7 +18,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,14 +39,6 @@ public class EventsMainActivity extends AppCompatActivity implements OnMapReadyC
         setSupportActionBar(toolbar);
 
         layout = findViewById(R.id.map);
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EventsMainActivity.this, MainActivity.class));
-            }
-        });
 
         initializeMap();
     }
@@ -90,9 +72,6 @@ public class EventsMainActivity extends AppCompatActivity implements OnMapReadyC
         //mMap.moveCamera(cameraPosition);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
     }
-
-
-
 
     /** Sobrescripción del botón de atrás del propio móvil
      * Código extraido de: Ekawas.
