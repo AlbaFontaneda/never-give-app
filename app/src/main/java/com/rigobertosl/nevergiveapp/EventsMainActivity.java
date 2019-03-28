@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,8 +38,34 @@ public class EventsMainActivity extends AppCompatActivity implements OnMapReadyC
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                onBackPressed();
+            }
+        });
         layout = findViewById(R.id.map);
+
+        final Button buscarEvento = (Button)findViewById(R.id.button_search_events);
+        final Button crearEvento = (Button)findViewById(R.id.button_create_event);
+        buscarEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setIntent = new Intent(EventsMainActivity.this, LoginActivity.class);
+                setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                finish();
+                startActivity(setIntent);
+            }
+        });
+        crearEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setIntent = new Intent(EventsMainActivity.this, LoginActivity.class);
+                setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                finish();
+                startActivity(setIntent);
+            }
+        });
 
         initializeMap();
     }
@@ -53,7 +80,7 @@ public class EventsMainActivity extends AppCompatActivity implements OnMapReadyC
             }
             // check if map is created successfully or not
             if (mMap == null) {
-                Toast.makeText(getApplicationContext(), "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
             }
         }
     }

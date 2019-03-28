@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "262253470704",
+    "firebase_url": "https://nevergiveapp-65cad.firebaseio.com",
+    "project_id": "nevergiveapp-65cad",
+    "storage_bucket": "nevergiveapp-65cad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262253470704:android:664e7a0dca96dad4",
+        "android_client_info": {
+          "package_name": "com.rigobertosl.nevergiveapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262253470704-8o79i7dso3ired36qb4thdejmpjdpe4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlSJcJBXMD86QW_QfL_ATmQFZXKxJ3NPQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

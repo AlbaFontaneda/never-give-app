@@ -149,13 +149,16 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_localizacion) {
-            Intent intent = new Intent(MainActivity.this, Location.class);
-            startActivity(intent);
+
+            //Crashlytics.getInstance().crash(); // Force a crash
+
+            //Intent intent = new Intent(MainActivity.this, Location.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_eventos) {
-            Intent intent = new Intent(MainActivity.this, EventsMainActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_reinicio) {
 
