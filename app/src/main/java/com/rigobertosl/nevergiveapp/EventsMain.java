@@ -1,34 +1,25 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-public class EventsMain extends AppCompatActivity {
+import java.util.EventListener;
 
+public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsHomeFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    return true;
-                case R.id.navigation_dashboard:
-                    return true;
-                case R.id.navigation_notifications:
-                    return true;
-            }
-            return false;
-        }
-    };
+    private FrameLayout contentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +29,41 @@ public class EventsMain extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        contentView = (FrameLayout) findViewById(R.id.content_view);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        transaction.replace(R.id.content_view, new EventsHomeFragment());
+                        transaction.commit();
+                        return true;
+                    case R.id.navigation_dashboard:
+                        transaction.replace(R.id.content_view, new EventsCreateFragment());
+                        transaction.commit();
+                        return true;
+                    case R.id.navigation_notifications:
+                        transaction.replace(R.id.content_view, new EventsSearchFragment());
+                        transaction.commit();
+                        return true;
+                }
+                return false;
+            }
+        };
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_home);
+
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
     }
 
     /** Sobrescripción del botón de atrás del propio móvil
