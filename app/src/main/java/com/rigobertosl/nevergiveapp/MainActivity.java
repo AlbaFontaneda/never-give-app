@@ -144,6 +144,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_localizacion) {
             Intent intent = new Intent(MainActivity.this, Location.class);
             startActivity(intent);
+        } else if (id == R.id.nav_eventos) {
+            Intent intent = new Intent(MainActivity.this, EventsMain.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logros) {
             Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
             startActivity(intent);
