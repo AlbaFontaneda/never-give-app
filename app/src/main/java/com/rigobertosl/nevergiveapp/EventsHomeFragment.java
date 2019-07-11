@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,6 @@ public class EventsHomeFragment extends Fragment {
     private GoogleMap mMap;
     private MapView mMapView;
 
-    public EventsHomeFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +40,28 @@ public class EventsHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View mapView = inflater.inflate(R.layout.fragment_events_home, container, false);
+        final View mapView = inflater.inflate(R.layout.fragment_events_home, container, false);
 
         mMapView = mapView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
+
+        RecyclerView recyclerView = (RecyclerView) mapView.findViewById(R.id.eventsRecyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<Event> eventList = new ArrayList<>();
+
+        Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), 8, 2);
+        Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), 7, 14);
+        Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), 5, 5);
+        eventList.add(evento1);
+        eventList.add(evento2);
+        eventList.add(evento3);
+
+        RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
+        recyclerView.setAdapter(adapterEvent);
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -64,6 +78,7 @@ public class EventsHomeFragment extends Fragment {
                 Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
                 markerList.add(marker);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+
             }
         });
 

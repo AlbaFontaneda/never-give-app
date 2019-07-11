@@ -1,14 +1,16 @@
 package com.rigobertosl.nevergiveapp;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Event {
 
 
-    private GooglePlace location;
+    private LatLng location;
     private String sport;
     private int hour;
     private int people;
 
-    public Event(String sport, GooglePlace location, int hour, int people) {
+    public Event(String sport, LatLng location, int hour, int people) {
         this.sport = sport;
         this.location = location;
         this.hour = hour;
@@ -23,11 +25,11 @@ public class Event {
         this.sport = sport;
     }
 
-    public GooglePlace getLocation() {
+    public LatLng getLocation() {
         return location;
     }
 
-    public void setLocation(GooglePlace location) {
+    public void setLocation(LatLng location) {
         this.location = location;
     }
 

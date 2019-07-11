@@ -29,12 +29,12 @@
         app:layout_constraintRight_toRightOf="parent"
         android:background="@color/cardViewContent">
 
-        <!--
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/eventsList"
+            android:id="@+id/eventsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        -->
+            android:layout_height="match_parent"
+            android:orientation="horizontal"/>
+
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
