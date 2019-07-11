@@ -22,9 +22,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsHomeFragment extends Fragment implements OnMapReadyCallback {
+public class EventsHomeFragment extends Fragment {
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap mMap;
     private MapView mMapView;
 
@@ -45,7 +44,7 @@ public class EventsHomeFragment extends Fragment implements OnMapReadyCallback {
 
         View mapView = inflater.inflate(R.layout.fragment_events_home, container, false);
 
-        mMapView = (MapView) mapView.findViewById(R.id.map);
+        mMapView = mapView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
@@ -56,33 +55,19 @@ public class EventsHomeFragment extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
 
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+
+                List<Marker> markerList = new ArrayList<>();
+                Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
+                markerList.add(marker);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+            }
+        });
+
         return mapView;
-    }
-
-    private void initializeMap(){
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission to access the location is missing.
-            LocationPermissions.requestPermission((AppCompatActivity) getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-        } else if (mMap != null) {
-            // Access to the location has been granted to the app.
-            mMap.setMyLocationEnabled(true);
-        }
-    }
-
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-
-        initializeMap();
-
-        List<Marker> markerList = new ArrayList<>();
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
-        markerList.add(marker);
-
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(marker.getPosition().latitude, marker.getPosition().latitude), 17f, 60, 0);
-        //mMap.moveCamera(cameraPosition);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
     }
 
     public interface OnFragmentInteractionListener {
