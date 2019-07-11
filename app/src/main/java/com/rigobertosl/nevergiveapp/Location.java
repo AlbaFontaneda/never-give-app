@@ -95,8 +95,6 @@ public class Location extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-
-
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();

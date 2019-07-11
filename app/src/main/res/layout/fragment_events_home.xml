@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".EventsHomeFragment">
 
-    <FrameLayout
+    <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="610dp"
@@ -29,12 +29,12 @@
         app:layout_constraintRight_toRightOf="parent"
         android:background="@color/cardViewContent">
 
+        <!--
         <android.support.v7.widget.RecyclerView
             android:id="@+id/eventsList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"/>
+        -->
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

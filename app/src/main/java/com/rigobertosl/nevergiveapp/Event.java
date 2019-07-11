@@ -2,26 +2,17 @@ package com.rigobertosl.nevergiveapp;
 
 public class Event {
 
-    private String name;
+
+    private GooglePlace location;
     private String sport;
-    private String location;
     private int hour;
     private int people;
 
-    public Event(String name, String sport, String location, int hour, int people) {
-        this.name = name;
+    public Event(String sport, GooglePlace location, int hour, int people) {
         this.sport = sport;
         this.location = location;
         this.hour = hour;
         this.people = people;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSport() {
@@ -32,11 +23,11 @@ public class Event {
         this.sport = sport;
     }
 
-    public String getLocation() {
+    public GooglePlace getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(GooglePlace location) {
         this.location = location;
     }
 

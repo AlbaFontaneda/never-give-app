@@ -1,78 +1,88 @@
 package com.rigobertosl.nevergiveapp;
 
-import android.content.Context;
-import android.net.Uri;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
+public class EventsHomeFragment extends Fragment implements OnMapReadyCallback {
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventsHomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventsHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EventsHomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private GoogleMap mMap;
+    private MapView mMapView;
 
     public EventsHomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventsHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EventsHomeFragment newInstance(String param1, String param2) {
-        EventsHomeFragment fragment = new EventsHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        //TODO: CREAR EL RECYCLER VIEW
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_events_home, container, false);
 
-        //TODO: CREAR EL RECYCLER VIEW
+        View mapView = inflater.inflate(R.layout.fragment_events_home, container, false);
 
-        //ArrayList<Event> eventsList = new ArrayList<Event>();
+        mMapView = (MapView) mapView.findViewById(R.id.map);
+        mMapView.onCreate(savedInstanceState);
 
+        mMapView.onResume(); // needed to get the map to display immediately
 
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mapView;
+    }
+
+    private void initializeMap(){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            LocationPermissions.requestPermission((AppCompatActivity) getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            // Access to the location has been granted to the app.
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+
+        initializeMap();
+
+        List<Marker> markerList = new ArrayList<>();
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
+        markerList.add(marker);
+
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(marker.getPosition().latitude, marker.getPosition().latitude), 17f, 60, 0);
+        //mMap.moveCamera(cameraPosition);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
     }
 
     public interface OnFragmentInteractionListener {
