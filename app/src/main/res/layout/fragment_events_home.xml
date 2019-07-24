@@ -20,7 +20,7 @@
     <FrameLayout
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:orientation="horizontal"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"

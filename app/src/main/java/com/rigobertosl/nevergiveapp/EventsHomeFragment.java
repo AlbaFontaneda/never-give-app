@@ -53,12 +53,14 @@ public class EventsHomeFragment extends Fragment {
 
         ArrayList<Event> eventList = new ArrayList<>();
 
-        Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), 8, 2);
-        Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), 7, 14);
-        Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), 5, 5);
+        Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), 8, 30, 2);
+        Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), 7, 0, 14);
+        Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), 5,15, 5);
+        Event evento4 = new Event("Gimnasio", new LatLng(40.316819, -3.704751), 5,20, 3);
         eventList.add(evento1);
         eventList.add(evento2);
         eventList.add(evento3);
+        eventList.add(evento4);
 
         RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
         recyclerView.setAdapter(adapterEvent);

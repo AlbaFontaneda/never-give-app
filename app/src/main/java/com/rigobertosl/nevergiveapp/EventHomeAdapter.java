@@ -16,13 +16,14 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView title, hour;
+        private TextView title, hour, people;
         private ImageView image;
 
         public MyViewHolder (View view){
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             hour = (TextView) view.findViewById(R.id.hour);
+            people = (TextView) view.findViewById(R.id.people);
             //image = (ImageView) view.findViewById(R.id.image);
         }
     }
@@ -41,7 +42,8 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(eventList.get(position).getSport());
-        holder.hour.setText(String.valueOf(eventList.get(position).getHour()));
+        holder.hour.setText(eventList.get(position).getHour().concat(":").concat(String.valueOf(eventList.get(position).getMinutes())));
+        holder.people.setText(eventList.get(position).getPeople());
     }
 
     @Override
