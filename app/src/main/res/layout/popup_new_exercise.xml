@@ -1,88 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        style="@style/popUpTitle">
+
+        <TextView
+            android:text="@string/newExercise"
+            style="@style/popUpTextTitle"/>
+    </LinearLayout>
+    <LinearLayout
+        style="@style/popUpData">
 
         <LinearLayout
-            style="@style/popUpTitle">
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
-                android:text="@string/newExercise"
-                style="@style/popUpTextTitle"/>
-        </LinearLayout>
-        <LinearLayout
-            style="@style/popUpData">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="@string/numeroRepeticiones"
-                    style="@style/popUpNames" />
-                <EditText
-                    android:id="@+id/num_repeticiones"
-                    style="@style/popUpEdits"
-                    android:inputType="number"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="@string/numeroSeries"
-                    style="@style/popUpNames"/>
-                <EditText
-                    android:id="@+id/num_series"
-                    style="@style/popUpEdits"
-                    android:inputType="number"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="@string/tiempoDescando"
-                    style="@style/popUpNames"/>
-                <EditText
-                    android:id="@+id/tiempo_descanso"
-                    style="@style/popUpEdits"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:gravity="center"/>
-
-            </LinearLayout>
+                android:text="@string/numeroRepeticiones"
+                style="@style/popUpNames" />
+            <EditText
+                android:id="@+id/num_repeticiones"
+                style="@style/popUpEdits"
+                android:inputType="number"
+                android:gravity="center"/>
 
         </LinearLayout>
 
         <LinearLayout
-            style="@style/popUpButtons">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/numeroSeries"
+                style="@style/popUpNames"/>
+            <EditText
+                android:id="@+id/num_series"
+                style="@style/popUpEdits"
+                android:inputType="number"
+                android:gravity="center"/>
 
-            <Button
-                android:id="@+id/button_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:text="@string/cancel"/>
-            <Button
-                android:id="@+id/button_continue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:text="@string/continuar"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/tiempoDescando"
+                style="@style/popUpNames"/>
+            <EditText
+                android:id="@+id/tiempo_descanso"
+                style="@style/popUpEdits"
+                android:focusable="false"
+                android:clickable="true"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        style="@style/popUpButtons">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:text="@string/cancel"/>
+        <Button
+            android:id="@+id/button_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:text="@string/continuar"/>
+    </LinearLayout>
+</LinearLayout>

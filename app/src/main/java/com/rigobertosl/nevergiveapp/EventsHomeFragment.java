@@ -28,12 +28,12 @@ public class EventsHomeFragment extends Fragment {
 
     private GoogleMap mMap;
     private MapView mMapView;
+    ArrayList<Event> eventList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO: CREAR EL RECYCLER VIEW
     }
 
     @Override
@@ -51,7 +51,7 @@ public class EventsHomeFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<Event> eventList = new ArrayList<>();
+        eventList = new ArrayList<>();
 
         Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), 8, 30, 2);
         Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), 7, 0, 14);
@@ -80,6 +80,10 @@ public class EventsHomeFragment extends Fragment {
                 Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.3208737, -3.7130592)).title("Hello World"));
                 markerList.add(marker);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+
+                for (Event event : eventList){
+                    markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLocation()).title(event.getSport()))));
+                }
 
             }
         });

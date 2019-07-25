@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        style="@style/popUpTitle">
+
+        <TextView
+            android:text="Establece una hora para empezar la actividad"
+            style="@style/popUpTextTitle"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/popUpTimePicker"
+            android:text="Horas"/>
+        <TextView
+            style="@style/popUpTimePicker"
+            android:text=" : "/>
+        <TextView
+            style="@style/popUpTimePicker"
+            android:text="@string/minutos"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/horas_picker"
+            style="@style/hoursPicker"/>
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/minutos_picker"
+            style="@style/numberPicker" />
+    </LinearLayout>
+    <LinearLayout
+        style="@style/popUpButtons"
+        android:paddingTop="1dp">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:text="@string/cancel"/>
+        <Button
+            android:id="@+id/button_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:text="@string/continuar"/>
+    </LinearLayout>
+
+</LinearLayout>

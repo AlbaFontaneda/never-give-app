@@ -110,7 +110,6 @@ public class BicepsActivity extends AppCompatActivity {
         db.close();
 
         descansoEditText.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 openDatePicker(v, descansoEditText);
