@@ -12,11 +12,11 @@
         <item
             android:id="@+id/nav_entrenamiento"
             android:icon="@drawable/ic_entrenamiento"
-            android:title="@string/tablas_entrenamiento" />
+            android:title="@string/entrenamiento" />
         <item
             android:id="@+id/nav_calendario"
             android:icon="@drawable/ic_calendario"
-            android:title="@string/calendario_comidas" />
+            android:title="@string/dieta" />
         <item
             android:id="@+id/nav_localizacion"
             android:icon="@drawable/ic_localizacion"

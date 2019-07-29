@@ -39,7 +39,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="inicio">Inicio</string>
-    <string name="calendario_comidas">Calendario de comidas</string>
+    <string name="dieta">Dieta</string>
     <string name="localizacion">Localización</string>
     <string name="logros">Logros</string>
     <string name="reinicio">Reiniciar base de datos</string>
@@ -124,7 +124,7 @@
 
     //Pantalla de inicio
     <string name="comidas_hoy">Comidas de hoy</string>
-    <string name="tablas_entrenamiento">Tablas de entrenamiento</string>
+    <string name="entrenamiento">Entrenamiento</string>
     <string name="proximos_eventos">Próximos eventos</string>
     <string name="ultimos_logros">Últimos logros conseguidos</string>
 

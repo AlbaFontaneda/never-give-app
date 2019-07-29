@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -69,8 +70,22 @@ public class EventsMain extends AppCompatActivity implements EventsCreateFragmen
         };
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.activity_events, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+
+        switch (item.getItemId()){
+            case R.id.account:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
