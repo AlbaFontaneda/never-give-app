@@ -7,6 +7,7 @@ public class Event {
 
     private LatLng location;
     private String sport, hour, minutes, day, month, year, people, notes;
+    private boolean isSelected;
 
     public Event(){}
 
@@ -19,6 +20,7 @@ public class Event {
         this.month = month;
         this.year = year;
         this.people = people;
+        this.isSelected = false;
     }
 
     public Event( String sport, LatLng location, String hour, String minutes, String day, String month, String year, String people, String notes) {
@@ -31,6 +33,7 @@ public class Event {
         this.year = year;
         this.people = people;
         this.notes = notes;
+        this.isSelected = false;
     }
 
     public LatLng getLocation() {
@@ -103,6 +106,14 @@ public class Event {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String creacionDeEvento(){

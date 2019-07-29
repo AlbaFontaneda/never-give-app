@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -47,12 +48,20 @@
             <TextView
                 android:text="Localización: "
                 style="@style/popUpNames"/>
+            <!--
             <EditText
                 android:id="@+id/location"
                 style="@style/popUpEdits"
                 android:focusable="false"
                 android:clickable="true"
                 android:gravity="center"/>
+                -->
+            <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
+                android:id="@+id/places_autocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:pacv_googleMapsApiKey="@string/google_maps_key" />
+
         </LinearLayout>
 
         <LinearLayout
