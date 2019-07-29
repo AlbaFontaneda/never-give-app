@@ -53,10 +53,10 @@ public class EventsHomeFragment extends Fragment {
 
         eventList = new ArrayList<>();
 
-        Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), 8, 30, 2);
-        Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), 7, 0, 14);
-        Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), 5,15, 5);
-        Event evento4 = new Event("Gimnasio", new LatLng(40.316819, -3.704751), 5,20, 3);
+        Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), "20", "30", "04", "05", "2009", "2");
+        Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), "19", "00", "05", "05", "2009", "14");
+        Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), "17","15","08", "08", "2009", "5");
+        Event evento4 = new Event("Gimnasio", new LatLng(40.316819, -3.704751), "13","20","20", "10", "2009", "3");
         eventList.add(evento1);
         eventList.add(evento2);
         eventList.add(evento3);

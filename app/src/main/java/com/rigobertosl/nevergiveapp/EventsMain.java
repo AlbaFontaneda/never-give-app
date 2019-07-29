@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,16 @@ public class EventsMain extends AppCompatActivity implements EventsCreateFragmen
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(EventsMain.this, MainActivity.class);
+                //Para matar la actividad anterior
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //Para leer la nueva actividad (volver al main)
+                startActivity(intent);
+            }
+        });
 
         contentView = (FrameLayout) findViewById(R.id.content_view);
 

@@ -1,22 +1,30 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
+import java.util.Calendar;
 import java.util.Locale;
 
-public class EventsCreateFragment extends Fragment {
+public class EventsCreateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private EditText mySport, myPeople, myLocation, myDay, myTime;
+    private Event evento = new Event();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,17 @@ public class EventsCreateFragment extends Fragment {
         myDay = (EditText)view.findViewById(R.id.day);
         myTime = (EditText)view.findViewById(R.id.hour);
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                evento.setSport(mySport.getText().toString());
+                evento.setPeople(myPeople.getText().toString());
+                Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //Snackbar.make(view, "Evento creado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+
         myTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +62,30 @@ public class EventsCreateFragment extends Fragment {
             }
         });
 
+        myDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCalendarPicker();
+            }
+        });
+
         return view;
+    }
+
+    public void openCalendarPicker(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this,
+                Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+
+        myDay.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", day, month, year));
+
+        evento.setDay(String.valueOf(day));
+        evento.setMonth(String.valueOf(month));
+        evento.setYear(String.valueOf(year));
     }
 
     public interface OnFragmentInteractionListener {
@@ -95,8 +137,14 @@ public class EventsCreateFragment extends Fragment {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedHour[0], selectedMinute[0]);
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%d:%02d", selectedHour[0], selectedMinute[0]);
                 EditTextTime.setText(timeLeftFormatted);
+                evento.setHour(String.valueOf(selectedHour[0]));
+                if(selectedMinute[0] < 10){
+                    evento.setMinutes("0" + String.valueOf(selectedMinute[0]));
+                } else{
+                    evento.setMinutes(String.valueOf(selectedMinute[0]));
+                }
                 dialog.cancel();
             }
         });

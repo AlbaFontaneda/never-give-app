@@ -19,11 +19,11 @@
             android:title="@string/calendario_comidas" />
         <item
             android:id="@+id/nav_localizacion"
-            android:icon="@drawable/ic_eventos"
+            android:icon="@drawable/ic_localizacion"
             android:title="@string/localizacion" />
         <item
             android:id="@+id/nav_eventos"
-            android:icon="@drawable/ic_eventos"
+            android:icon="@drawable/ic_people"
             android:title="Eventos" />
         <item
             android:id="@+id/nav_logros"

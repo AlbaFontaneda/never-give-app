@@ -249,10 +249,10 @@
         <item>SA</item>
         <item>DO</item>
     </string-array>
-    <string name="title_activity_events_main">EventsMain</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_events_main">Eventos</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_dashboard">Crear evento</string>
+    <string name="title_notifications">Búsqueda avanzada</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
