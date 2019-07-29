@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -79,6 +81,23 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
 
         RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
         recyclerView.setAdapter(adapterEvent);
+        ((EventHomeAdapter) adapterEvent).setOnItemClickListener(new EventHomeAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
+                LatLng eventLatLng = eventList.get(position).getLocation();
+                LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
+
+                CameraPosition cp = new CameraPosition.Builder()
+                        .tilt(60)
+                        .target(latLng)
+                        .zoom(19)
+                        .build();
+
+                CameraUpdate cu = CameraUpdateFactory.newCameraPosition(cp);
+                mMap.animateCamera(cu);
+            }
+        });
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -100,6 +119,7 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
                     markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLocation()).title(event.getSport()))));
                 }
 
+                /*
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 int padding = 60;
 
@@ -108,8 +128,9 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
                 }
                 LatLngBounds bounds = builder.build();
 
-                //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                //mMap.animateCamera(cameraUpdate);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                mMap.animateCamera(cameraUpdate);
+                */
 
 
             }

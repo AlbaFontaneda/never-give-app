@@ -1,5 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyViewHolder> {
 
     private ArrayList<Event> eventList;
+    private static ClickListener clickListener;
 
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title, hour, people;
         private ImageView image;
@@ -25,6 +26,12 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
             hour = (TextView) view.findViewById(R.id.hour);
             people = (TextView) view.findViewById(R.id.people);
             //image = (ImageView) view.findViewById(R.id.image);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition(), view);
         }
     }
 
@@ -50,4 +57,14 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
     public int getItemCount() {
         return eventList.size();
     }
+
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        EventHomeAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View view);
+    }
+
 }
