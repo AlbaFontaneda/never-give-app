@@ -15,7 +15,7 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     private LayoutInflater inflater;
     private Event myEvent;
 
-    private TextView myTitle, myDate, myHour, myPeople;
+    private TextView myTitle, myDate, myHour, myPeople, myHost;
 
     public CustomInfoMarkerAdapter(LayoutInflater inflater, Event eventFocused){
         this.inflater = inflater;
@@ -33,11 +33,13 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         myDate = (TextView) view.findViewById(R.id.info_date);
         myHour = (TextView) view.findViewById(R.id.info_hour);
         myPeople = (TextView) view.findViewById(R.id.info_people);
+        myHost = (TextView) view.findViewById(R.id.info_host);
 
         myTitle.setText(myEvent.getSport());
-        myDate.setText(myEvent.getDay());
+        myDate.setText(myEvent.getDate());
         myHour.setText(myEvent.getTime());
-        myPeople.setText(myEvent.getPeople());
+        myPeople.setText(myEvent.getPeople() + " personas");
+        myHost.setText(myEvent.getUserHost().getNick());
 
         return view;
     }

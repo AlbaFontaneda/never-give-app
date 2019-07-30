@@ -7,14 +7,14 @@
 
     <ImageView
         android:id="@+id/info_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:scaleType="centerCrop"
         android:src="@drawable/almuerzo_default"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/info_location"
-        />
+        android:layout_margin="4dp"/>
 
     <TextView
         android:id="@+id/info_title"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="Título sdfsdfsafsdfasdfsdsfd"
+        android:text="Título"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/info_image"
@@ -49,13 +49,6 @@
         app:layout_constraintLeft_toRightOf="@+id/ic_calendar"
         app:layout_constraintTop_toBottomOf="@+id/info_title" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7"/>
-
     <ImageView
         android:id="@+id/ic_hour"
         android:layout_width="22dp"
@@ -64,25 +57,25 @@
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_time"
         app:layout_constraintLeft_toRightOf="@+id/info_date"
-        app:layout_constraintRight_toLeftOf="@id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/info_title" />
 
     <TextView
         android:id="@+id/info_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/info_title"
+        app:layout_constraintLeft_toRightOf="@id/ic_hour"
         android:layout_margin="5dp"
         android:paddingTop="1dp"
-        android:text="20:00"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/info_title"
-        app:layout_constraintLeft_toRightOf="@id/ic_hour"/>
+        android:text="HH:MM"/>
 
     <ImageView
         android:id="@+id/ic_people"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_margin="5dp"
+        android:paddingTop="1dp"
         android:src="@drawable/ic_people"
         app:layout_constraintTop_toBottomOf="@+id/ic_calendar"
         app:layout_constraintLeft_toRightOf="@id/info_image"/>
@@ -95,9 +88,30 @@
         app:layout_constraintTop_toBottomOf="@+id/info_date"
         app:layout_constraintLeft_toRightOf="@+id/ic_people"
         android:layout_margin="5dp"
-        android:paddingTop="3dp"
-        android:text="22 personas"
+        android:text="OO personas"
         android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/ic_profile"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="1dp"
+        android:src="@drawable/ic_person"
+        app:layout_constraintTop_toBottomOf="@+id/ic_people"
+        app:layout_constraintLeft_toRightOf="@id/info_image"/>
+
+    <TextView
+        android:id="@+id/info_host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/info_people"
+        app:layout_constraintLeft_toRightOf="@id/ic_profile"
+        android:layout_margin="5dp"
+        android:paddingTop="1dp"
+        android:textStyle="bold"
+        android:text="Host"/>
 
 
     <TextView

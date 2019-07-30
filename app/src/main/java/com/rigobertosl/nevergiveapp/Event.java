@@ -2,30 +2,19 @@ package com.rigobertosl.nevergiveapp;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 public class Event {
 
-
+    private String sport, hour, minutes, day, month, year, people, notes;
     private LatLng location;
-    private String sport, hour, minutes, day, month, year, people, notes, user;
-    private boolean isSelected;
-    int peopleReady;
+    private Profile userHost;
+    private ArrayList<Profile> members;
+    private boolean full;
 
     public Event(){}
 
-    public Event( String sport, LatLng location, String hour, String minutes, String day, String month, String year, String people) {
-        this.location = location;
-        this.sport = sport;
-        this.hour = hour;
-        this.minutes = minutes;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.people = people;
-        this.isSelected = false;
-    }
-
-    public Event( String sport, LatLng location, String hour, String minutes, String day, String month, String year, String people, String notes) {
-        this.location = location;
+    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, LatLng location, Profile userHost) {
         this.sport = sport;
         this.hour = hour;
         this.minutes = minutes;
@@ -34,15 +23,11 @@ public class Event {
         this.year = year;
         this.people = people;
         this.notes = notes;
-        this.isSelected = false;
-    }
-
-    public LatLng getLocation() {
-        return location;
-    }
-
-    public void setLocation(LatLng location) {
         this.location = location;
+        this.userHost = userHost;
+        this.members = new ArrayList<>();
+        this.members.add(userHost);
+        this.full = false;
     }
 
     public String getSport() {
@@ -109,28 +94,35 @@ public class Event {
         this.notes = notes;
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public LatLng getLocation() {
+        return location;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 
-    public String getUser() {
-        return user;
+    public Profile getUserHost() {
+        return userHost;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserHost(Profile userHost) {
+        this.userHost = userHost;
     }
 
-    public int getPeopleReady() {
-        return peopleReady;
+    public ArrayList<Profile> getMembers() {
+        return members;
     }
 
-    public void setPeopleReady(int peopleReady) {
-        this.peopleReady = peopleReady;
+    public void setMembers(ArrayList<Profile> members) {
+        this.members = members;
+        if(this.members.size() == Integer.parseInt(people)){
+            this.full = true;
+        }
+    }
+
+    public boolean getFull() {
+        return full;
     }
 
     public String getDate(){
