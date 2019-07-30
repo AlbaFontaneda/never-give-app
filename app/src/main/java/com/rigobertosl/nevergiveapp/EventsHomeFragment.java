@@ -38,9 +38,9 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
 
     private GoogleMap mMap;
     private MapView mMapView;
-    ArrayList<Event> eventList;
-    GooglePlace myLocation;
+    private ArrayList<Event> eventList;
     private LocationManager locationManager;
+    private List<Marker> markerList;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -66,8 +66,8 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        // Esto está hecho a mano pero hay que cambiarlo
         eventList = new ArrayList<>();
-
         Event evento1 = new Event("Tenis", new LatLng(40.316877, -3.706114), "20", "30", "04", "05", "2009", "2");
         Event evento2 = new Event("Fútbol", new LatLng(40.317572, -3.706876), "19", "00", "05", "05", "2009", "14");
         Event evento3 = new Event("Pokemon Go", new LatLng(40.317703, -3.702198), "17","15","08", "08", "2009", "5");
@@ -84,18 +84,20 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
         ((EventHomeAdapter) adapterEvent).setOnItemClickListener(new EventHomeAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
                 LatLng eventLatLng = eventList.get(position).getLocation();
                 LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
 
-                CameraPosition cp = new CameraPosition.Builder()
+                CameraPosition cameraPosition = new CameraPosition.Builder()
                         .tilt(60)
                         .target(latLng)
                         .zoom(19)
                         .build();
 
-                CameraUpdate cu = CameraUpdateFactory.newCameraPosition(cp);
-                mMap.animateCamera(cu);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                mMap.animateCamera(cameraUpdate);
+                mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position)));
+                markerList.get(position).showInfoWindow();
             }
         });
 
@@ -111,14 +113,13 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
 
-                List<Marker> markerList = new ArrayList<>();
+                markerList = new ArrayList<>();
                 //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
                 mMap.setMyLocationEnabled(true);
 
                 for (Event event : eventList){
                     markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLocation()).title(event.getSport()))));
                 }
-
                 /*
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 int padding = 60;
@@ -131,8 +132,6 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
                 mMap.animateCamera(cameraUpdate);
                 */
-
-
             }
         });
 

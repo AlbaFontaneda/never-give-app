@@ -6,8 +6,9 @@ public class Event {
 
 
     private LatLng location;
-    private String sport, hour, minutes, day, month, year, people, notes;
+    private String sport, hour, minutes, day, month, year, people, notes, user;
     private boolean isSelected;
+    int peopleReady;
 
     public Event(){}
 
@@ -114,6 +115,30 @@ public class Event {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public int getPeopleReady() {
+        return peopleReady;
+    }
+
+    public void setPeopleReady(int peopleReady) {
+        this.peopleReady = peopleReady;
+    }
+
+    public String getDate(){
+        return this.day + "/" + this.month + "/" + this.year;
+    }
+
+    public String getTime(){
+        return this.hour + ":" + this.minutes;
     }
 
     public String creacionDeEvento(){
