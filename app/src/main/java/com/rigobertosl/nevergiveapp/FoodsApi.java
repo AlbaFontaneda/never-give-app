@@ -3,6 +3,8 @@ package com.rigobertosl.nevergiveapp;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.rigobertosl.nevergiveapp.objects.FoodKcal;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 

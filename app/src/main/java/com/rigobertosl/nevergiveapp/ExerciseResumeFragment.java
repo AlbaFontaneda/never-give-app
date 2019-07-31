@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.rigobertosl.nevergiveapp.objects.CountDownTimer;
+import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
+
 import java.util.ArrayList;
 import java.util.Locale;
 

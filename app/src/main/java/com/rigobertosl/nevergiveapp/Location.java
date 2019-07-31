@@ -34,6 +34,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -237,37 +238,6 @@ public class Location extends AppCompatActivity
                         .title(place.getName()));
             }
         }
-
     }
-
-}
-
-class GooglePlace {
-
-    private String name;
-    private double latitude, longitude;
-
-    public GooglePlace(String name, double latitude, double longitude) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
 }
 

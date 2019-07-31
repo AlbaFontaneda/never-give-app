@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
+
 import java.util.ArrayList;
 
 public class TrainingActivity extends AppCompatActivity {

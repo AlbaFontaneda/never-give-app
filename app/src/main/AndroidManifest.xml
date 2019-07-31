@@ -117,7 +117,7 @@
             android:label="@string/title_activity_events"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".EventsMain"
+            android:name=".events.EventsMain"
             android:label="@string/title_activity_events_main"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

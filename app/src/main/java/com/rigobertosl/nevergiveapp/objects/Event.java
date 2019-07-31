@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp;
+package com.rigobertosl.nevergiveapp.objects;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
+
 import java.util.ArrayList;
 
 public class TrainingFragmentDefault extends Fragment {

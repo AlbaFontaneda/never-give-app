@@ -19,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
+
 import java.util.ArrayList;
 
 public class EditTableActivity extends AppCompatActivity {

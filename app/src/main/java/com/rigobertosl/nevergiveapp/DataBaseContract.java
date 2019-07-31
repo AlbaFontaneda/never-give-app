@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.rigobertosl.nevergiveapp.objects.Achievement;
+import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.FoodTable;
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,12 +23,8 @@ import static java.lang.Long.valueOf;
  * Creamos esta clase para establecer el esquemas de las tablas
  */
 public class DataBaseContract {
-    public DataBaseContract(Context context) {
-        this.context = context;
-    }
 
     private static final int DATABASE_VERSION = 1;
-
 
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -152,6 +153,10 @@ public class DataBaseContract {
     private SQLiteDatabase mDb;
 
     private final Context context;
+
+    public DataBaseContract(Context context) {
+        this.context = context;
+    }
 
     public static class DataBaseHelper extends SQLiteOpenHelper {
 

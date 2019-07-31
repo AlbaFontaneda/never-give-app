@@ -6,8 +6,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
-
-import java.util.ArrayList;
+import com.rigobertosl.nevergiveapp.objects.Event;
 
 public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 

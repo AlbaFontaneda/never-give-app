@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rigobertosl.nevergiveapp.objects.FoodTable;
+
 import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
