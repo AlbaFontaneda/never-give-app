@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,8 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,7 +36,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DataBaseContract db;
@@ -48,23 +46,22 @@ public class MainActivity extends AppCompatActivity
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
-    private FireBaseController fb = new FireBaseController();
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /////////////////////////////////// FIREDATABAS
+        /*
+        ////////////////////////////////// FIREDATABASE
 
-        //fb.addData(Constants.usersKey, "user 1");
-        //fb.addData(Constants.usersKey, "user 2");
-
-        mAuth = FirebaseAuth.getInstance();
-
+        Profile profile1 = new Profile("Javi");
+        Profile profile2 = new Profile("01", "javi@javi.com", "Javiivu", "24", "1.85", "86", "imageURL", 666666669, true);
+        addDataToFirebase(usersKey, profile1);
+        addDataToFirebase(usersKey, profile2);
+        addDataToFirebase(usersKey, "user1");
 
         ///////////////////////////////////////// -FIREDATABASE
+        */
         if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
@@ -143,6 +140,7 @@ public class MainActivity extends AppCompatActivity
     /*********** FUNCIONES DE LA PANTALLA DE INICIO ******************/
 
 
+    /*
     @Override
     public void onStart() {
         super.onStart();
@@ -180,6 +178,8 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
     }
+
+    */
 
     @Override
     public void onBackPressed() {

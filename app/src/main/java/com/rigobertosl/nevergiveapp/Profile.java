@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class Profile {
 
-    private String ID, email, nick, age, height, weight, image;
+    private String ID, email, name, age, height, weight, image;
     private int phone;
     private boolean gender; // True=Male, False=Female
     private boolean booleanEmail, booleanAge, booleanHeight, booleanWeight, booleanImage, booleanPhone; //True=public, False=private
     private ArrayList<Profile> friends;
     private ArrayList<Profile> blacklist;
 
-    public Profile(String nick) {
-        this.nick = nick;
+    public Profile(String name) {
+        this.name = name;
     }
 
-    public Profile(String ID, String email, String nick, String age, String height, String weight, String image, int phone, boolean gender) {
+    public Profile(String ID, String email, String name, String age, String height, String weight, String image, int phone, boolean gender) {
         this.ID = ID;
         this.email = email;
-        this.nick = nick;
+        this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
@@ -52,11 +52,11 @@ public class Profile {
     }
 
     public String getNick() {
-        return nick;
+        return name;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setNick(String name) {
+        this.name = name;
     }
 
     public String getAge() {

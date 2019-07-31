@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
+
 import java.util.EventListener;
 
 public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsHomeFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
