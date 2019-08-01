@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class Event {
 
-    private String sport, hour, minutes, day, month, year, people, notes;
-    private LatLng location;
+    private String ID, sport, hour, minutes, day, month, year, people, notes;
+    private LatLong location;
     private Profile userHost;
     private ArrayList<Profile> members;
     private boolean full;
 
     public Event(){}
 
-    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, LatLng location, Profile userHost) {
+    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, LatLong location, Profile userHost) {
         this.sport = sport;
         this.hour = hour;
         this.minutes = minutes;
@@ -28,6 +28,14 @@ public class Event {
         this.members = new ArrayList<>();
         this.members.add(userHost);
         this.full = false;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getSport() {
@@ -94,11 +102,11 @@ public class Event {
         this.notes = notes;
     }
 
-    public LatLng getLocation() {
+    public LatLong getLocation() {
         return location;
     }
 
-    public void setLocation(LatLng location) {
+    public void setLocation(LatLong location) {
         this.location = location;
     }
 
@@ -131,6 +139,10 @@ public class Event {
 
     public String getTime(){
         return this.hour + ":" + this.minutes;
+    }
+
+    public LatLng getLatLng(){
+        return new LatLng(this.location.getLatitude(), this.location.getLongitude());
     }
 
     public String creacionDeEvento(){

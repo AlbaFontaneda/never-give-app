@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "349977963240-n453b07h1ngrk2187r45gar44q1gc4fv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rigobertosl.nevergiveapp",
+            "certificate_hash": "6ffe434c63441cb241b6830e83270a7a73e4c52a"
+          }
+        },
+        {
           "client_id": "349977963240-vojd7so7714u78knnl7laij6sab5h29j.apps.googleusercontent.com",
           "client_type": 3
         }

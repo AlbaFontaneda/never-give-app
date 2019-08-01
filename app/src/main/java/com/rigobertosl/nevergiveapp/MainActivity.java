@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,11 @@ import android.widget.TextView;
 
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
+import com.rigobertosl.nevergiveapp.firedatabase.FiredatabaseInterface;
+import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.LatLong;
+import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;
 
 import java.io.FileOutputStream;
@@ -30,6 +35,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,22 +49,50 @@ public class MainActivity extends AppFiredatabase
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
+    private HashMap<String, Event> eventList = new HashMap<>();
+    final String TAG = "-------EVENTOS-------";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
+
         ////////////////////////////////// FIREDATABASE
 
         Profile profile1 = new Profile("Javi");
-        Profile profile2 = new Profile("01", "javi@javi.com", "Javiivu", "24", "1.85", "86", "imageURL", 666666669, true);
+        Profile p1 = new Profile("Alba");
+        Profile profile2 = new Profile("javi@javi.com", "Javiivu", "24", "1.85", "86", "imageURL", 666666669, true);
         addDataToFirebase(usersKey, profile1);
+        addDataToFirebase(usersKey, p1);
         addDataToFirebase(usersKey, profile2);
-        addDataToFirebase(usersKey, "user1");
+        //addDataToFirebase(usersKey, "user1");
 
+        Profile user = new Profile("Blusslightyear");
+        addDataToFirebase(usersKey, user);
+        ArrayList<Event> eventList = new ArrayList<>();
+        //HashMap<String, Event> eventList= new HashMap<String, Event>();
+
+        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLong(40.316877, -3.706114), user );
+        Event evento2 = new Event( "Fútbol", "19", "00", "05", "05", "2009", "14", null, new LatLong(40.317572, -3.706876), user);
+        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new LatLong(40.317703, -3.702198), user);
+        Event evento4 = new Event( "Gimnasio","13","20","20", "10", "2009", "3", null,  new LatLong(40.316819, -3.704751), user);
+        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new LatLong(42.343995, -3.697103), user);
+        eventList.add(evento1);
+        eventList.add(evento2);
+        eventList.add(evento3);
+        eventList.add(evento4);
+        eventList.add(evento5);
+
+        //For each de un HashMap
+        for(Event evento : eventList){
+            addDataToFirebase(eventsKey, evento);
+        }
+/**/
+        loadEvents(firedatabaseInterface);
+
+        ArrayList<Event> sdfs = allEvents;
         ///////////////////////////////////////// -FIREDATABASE
-        */
+
         if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }

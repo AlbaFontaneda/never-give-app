@@ -7,16 +7,16 @@ public class Profile {
     private String ID, email, name, age, height, weight, image;
     private int phone;
     private boolean gender; // True=Male, False=Female
-    private boolean booleanEmail, booleanAge, booleanHeight, booleanWeight, booleanImage, booleanPhone; //True=public, False=private
     private ArrayList<Profile> friends;
     private ArrayList<Profile> blacklist;
+
+    public Profile(){}
 
     public Profile(String name) {
         this.name = name;
     }
 
-    public Profile(String ID, String email, String name, String age, String height, String weight, String image, int phone, boolean gender) {
-        this.ID = ID;
+    public Profile(String email, String name, String age, String height, String weight, String image, int phone, boolean gender) {
         this.email = email;
         this.name = name;
         this.age = age;
@@ -25,12 +25,6 @@ public class Profile {
         this.image = image;
         this.phone = phone;
         this.gender = gender;
-        this.booleanEmail = false;
-        this.booleanAge = false;
-        this.booleanHeight = false;
-        this.booleanWeight = false;
-        this.booleanImage = false;
-        this.booleanPhone = false;
         this.friends = null;
         this.blacklist = null;
     }
@@ -105,54 +99,6 @@ public class Profile {
 
     public void setGender(boolean gender) {
         this.gender = gender;
-    }
-
-    public boolean isBooleanEmail() {
-        return booleanEmail;
-    }
-
-    public void setBooleanEmail(boolean booleanEmail) {
-        this.booleanEmail = booleanEmail;
-    }
-
-    public boolean isBooleanAge() {
-        return booleanAge;
-    }
-
-    public void setBooleanAge(boolean booleanAge) {
-        this.booleanAge = booleanAge;
-    }
-
-    public boolean isBooleanHeight() {
-        return booleanHeight;
-    }
-
-    public void setBooleanHeight(boolean booleanHeight) {
-        this.booleanHeight = booleanHeight;
-    }
-
-    public boolean isBooleanWeight() {
-        return booleanWeight;
-    }
-
-    public void setBooleanWeight(boolean booleanWeight) {
-        this.booleanWeight = booleanWeight;
-    }
-
-    public boolean isBooleanImage() {
-        return booleanImage;
-    }
-
-    public void setBooleanImage(boolean booleanImage) {
-        this.booleanImage = booleanImage;
-    }
-
-    public boolean isBooleanPhone() {
-        return booleanPhone;
-    }
-
-    public void setBooleanPhone(boolean booleanPhone) {
-        this.booleanPhone = booleanPhone;
     }
 
     public ArrayList<Profile> getFriends() {

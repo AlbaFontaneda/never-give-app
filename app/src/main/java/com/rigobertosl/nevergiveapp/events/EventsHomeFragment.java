@@ -25,11 +25,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.rigobertosl.nevergiveapp.CustomInfoMarkerAdapter;
 import com.rigobertosl.nevergiveapp.objects.Event;
+import com.rigobertosl.nevergiveapp.objects.LatLong;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.rigobertosl.nevergiveapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class EventsHomeFragment extends Fragment implements LocationListener {
 
@@ -66,11 +68,11 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
         // Esto está hecho a mano pero hay que cambiarlo
         Profile user = new Profile("Blusslightyear");
         eventList = new ArrayList<>();
-        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLng(40.316877, -3.706114), user );
-        Event evento2 = new Event("Fútbol", "19", "00", "05", "05", "2009", "14", null, new LatLng(40.317572, -3.706876), user);
-        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new LatLng(40.317703, -3.702198), user);
-        Event evento4 = new Event("Gimnasio","13","20","20", "10", "2009", "3", null,  new LatLng(40.316819, -3.704751), user);
-        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new LatLng(42.343995, -3.697103), user);
+        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLong(40.316877, -3.706114), user );
+        Event evento2 = new Event("Fútbol", "19", "00", "05", "05", "2009", "14", null, new LatLong(40.317572, -3.706876), user);
+        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new LatLong(40.317703, -3.702198), user);
+        Event evento4 = new Event("Gimnasio","13","20","20", "10", "2009", "3", null,  new LatLong(40.316819, -3.704751), user);
+        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new LatLong(42.343995, -3.697103), user);
         eventList.add(evento1);
         eventList.add(evento2);
         eventList.add(evento3);
@@ -83,7 +85,7 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
             @Override
             public void onItemClick(int position, View view) {
                 //Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
-                LatLng eventLatLng = eventList.get(position).getLocation();
+                LatLng eventLatLng = eventList.get(position).getLatLng();
                 LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -116,7 +118,7 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
                 mMap.setMyLocationEnabled(true);
 
                 for (Event event : eventList){
-                    markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLocation()).title(event.getSport()))));
+                    markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLatLng()).title(event.getSport()))));
                 }
                 /*
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
