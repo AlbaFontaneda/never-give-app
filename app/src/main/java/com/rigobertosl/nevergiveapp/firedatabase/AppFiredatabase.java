@@ -20,17 +20,6 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     protected DatabaseReference mydbRef;
     public final String TAG = "-------EVENTOS-------";
     protected ArrayList<Event> allEvents = new ArrayList<>();
-    protected FiredatabaseInterface firedatabaseInterface = new FiredatabaseInterface() {
-        @Override
-        public void addDataToFirebase(String key, Object data) {
-
-        }
-
-        @Override
-        public void onCallback(ArrayList<Event> eventList) {
-            allEvents = eventList;
-        }
-    };
 
     /***************  Métodos de la interfaz  ***************/
     @Override
@@ -39,14 +28,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UUID.randomUUID().toString()).setValue(data);
     }
 
-    @Override
-    public void onCallback(ArrayList<Event> eventList) {
-
-    }
-
     /**********************  Eventos  **********************/
 
-    public void loadEvents(final FiredatabaseInterface firedatabaseInterface){
+    public void loadEvents(){
         mydbRef = database.getReference(eventsKey);
         //Log.e(TAG, "ANTES DEL LISTENER.");
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -62,7 +46,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                     //Log.e("GET DATA", event.creacionDeEvento());
                 }
 
-                firedatabaseInterface.onCallback(allEvents);
+
             }
 
             @Override

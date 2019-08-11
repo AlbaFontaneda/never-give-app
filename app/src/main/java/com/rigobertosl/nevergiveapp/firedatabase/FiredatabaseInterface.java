@@ -18,5 +18,4 @@ public interface FiredatabaseInterface {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     void addDataToFirebase(String key, Object data);
-    void onCallback(ArrayList<Event> eventList);
 }

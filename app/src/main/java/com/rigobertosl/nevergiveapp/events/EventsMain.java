@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import com.rigobertosl.nevergiveapp.MainActivity;
 import com.rigobertosl.nevergiveapp.R;
 
-public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsHomeFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
+public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
 
     private FrameLayout contentView;
 

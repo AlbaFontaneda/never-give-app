@@ -58,7 +58,7 @@ public class MainActivity extends AppFiredatabase
 
 
         ////////////////////////////////// FIREDATABASE
-
+/*
         Profile profile1 = new Profile("Javi");
         Profile p1 = new Profile("Alba");
         Profile profile2 = new Profile("javi@javi.com", "Javiivu", "24", "1.85", "86", "imageURL", 666666669, true);
@@ -87,9 +87,9 @@ public class MainActivity extends AppFiredatabase
         for(Event evento : eventList){
             addDataToFirebase(eventsKey, evento);
         }
-/**/
-        loadEvents(firedatabaseInterface);
 
+        loadEvents();
+*/
         ArrayList<Event> sdfs = allEvents;
         ///////////////////////////////////////// -FIREDATABASE
 

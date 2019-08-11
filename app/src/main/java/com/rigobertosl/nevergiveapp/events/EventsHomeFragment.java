@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.CustomInfoMarkerAdapter;
+import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.LatLong;
 import com.rigobertosl.nevergiveapp.objects.Profile;
@@ -33,13 +38,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class EventsHomeFragment extends Fragment implements LocationListener {
+public class EventsHomeFragment extends FragmentFiredatabase implements LocationListener {
 
     private GoogleMap mMap;
     private MapView mMapView;
-    private ArrayList<Event> eventList;
+    private ArrayList<Event> eventList = new ArrayList<>();
     private LocationManager locationManager;
     private List<Marker> markerList;
+    private RecyclerView recyclerView;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -48,6 +54,7 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
 
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 100, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
+
     }
 
     @Override
@@ -61,11 +68,12 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
-        RecyclerView recyclerView = (RecyclerView) mapView.findViewById(R.id.eventsRecyclerView);
+        recyclerView = (RecyclerView) mapView.findViewById(R.id.eventsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         // Esto está hecho a mano pero hay que cambiarlo
+/*
         Profile user = new Profile("Blusslightyear");
         eventList = new ArrayList<>();
         Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLong(40.316877, -3.706114), user );
@@ -79,27 +87,8 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
         eventList.add(evento4);
         eventList.add(evento5);
 
-        RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
-        recyclerView.setAdapter(adapterEvent);
-        ((EventHomeAdapter) adapterEvent).setOnItemClickListener(new EventHomeAdapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View view) {
-                //Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
-                LatLng eventLatLng = eventList.get(position).getLatLng();
-                LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
+*/
 
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .tilt(60)
-                        .target(latLng)
-                        .zoom(19)
-                        .build();
-
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                mMap.animateCamera(cameraUpdate);
-                mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position)));
-                markerList.get(position).showInfoWindow();
-            }
-        });
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -116,11 +105,11 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
                 markerList = new ArrayList<>();
                 //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
                 mMap.setMyLocationEnabled(true);
-
+/*
                 for (Event event : eventList){
                     markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLatLng()).title(event.getSport()))));
                 }
-                /*
+
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 int padding = 60;
 
@@ -162,6 +151,54 @@ public class EventsHomeFragment extends Fragment implements LocationListener {
 
     }
 
-    public interface OnFragmentInteractionListener {
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mydbRef = database.getReference(eventsKey);
+        mydbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                eventList.clear();
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
+                    Event newEvent = eventSnapshot.getValue(Event.class);
+
+                    eventList.add(newEvent);
+                }
+
+                for (Event event : eventList){
+                    markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLatLng()).title(event.getSport()))));
+                }
+
+                RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
+                recyclerView.setAdapter(adapterEvent);
+                ((EventHomeAdapter) adapterEvent).setOnItemClickListener(new EventHomeAdapter.ClickListener() {
+                    @Override
+                    public void onItemClick(int position, View view) {
+                        //Toast.makeText(getContext(), eventList.get(position).getLocation().toString(), Toast.LENGTH_LONG).show();
+                        LatLng eventLatLng = eventList.get(position).getLatLng();
+                        LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
+
+                        CameraPosition cameraPosition = new CameraPosition.Builder()
+                                .tilt(60)
+                                .target(latLng)
+                                .zoom(19)
+                                .build();
+
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                        mMap.animateCamera(cameraUpdate);
+                        mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position)));
+                        markerList.get(position).showInfoWindow();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
