@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp;
+package com.rigobertosl.nevergiveapp.events;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
 public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {

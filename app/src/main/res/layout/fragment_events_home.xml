@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/cardViewContent">
+        android:background="@color/recyclerViewBG">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/eventsRecyclerView"
