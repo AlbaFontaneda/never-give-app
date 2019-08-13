@@ -51,8 +51,8 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.title.setText(eventList.get(position).getSport());
-        holder.hour.setText(eventList.get(position).getHour().concat(":").concat(String.valueOf(eventList.get(position).getMinutes())));
-        holder.people.setText(eventList.get(position).getPeople());
+        holder.hour.setText(eventList.get(position).getDate().getTime());
+        holder.people.setText(String.valueOf(eventList.get(position).getAssistants()));
     }
 
     @Override

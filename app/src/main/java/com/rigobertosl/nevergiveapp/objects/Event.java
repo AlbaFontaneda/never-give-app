@@ -2,34 +2,33 @@ package com.rigobertosl.nevergiveapp.objects;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Event {
 
-    private String ID, sport, hour, minutes, day, month, year, people, notes;
-    private GooglePlace location;
-    private Profile userHost;
-    private ArrayList<Profile> members;
-    private boolean full;
+    /******************  Variables  ********************/
+    private String ID, sport, notes = "";
+    private Date date;
+    private int assistants;
+    private Profile host;
+    private GooglePlace place;
+    private ArrayList<Profile> members = new ArrayList<>();
 
+    /******************  Constructores  ********************/
     public Event(){}
 
-    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, GooglePlace location, Profile userHost) {
+    public Event(String sport, Date date, GooglePlace place, int assistants, Profile host, String notes) {
         this.sport = sport;
-        this.hour = hour;
-        this.minutes = minutes;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.people = people;
+        this.place = place;
+        this.date = date;
+        this.assistants = assistants;
+        this.host = host;
         this.notes = notes;
-        this.location = location;
-        this.userHost = userHost;
-        this.members = new ArrayList<>();
-        this.members.add(userHost);
-        this.full = false;
+        members.add(host);
     }
 
+    /******************  Getters and Setters  ********************/
     public String getID() {
         return ID;
     }
@@ -46,54 +45,6 @@ public class Event {
         this.sport = sport;
     }
 
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
-    }
-
-    public String getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getPeople() {
-        return people;
-    }
-
-    public void setPeople(String people) {
-        this.people = people;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -102,20 +53,36 @@ public class Event {
         this.notes = notes;
     }
 
-    public GooglePlace getLocation() {
-        return location;
+    public Date getDate() {
+        return date;
     }
 
-    public void setLocation(GooglePlace location) {
-        this.location = location;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Profile getUserHost() {
-        return userHost;
+    public int getAssistants() {
+        return assistants;
     }
 
-    public void setUserHost(Profile userHost) {
-        this.userHost = userHost;
+    public void setAssistants(int assistants) {
+        this.assistants = assistants;
+    }
+
+    public Profile getHost() {
+        return host;
+    }
+
+    public void setHost(Profile host) {
+        this.host = host;
+    }
+
+    public GooglePlace getPlace() {
+        return place;
+    }
+
+    public void setPlace(GooglePlace place) {
+        this.place = place;
     }
 
     public ArrayList<Profile> getMembers() {
@@ -124,28 +91,18 @@ public class Event {
 
     public void setMembers(ArrayList<Profile> members) {
         this.members = members;
-        if(this.members.size() == Integer.parseInt(people)){
-            this.full = true;
+    }
+
+    /******************  Otros métodos  ********************/
+    public boolean isFull(){
+        if(members.size() == assistants){
+            return true;
+        }else{
+            return false;
         }
     }
 
-    public boolean getFull() {
-        return full;
-    }
-
-    public String getDate(){
-        return this.day + "/" + this.month + "/" + this.year;
-    }
-
-    public String getTime(){
-        return this.hour + ":" + this.minutes;
-    }
-/*
-    public LatLng getLatLng(){
-        return new LatLng(this.location.getLatitude(), this.location.getLongitude());
-    }
-*/
     public String creacionDeEvento(){
-        return "Se ha creado el evento: " + sport + " el día "+ day + "/" + month + " a las " + hour + ":" + minutes + ".";
+        return "Se ha creado el evento: " + sport + " el día " + date.getDayMonthYear() +" a las " + date.getTime() + ".";
     }
 }

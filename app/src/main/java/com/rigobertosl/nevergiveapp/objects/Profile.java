@@ -4,31 +4,31 @@ import java.util.ArrayList;
 
 public class Profile {
 
-    private String ID, email, name, age, height, weight, image;
-    private int phone;
-    private boolean gender; // True=Male, False=Female
-    private ArrayList<Profile> friends;
-    private ArrayList<Profile> blacklist;
+    /******************  Variables  ********************/
+    private String ID, email, password, name;
+    private ArrayList<Event> targetedEvents;
 
+    /******************  Constructores  ********************/
     public Profile(){}
 
+    public Profile(String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.name = "Anónimo";
+    }
+
+    public Profile(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
+    //ToDo: Borrar cuando ya no se use nada a mano.
     public Profile(String name) {
         this.name = name;
     }
 
-    public Profile(String email, String name, String age, String height, String weight, String image, int phone, boolean gender) {
-        this.email = email;
-        this.name = name;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-        this.image = image;
-        this.phone = phone;
-        this.gender = gender;
-        this.friends = null;
-        this.blacklist = null;
-    }
-
+    /******************  Getters and Setters  ********************/
     public String getID() {
         return ID;
     }
@@ -45,75 +45,27 @@ public class Profile {
         this.email = email;
     }
 
-    public String getNick() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setNick(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public ArrayList<Event> getTargetedEvents() {
+        return targetedEvents;
     }
 
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public ArrayList<Profile> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(ArrayList<Profile> friends) {
-        this.friends = friends;
-    }
-
-    public ArrayList<Profile> getBlacklist() {
-        return blacklist;
-    }
-
-    public void setBlacklist(ArrayList<Profile> blacklist) {
-        this.blacklist = blacklist;
+    public void setTargetedEvents(ArrayList<Event> targetedEvents) {
+        this.targetedEvents = targetedEvents;
     }
 }

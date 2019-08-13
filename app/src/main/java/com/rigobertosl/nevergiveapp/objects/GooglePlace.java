@@ -4,9 +4,11 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class GooglePlace {
 
+    /******************  Variables  ********************/
     private String name;
     private double latitude, longitude;
 
+    /******************  Constructores  ********************/
     public GooglePlace() {
     }
 
@@ -16,6 +18,7 @@ public class GooglePlace {
         this.longitude = longitude;
     }
 
+    /******************  Getters and Setters  ********************/
     public String getName() {
         return name;
     }
@@ -32,6 +35,7 @@ public class GooglePlace {
         return longitude;
     }
 
+    /******************  Otros métodos  ********************/
     public LatLng getLatLng(){
         return new LatLng(this.latitude, this.longitude);
     }

@@ -69,7 +69,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
                 Event eventRead = eventSnapshot.getValue(Event.class);
                 eventList.add(eventRead);
-                markerList.add(mMap.addMarker((new MarkerOptions().position(eventRead.getLocation().getLatLng()).title(eventRead.getSport()))));
+                markerList.add(mMap.addMarker((new MarkerOptions().position(eventRead.getPlace().getLatLng()).title(eventRead.getSport()))));
             }
 
             // Creación del RecyclerView con todos los eventos.
@@ -88,7 +88,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private EventHomeAdapter.ClickListener markerClickListener = new EventHomeAdapter.ClickListener() {
         @Override
         public void onItemClick(int position, View view) {
-            LatLng eventLatLng = eventList.get(position).getLocation().getLatLng();
+            LatLng eventLatLng = eventList.get(position).getPlace().getLatLng();
             LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .tilt(60)
@@ -135,21 +135,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-/*
-        mSearchText = (EditText) fragmentView.findViewById(R.id.input_search);
-        //init();
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-                    geoLocate();
-                }
-                return false;
-            }
-        });
-*/
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -168,30 +153,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         });
 
         return fragmentView;
-    }
-
-    private void geoLocate(){
-        Log.e(TAG, "geoLocate: geolocating");
-
-        String seachString = mSearchText.getText().toString();
-
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> list = new ArrayList<>();
-
-        try {
-            list = geocoder.getFromLocationName(seachString, 1);
-        } catch (IOException e) {
-            Log.e(TAG, "geolocate: IOException" + e.getMessage());
-            e.printStackTrace();
-        }
-
-        if(list.size() > 0){
-            Address address = list.get(0);
-
-            Log.e(TAG, "geolocate: found a location: " + address.toString());
-            Toast.makeText(getContext(), address.toString(), Toast.LENGTH_LONG).show();
-        }
-
     }
 
     @Override

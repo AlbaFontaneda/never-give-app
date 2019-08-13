@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
@@ -24,8 +25,9 @@ import java.util.Locale;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements DatePickerDialog.OnDateSetListener {
 
-    private EditText mySport, myPeople, myLocation, myDay, myTime;
+    private EditText mySport, myAssistants, myPlace, myDay, myTime;
     private Event evento = new Event();
+    private Date eventDate = new Date();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_events_create, container, false);
 
         mySport = (EditText)view.findViewById(R.id.sport);
-        myPeople = (EditText)view.findViewById(R.id.num_series);
-        myLocation = (EditText)view.findViewById(R.id.location);
+        myAssistants = (EditText)view.findViewById(R.id.num_series);
+        myPlace = (EditText)view.findViewById(R.id.location);
         myDay = (EditText)view.findViewById(R.id.day);
         myTime = (EditText)view.findViewById(R.id.hour);
 
@@ -49,13 +51,15 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mySport.getText().toString().equals("") && !myPeople.getText().toString().equals("")
+                if(!mySport.getText().toString().equals("") && !myAssistants.getText().toString().equals("")
                         && !myDay.getText().toString().equals("") && !myTime.getText().toString().equals("")){
+
                     evento.setSport(mySport.getText().toString());
-                    evento.setPeople(myPeople.getText().toString());
-                    GooglePlace aux = new GooglePlace(null, 40.316817,  -3.706154);
-                    evento.setLocation(aux);
-                    Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    evento.setAssistants(Integer.parseInt(myAssistants.getText().toString()));
+                    // ToDo: localización a mano.
+                    evento.setPlace(new GooglePlace(null, 40.316817,  -3.706154));
+                    evento.setDate(eventDate);
+                    //Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                     addDataToFirebase(eventsKey, evento);
                     //Snackbar.make(view, "Evento creado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -91,18 +95,16 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-
         myDay.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", day, month, year));
-
-        evento.setDay(String.valueOf(day));
-        evento.setMonth(String.valueOf(month));
-        evento.setYear(String.valueOf(year));
+        eventDate.setDay(day);
+        eventDate.setMonth(month);
+        eventDate.setYear(year);
     }
 
     public interface OnFragmentInteractionListener {
     }
 
-    public void openDatePicker(View view, final EditText EditTextTime){
+    public void openDatePicker(View view, final EditText editTextTime){
         final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         View dialogLayout = LayoutInflater.from(view.getContext())
                 .inflate(R.layout.popup_hours_minutes, null);
@@ -149,13 +151,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
             @Override
             public void onClick(View view) {
                 String timeLeftFormatted = String.format(Locale.getDefault(), "%d:%02d", selectedHour[0], selectedMinute[0]);
-                EditTextTime.setText(timeLeftFormatted);
-                evento.setHour(String.valueOf(selectedHour[0]));
-                if(selectedMinute[0] < 10){
-                    evento.setMinutes("0" + String.valueOf(selectedMinute[0]));
-                } else{
-                    evento.setMinutes(String.valueOf(selectedMinute[0]));
-                }
+                editTextTime.setText(timeLeftFormatted);
+                eventDate.setHour(selectedHour[0]);
+                eventDate.setMinutes(selectedMinute[0]);
                 dialog.cancel();
             }
         });

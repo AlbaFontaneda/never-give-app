@@ -21,9 +21,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.firedatabase.FiredatabaseInterface;
+import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
@@ -35,9 +37,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class MainActivity extends AppFiredatabase
@@ -62,34 +66,34 @@ public class MainActivity extends AppFiredatabase
 /*
         Profile profile1 = new Profile("Javi");
         Profile p1 = new Profile("Alba");
-        Profile profile2 = new Profile("javi@javi.com", "Javiivu", "24", "1.85", "86", "imageURL", 666666669, true);
+        Profile profile2 = new Profile("javi@javi.com", "hasjgf");
+        Profile user = new Profile("Blusslightyear");
         addDataToFirebase(usersKey, profile1);
         addDataToFirebase(usersKey, p1);
         addDataToFirebase(usersKey, profile2);
-        //addDataToFirebase(usersKey, "user1");
-
-        Profile user = new Profile("Blusslightyear");
         addDataToFirebase(usersKey, user);
         ArrayList<Event> eventList = new ArrayList<>();
         //HashMap<String, Event> eventList= new HashMap<String, Event>();
 
-        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new GooglePlace(null, 40.316877,  -3.706114), user );
-        Event evento2 = new Event( "Fútbol", "19", "00", "05", "05", "2009", "14", null, new GooglePlace(null, 40.317572, -3.706876), user);
-        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new GooglePlace(null, 40.317703, -3.702198), user);
-        Event evento4 = new Event( "Gimnasio","13","20","20", "10", "2009", "3", null,  new GooglePlace(null, 40.316819, -3.704751), user);
-        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new GooglePlace(null, 42.343995, -3.697103), user);
-        eventList.add(evento1);
-        eventList.add(evento2);
-        eventList.add(evento3);
-        eventList.add(evento4);
-        eventList.add(evento5);
+        String[] titles = {"Tenis", "Futbol", "Pokemon Go","Gimnasio", "Tirer piedras"};
+        Double[] latitude = {40.316877, 40.317572, 40.317703, 40.316819, 42.343995};
+        Double[] longitude = {-3.706114, -3.706876, -3.702198, -3.704751, -3.697103};
+        int[] assistants = {2, 22, 5, 3, 50};
+        Profile[] host = {profile1, p1, profile2, user, user};
 
+        for(int i = 0; i < titles.length; i++){
+            Date randomDate = new Date(new Random().nextInt(31-1)+1, new Random().nextInt(12-1)+1, new Random().nextInt(2021-2019)+2019, new Random().nextInt(23), new Random().nextInt(59));
+            Event nuevoEvento = new Event(titles[i], randomDate, new GooglePlace(null, latitude[i], longitude[i]), assistants[i], host[i], null);
+            eventList.add(nuevoEvento);
+            addDataToFirebase(eventsKey, nuevoEvento);
+        }
+*/
+/*
         //For each de un HashMap
         for(Event evento : eventList){
             addDataToFirebase(eventsKey, evento);
         }
 
-        loadEvents();
 */
         ArrayList<Event> sdfs = allEvents;
         ///////////////////////////////////////// -FIREDATABASE
