@@ -2,15 +2,23 @@ package com.rigobertosl.nevergiveapp.events;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,10 +37,13 @@ import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventsHomeFragment extends FragmentFiredatabase implements LocationListener {
 
+    private static final String TAG = "EventsHomeFragment";
 
     /**************************  Variables   **************************/
 
@@ -42,6 +53,12 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private RecyclerView recyclerView;
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
+
+    private boolean mLocationPermisionGrated = false;
+
+    /************************** Widgets **************************/
+
+    private EditText mSearchText;
 
     /************************** Listeners **************************/
 
@@ -110,31 +127,30 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View mapView = inflater.inflate(R.layout.fragment_events_home, container, false);
+        final View fragmentView = inflater.inflate(R.layout.fragment_events_home, container, false);
 
-        mMapView = mapView.findViewById(R.id.map);
+        mMapView = fragmentView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
-        recyclerView = (RecyclerView) mapView.findViewById(R.id.eventsRecyclerView);
+        recyclerView = (RecyclerView) fragmentView.findViewById(R.id.eventsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        // ToDo: Esto está hecho a mano. Quitarlo en el futuro.
 /*
-        Profile user = new Profile("Blusslightyear");
-        eventList = new ArrayList<>();
-        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLong(40.316877, -3.706114), user );
-        Event evento2 = new Event("Fútbol", "19", "00", "05", "05", "2009", "14", null, new LatLong(40.317572, -3.706876), user);
-        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new LatLong(40.317703, -3.702198), user);
-        Event evento4 = new Event("Gimnasio","13","20","20", "10", "2009", "3", null,  new LatLong(40.316819, -3.704751), user);
-        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new LatLong(42.343995, -3.697103), user);
-        eventList.add(evento1);
-        eventList.add(evento2);
-        eventList.add(evento3);
-        eventList.add(evento4);
-        eventList.add(evento5);
-
+        mSearchText = (EditText) fragmentView.findViewById(R.id.input_search);
+        //init();
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+                    geoLocate();
+                }
+                return false;
+            }
+        });
 */
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -146,31 +162,38 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
+
                 mMap = googleMap;
-
                 markerList = new ArrayList<>();
-                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
                 mMap.setMyLocationEnabled(true);
-/*
-                for (Event event : eventList){
-                    markerList.add(mMap.addMarker((new MarkerOptions().position(event.getLatLng()).title(event.getSport()))));
-                }
-
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                int padding = 60;
-
-                for(Marker mMarker : markerList) {
-                    builder.include(mMarker.getPosition());
-                }
-                LatLngBounds bounds = builder.build();
-
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                mMap.animateCamera(cameraUpdate);
-                */
             }
         });
 
-        return mapView;
+        return fragmentView;
+    }
+
+    private void geoLocate(){
+        Log.e(TAG, "geoLocate: geolocating");
+
+        String seachString = mSearchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> list = new ArrayList<>();
+
+        try {
+            list = geocoder.getFromLocationName(seachString, 1);
+        } catch (IOException e) {
+            Log.e(TAG, "geolocate: IOException" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        if(list.size() > 0){
+            Address address = list.get(0);
+
+            Log.e(TAG, "geolocate: found a location: " + address.toString());
+            Toast.makeText(getContext(), address.toString(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override

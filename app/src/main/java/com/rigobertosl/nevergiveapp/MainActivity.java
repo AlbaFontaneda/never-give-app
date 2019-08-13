@@ -229,22 +229,18 @@ public class MainActivity extends AppFiredatabase
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_inicio) {
+        if (id == R.id.nav_login) {
+            startNewActivity(LoginActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
-            Intent intent = new Intent(MainActivity.this, TrainingActivity.class);
-            startActivity(intent);
+            startNewActivity(TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {
-            Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
-            startActivity(intent);
+            startNewActivity(FoodsActivity.class);
         } else if (id == R.id.nav_localizacion) {
-            Intent intent = new Intent(MainActivity.this, Location.class);
-            startActivity(intent);
+            startNewActivity(Location.class);
         } else if (id == R.id.nav_eventos) {
-            Intent intent = new Intent(MainActivity.this, EventsMain.class);
-            startActivity(intent);
+            startNewActivity(EventsMain.class);
         } else if (id == R.id.nav_logros) {
-            Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
-            startActivity(intent);
+            startNewActivity(AchievementsActivity.class);
         } else if (id == R.id.nav_reinicio) {
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -281,6 +277,11 @@ public class MainActivity extends AppFiredatabase
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public void startNewActivity(Class<?> newActivity){
+        Intent intent = new Intent(MainActivity.this, newActivity);
+        startActivity(intent);
     }
 
     /**
