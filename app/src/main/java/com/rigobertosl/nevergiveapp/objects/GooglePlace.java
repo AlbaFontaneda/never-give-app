@@ -1,9 +1,14 @@
 package com.rigobertosl.nevergiveapp.objects;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class GooglePlace {
 
     private String name;
     private double latitude, longitude;
+
+    public GooglePlace() {
+    }
 
     public GooglePlace(String name, double latitude, double longitude) {
         this.name = name;
@@ -25,5 +30,9 @@ public class GooglePlace {
 
     public Double getLongitude() {
         return longitude;
+    }
+
+    public LatLng getLatLng(){
+        return new LatLng(this.latitude, this.longitude);
     }
 }

@@ -39,7 +39,9 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         myDate.setText(myEvent.getDate());
         myHour.setText(myEvent.getTime());
         myPeople.setText(myEvent.getPeople() + " personas");
-        myHost.setText(myEvent.getUserHost().getNick());
+        if(myEvent.getUserHost() != null){
+            myHost.setText(myEvent.getUserHost().getNick());
+        }
 
         return view;
     }

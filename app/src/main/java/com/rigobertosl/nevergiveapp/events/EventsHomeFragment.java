@@ -54,8 +54,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
 
-    private boolean mLocationPermisionGrated = false;
-
     /************************** Widgets **************************/
 
     private EditText mSearchText;
@@ -71,7 +69,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
                 Event eventRead = eventSnapshot.getValue(Event.class);
                 eventList.add(eventRead);
-                markerList.add(mMap.addMarker((new MarkerOptions().position(eventRead.getLatLng()).title(eventRead.getSport()))));
+                markerList.add(mMap.addMarker((new MarkerOptions().position(eventRead.getLocation().getLatLng()).title(eventRead.getSport()))));
             }
 
             // Creación del RecyclerView con todos los eventos.
@@ -90,7 +88,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private EventHomeAdapter.ClickListener markerClickListener = new EventHomeAdapter.ClickListener() {
         @Override
         public void onItemClick(int position, View view) {
-            LatLng eventLatLng = eventList.get(position).getLatLng();
+            LatLng eventLatLng = eventList.get(position).getLocation().getLatLng();
             LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .tilt(60)

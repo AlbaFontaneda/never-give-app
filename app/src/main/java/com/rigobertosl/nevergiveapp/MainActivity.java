@@ -26,6 +26,7 @@ import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.firedatabase.FiredatabaseInterface;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 import com.rigobertosl.nevergiveapp.objects.LatLong;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;
@@ -72,11 +73,11 @@ public class MainActivity extends AppFiredatabase
         ArrayList<Event> eventList = new ArrayList<>();
         //HashMap<String, Event> eventList= new HashMap<String, Event>();
 
-        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new LatLong(40.316877, -3.706114), user );
-        Event evento2 = new Event( "Fútbol", "19", "00", "05", "05", "2009", "14", null, new LatLong(40.317572, -3.706876), user);
-        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new LatLong(40.317703, -3.702198), user);
-        Event evento4 = new Event( "Gimnasio","13","20","20", "10", "2009", "3", null,  new LatLong(40.316819, -3.704751), user);
-        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new LatLong(42.343995, -3.697103), user);
+        Event evento1 = new Event("Tenis", "20", "30", "04", "05", "2009", "2", null, new GooglePlace(null, 40.316877,  -3.706114), user );
+        Event evento2 = new Event( "Fútbol", "19", "00", "05", "05", "2009", "14", null, new GooglePlace(null, 40.317572, -3.706876), user);
+        Event evento3 = new Event("Pokemon Go", "17","15","08", "08", "2009", "5", null,  new GooglePlace(null, 40.317703, -3.702198), user);
+        Event evento4 = new Event( "Gimnasio","13","20","20", "10", "2009", "3", null,  new GooglePlace(null, 40.316819, -3.704751), user);
+        Event evento5 = new Event("Tirar piedras", "13","00","08", "11", "2009", "3", null,  new GooglePlace(null, 42.343995, -3.697103), user);
         eventList.add(evento1);
         eventList.add(evento2);
         eventList.add(evento3);

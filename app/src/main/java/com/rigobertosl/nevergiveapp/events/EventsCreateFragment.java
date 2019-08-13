@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
+import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Calendar;
@@ -47,11 +49,20 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                evento.setSport(mySport.getText().toString());
-                evento.setPeople(myPeople.getText().toString());
-                Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                addDataToFirebase(eventsKey, evento);
-                //Snackbar.make(view, "Evento creado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(!mySport.getText().toString().equals("") && !myPeople.getText().toString().equals("")
+                        && !myDay.getText().toString().equals("") && !myTime.getText().toString().equals("")){
+                    evento.setSport(mySport.getText().toString());
+                    evento.setPeople(myPeople.getText().toString());
+                    GooglePlace aux = new GooglePlace(null, 40.316817,  -3.706154);
+                    evento.setLocation(aux);
+                    Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                    addDataToFirebase(eventsKey, evento);
+                    //Snackbar.make(view, "Evento creado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }else{
+                    Toast.makeText(getContext(), "Por favor, rellene todos los campos.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

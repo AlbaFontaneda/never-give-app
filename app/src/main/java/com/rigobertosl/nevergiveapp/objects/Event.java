@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Event {
 
     private String ID, sport, hour, minutes, day, month, year, people, notes;
-    private LatLong location;
+    private GooglePlace location;
     private Profile userHost;
     private ArrayList<Profile> members;
     private boolean full;
 
     public Event(){}
 
-    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, LatLong location, Profile userHost) {
+    public Event(String sport, String hour, String minutes, String day, String month, String year, String people, String notes, GooglePlace location, Profile userHost) {
         this.sport = sport;
         this.hour = hour;
         this.minutes = minutes;
@@ -102,11 +102,11 @@ public class Event {
         this.notes = notes;
     }
 
-    public LatLong getLocation() {
+    public GooglePlace getLocation() {
         return location;
     }
 
-    public void setLocation(LatLong location) {
+    public void setLocation(GooglePlace location) {
         this.location = location;
     }
 
@@ -140,11 +140,11 @@ public class Event {
     public String getTime(){
         return this.hour + ":" + this.minutes;
     }
-
+/*
     public LatLng getLatLng(){
         return new LatLng(this.location.getLatitude(), this.location.getLongitude());
     }
-
+*/
     public String creacionDeEvento(){
         return "Se ha creado el evento: " + sport + " el día "+ day + "/" + month + " a las " + hour + ":" + minutes + ".";
     }
