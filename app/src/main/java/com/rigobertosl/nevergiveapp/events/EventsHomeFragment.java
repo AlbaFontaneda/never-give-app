@@ -19,6 +19,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -44,10 +46,8 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private RecyclerView recyclerView;
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
-
-    /************************** Widgets **************************/
-
     private EditText mSearchText;
+    private LatLng myLocation = null;
 
     /************************** Listeners **************************/
 
@@ -60,7 +60,9 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
                 Event eventRead = eventSnapshot.getValue(Event.class);
                 eventList.add(eventRead);
-                markerList.add(mMap.addMarker((new MarkerOptions().position(eventRead.getPlace().getLatLng()).title(eventRead.getSport()))));
+                MarkerOptions newMarkerOptions = new MarkerOptions().position(eventRead.getPlace().getLatLng()); //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                Marker newMarker = mMap.addMarker(newMarkerOptions);
+                markerList.add(newMarker);
             }
 
             // Creación del RecyclerView con todos los eventos.
@@ -88,7 +90,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
                     .build();
             CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
             mMap.animateCamera(cameraUpdate);
-            mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position)));
+            mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position), markerList));
             markerList.get(position).showInfoWindow();
         }
     };
@@ -148,11 +150,12 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
     @Override
     public void onLocationChanged(Location location) {
-
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
-        mMap.animateCamera(cameraUpdate);
-        locationManager.removeUpdates(this);
+        if(location != null && myLocation != null && mMap != null){
+            myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
+            mMap.animateCamera(cameraUpdate);
+            locationManager.removeUpdates(this);
+        }
     }
 
     @Override
@@ -169,4 +172,5 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     public void onProviderDisabled(String s) {
 
     }
+
 }

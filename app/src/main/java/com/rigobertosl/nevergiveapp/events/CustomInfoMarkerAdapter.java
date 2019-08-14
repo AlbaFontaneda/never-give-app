@@ -5,9 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.objects.Event;
+
+import java.util.ArrayList;
 
 public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
@@ -17,18 +20,20 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
     private TextView myTitle, myDate, myTime, myPeople, myHost;
 
-    public CustomInfoMarkerAdapter(LayoutInflater inflater, Event eventFocused){
+    public CustomInfoMarkerAdapter(LayoutInflater inflater, Event eventFocused, ArrayList<Marker> markerList){
         this.inflater = inflater;
         this.myEvent = eventFocused;
+        for (Marker marker : markerList){
+            marker.setIcon(BitmapDescriptorFactory.defaultMarker());
+        }
     }
 
     @Override
     public View getInfoContents(final Marker myMarker) {
         //Carga layout personalizado.
         View view = inflater.inflate(R.layout.info_event_marker, null);
-        String[] info = myMarker.getTitle().split("&");
-        String url = myMarker.getSnippet();
 
+        myMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         myTitle = (TextView) view.findViewById(R.id.info_title);
         myDate = (TextView) view.findViewById(R.id.info_date);
         myTime = (TextView) view.findViewById(R.id.info_hour);
