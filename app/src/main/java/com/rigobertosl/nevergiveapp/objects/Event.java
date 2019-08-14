@@ -1,8 +1,5 @@
 package com.rigobertosl.nevergiveapp.objects;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Event {

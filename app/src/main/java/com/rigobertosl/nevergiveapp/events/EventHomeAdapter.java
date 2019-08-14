@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.objects.Event;
 
 import java.util.ArrayList;
 

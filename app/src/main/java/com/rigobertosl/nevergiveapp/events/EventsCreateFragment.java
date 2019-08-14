@@ -3,7 +3,6 @@ package com.rigobertosl.nevergiveapp.events;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.rigobertosl.nevergiveapp.objects.Date;
-import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
+import com.rigobertosl.nevergiveapp.objects.Date;
+import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 import com.shawnlin.numberpicker.NumberPicker;
 

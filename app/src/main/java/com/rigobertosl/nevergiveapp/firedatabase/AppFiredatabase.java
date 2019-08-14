@@ -9,10 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.objects.Event;
-import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {

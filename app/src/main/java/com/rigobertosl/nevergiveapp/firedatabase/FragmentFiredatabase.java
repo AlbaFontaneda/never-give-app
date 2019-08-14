@@ -3,9 +3,7 @@ package com.rigobertosl.nevergiveapp.firedatabase;
 import android.support.v4.app.Fragment;
 
 import com.google.firebase.database.DatabaseReference;
-import com.rigobertosl.nevergiveapp.objects.Event;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class FragmentFiredatabase extends Fragment implements FiredatabaseInterface {

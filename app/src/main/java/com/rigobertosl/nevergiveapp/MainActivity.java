@@ -15,34 +15,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
-import com.rigobertosl.nevergiveapp.firedatabase.FiredatabaseInterface;
-import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
-import com.rigobertosl.nevergiveapp.objects.GooglePlace;
-import com.rigobertosl.nevergiveapp.objects.LatLong;
-import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -98,10 +87,11 @@ public class MainActivity extends AppFiredatabase
         ArrayList<Event> sdfs = allEvents;
         ///////////////////////////////////////// -FIREDATABASE
 
+/*
         if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
-
+*/
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);
         db.open();

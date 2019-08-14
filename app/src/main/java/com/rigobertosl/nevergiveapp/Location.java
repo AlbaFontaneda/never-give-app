@@ -17,7 +17,10 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,9 +30,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -58,11 +61,7 @@ import java.util.ArrayList;
  * time. If the permission has not been granted, the Activity is finished with an error message.
  */
 public class Location extends AppCompatActivity
-        implements
-        OnMyLocationButtonClickListener,
-        OnMyLocationClickListener,
-        OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
 
     /**
      * Request code for location permission request.
@@ -80,7 +79,8 @@ public class Location extends AppCompatActivity
     private GoogleMap mMap;
     private final String type = "gym";
     private final String radius = "1000";
-    private GooglePlace myLocation;
+    private LatLng myLocation;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +93,8 @@ public class Location extends AppCompatActivity
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
         enableMyLocation();
     }
 
@@ -112,27 +109,15 @@ public class Location extends AppCompatActivity
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 100, this);
             mMap.setMyLocationEnabled(true);
         }
     }
 
     @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Pulse sobre su ubicación para mostrar los centros deportivos más cercanos.", Toast.LENGTH_LONG).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
-    }
-
-    @Override
-    public void onMyLocationClick(@NonNull android.location.Location location) {
-        myLocation = new GooglePlace("Mi posición", location.getLatitude(), location.getLongitude());
-        new FindPlaces().execute();
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return;
         }
@@ -166,6 +151,30 @@ public class Location extends AppCompatActivity
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+        myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
+        mMap.animateCamera(cameraUpdate);
+        locationManager.removeUpdates(this);
+        new FindPlaces().execute();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
     public class FindPlaces extends AsyncTask<View, Void, ArrayList<GooglePlace>> {
 
         String GOOGLE_API = "AIzaSyDRUgS9EY-LGUknQkqjkBKl-IV1lv5b4WY";
@@ -174,7 +183,7 @@ public class Location extends AppCompatActivity
         protected ArrayList<GooglePlace> doInBackground(View... views) {
             ArrayList<GooglePlace> temp = null;
             temp = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
-                    + myLocation.getLatitude() + "," + myLocation.getLongitude() + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
+                    + myLocation.latitude + "," + myLocation.longitude + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
             return temp;
         }
 
@@ -240,4 +249,3 @@ public class Location extends AppCompatActivity
         }
     }
 }
-
