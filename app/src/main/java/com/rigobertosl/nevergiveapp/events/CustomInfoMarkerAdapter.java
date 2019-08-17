@@ -1,10 +1,12 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.rigobertosl.nevergiveapp.R;
@@ -33,7 +35,7 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         //Carga layout personalizado.
         View view = inflater.inflate(R.layout.info_event_marker, null);
 
-        myMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        myMarker.setIcon(getMarkerIcon("#196F3D"));
         myTitle = (TextView) view.findViewById(R.id.info_title);
         myDate = (TextView) view.findViewById(R.id.info_date);
         myTime = (TextView) view.findViewById(R.id.info_hour);
@@ -49,6 +51,21 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         }
 
         return view;
+    }
+
+    private BitmapDescriptor getMarkerIcon (String color) { //"#239B56"
+        float[] hsv = new float[3];
+        int _color = Color.parseColor(color);
+        Color.colorToHSV(_color, hsv);
+
+        return BitmapDescriptorFactory.defaultMarker(getHsvFromColor(color)[0]);
+    }
+
+    private static float[] getHsvFromColor(String colorString) {
+        float[] hsv = new float[3];
+        int _color = Color.parseColor(colorString);
+        Color.colorToHSV(_color, hsv);
+        return hsv;
     }
 
     @Override

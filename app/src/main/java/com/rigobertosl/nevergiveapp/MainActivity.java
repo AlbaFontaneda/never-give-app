@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,6 +77,11 @@ public class MainActivity extends AppFiredatabase
             eventList.add(nuevoEvento);
             addDataToFirebase(eventsKey, nuevoEvento);
         }
+*/
+/*
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        java.util.Date d = new java.util.Date();
+        String dayOfTheWeek = sdf.format(d).substring(0,1).toUpperCase() + sdf.format(d).substring(1);
 */
 /*
         //For each de un HashMap

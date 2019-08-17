@@ -3,15 +3,17 @@ package com.rigobertosl.nevergiveapp.objects;
 public class Date {
 
     /******************  Variables  ********************/
-    private int day, month, year, hour, minutes;
+    private int dayOfMonth, month, year, hour, minutes;
+    //private final String[] weekDays = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
 
     /******************  Constructores  ********************/
     public Date(){}
 
-    public Date(int day, int month, int year) {
-        this.day = day;
+    public Date(int dayOfMonth, int month, int year) {
+        this.dayOfMonth = dayOfMonth;
         this.month = month;
         this.year = year;
+
     }
 
     public Date(int hour, int minutes) {
@@ -19,8 +21,8 @@ public class Date {
         this.minutes = minutes;
     }
 
-    public Date(int day, int month, int year, int hour, int minutes) {
-        this.day = day;
+    public Date(int dayOfMonth, int month, int year, int hour, int minutes) {
+        this.dayOfMonth = dayOfMonth;
         this.month = month;
         this.year = year;
         this.hour = hour;
@@ -28,12 +30,12 @@ public class Date {
     }
 
     /******************  Getters and Setters  ********************/
-    public int getDay() {
-        return day;
+    public int getDayOfMonth() {
+        return dayOfMonth;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setDayOfMonth(int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
     }
 
     public int getMonth() {
@@ -69,9 +71,9 @@ public class Date {
     }
     /******************  Otros métodos  ********************/
     public String getDayMonthYear(){
-        String day = String.valueOf(this.day);
-        if(this.day < 10){
-            day = "0" + day;
+        String dayOfMonth = String.valueOf(this.dayOfMonth);
+        if(this.dayOfMonth < 10){
+            dayOfMonth = "0" + dayOfMonth;
         }
         String month = String.valueOf(this.month);
         if(this.month < 10){
@@ -79,7 +81,7 @@ public class Date {
         }
         String year = String.valueOf(this.year);
 
-        return day+"/"+month+"/"+year;
+        return dayOfMonth +"/"+month+"/"+year;
     }
 
     public String getTime(){

@@ -20,6 +20,7 @@ import com.rigobertosl.nevergiveapp.R;
 public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
 
     private FrameLayout contentView;
+    public BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,9 @@ public class EventsMain extends AppCompatActivity implements EventsCreateFragmen
 
         contentView = (FrameLayout) findViewById(R.id.content_view);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -68,6 +67,16 @@ public class EventsMain extends AppCompatActivity implements EventsCreateFragmen
         };
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
+    }
+
+    public void changeFragment(int position){
+        if(position == 1){
+            navigation.setSelectedItemId(R.id.navigation_home);
+        }else if(position == 2){
+            navigation.setSelectedItemId(R.id.navigation_dashboard);
+        }else if(position == 3){
+            navigation.setSelectedItemId(R.id.navigation_notifications);
+        }
     }
 
     @Override

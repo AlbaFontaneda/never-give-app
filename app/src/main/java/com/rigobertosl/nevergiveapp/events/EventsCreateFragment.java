@@ -1,7 +1,9 @@
 package com.rigobertosl.nevergiveapp.events;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rigobertosl.nevergiveapp.R;
@@ -24,67 +28,100 @@ import java.util.Locale;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements DatePickerDialog.OnDateSetListener {
 
-    private EditText mySport, myAssistants, myPlace, myDay, myTime;
     private Event evento = new Event();
     private Date eventDate = new Date();
+
+    private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
+    private EditText titleEditText, notesEditText, peopleText;
+    private TextView dateText, timeText, locationText;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_events_create, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_create_event, container, false);
 
-        mySport = (EditText)view.findViewById(R.id.sport);
-        myAssistants = (EditText)view.findViewById(R.id.num_series);
-        myPlace = (EditText)view.findViewById(R.id.location);
-        myDay = (EditText)view.findViewById(R.id.day);
-        myTime = (EditText)view.findViewById(R.id.hour);
+        calendarLayout = (LinearLayout)view.findViewById(R.id.calendar_layout);
+        time_layout = (LinearLayout)view.findViewById(R.id.time_layout);
+        peopleLayout = (LinearLayout)view.findViewById(R.id.people_layout);
+        location_Layout = (LinearLayout)view.findViewById(R.id.location_layout);
+        notes_Layout = (LinearLayout)view.findViewById(R.id.notes_layout);
+
+        titleEditText = (EditText)view.findViewById(R.id.title_event);
+        peopleText = (EditText) view.findViewById(R.id.people_text);
+        notesEditText = (EditText)view.findViewById(R.id.notes_text);
+
+        dateText = (TextView)view.findViewById(R.id.date_text);
+        timeText = (TextView)view.findViewById(R.id.time_text);
+        locationText = (TextView)view.findViewById(R.id.location_text);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!mySport.getText().toString().equals("") && !myAssistants.getText().toString().equals("")
-                        && !myDay.getText().toString().equals("") && !myTime.getText().toString().equals("")){
 
-                    evento.setSport(mySport.getText().toString());
-                    evento.setAssistants(Integer.parseInt(myAssistants.getText().toString()));
-                    // ToDo: localización a mano.
-                    evento.setPlace(new GooglePlace(null, 40.316817,  -3.706154));
-                    evento.setDate(eventDate);
-                    //Snackbar.make(view, evento.creacionDeEvento(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-                    addDataToFirebase(eventsKey, evento);
-                    //Snackbar.make(view, "Evento creado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }else{
-                    Toast.makeText(getContext(), "Por favor, rellene todos los campos.", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        myTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(v, myTime);
-            }
-        });
-
-        myDay.setOnClickListener(new View.OnClickListener() {
+        calendarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCalendarPicker();
             }
         });
 
+        time_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(v, timeText);
+            }
+        });
+
+        peopleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                peopleText.requestFocus();
+            }
+        });
+
+        //ToDo: cambiar esto
+        location_Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationText.requestFocus();
+            }
+        });
+
+        notes_Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notesEditText.requestFocus();
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!titleEditText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
+                        && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
+
+                    evento.setSport(titleEditText.getText().toString());
+                    evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
+                    // ToDo: localización a mano.
+                    evento.setPlace(new GooglePlace(null, 40.316817,  -3.706154));
+                    evento.setDate(eventDate);
+                    addDataToFirebase(eventsKey, evento);
+                    Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
+
+                    // Cambiamos a la pantalla principal
+                    ((EventsMain)getActivity()).changeFragment(1);
+                }else{
+                    Toast.makeText(getContext(), "Por favor, rellene todos los campos.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         return view;
     }
+
 
     public void openCalendarPicker(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this,
@@ -92,10 +129,13 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         datePickerDialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        myDay.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", day, month, year));
-        eventDate.setDay(day);
+
+        String inputDate = String.format(Locale.getDefault(), "%02d/%02d/%d", day, month, year);
+        dateText.setText(inputDate);
+        eventDate.setDayOfMonth(day);
         eventDate.setMonth(month);
         eventDate.setYear(year);
     }
@@ -103,7 +143,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
     public interface OnFragmentInteractionListener {
     }
 
-    public void openDatePicker(View view, final EditText editTextTime){
+    public void openDatePicker(View view, final TextView editTextTime){
         final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         View dialogLayout = LayoutInflater.from(view.getContext())
                 .inflate(R.layout.popup_hours_minutes, null);
@@ -149,7 +189,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String timeLeftFormatted = String.format(Locale.getDefault(), "%d:%02d", selectedHour[0], selectedMinute[0]);
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", selectedHour[0], selectedMinute[0]);
                 editTextTime.setText(timeLeftFormatted);
                 eventDate.setHour(selectedHour[0]);
                 eventDate.setMinutes(selectedMinute[0]);

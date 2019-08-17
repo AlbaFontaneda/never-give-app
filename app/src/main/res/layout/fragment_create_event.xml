@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,7 +17,7 @@
         android:paddingRight="20dp"
         android:paddingBottom="20dp"
         android:background="@android:color/transparent"
-        android:text="Escribe el título"
+        android:hint="Escribe el título"
         android:textSize="22sp"
         android:textColor="@color/editText" />
 
@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:id="@+id/calendar_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/divider1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,11 +51,10 @@
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="3dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
-            android:text="Dom. 18 ago 2019"
+            android:hint="Seleccionar fecha"
             android:textSize="16sp"/>
     </LinearLayout>
 
@@ -78,11 +77,10 @@
             android:id="@+id/time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="3dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
-            android:text="20:00"
+            android:hint="Hora"
             android:textSize="16sp"/>
     </LinearLayout>
 
@@ -105,8 +103,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:padding="10dp"
-        android:orientation="horizontal"
-        android:clickable="true">
+        android:orientation="horizontal">
         <ImageView
             android:id="@+id/people_icon"
             android:layout_width="25dp"
@@ -115,16 +112,17 @@
             android:tint="@color/icon_grey" />
         <EditText
             android:id="@+id/people_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
             android:background="@android:color/transparent"
-            android:text="Número de asistentes"
+            android:hint="Número de asistentes"
             android:textSize="16sp"
-            android:textColor="@color/editText"/>
+            android:textColor="@color/editText"
+            android:inputType="number"/>
     </LinearLayout>
 
     <View
@@ -156,13 +154,13 @@
             android:tint="@color/icon_grey" />
         <TextView
             android:id="@+id/location_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
-            android:text="Añadir ubicación"
+            android:hint="Añadir ubicación"
             android:textSize="16sp"/>
     </LinearLayout>
 
@@ -195,16 +193,25 @@
             android:tint="@color/icon_grey" />
         <EditText
             android:id="@+id/notes_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
             android:background="@android:color/transparent"
-            android:text="Añadir nota"
+            android:hint="Añadir nota"
             android:textSize="16sp"
             android:textColor="@color/editText"/>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        android:src="@drawable/ic_check"
+        android:layout_margin="16dp"/>
 
 </android.support.constraint.ConstraintLayout>
