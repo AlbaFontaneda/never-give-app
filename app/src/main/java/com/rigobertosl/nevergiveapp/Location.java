@@ -78,7 +78,7 @@ public class Location extends AppCompatActivity
 
     private GoogleMap mMap;
     private final String type = "gym";
-    private final String radius = "1000";
+    private final String radius = "4000";
     private LatLng myLocation;
     private LocationManager locationManager;
 
