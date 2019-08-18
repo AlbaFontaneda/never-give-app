@@ -24,7 +24,7 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
 
         private TextView title, ratingNumber, userRatingTotal, distance, openText;
         private RatingBar ratingBar;
-        private Button selected;
+        //private Button selected;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -34,7 +34,7 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
             userRatingTotal = (TextView)itemView.findViewById(R.id.user_rating_total);
             distance = (TextView)itemView.findViewById(R.id.distance);
             openText = (TextView)itemView.findViewById(R.id.openText);
-            selected = (Button) itemView.findViewById(R.id.select_location);
+            //selected = (Button) itemView.findViewById(R.id.select_location);
             itemView.setOnClickListener(this);
         }
 

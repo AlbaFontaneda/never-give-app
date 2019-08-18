@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp.events;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -79,6 +81,27 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
     private Event evento = new Event();
     private Date eventDate = new Date();
+
+    /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
+    private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
+        @Override
+        public void onItemClick(int position, View view) {
+            locationText.setText(googlePlacesList.get(position).getName());
+            locationText.setTextColor(Color.BLACK);
+            evento.setPlace(googlePlacesList.get(position));
+            LatLng myPlace = googlePlacesList.get(position).getLatLng();
+            LatLng latLng = new LatLng(myPlace.latitude, myPlace.longitude);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .tilt(60)
+                    .target(latLng)
+                    .zoom(19)
+                    .build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+            mMap.animateCamera(cameraUpdate);
+            //mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), googlePlacesList.get(position), markerList));
+            //markerList.get(position).showInfoWindow();
+        }
+    };
 
     @SuppressLint("MissingPermission")
     @Override
@@ -158,6 +181,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     //recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
                 } else {
                     mMap.clear();
+                    MarkerOptions markerOptions = new MarkerOptions().position(evento.getPlace().getLatLng())
+                            .title(evento.getPlace().getName());
+                    mMap.addMarker(markerOptions);
                     expandableLayoutTop.expand();
                     expandableLayoutBottom.expand();
                     expandableLayoutRecyclerView.collapse();
@@ -180,8 +206,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
                     evento.setSport(titleEditText.getText().toString());
                     evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
-                    // ToDo: localización a mano.
-                    evento.setPlace(new GooglePlace(null, 40.316817,  -3.706154));
                     evento.setDate(eventDate);
                     addDataToFirebase(eventsKey, evento);
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
@@ -335,7 +359,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
     }
 
-    /**************************************** My methods ******************************************/
+    /************************************** Custom methods ****************************************/
     private void getDeviceLocation(){
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         @SuppressLint("MissingPermission") final Task location = mFusedLocationClient.getLastLocation();
@@ -465,7 +489,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
                         .title(place.getName()));
                 */
-                recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
+                RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList);
+                recyclerView.setAdapter(adapterPlace);
+                ((GooglePlaceAdapter) adapterPlace).setOnItemClickListener(markerClickListener);
                 expandableLayoutRecyclerView.expand();
             }
         }

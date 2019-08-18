@@ -91,7 +91,7 @@
             android:layout_marginBottom="5dp"
             android:text="Abierto"
             android:textSize="13sp"/>
-
+<!--
         <Button
             android:id="@+id/select_location"
             android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
             android:padding="5dp"
             android:background="@drawable/rounded_corners_button"
             android:text="Seleccionar"/>
-
+-->
     </android.support.constraint.ConstraintLayout>
 
 
