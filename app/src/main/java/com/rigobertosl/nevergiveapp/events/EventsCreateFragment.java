@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,14 +64,14 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
     private final static float DEFAULT_ZOOM = 15f;
 
-    private ExpandableLayout expandableLayoutTop, expandableLayoutBottom;
+    private ExpandableLayout expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
     private EditText titleEditText, notesEditText, peopleText;
     private TextView dateText, timeText, locationText;
+    private RecyclerView recyclerView;
 
     private GoogleMap mMap;
     private MapView mMapView;
-    //private LocationManager locationManager;
     private LatLng myLocation;
     private FusedLocationProviderClient mFusedLocationClient;
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
@@ -82,9 +84,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 100, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
     }
 
     @Override
@@ -96,6 +95,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
         expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
+        expandableLayoutRecyclerView = (ExpandableLayout)view.findViewById(R.id.expandablelayout_recyclerview);
 
         calendarLayout = (LinearLayout)view.findViewById(R.id.calendar_layout);
         time_layout = (LinearLayout)view.findViewById(R.id.time_layout);
@@ -110,6 +110,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         dateText = (TextView)view.findViewById(R.id.date_text);
         timeText = (TextView)view.findViewById(R.id.time_text);
         locationText = (TextView)view.findViewById(R.id.location_text);
+
+        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -146,13 +151,16 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         for(MarkerOptions marker : markerList){
                             mMap.addMarker(marker);
                         }
+                        expandableLayoutRecyclerView.expand();
                     }
                     expandableLayoutTop.collapse();
                     expandableLayoutBottom.collapse();
+                    //recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
                 } else {
                     mMap.clear();
                     expandableLayoutTop.expand();
                     expandableLayoutBottom.expand();
+                    expandableLayoutRecyclerView.collapse();
                 }
             }
         });
@@ -194,6 +202,13 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         });
 
         expandableLayoutBottom.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            @Override
+            public void onExpansionUpdate(float expansionFraction, int state) {
+                Log.d("ExpandableLayout0", "State: " + state);
+            }
+        });
+
+        expandableLayoutRecyclerView.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
             @Override
             public void onExpansionUpdate(float expansionFraction, int state) {
                 Log.d("ExpandableLayout0", "State: " + state);
@@ -306,14 +321,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     /************************************ Google Maps Methods *************************************/
     @Override
     public void onLocationChanged(Location location) {
-        /*
-        if(location != null && mMap != null){
-            myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
-            mMap.animateCamera(cameraUpdate);
-            locationManager.removeUpdates(this);
-        }
-        */
     }
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -458,6 +465,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
                         .title(place.getName()));
                 */
+                recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
+                expandableLayoutRecyclerView.expand();
             }
         }
     }
