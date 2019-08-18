@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import com.rigobertosl.nevergiveapp.MainActivity;
 import com.rigobertosl.nevergiveapp.R;
 
-public class EventsMain extends AppCompatActivity implements EventsCreateFragment.OnFragmentInteractionListener, EventsSearchFragment.OnFragmentInteractionListener {
+public class EventsMain extends AppCompatActivity {
 
     private FrameLayout contentView;
     public BottomNavigationView navigation;
@@ -93,10 +93,6 @@ public class EventsMain extends AppCompatActivity implements EventsCreateFragmen
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
     /** Sobrescripción del botón de atrás del propio móvil

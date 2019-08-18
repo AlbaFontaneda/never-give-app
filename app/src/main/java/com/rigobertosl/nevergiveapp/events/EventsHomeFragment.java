@@ -44,7 +44,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private RecyclerView recyclerView;
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
-    private EditText mSearchText;
     private LatLng myLocation = null;
 
     /************************** Listeners **************************/
@@ -148,7 +147,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
     @Override
     public void onLocationChanged(Location location) {
-        if(location != null && myLocation != null && mMap != null){
+        if(location != null && mMap != null){
             myLocation = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
             mMap.animateCamera(cameraUpdate);

@@ -1,9 +1,14 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.os.Build;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -17,6 +22,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Date;
@@ -26,28 +44,55 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventsCreateFragment extends FragmentFiredatabase implements DatePickerDialog.OnDateSetListener {
+public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
-    private Event evento = new Event();
-    private Date eventDate = new Date();
+    private final static float DEFAULT_ZOOM = 15f;
 
-    public ExpandableLayout expandableLayoutTop, expandableLayoutBottom;
+    private ExpandableLayout expandableLayoutTop, expandableLayoutBottom;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
     private EditText titleEditText, notesEditText, peopleText;
     private TextView dateText, timeText, locationText;
 
+    private GoogleMap mMap;
+    private MapView mMapView;
+    //private LocationManager locationManager;
+    private LatLng myLocation;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
+    private ArrayList<MarkerOptions> markerList = new ArrayList<>();
 
+    private Event evento = new Event();
+    private Date eventDate = new Date();
+
+    @SuppressLint("MissingPermission")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 100, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_create_event, container, false);
+
+        /************************************ Binds **********************************************/
+        mMapView = view.findViewById(R.id.map);
 
         expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
         expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
@@ -68,6 +113,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
+        /********************************* Listeners *********************************************/
         calendarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +124,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         time_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePicker(v, timeText);
+                openHourPicker(v, timeText);
             }
         });
 
@@ -93,12 +139,18 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         location_Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (expandableLayoutTop.isExpanded() && expandableLayoutBottom.isExpanded()) {
+                    if(markerList.isEmpty()){
+                        new FindPlaces().execute();
+                    }else{
+                        for(MarkerOptions marker : markerList){
+                            mMap.addMarker(marker);
+                        }
+                    }
                     expandableLayoutTop.collapse();
                     expandableLayoutBottom.collapse();
                 } else {
+                    mMap.clear();
                     expandableLayoutTop.expand();
                     expandableLayoutBottom.expand();
                 }
@@ -148,16 +200,36 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
             }
         });
 
+        /****************************************** Maps ******************************************/
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume(); // needed to get the map to display immediately
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+                getDeviceLocation();
+                mMap.setMyLocationEnabled(true);
+            }
+        });
+
         return view;
     }
 
+
+    /************************************** Calendar Methods **************************************/
     public void openCalendarPicker(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this,
                 Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
@@ -168,10 +240,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         eventDate.setYear(year);
     }
 
-    public interface OnFragmentInteractionListener {
-    }
-
-    public void openDatePicker(View view, final TextView editTextTime){
+    /**************************************** Hour Methods ****************************************/
+    public void openHourPicker(View view, final TextView editTextTime){
         final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         View dialogLayout = LayoutInflater.from(view.getContext())
                 .inflate(R.layout.popup_hours_minutes, null);
@@ -232,4 +302,163 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         });
     }
 
+
+    /************************************ Google Maps Methods *************************************/
+    @Override
+    public void onLocationChanged(Location location) {
+        /*
+        if(location != null && mMap != null){
+            myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
+            mMap.animateCamera(cameraUpdate);
+            locationManager.removeUpdates(this);
+        }
+        */
+    }
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    /**************************************** My methods ******************************************/
+    private void getDeviceLocation(){
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        @SuppressLint("MissingPermission") final Task location = mFusedLocationClient.getLastLocation();
+        location.addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    Location currentLocation = (Location) task.getResult();
+                    myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    moveCamera(myLocation, DEFAULT_ZOOM);
+                }else{
+
+                }
+            }
+        });
+    }
+
+    private void moveCamera(LatLng latLng, float zoom){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
+
+    /************************************ Get gyms from .json *************************************/
+    public class FindPlaces extends AsyncTask<View, Void, ArrayList<GooglePlace>> {
+
+        String GOOGLE_API = "AIzaSyDRUgS9EY-LGUknQkqjkBKl-IV1lv5b4WY";
+        private final String type = "gym";
+        private final String radius = "4000";
+
+        @Override
+        protected ArrayList<GooglePlace> doInBackground(View... views) {
+            ArrayList<GooglePlace> placesList = null;
+            if(myLocation != null){
+                placesList = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+                        + myLocation.latitude + "," + myLocation.longitude + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
+            }
+
+            return placesList;
+        }
+
+        private ArrayList<GooglePlace> makeCall(String stringURL) {
+            URL url = null;
+            InputStream is = null;
+            ArrayList<GooglePlace> placesList = new ArrayList<>();
+
+            try {
+                url = new URL(stringURL);
+            } catch (Exception ex) {
+                System.out.println("Malformed URL");
+            }
+
+            try {
+                if (url != null) {
+                    is = url.openStream();
+                }
+            } catch (IOException ioe) {
+                System.out.println("IOException");
+            }
+            if(is != null) {
+                try {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                    String jsonText = readAll(rd);
+                    JSONObject jsonObj = new JSONObject(jsonText);
+
+                    JSONArray results = jsonObj.getJSONArray("results");
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject jObj = results.getJSONObject(i);
+
+                        JSONObject place = jObj.getJSONObject("geometry");
+                        JSONObject location = place.getJSONObject("location");
+                        String lat = location.getString("lat");
+                        String lng = location.getString("lng");
+
+                        String name = jObj.getString("name");
+
+                        String open_now = "";
+                        if(!jObj.isNull("opening_hours")){
+                            JSONObject opening_hours = jObj.getJSONObject("opening_hours");
+                            open_now = opening_hours.getString("open_now");
+                        }
+                        String rating = "-1";
+                        if(!jObj.isNull("rating")){
+                            rating = jObj.getString("rating");
+                        }
+
+                        String userRatings = "-1";
+                        if(!jObj.isNull("user_ratings_total")){
+                            userRatings = jObj.getString("user_ratings_total");
+                        }
+
+                        String address = "";
+                        if(!jObj.isNull("vicinity")){
+                            address = jObj.getString("vicinity");
+                        }
+
+                        GooglePlace googlePlace = new GooglePlace(name, address,
+                                Double.parseDouble(lat), Double.parseDouble(lng), Double.parseDouble(rating),
+                                Integer.parseInt(userRatings), Boolean.getBoolean(open_now));
+                        placesList.add(googlePlace);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Exception");
+                    return new ArrayList<>();
+                }
+            }
+            googlePlacesList = placesList;
+            return placesList;
+        }
+
+        private String readAll(Reader rd) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+            return sb.toString();
+        }
+
+        protected void onPostExecute(ArrayList<GooglePlace> result) {
+            for(GooglePlace place : result){
+                MarkerOptions newMarkerOptions = new MarkerOptions().position(place.getLatLng())
+                        .title(place.getName());
+                markerList.add(newMarkerOptions);
+                mMap.addMarker(newMarkerOptions);
+                /*
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(place.getLatitude(), place.getLongitude()))
+                        .title(place.getName()));
+                */
+            }
+        }
+    }
 }
