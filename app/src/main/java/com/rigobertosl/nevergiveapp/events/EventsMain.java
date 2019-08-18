@@ -19,6 +19,9 @@ import com.rigobertosl.nevergiveapp.R;
 
 public class EventsMain extends AppCompatActivity {
 
+    public final static int DEFAULT_ZOOM = 15;
+    public final static int DEFAULT_TILT = 0;
+
     private FrameLayout contentView;
     public BottomNavigationView navigation;
 

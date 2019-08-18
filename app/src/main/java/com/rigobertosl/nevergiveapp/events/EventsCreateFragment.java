@@ -58,13 +58,14 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
+import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 
-    private final static float DEFAULT_ZOOM = 15f;
+public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
     private ExpandableLayout expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
@@ -90,14 +91,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             locationText.setTextColor(Color.BLACK);
             evento.setPlace(googlePlacesList.get(position));
             LatLng myPlace = googlePlacesList.get(position).getLatLng();
-            LatLng latLng = new LatLng(myPlace.latitude, myPlace.longitude);
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .tilt(60)
-                    .target(latLng)
-                    .zoom(19)
-                    .build();
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-            mMap.animateCamera(cameraUpdate);
+            animateCamera(myPlace, 19, 60);
             //mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), googlePlacesList.get(position), markerList));
             //markerList.get(position).showInfoWindow();
         }
@@ -139,7 +133,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         /********************************* Listeners *********************************************/
         calendarLayout.setOnClickListener(new View.OnClickListener() {
@@ -178,15 +172,21 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     }
                     expandableLayoutTop.collapse();
                     expandableLayoutBottom.collapse();
+                    fab.hide();
                     //recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
                 } else {
                     mMap.clear();
-                    MarkerOptions markerOptions = new MarkerOptions().position(evento.getPlace().getLatLng())
-                            .title(evento.getPlace().getName());
-                    mMap.addMarker(markerOptions);
+                    if(evento.getPlace() != null){
+                        MarkerOptions markerOptions = new MarkerOptions().position(evento.getPlace().getLatLng())
+                                .title(evento.getPlace().getName());
+                        mMap.addMarker(markerOptions);
+                        animateCamera(evento.getPlace().getLatLng(), 15, 0);
+                    }
+
                     expandableLayoutTop.expand();
                     expandableLayoutBottom.expand();
                     expandableLayoutRecyclerView.collapse();
+                    fab.show();
                 }
             }
         });
@@ -377,8 +377,18 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         });
     }
 
-    private void moveCamera(LatLng latLng, float zoom){
+    private void moveCamera(LatLng latLng, int zoom){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
+
+    private void animateCamera(LatLng latLng, int zoom, int tilt){
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .tilt(tilt)
+                .target(latLng)
+                .zoom(zoom)
+                .build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        mMap.animateCamera(cameraUpdate);
     }
 
     /************************************ Get gyms from .json *************************************/

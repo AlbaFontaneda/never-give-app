@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,6 +26,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -32,12 +37,15 @@ import com.rigobertosl.nevergiveapp.objects.Event;
 
 import java.util.ArrayList;
 
+import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
+
 public class EventsHomeFragment extends FragmentFiredatabase implements LocationListener {
 
     private static final String TAG = "EventsHomeFragment";
 
     /**************************  Variables   **************************/
 
+    private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
     private MapView mMapView;
     private LocationManager locationManager;
@@ -137,7 +145,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             public void onMapReady(GoogleMap googleMap) {
 
                 mMap = googleMap;
-                markerList = new ArrayList<>();
+                getDeviceLocation();
                 mMap.setMyLocationEnabled(true);
             }
         });
@@ -145,14 +153,30 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         return fragmentView;
     }
 
+    /************************************** Custom methods ****************************************/
+    private void getDeviceLocation(){
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        @SuppressLint("MissingPermission") final Task location = mFusedLocationClient.getLastLocation();
+        location.addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    Location currentLocation = (Location) task.getResult();
+                    myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    moveCamera(myLocation, DEFAULT_ZOOM);
+                }else{
+
+                }
+            }
+        });
+    }
+
+    private void moveCamera(LatLng latLng, int zoom){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
+
     @Override
     public void onLocationChanged(Location location) {
-        if(location != null && mMap != null){
-            myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15);
-            mMap.animateCamera(cameraUpdate);
-            locationManager.removeUpdates(this);
-        }
     }
 
     @Override
