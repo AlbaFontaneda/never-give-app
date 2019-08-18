@@ -49,6 +49,9 @@ dependencies {
     //Firebase Autentication
     implementation 'com.google.firebase:firebase-auth:17.0.0'
 
+    //Expand and Collapse layout
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

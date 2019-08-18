@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 import com.shawnlin.numberpicker.NumberPicker;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -31,6 +34,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
     private Event evento = new Event();
     private Date eventDate = new Date();
 
+    public ExpandableLayout expandableLayoutTop, expandableLayoutBottom;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
     private EditText titleEditText, notesEditText, peopleText;
     private TextView dateText, timeText, locationText;
@@ -44,6 +48,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_create_event, container, false);
+
+        expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
+        expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
 
         calendarLayout = (LinearLayout)view.findViewById(R.id.calendar_layout);
         time_layout = (LinearLayout)view.findViewById(R.id.time_layout);
@@ -86,7 +93,15 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
         location_Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locationText.requestFocus();
+
+
+                if (expandableLayoutTop.isExpanded() && expandableLayoutBottom.isExpanded()) {
+                    expandableLayoutTop.collapse();
+                    expandableLayoutBottom.collapse();
+                } else {
+                    expandableLayoutTop.expand();
+                    expandableLayoutBottom.expand();
+                }
             }
         });
 
@@ -119,9 +134,22 @@ public class EventsCreateFragment extends FragmentFiredatabase implements DatePi
             }
         });
 
+        expandableLayoutTop.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            @Override
+            public void onExpansionUpdate(float expansionFraction, int state) {
+                Log.d("ExpandableLayout0", "State: " + state);
+            }
+        });
+
+        expandableLayoutBottom.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            @Override
+            public void onExpansionUpdate(float expansionFraction, int state) {
+                Log.d("ExpandableLayout0", "State: " + state);
+            }
+        });
+
         return view;
     }
-
 
     public void openCalendarPicker(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this,
