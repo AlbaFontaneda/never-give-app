@@ -23,4 +23,7 @@
     <color name="editText">#707B7C</color>
     <color name="soft_divider">#CACFD2</color>
     <color name="icon_grey">#616A6B</color>
+
+    <color name="colorClose">#B71C1C</color>
+    <color name="colorOpen">#1D8348</color>
 </resources>

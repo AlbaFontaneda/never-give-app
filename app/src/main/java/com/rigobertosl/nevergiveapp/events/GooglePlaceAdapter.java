@@ -1,5 +1,7 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 
 public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.MyViewHolder> {
 
+    private Resources resources;
     private ArrayList<GooglePlace> googlePlacesList;
+    private ArrayList<String> distanceList;
     private static ClickListener clickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -44,13 +48,15 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
         }
     }
 
-    public GooglePlaceAdapter(ArrayList<GooglePlace> googlePlacesList) {
+    public GooglePlaceAdapter(ArrayList<GooglePlace> googlePlacesList, ArrayList<String> distanceList) {
         this.googlePlacesList = googlePlacesList;
+        this.distanceList = distanceList;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.place_card, parent, false);
+        resources = parent.getContext().getResources();
         return new MyViewHolder(itemView);
     }
 
@@ -63,12 +69,20 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
             holder.ratingNumber.setText(String.valueOf(myPlace.getRating()));
             holder.ratingBar.setRating((float) myPlace.getRating());
             holder.userRatingTotal.setText("("+String.valueOf(myPlace.getUserRatings())+")");
+        }else{
+            holder.ratingNumber.setText("0");
+            holder.ratingBar.setRating(0);
+            holder.userRatingTotal.setText("(0)");
         }
         if(myPlace.isOpened()){
             holder.openText.setText("Abierto");
+            holder.openText.setTextColor(resources.getColor(R.color.colorOpen));
         }else{
             holder.openText.setText("Cerrado");
-            holder.openText.setTextColor(Color.RED);
+            holder.openText.setTextColor(resources.getColor(R.color.colorClose));
+        }
+        if(distanceList != null){
+            holder.distance.setText(distanceList.get(position)+" km");
         }
     }
 

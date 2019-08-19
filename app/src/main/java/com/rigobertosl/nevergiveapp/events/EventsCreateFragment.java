@@ -77,9 +77,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     private MapView mMapView;
     private LatLng myLocation;
     private FusedLocationProviderClient mFusedLocationClient;
+    private RecyclerView.LayoutManager layoutManager;
+
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
     private ArrayList<MarkerOptions> markerList = new ArrayList<>();
-
+    private ArrayList<String> distancesList = new ArrayList<>();
     private Event evento = new Event();
     private Date eventDate = new Date();
 
@@ -89,9 +91,14 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         public void onItemClick(int position, View view) {
             locationText.setText(googlePlacesList.get(position).getName());
             locationText.setTextColor(Color.BLACK);
+
             evento.setPlace(googlePlacesList.get(position));
+
             LatLng myPlace = googlePlacesList.get(position).getLatLng();
             animateCamera(myPlace, 19, 60);
+
+            layoutManager.scrollToPosition(position);
+
             //mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), googlePlacesList.get(position), markerList));
             //markerList.get(position).showInfoWindow();
         }
@@ -130,7 +137,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -394,9 +401,10 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     /************************************ Get gyms from .json *************************************/
     public class FindPlaces extends AsyncTask<View, Void, ArrayList<GooglePlace>> {
 
-        String GOOGLE_API = "AIzaSyDRUgS9EY-LGUknQkqjkBKl-IV1lv5b4WY";
-        private final String type = "gym";
-        private final String radius = "4000";
+        private static final String GOOGLE_API = "AIzaSyDRUgS9EY-LGUknQkqjkBKl-IV1lv5b4WY";
+        private static final String type = "gym";
+        private static final String radius = "4000";
+        private Location myLoc = null;
 
         @Override
         protected ArrayList<GooglePlace> doInBackground(View... views) {
@@ -405,7 +413,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 placesList = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                         + myLocation.latitude + "," + myLocation.longitude + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
             }
-
+            myLoc = new Location("");
+            myLoc.setLatitude(myLocation.latitude);
+            myLoc.setLongitude(myLocation.longitude);
             return placesList;
         }
 
@@ -466,7 +476,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
                         GooglePlace googlePlace = new GooglePlace(name, address,
                                 Double.parseDouble(lat), Double.parseDouble(lng), Double.parseDouble(rating),
-                                Integer.parseInt(userRatings), Boolean.getBoolean(open_now));
+                                Integer.parseInt(userRatings), Boolean.parseBoolean(open_now));
                         placesList.add(googlePlace);
                     }
 
@@ -490,6 +500,12 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         protected void onPostExecute(ArrayList<GooglePlace> result) {
             for(GooglePlace place : result){
+                if(myLoc != null){
+                    Location placeLoc = new Location("");
+                    placeLoc.setLatitude(place.getLatitude());
+                    placeLoc.setLongitude(place.getLongitude());
+                    distancesList.add(convertMetersToKm(myLoc.distanceTo(placeLoc)));
+                }
                 MarkerOptions newMarkerOptions = new MarkerOptions().position(place.getLatLng())
                         .title(place.getName());
                 markerList.add(newMarkerOptions);
@@ -499,11 +515,15 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
                         .title(place.getName()));
                 */
-                RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList);
+                RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList, distancesList);
                 recyclerView.setAdapter(adapterPlace);
                 ((GooglePlaceAdapter) adapterPlace).setOnItemClickListener(markerClickListener);
                 expandableLayoutRecyclerView.expand();
             }
+        }
+
+        private String convertMetersToKm(float distanceInMeters){
+            return String.format("%.1f", (distanceInMeters/100));
         }
     }
 }

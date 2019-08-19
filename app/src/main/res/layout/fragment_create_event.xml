@@ -259,12 +259,13 @@
         android:background="@null"
         app:el_duration="1000"
         app:el_expanded="false">
-<!-- -->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"/>
 
     </net.cachapa.expandablelayout.ExpandableLayout>
 
