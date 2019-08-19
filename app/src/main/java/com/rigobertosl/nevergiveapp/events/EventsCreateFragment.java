@@ -404,7 +404,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         private static final String GOOGLE_API = "AIzaSyDRUgS9EY-LGUknQkqjkBKl-IV1lv5b4WY";
         private static final String type = "gym";
         private static final String radius = "4000";
-        private Location myLoc = null;
 
         @Override
         protected ArrayList<GooglePlace> doInBackground(View... views) {
@@ -413,9 +412,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 placesList = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                         + myLocation.latitude + "," + myLocation.longitude + "&radius=" + radius + "&type=" + type + "&sensor=true&key=" + GOOGLE_API);
             }
-            myLoc = new Location("");
-            myLoc.setLatitude(myLocation.latitude);
-            myLoc.setLongitude(myLocation.longitude);
             return placesList;
         }
 
@@ -500,12 +496,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         protected void onPostExecute(ArrayList<GooglePlace> result) {
             for(GooglePlace place : result){
-                if(myLoc != null){
-                    Location placeLoc = new Location("");
-                    placeLoc.setLatitude(place.getLatitude());
-                    placeLoc.setLongitude(place.getLongitude());
-                    distancesList.add(convertMetersToKm(myLoc.distanceTo(placeLoc)));
-                }
                 MarkerOptions newMarkerOptions = new MarkerOptions().position(place.getLatLng())
                         .title(place.getName());
                 markerList.add(newMarkerOptions);
@@ -515,15 +505,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
                         .title(place.getName()));
                 */
-                RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList, distancesList);
+                RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList, myLocation);
                 recyclerView.setAdapter(adapterPlace);
                 ((GooglePlaceAdapter) adapterPlace).setOnItemClickListener(markerClickListener);
                 expandableLayoutRecyclerView.expand();
             }
-        }
-
-        private String convertMetersToKm(float distanceInMeters){
-            return String.format("%.1f", (distanceInMeters/100));
         }
     }
 }

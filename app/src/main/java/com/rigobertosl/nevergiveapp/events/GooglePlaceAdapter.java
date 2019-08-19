@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp.events;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
 
@@ -21,7 +23,7 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
 
     private Resources resources;
     private ArrayList<GooglePlace> googlePlacesList;
-    private ArrayList<String> distanceList;
+    private Location myLocation;
     private static ClickListener clickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -48,9 +50,15 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
         }
     }
 
-    public GooglePlaceAdapter(ArrayList<GooglePlace> googlePlacesList, ArrayList<String> distanceList) {
+    public GooglePlaceAdapter(ArrayList<GooglePlace> googlePlacesList, LatLng latLng) {
         this.googlePlacesList = googlePlacesList;
-        this.distanceList = distanceList;
+        if(latLng != null){
+            this.myLocation = new Location("");
+            this.myLocation.setLatitude(latLng.latitude);
+            this.myLocation.setLongitude(latLng.longitude);
+        }else{
+            this.myLocation = null;
+        }
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,11 +89,13 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
             holder.openText.setText("Cerrado");
             holder.openText.setTextColor(resources.getColor(R.color.colorClose));
         }
-        if(distanceList != null){
-            holder.distance.setText(distanceList.get(position)+" km");
+        if(myLocation != null){
+            Location thisPlace = new Location("");
+            thisPlace.setLatitude(myPlace.getLatitude());
+            thisPlace.setLongitude(myPlace.getLongitude());
+            holder.distance.setText(convertMetersToKm(myLocation.distanceTo(thisPlace))+" km");
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -101,5 +111,8 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
         void onItemClick(int position, View view);
     }
 
+    private String convertMetersToKm(float distanceInMeters){
+        return String.format("%.2f", (distanceInMeters/1000));
+    }
 
 }
