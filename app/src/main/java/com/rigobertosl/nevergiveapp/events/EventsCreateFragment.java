@@ -64,6 +64,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.security.auth.callback.PasswordCallback;
+
 import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
@@ -78,13 +80,19 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     private MapView mMapView;
     private LatLng myLocation;
     private FusedLocationProviderClient mFusedLocationClient;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManagerHorizontal;
+    private RecyclerView.LayoutManager layoutManagerVertical;
 
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
     private ArrayList<MarkerOptions> markerList = new ArrayList<>();
     private ArrayList<String> distancesList = new ArrayList<>();
     private Event evento = new Event();
     private Date eventDate = new Date();
+
+    private String[] sports;
+    private String[] sportsImages;
+
+    public static String PACKAGE_NAME;
 
     /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
     private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
@@ -98,10 +106,17 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             LatLng myPlace = googlePlacesList.get(position).getLatLng();
             animateCamera(myPlace, 19, 60);
 
-            layoutManager.scrollToPosition(position);
+            layoutManagerHorizontal.scrollToPosition(position);
 
             //mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), googlePlacesList.get(position), markerList));
             //markerList.get(position).showInfoWindow();
+        }
+    };
+
+    private SportAdapter.ClickListener sportClickListener = new SportAdapter.ClickListener() {
+        @Override
+        public void onItemClick(int position, View view) {
+            sportText.setText(sports[position]);
         }
     };
 
@@ -109,11 +124,16 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PACKAGE_NAME = getActivity().getApplicationContext().getPackageName();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_create_event, container, false);
+
+        sports = getActivity().getResources().getStringArray(R.array.sportsNames);
+        sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
 
         /************************************ Binds **********************************************/
         mMapView = view.findViewById(R.id.map);
@@ -141,9 +161,14 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         locationText = (TextView)view.findViewById(R.id.location_text);
 
         recyclerBottom = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerSports = (RecyclerView)view.findViewById(R.id.recycler_sports);
 
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerBottom.setLayoutManager(layoutManager);
+        layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        recyclerBottom.setLayoutManager(layoutManagerHorizontal);
+        recyclerSports.setLayoutManager(layoutManagerVertical);
+
 
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -185,7 +210,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     expandableLayoutTop.collapse();
                     expandableLayoutBottom.collapse();
                     fab.hide();
-                    //recyclerBottom.setAdapter(new GooglePlaceAdapter(googlePlacesList));
                 } else {
                     mMap.clear();
                     if(evento.getPlace() != null){
@@ -213,26 +237,22 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         sportTitleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!expandableLayoutMain.isExpanded()){
-                    expandableLayoutMain.expand();
-                    expandableLayoutSelectSport.collapse();
-                }else{
-                    expandableLayoutMain.collapse();
-                    expandableLayoutSelectSport.expand();
-                }
+
+                RecyclerView.Adapter adapterSports = new SportAdapter(sports, sportsImages);
+                recyclerSports.setAdapter(adapterSports);
+                ((SportAdapter) adapterSports).setOnItemClickListener(sportClickListener);
+                fab.hide();
+                expandableLayoutMain.collapse();
+                expandableLayoutSelectSport.expand();
             }
         });
 
         sportFixedLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!expandableLayoutMain.isExpanded()){
-                    expandableLayoutMain.expand();
-                    expandableLayoutSelectSport.collapse();
-                }else{
-                    expandableLayoutMain.collapse();
-                    expandableLayoutSelectSport.expand();
-                }
+                fab.show();
+                expandableLayoutMain.expand();
+                expandableLayoutSelectSport.collapse();
             }
         });
 
