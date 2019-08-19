@@ -50,6 +50,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,11 +68,11 @@ import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
-    private ExpandableLayout expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
-    private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout;
-    private EditText titleEditText, notesEditText, peopleText;
-    private TextView dateText, timeText, locationText;
-    private RecyclerView recyclerView;
+    private ExpandableLayout expandableLayoutMain, expandableLayoutSelectSport, expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
+    private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout, sportTitleLayout, sportFixedLayout;
+    private EditText notesEditText, peopleText;
+    private TextView sportText, dateText, timeText, locationText;
+    private RecyclerView recyclerSports, recyclerBottom;
 
     private GoogleMap mMap;
     private MapView mMapView;
@@ -117,6 +118,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         /************************************ Binds **********************************************/
         mMapView = view.findViewById(R.id.map);
 
+        expandableLayoutMain = (ExpandableLayout)view.findViewById(R.id.expandablelayout_main);
+        expandableLayoutSelectSport = (ExpandableLayout)view.findViewById(R.id.expandablelayout_select_sport);
         expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
         expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
         expandableLayoutRecyclerView = (ExpandableLayout)view.findViewById(R.id.expandablelayout_recyclerview);
@@ -126,19 +129,21 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         peopleLayout = (LinearLayout)view.findViewById(R.id.people_layout);
         location_Layout = (LinearLayout)view.findViewById(R.id.location_layout);
         notes_Layout = (LinearLayout)view.findViewById(R.id.notes_layout);
+        sportFixedLayout = (LinearLayout)view.findViewById(R.id.sport_fixed_layout);
+        sportTitleLayout = (LinearLayout)view.findViewById(R.id.sports_title_layout);
 
-        titleEditText = (EditText)view.findViewById(R.id.title_event);
         peopleText = (EditText) view.findViewById(R.id.people_text);
         notesEditText = (EditText)view.findViewById(R.id.notes_text);
 
+        sportText = (TextView)view.findViewById(R.id.sport_text);
         dateText = (TextView)view.findViewById(R.id.date_text);
         timeText = (TextView)view.findViewById(R.id.time_text);
         locationText = (TextView)view.findViewById(R.id.location_text);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerBottom = (RecyclerView)view.findViewById(R.id.recycler_view);
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerBottom.setLayoutManager(layoutManager);
 
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -180,7 +185,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     expandableLayoutTop.collapse();
                     expandableLayoutBottom.collapse();
                     fab.hide();
-                    //recyclerView.setAdapter(new GooglePlaceAdapter(googlePlacesList));
+                    //recyclerBottom.setAdapter(new GooglePlaceAdapter(googlePlacesList));
                 } else {
                     mMap.clear();
                     if(evento.getPlace() != null){
@@ -205,13 +210,39 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             }
         });
 
+        sportTitleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!expandableLayoutMain.isExpanded()){
+                    expandableLayoutMain.expand();
+                    expandableLayoutSelectSport.collapse();
+                }else{
+                    expandableLayoutMain.collapse();
+                    expandableLayoutSelectSport.expand();
+                }
+            }
+        });
+
+        sportFixedLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!expandableLayoutMain.isExpanded()){
+                    expandableLayoutMain.expand();
+                    expandableLayoutSelectSport.collapse();
+                }else{
+                    expandableLayoutMain.collapse();
+                    expandableLayoutSelectSport.expand();
+                }
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!titleEditText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
+                if(!sportText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
-                    evento.setSport(titleEditText.getText().toString());
+                    evento.setSport(sportText.getText().toString());
                     evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
                     evento.setDate(eventDate);
                     addDataToFirebase(eventsKey, evento);
@@ -506,7 +537,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                         .title(place.getName()));
                 */
                 RecyclerView.Adapter adapterPlace = new GooglePlaceAdapter(googlePlacesList, myLocation);
-                recyclerView.setAdapter(adapterPlace);
+                recyclerBottom.setAdapter(adapterPlace);
                 ((GooglePlaceAdapter) adapterPlace).setOnItemClickListener(markerClickListener);
                 expandableLayoutRecyclerView.expand();
             }
