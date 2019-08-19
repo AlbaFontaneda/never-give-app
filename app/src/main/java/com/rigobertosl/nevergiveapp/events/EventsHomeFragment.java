@@ -35,6 +35,8 @@ import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.util.ArrayList;
 
 import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
@@ -49,6 +51,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private GoogleMap mMap;
     private MapView mMapView;
     private LocationManager locationManager;
+    private ExpandableLayout expandablelayoutRecyclerView;
     private RecyclerView recyclerView;
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
@@ -74,6 +77,9 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
             recyclerView.setAdapter(adapterEvent);
             ((EventHomeAdapter) adapterEvent).setOnItemClickListener(markerClickListener);
+            if(!expandablelayoutRecyclerView.isExpanded()){
+                expandablelayoutRecyclerView.expand();
+            }
         }
 
         @Override
@@ -126,12 +132,21 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         final View fragmentView = inflater.inflate(R.layout.fragment_events_home, container, false);
 
         mMapView = fragmentView.findViewById(R.id.map);
+        expandablelayoutRecyclerView = fragmentView.findViewById(R.id.expandablelayout_recyclerview);
+        recyclerView = (RecyclerView) fragmentView.findViewById(R.id.eventsRecyclerView);
+
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
-        recyclerView = (RecyclerView) fragmentView.findViewById(R.id.eventsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        expandablelayoutRecyclerView.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            @Override
+            public void onExpansionUpdate(float expansionFraction, int state) {
+
+            }
+        });
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());

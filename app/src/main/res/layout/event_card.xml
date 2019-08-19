@@ -1,51 +1,44 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
-    card_view:cardMaxElevation="1dp"
-    card_view:cardElevation="1dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    app:cardMaxElevation="4dp"
+    android:elevation="4dp"
+    android:layout_margin="1dp"
+    app:cardUseCompatPadding="true">
 
     <android.support.constraint.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="14dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#DE000000"
-            android:lineSpacingExtra="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/image"
-            android:singleLine="true"
-            android:text="TITULO"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="TITULO"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:singleLine="true"/>
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="105dp"
             android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="H,16:9"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/hour"
-            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,16:9"
             android:src="@drawable/almuerzo_default"/>
 
         <ImageView
@@ -53,11 +46,12 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_time"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintTop_toBottomOf="@id/image"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
@@ -66,43 +60,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="15dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#DE000000"
-            android:lineSpacingExtra="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            app:layout_constraintStart_toEndOf="@id/ic_time"
+            app:layout_constraintLeft_toRightOf="@id/ic_time"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
 
         <ImageView
             android:id="@+id/ic_person"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_person"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toStartOf="@+id/people"/>
+            app:layout_constraintRight_toLeftOf="@+id/people"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:id="@+id/people"
             android:text="2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#DE000000"
-            android:lineSpacingExtra="8dp"
+            android:textSize="13dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
