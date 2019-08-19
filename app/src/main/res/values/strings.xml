@@ -255,6 +255,76 @@
     <string name="title_dashboard">Crear evento</string>
     <string name="title_notifications">Búsqueda avanzada</string>
 
+    //SPORTS IMAGES
+    <string-array name="sportsImagesNames">
+        <item>sport_archery</item>
+        <item>sport_badminton</item>
+        <item>sport_baseball</item>
+        <item>sport_basketball</item>
+        <item>sport_bicycle</item>
+        <item>sport_billiard</item>
+        <item>sport_bowling</item>
+        <item>sport_boxing</item>
+        <item>sport_chess</item>
+        <item>sport_darts</item>
+        <item>sport_esports</item>
+        <item>sport_fencing</item>
+        <item>sport_fishing</item>
+        <item>sport_golf</item>
+        <item>sport_gym</item>
+        <item>sport_gymnastic_rings</item>
+        <item>sport_jet_ski</item>
+        <item>sport_kayak</item>
+        <item>sport_motorbike</item>
+        <item>sport_racing_car</item>
+        <item>sport_rugby</item>
+        <item>sport_running</item>
+        <item>sport_shooting</item>
+        <item>sport_skateboard</item>
+        <item>sport_snorkeling</item>
+        <item>sport_surfboard</item>
+        <item>sport_swimming_pool</item>
+        <item>sport_table_tennis</item>
+        <item>sport_tennis</item>
+        <item>sport_volleyball</item>
+        <item>sport_waterpolo</item>
+    </string-array>
+
+    <string-array name="sportsNames">
+        <item>Tiro con arco</item>
+        <item>Badminton</item>
+        <item>Baseball</item>
+        <item>Baloncesto</item>
+        <item>Ciclismo</item>
+        <item>Billar</item>
+        <item>Bolos</item>
+        <item>Boxeo</item>
+        <item>Ajedrez</item>
+        <item>Dardos</item>
+        <item>eSports</item>
+        <item>Esgrima</item>
+        <item>Pesca</item>
+        <item>Golf</item>
+        <item>Gimnasio</item>
+        <item>Anillos de gimnasia</item>
+        <item>Moto acuática</item>
+        <item>Kayac</item>
+        <item>Moto</item>
+        <item>Carrera de coches</item>
+        <item>Rugby</item>
+        <item>Correr</item>
+        <item>Tiro al plato</item>
+        <item>Skateboard</item>
+        <item>Buceo</item>
+        <item>Surf</item>
+        <item>Natación</item>
+        <item>Ping-pong</item>
+        <item>Tenis</item>
+        <item>Voleibol</item>
+        <item>Waterpolo</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_profile">ProfileActivity</string>
