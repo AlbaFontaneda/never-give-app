@@ -21,6 +21,7 @@ public class EventsMain extends AppCompatActivity {
 
     public final static int DEFAULT_ZOOM = 15;
     public final static int DEFAULT_TILT = 0;
+    public static String PACKAGE_NAME;
 
     private FrameLayout contentView;
     public BottomNavigationView navigation;
@@ -29,6 +30,8 @@ public class EventsMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_main);
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

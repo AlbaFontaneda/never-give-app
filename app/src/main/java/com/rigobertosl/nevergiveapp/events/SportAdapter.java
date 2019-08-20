@@ -15,7 +15,6 @@ import com.rigobertosl.nevergiveapp.R;
 public class SportAdapter extends RecyclerView.Adapter<SportAdapter.MyViewHolder> {
 
     private Resources resources;
-    private Context context;
     private String[] sports;
     private String[] sportsImagesSources;
     private static ClickListener clickListener;
@@ -48,14 +47,13 @@ public class SportAdapter extends RecyclerView.Adapter<SportAdapter.MyViewHolder
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sport_card, parent, false);
         resources = parent.getResources();
-        context = parent.getContext();
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text.setText(sports[position]);
-        int imageInt  = resources.getIdentifier(sportsImagesSources[position], "drawable", EventsCreateFragment.PACKAGE_NAME);
+        int imageInt  = resources.getIdentifier(sportsImagesSources[position], "drawable", EventsMain.PACKAGE_NAME);
         holder.image.setImageResource(imageInt);
     }
 
@@ -70,9 +68,5 @@ public class SportAdapter extends RecyclerView.Adapter<SportAdapter.MyViewHolder
 
     public interface ClickListener {
         void onItemClick(int position, View view);
-    }
-
-    public String[] getSports() {
-        return sports;
     }
 }

@@ -71,10 +71,11 @@ import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
     private ExpandableLayout expandableLayoutMain, expandableLayoutSelectSport, expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
-    private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout, sportTitleLayout, sportFixedLayout;
+    private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout, sportTitleLayout;
     private EditText notesEditText, peopleText;
     private TextView sportText, dateText, timeText, locationText;
     private RecyclerView recyclerSports, recyclerBottom;
+    private FloatingActionButton fab;
 
     private GoogleMap mMap;
     private MapView mMapView;
@@ -91,8 +92,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
     private String[] sports;
     private String[] sportsImages;
-
-    public static String PACKAGE_NAME;
 
     /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
     private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
@@ -117,6 +116,9 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         @Override
         public void onItemClick(int position, View view) {
             sportText.setText(sports[position]);
+            expandableLayoutSelectSport.collapse();
+            expandableLayoutMain.expand();
+            fab.show();
         }
     };
 
@@ -125,15 +127,13 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PACKAGE_NAME = getActivity().getApplicationContext().getPackageName();
+        sports = getActivity().getResources().getStringArray(R.array.sportsNames);
+        sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_create_event, container, false);
-
-        sports = getActivity().getResources().getStringArray(R.array.sportsNames);
-        sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
 
         /************************************ Binds **********************************************/
         mMapView = view.findViewById(R.id.map);
@@ -149,7 +149,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         peopleLayout = (LinearLayout)view.findViewById(R.id.people_layout);
         location_Layout = (LinearLayout)view.findViewById(R.id.location_layout);
         notes_Layout = (LinearLayout)view.findViewById(R.id.notes_layout);
-        sportFixedLayout = (LinearLayout)view.findViewById(R.id.sport_fixed_layout);
         sportTitleLayout = (LinearLayout)view.findViewById(R.id.sports_title_layout);
 
         peopleText = (EditText) view.findViewById(R.id.people_text);
@@ -163,14 +162,15 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         recyclerBottom = (RecyclerView)view.findViewById(R.id.recycler_view);
         recyclerSports = (RecyclerView)view.findViewById(R.id.recycler_sports);
 
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
+        /************************* LayoutManager for recyclerViews ********************************/
         layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         recyclerBottom.setLayoutManager(layoutManagerHorizontal);
         recyclerSports.setLayoutManager(layoutManagerVertical);
 
-
-        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         /********************************* Listeners *********************************************/
         calendarLayout.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +194,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             }
         });
 
-        //ToDo: cambiar esto
+        //ToDo: cambiar esto en un futuro
         location_Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -244,15 +244,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 fab.hide();
                 expandableLayoutMain.collapse();
                 expandableLayoutSelectSport.expand();
-            }
-        });
-
-        sportFixedLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fab.show();
-                expandableLayoutMain.expand();
-                expandableLayoutSelectSport.collapse();
             }
         });
 

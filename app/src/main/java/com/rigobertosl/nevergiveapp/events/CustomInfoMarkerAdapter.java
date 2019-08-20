@@ -1,8 +1,10 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -17,14 +19,21 @@ import java.util.ArrayList;
 public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
     private static final String TAG = "CustomInfoMarkerAdapter";
+    private Resources resources;
+
     private LayoutInflater inflater;
     private Event myEvent;
+    private String[] sports;
+    private String[] sportsImagesSources;
 
-    private TextView myTitle, myDate, myTime, myPeople, myHost;
+    private TextView mySport, myDate, myTime, myPeople, myLocation, myAddress;
+    private ImageView image;
 
-    public CustomInfoMarkerAdapter(LayoutInflater inflater, Event eventFocused, ArrayList<Marker> markerList){
+    public CustomInfoMarkerAdapter(LayoutInflater inflater, Event eventFocused, ArrayList<Marker> markerList, String[] sports, String[] imagesResources){
         this.inflater = inflater;
         this.myEvent = eventFocused;
+        this.sports = sports;
+        this.sportsImagesSources = imagesResources;
         for (Marker marker : markerList){
             marker.setIcon(BitmapDescriptorFactory.defaultMarker());
         }
@@ -34,21 +43,25 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     public View getInfoContents(final Marker myMarker) {
         //Carga layout personalizado.
         View view = inflater.inflate(R.layout.info_event_marker, null);
+        resources = view.getResources();
 
         myMarker.setIcon(getMarkerIcon("#196F3D"));
-        myTitle = (TextView) view.findViewById(R.id.info_title);
+
+        mySport = (TextView) view.findViewById(R.id.info_title);
         myDate = (TextView) view.findViewById(R.id.info_date);
         myTime = (TextView) view.findViewById(R.id.info_hour);
         myPeople = (TextView) view.findViewById(R.id.info_people);
-        myHost = (TextView) view.findViewById(R.id.info_host);
+        myLocation = (TextView) view.findViewById(R.id.info_location);
+        myAddress = (TextView) view.findViewById(R.id.info_address);
+        image = (ImageView) view.findViewById(R.id.info_image);
 
-        myTitle.setText(myEvent.getSport());
+        mySport.setText(myEvent.getSport());
         myDate.setText(myEvent.getDate().getDayMonthYear());
         myTime.setText(myEvent.getDate().getTime());
         myPeople.setText(myEvent.getAssistants() + " personas");
-        if(myEvent.getHost() != null){
-            myHost.setText(myEvent.getHost().getName());
-        }
+        myLocation.setText(myEvent.getPlace().getName());
+        myAddress.setText(myEvent.getPlace().getaddress());
+        image.setImageResource(getImage(myEvent.getSport()));
 
         return view;
     }
@@ -73,4 +86,14 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         return null;
     }
 
+    private int getImage(String title){
+        int index = 14;
+        for(int i = 0; i < sports.length; i++){
+            if(title.equals(sports[i])){
+                index = i;
+                break;
+            }
+        }
+        return resources.getIdentifier(sportsImagesSources[index], "drawable", EventsMain.PACKAGE_NAME);
+    }
 }

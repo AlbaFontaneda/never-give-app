@@ -46,19 +46,21 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private static final String TAG = "EventsHomeFragment";
 
     /**************************  Variables   **************************/
-
-    private FusedLocationProviderClient mFusedLocationClient;
-    private GoogleMap mMap;
-    private MapView mMapView;
-    private LocationManager locationManager;
     private ExpandableLayout expandablelayoutRecyclerView;
     private RecyclerView recyclerView;
+
+    private GoogleMap mMap;
+    private MapView mMapView;
+    private LatLng myLocation = null;
+    private FusedLocationProviderClient mFusedLocationClient;
+
     private ArrayList<Event> eventList = new ArrayList<>();
     private ArrayList<Marker> markerList = new ArrayList<>();
-    private LatLng myLocation = null;
+
+    private String[] sports;
+    private String[] sportsImages;
 
     /************************** Listeners **************************/
-
     /** Listener que carga todos los eventos que existen en la base de datos **/
     ValueEventListener loadEvents = new ValueEventListener() {
         @Override
@@ -74,7 +76,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
             }
 
             // Creación del RecyclerView con todos los eventos.
-            RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList);
+            RecyclerView.Adapter adapterEvent = new EventHomeAdapter(eventList, sports, sportsImages);
             recyclerView.setAdapter(adapterEvent);
             ((EventHomeAdapter) adapterEvent).setOnItemClickListener(markerClickListener);
             if(!expandablelayoutRecyclerView.isExpanded()){
@@ -101,13 +103,13 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
                     .build();
             CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
             mMap.animateCamera(cameraUpdate);
-            mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()), eventList.get(position), markerList));
+            mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(LayoutInflater.from(getActivity()),
+                    eventList.get(position), markerList, sports, sportsImages));
             markerList.get(position).showInfoWindow();
         }
     };
 
     /**************************  Métodos   **************************/
-
     @Override
     public void onStart() {
         super.onStart();
@@ -121,8 +123,8 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 100, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
+        sports = getActivity().getResources().getStringArray(R.array.sportsNames);
+        sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
 
     @Override
