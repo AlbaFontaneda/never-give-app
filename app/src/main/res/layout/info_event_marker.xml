@@ -22,7 +22,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/almuerzo_default"
+        android:src="@drawable/sport_gym"
         app:layout_constraintTop_toBottomOf="@id/info_title"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="2dp"/>

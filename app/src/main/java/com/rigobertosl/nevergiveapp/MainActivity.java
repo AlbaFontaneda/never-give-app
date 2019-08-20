@@ -237,7 +237,14 @@ public class MainActivity extends AppFiredatabase
         } else if (id == R.id.nav_calendario) {
             startNewActivity(FoodsActivity.class);
         } else if (id == R.id.nav_localizacion) {
-            startNewActivity(Location.class);
+            startNewActivity(LoginActivity.class);
+            /*
+            if(autoLogin()){
+                startNewActivity(EventsMain.class);
+            }else{
+                startNewActivity(LoginActivity.class);
+            }
+            */
         } else if (id == R.id.nav_eventos) {
             startNewActivity(EventsMain.class);
         } else if (id == R.id.nav_logros) {
@@ -309,4 +316,7 @@ public class MainActivity extends AppFiredatabase
         }
     }
 
+    public boolean autoLogin(){
+        return (mAuth.getCurrentUser() != null);
+    }
 }
