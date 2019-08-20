@@ -27,7 +27,7 @@ public class LoginActivity extends AppFiredatabase {
     private static final String TAG = "LoginActivity";
 
     private EditText editEmail, editPassword;
-    private Button buttonSignIn, buttonSignOut;
+    private Button buttonSignIn, buttonSignUp;
     private ProgressDialog progressDialog;
 
     private Profile currentProfile;
@@ -49,21 +49,21 @@ public class LoginActivity extends AppFiredatabase {
 
         editEmail = (EditText) findViewById(R.id.email);
         editPassword = (EditText) findViewById(R.id.password);
-        buttonSignIn = (Button) findViewById(R.id.sign_in_button);
-        buttonSignOut = (Button) findViewById(R.id.sign_out_button);
+        buttonSignIn = (Button) findViewById(R.id.sign_in);
+        buttonSignUp = (Button) findViewById(R.id.sign_up);
 
         progressDialog = new ProgressDialog(this);
 
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateForm()){
-                    createAccount();
+                    signUp();
                 }
             }
         });
 
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateForm()){
@@ -75,7 +75,7 @@ public class LoginActivity extends AppFiredatabase {
         });
     }
 
-    private void createAccount(){
+    private void signUp(){
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
