@@ -175,4 +175,8 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     public void toastMessage(String message, int length){
         Toast.makeText(this, message, length).show();
     }
+
+    /**********************************  Location Permissions  ************************************/
+
+
 }

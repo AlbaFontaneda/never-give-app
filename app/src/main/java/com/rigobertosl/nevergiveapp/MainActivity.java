@@ -191,20 +191,16 @@ public class MainActivity extends AppFiredatabase
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_login) {
-            startNewActivity(this, LoginActivity.class);
-        } else if (id == R.id.nav_entrenamiento) {
-            startNewActivity(this, TrainingActivity.class);
-        } else if (id == R.id.nav_calendario) {
-            startNewActivity(this, FoodsActivity.class);
-        } else if (id == R.id.nav_localizacion) {
-            /* startNewActivity(this, LoginActivity.class);*/
-
             if(autoLogin()){
                 startNewActivity(this, EventsMain.class);
             }else{
                 startNewActivity(this, LoginActivity.class);
             }
 
+        } else if (id == R.id.nav_entrenamiento) {
+            startNewActivity(this, TrainingActivity.class);
+        } else if (id == R.id.nav_calendario) {
+            startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_eventos) {
             startNewActivity(this, EventsMain.class);
         } else if (id == R.id.nav_logros) {

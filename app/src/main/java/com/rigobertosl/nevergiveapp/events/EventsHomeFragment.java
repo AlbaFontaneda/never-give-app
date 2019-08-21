@@ -1,12 +1,15 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,7 +34,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.rigobertosl.nevergiveapp.LocationPermissions;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
@@ -118,7 +123,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         mydbRef.addValueEventListener(loadEvents);
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,38 +161,41 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
-            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
                 mMap = googleMap;
                 getDeviceLocation();
-                mMap.setMyLocationEnabled(true);
             }
         });
-
         return fragmentView;
     }
 
     /************************************** Custom methods ****************************************/
-    private void getDeviceLocation(){
+    public void getDeviceLocation() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        @SuppressLint("MissingPermission") final Task location = mFusedLocationClient.getLastLocation();
-        location.addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
-                if(task.isSuccessful()){
-                    Location currentLocation = (Location) task.getResult();
-                    myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    moveCamera(myLocation, DEFAULT_ZOOM);
-                }else{
-
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            LocationPermissions.requestPermission((AppFiredatabase) getActivity(), EventsMain.LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            final Task location = mFusedLocationClient.getLastLocation();
+            location.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        Location currentLocation = (Location) task.getResult();
+                        myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                        moveCamera(myLocation, DEFAULT_ZOOM);
+                    }
                 }
-            }
-        });
+            });
+            mMap.setMyLocationEnabled(true);
+        }
     }
 
-    private void moveCamera(LatLng latLng, int zoom){
+    public void moveCamera(LatLng latLng, int zoom){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
@@ -198,17 +205,14 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
     }
 
     @Override
     public void onProviderEnabled(String s) {
-
     }
 
     @Override
     public void onProviderDisabled(String s) {
-
     }
 
 }
