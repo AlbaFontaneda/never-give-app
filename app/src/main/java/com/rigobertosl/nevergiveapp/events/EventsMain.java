@@ -100,10 +100,11 @@ public class EventsMain extends AppFiredatabase {
         switch (item.getItemId()){
             case R.id.edit:
                 startNewActivity(this, ProfileActivity.class);
+                break;
             case R.id.sign_out:
                 signOut();
                 startNewActivity(this, LoginActivity.class);
-
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
