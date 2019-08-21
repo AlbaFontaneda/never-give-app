@@ -14,10 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.MainActivity;
+import com.rigobertosl.nevergiveapp.ProfileActivity;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 
-public class EventsMain extends AppCompatActivity {
+public class EventsMain extends AppFiredatabase {
 
     public final static int DEFAULT_ZOOM = 15;
     public final static int DEFAULT_TILT = 0;
@@ -87,7 +90,7 @@ public class EventsMain extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
-        getMenuInflater().inflate(R.menu.activity_events, menu);
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
@@ -95,8 +98,12 @@ public class EventsMain extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item){
 
         switch (item.getItemId()){
-            case R.id.account:
-                return true;
+            case R.id.edit:
+                startNewActivity(this, ProfileActivity.class);
+            case R.id.sign_out:
+                signOut();
+                startNewActivity(this, LoginActivity.class);
+
         }
         return super.onOptionsItemSelected(item);
     }

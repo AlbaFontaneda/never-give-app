@@ -38,9 +38,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UUID.randomUUID().toString()).setValue(data);
     }
 
-    public void updateProfileToFirebase(Profile oldValue, Profile newValue){
+    public void updateProfileToFirebase(String ID, String data, String newValue){
         mydbRef = database.getReference(usersKey);
-        mydbRef.child(oldValue.getID()).setValue(newValue);
+        mydbRef.child(ID).child(data).setValue(newValue);
     }
 
     private void addUserToFirebase(String email, String password){
@@ -49,6 +49,10 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     }
 
     /**************************************  Authenticator  ***************************************/
+    public boolean autoLogin(){
+        return (mAuth.getCurrentUser() != null);
+    }
+
     public void signIn(final Context context, final String email, final String password, final ProgressDialog progressDialog){
 
         progressDialog.setMessage("Iniciando sesión...");
@@ -90,7 +94,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                         } else {
                             //Si el usuario ya existe
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                toastMessage("El usuario introducido no existe.", Toast.LENGTH_LONG);
+                                toastMessage("El usuario introducido ya existe.", Toast.LENGTH_LONG);
                             }else{
                                 toastMessage("Algo ha fallado, inténtelo de nuevo.", Toast.LENGTH_LONG);
                             }
@@ -100,56 +104,60 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 });
     }
 
-    public void updateNameProfile(String newName){
+    public void signOut(){
+        mAuth.signOut();
+    }
+
+    public void updateNameProfile(final String newName){
 
         FirebaseUser user = mAuth.getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(newName)
                 .build();
 
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            toastMessage("Nombre actualizado", Toast.LENGTH_SHORT);
-                        }else{
-                            toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
-                        }
+        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "name", newName);
+                        toastMessage("Nombre actualizado", Toast.LENGTH_SHORT);
+                    }else{
+                        toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
                     }
-                });
+                }
+            });
     }
 
-    public void updateEmailProfile(String newEmail){
+    public void updateEmailProfile(final String newEmail){
         FirebaseUser user = mAuth.getCurrentUser();
 
-        user.updateEmail(newEmail)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            toastMessage("Email actualizado", Toast.LENGTH_SHORT);
-                        }else{
-                            toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
-                        }
+        user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "email", newEmail);
+                        toastMessage("Email actualizado", Toast.LENGTH_SHORT);
+                    }else{
+                        toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
                     }
-                });
+                }
+            });
     }
 
-    public void updatePasswordProfile(String newPassword){
+    public void updatePasswordProfile(final String newPassword){
         FirebaseUser user = mAuth.getCurrentUser();
 
-        user.updatePassword(newPassword)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            toastMessage("Password actualizado", Toast.LENGTH_SHORT);
-                        }else{
-                            toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
-                        }
+        user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "password", newPassword);
+                        toastMessage("Password actualizado", Toast.LENGTH_SHORT);
+                    }else{
+                        toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
                     }
-                });
+                }
+            });
     }
 
     public void updateAllProfile(String newName, String newEmail, String newPassword){

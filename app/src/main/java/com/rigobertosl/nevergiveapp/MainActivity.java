@@ -173,48 +173,6 @@ public class MainActivity extends AppFiredatabase
     }
     /*********** FUNCIONES DE LA PANTALLA DE INICIO ******************/
 
-
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user == null) {
-            signInAnonymously();
-        } else  {
-            Toast.makeText(this, "Hola, " + user.getUid(), Toast.LENGTH_LONG).show();
-        }
-
-
-    }
-
-    private void signInAnonymously() {
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("USER", "signInAnonymously:success " + user.getUid());
-                            Toast.makeText(MainActivity.this, "CREANDO A " + user.getUid(), Toast.LENGTH_LONG).show();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e("USER", "signInAnonymously:failure", task.getException());
-
-                        }
-
-
-                    }
-                });
-    }
-
-    */
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -239,14 +197,14 @@ public class MainActivity extends AppFiredatabase
         } else if (id == R.id.nav_calendario) {
             startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_localizacion) {
-            startNewActivity(this, LoginActivity.class);
-            /*
+            /* startNewActivity(this, LoginActivity.class);*/
+
             if(autoLogin()){
-                startNewActivity(EventsMain.class);
+                startNewActivity(this, EventsMain.class);
             }else{
-                startNewActivity(LoginActivity.class);
+                startNewActivity(this, LoginActivity.class);
             }
-            */
+
         } else if (id == R.id.nav_eventos) {
             startNewActivity(this, EventsMain.class);
         } else if (id == R.id.nav_logros) {
@@ -311,9 +269,5 @@ public class MainActivity extends AppFiredatabase
         public int getCount() {
             return 7;
         }
-    }
-
-    public boolean autoLogin(){
-        return (mAuth.getCurrentUser() != null);
     }
 }
