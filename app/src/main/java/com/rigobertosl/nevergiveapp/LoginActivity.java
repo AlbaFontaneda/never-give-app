@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +25,8 @@ import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 public class LoginActivity extends AppFiredatabase {
 
     private static final String TAG = "LoginActivity";
@@ -31,6 +35,10 @@ public class LoginActivity extends AppFiredatabase {
     private EditText editEmail, editPassword;
     private Button buttonSignIn, buttonSignUp;
     private ProgressDialog progressDialog;
+    private Button registerButton;
+    private TextView loginButton;
+    private ExpandableLayout expandableLayout;
+    private ConstraintLayout background;
 
     private Profile currentProfile;
 
@@ -53,6 +61,10 @@ public class LoginActivity extends AppFiredatabase {
         editPassword = (EditText) findViewById(R.id.password);
         buttonSignIn = (Button) findViewById(R.id.sign_in);
         buttonSignUp = (Button) findViewById(R.id.sign_up);
+        background = (ConstraintLayout) findViewById(R.id.background);
+        registerButton = (Button) findViewById(R.id.registerbutton);
+        loginButton = (TextView) findViewById(R.id.loginbutton);
+        expandableLayout = (ExpandableLayout) findViewById(R.id.expandablelayout);
 
         progressDialog = new ProgressDialog(this);
 
@@ -76,6 +88,29 @@ public class LoginActivity extends AppFiredatabase {
                 String password = editPassword.getText().toString().trim();
                 if(validateForm()){
                     signIn(context, email, password, progressDialog);
+                }
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandableLayout.expand();
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandableLayout.expand();
+            }
+        });
+
+        background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandableLayout.isExpanded()) {
+                    expandableLayout.collapse();
                 }
             }
         });
