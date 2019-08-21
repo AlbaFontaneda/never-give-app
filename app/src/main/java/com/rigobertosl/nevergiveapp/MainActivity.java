@@ -14,20 +14,28 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.rigobertosl.nevergiveapp.events.EventsMain;
+import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
+import com.rigobertosl.nevergiveapp.objects.Event;
+import com.rigobertosl.nevergiveapp.objects.Exercise;
+import com.rigobertosl.nevergiveapp.objects.TrainingTable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DataBaseContract db;
@@ -37,14 +45,60 @@ public class MainActivity extends AppCompatActivity
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
+    private HashMap<String, Event> eventList = new HashMap<>();
+    final String TAG = "-------EVENTOS-------";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        ////////////////////////////////// FIREDATABASE
+/*
+        Profile profile1 = new Profile("Javi");
+        Profile p1 = new Profile("Alba");
+        Profile profile2 = new Profile("javi@javi.com", "hasjgf");
+        Profile user = new Profile("Blusslightyear");
+        addDataToFirebase(usersKey, profile1);
+        addDataToFirebase(usersKey, p1);
+        addDataToFirebase(usersKey, profile2);
+        addDataToFirebase(usersKey, user);
+        ArrayList<Event> eventList = new ArrayList<>();
+        //HashMap<String, Event> eventList= new HashMap<String, Event>();
+
+        String[] titles = {"Tenis", "Futbol", "Pokemon Go","Gimnasio", "Tirer piedras"};
+        Double[] latitude = {40.316877, 40.317572, 40.317703, 40.316819, 42.343995};
+        Double[] longitude = {-3.706114, -3.706876, -3.702198, -3.704751, -3.697103};
+        int[] assistants = {2, 22, 5, 3, 50};
+        Profile[] host = {profile1, p1, profile2, user, user};
+
+        for(int i = 0; i < titles.length; i++){
+            Date randomDate = new Date(new Random().nextInt(31-1)+1, new Random().nextInt(12-1)+1, new Random().nextInt(2021-2019)+2019, new Random().nextInt(23), new Random().nextInt(59));
+            Event nuevoEvento = new Event(titles[i], randomDate, new GooglePlace(null, latitude[i], longitude[i]), assistants[i], host[i], null);
+            eventList.add(nuevoEvento);
+            addDataToFirebase(eventsKey, nuevoEvento);
+        }
+*/
+/*
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        java.util.Date d = new java.util.Date();
+        String dayOfTheWeek = sdf.format(d).substring(0,1).toUpperCase() + sdf.format(d).substring(1);
+*/
+/*
+        //For each de un HashMap
+        for(Event evento : eventList){
+            addDataToFirebase(eventsKey, evento);
+        }
+
+*/
+        ArrayList<Event> sdfs = allEvents;
+        ///////////////////////////////////////// -FIREDATABASE
+
+/*
         if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
-
+*/
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);
         db.open();
@@ -63,6 +117,7 @@ public class MainActivity extends AppCompatActivity
                 String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
 
                 System.out.println("Traza: no existe el fichero");
+                Toast.makeText(this, "No existe el fichero", Toast.LENGTH_SHORT);
                 InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
                 OutputStream out = new FileOutputStream(destPath);
 
@@ -117,6 +172,7 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
     }
     /*********** FUNCIONES DE LA PANTALLA DE INICIO ******************/
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -134,19 +190,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_inicio) {
+        if (id == R.id.nav_login) {
+            startNewActivity(this, LoginActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
-            Intent intent = new Intent(MainActivity.this, TrainingActivity.class);
-            startActivity(intent);
+            startNewActivity(this, TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {
-            Intent intent = new Intent(MainActivity.this, FoodsActivity.class);
-            startActivity(intent);
+            startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_localizacion) {
-            Intent intent = new Intent(MainActivity.this, Location.class);
-            startActivity(intent);
+            /* startNewActivity(this, LoginActivity.class);*/
+
+            if(autoLogin()){
+                startNewActivity(this, EventsMain.class);
+            }else{
+                startNewActivity(this, LoginActivity.class);
+            }
+
+        } else if (id == R.id.nav_eventos) {
+            startNewActivity(this, EventsMain.class);
         } else if (id == R.id.nav_logros) {
-            Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
-            startActivity(intent);
+            startNewActivity(this, AchievementsActivity.class);
         } else if (id == R.id.nav_reinicio) {
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -208,5 +270,4 @@ public class MainActivity extends AppCompatActivity
             return 7;
         }
     }
-
 }

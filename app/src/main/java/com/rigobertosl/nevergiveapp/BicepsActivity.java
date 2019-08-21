@@ -3,10 +3,10 @@ package com.rigobertosl.nevergiveapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -110,7 +110,6 @@ public class BicepsActivity extends AppCompatActivity {
         db.close();
 
         descansoEditText.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 openDatePicker(v, descansoEditText);

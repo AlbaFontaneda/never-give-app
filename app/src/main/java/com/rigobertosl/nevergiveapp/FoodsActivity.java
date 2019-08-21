@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.rigobertosl.nevergiveapp.objects.FoodTable;
+
 import java.util.ArrayList;
 
 public class FoodsActivity extends AppCompatActivity {

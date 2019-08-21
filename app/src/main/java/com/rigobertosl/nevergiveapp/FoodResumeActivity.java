@@ -28,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rigobertosl.nevergiveapp.objects.FoodTable;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;

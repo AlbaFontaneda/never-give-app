@@ -331,6 +331,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">1</item>
         <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     //RecycleView (solo editar tablas)
@@ -369,6 +370,20 @@
         <item name="np_height">180dp</item>
         <item name="np_dividerColor">@color/colorPrimary</item>
         <item name="np_max">59</item>
+        <item name="np_min">0</item>
+        <item name="np_selectedTextColor">@color/colorAccent</item>
+        <item name="np_textColor">@color/colorPrimary</item>
+    </style>
+
+    //Text horas:minutos
+
+    <style name="hoursPicker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="np_width">65dp</item>
+        <item name="np_height">180dp</item>
+        <item name="np_dividerColor">@color/colorPrimary</item>
+        <item name="np_max">23</item>
         <item name="np_min">0</item>
         <item name="np_selectedTextColor">@color/colorAccent</item>
         <item name="np_textColor">@color/colorPrimary</item>
@@ -547,4 +562,20 @@
         <item name="android:lines">4</item>
         <item name="android:maxLines">5</item>
     </style>
+
+    <!-- Create event -->
+    <style name="CreateEventTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="CreateEventEditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
 </resources>

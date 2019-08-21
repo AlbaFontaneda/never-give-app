@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rigobertosl.nevergiveapp.objects.Achievement;
+
 import java.util.ArrayList;
 
 public class AchievementsResumeFragment extends Fragment {

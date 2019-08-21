@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp;
+package com.rigobertosl.nevergiveapp.objects;
 
 import android.os.Handler;
 
@@ -12,6 +12,7 @@ import android.os.Handler;
 **/
 
 public class CountDownTimer {
+
     private long START_TIMER;
     private long millisInFuture;
     private long countDownInterval;

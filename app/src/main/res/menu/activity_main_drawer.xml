@@ -3,24 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item
-        android:id="@+id/nav_inicio"
-        android:icon="@drawable/ic_inicio"
-        android:title="@string/inicio" />
+
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_person"
+            android:title="@string/title_activity_login" />
+        <item
             android:id="@+id/nav_entrenamiento"
             android:icon="@drawable/ic_entrenamiento"
-            android:title="@string/tablas_entrenamiento" />
+            android:title="@string/entrenamiento" />
         <item
             android:id="@+id/nav_calendario"
             android:icon="@drawable/ic_calendario"
-            android:title="@string/calendario_comidas" />
+            android:title="@string/dieta" />
         <item
             android:id="@+id/nav_localizacion"
-            android:icon="@drawable/ic_eventos"
+            android:icon="@drawable/ic_localizacion"
             android:title="@string/localizacion" />
+        <item
+            android:id="@+id/nav_eventos"
+            android:icon="@drawable/ic_people"
+            android:title="Eventos" />
         <item
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logro_no_completado"

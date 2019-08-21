@@ -15,6 +15,15 @@
     <color name="buttonPressedStroke">#99207b</color>
     <color name="achievementsRow">#c178bc</color>
     <color name="titlesColor">#ffffff</color>
-    <color name="cardViewContent">#dcdcdc</color>
+    <color name="cardViewContent">#DCDCDC</color>
+    <color name="recyclerViewBG">#E5E7E9</color>
     <color name="white">#D0FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="editText">#707B7C</color>
+    <color name="soft_divider">#CACFD2</color>
+    <color name="icon_grey">#616A6B</color>
+
+    <color name="colorClose">#B71C1C</color>
+    <color name="colorOpen">#1D8348</color>
 </resources>

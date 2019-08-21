@@ -20,6 +20,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rigobertosl.nevergiveapp.objects.FoodTable;
+
 import java.util.ArrayList;
 
 

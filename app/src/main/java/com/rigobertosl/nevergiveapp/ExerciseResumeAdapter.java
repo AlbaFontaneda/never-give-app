@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rigobertosl.nevergiveapp.objects.Exercise;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.ArrayList;
