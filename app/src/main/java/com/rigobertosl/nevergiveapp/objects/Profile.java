@@ -17,7 +17,15 @@ public class Profile {
         this.name = "Anónimo";
     }
 
-    public Profile(String email, String password, String name) {
+    public Profile(String ID, String email, String password) {
+        this.ID = ID;
+        this.email = email;
+        this.password = password;
+        this.name = "Anónimo";
+    }
+
+    public Profile(String ID, String email, String password, String name) {
+        this.ID = ID;
         this.email = email;
         this.password = password;
         this.name = name;

@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppFiredatabase {
 
     private static final String TAG = "LoginActivity";
 
+    private Context context = this;
     private EditText editEmail, editPassword;
     private Button buttonSignIn, buttonSignUp;
     private ProgressDialog progressDialog;
@@ -36,7 +38,7 @@ public class LoginActivity extends AppFiredatabase {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -57,8 +59,12 @@ public class LoginActivity extends AppFiredatabase {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = editEmail.getText().toString().trim().toLowerCase();
+                String password = editPassword.getText().toString().trim();
                 if(validateForm()){
-                    signUp();
+                    signUp(context, email, password, progressDialog);
+                    //editEmail.setText("");
+                    //editPassword.setText("");
                 }
             }
         });
@@ -66,70 +72,11 @@ public class LoginActivity extends AppFiredatabase {
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = editEmail.getText().toString().trim().toLowerCase();
+                String password = editPassword.getText().toString().trim();
                 if(validateForm()){
-                    progressDialog.setMessage("Iniciando sesión...");
-                    progressDialog.show();
-                    signIn();
+                    signIn(context, email, password, progressDialog);
                 }
-            }
-        });
-    }
-
-    private void signUp(){
-        String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
-
-        progressDialog.setMessage("Realizando registro...");
-        progressDialog.show();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    //El usuario se registra de manera exitosa
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    toastMessage("Registro completado.", Toast.LENGTH_SHORT);
-                    //updateUI(user);
-                } else {
-                    //Si el usuario ya existe
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                        toastMessage("El usuario introducido no existe.", Toast.LENGTH_LONG);
-                        editEmail.setText("");
-                        editPassword.setText("");
-                    }else{
-                        toastMessage("Algo ha fallado, inténtelo de nuevo.", Toast.LENGTH_LONG);
-                    }
-                }
-                progressDialog.dismiss();
-            }
-        });
-    }
-
-    private void signIn(){
-        String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
-
-        progressDialog.setMessage("Iniciando sesión...");
-        progressDialog.show();
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Intent intent = new Intent(LoginActivity.this, EventsMain.class);
-                    startActivity(intent);
-                    //updateUI(user);
-                } else {
-                    if(!(task.getException() instanceof FirebaseAuthUserCollisionException)){
-                        toastMessage("El usuario introducido no existe.", Toast.LENGTH_LONG);
-                    }else{
-                        toastMessage("Algo ha fallado, inténtelo de nuevo.", Toast.LENGTH_LONG);
-                    }
-                }
-                progressDialog.dismiss();
             }
         });
     }
@@ -153,10 +100,6 @@ public class LoginActivity extends AppFiredatabase {
             editPassword.setError(null);
         }
         return valid;
-    }
-
-    private void toastMessage(String message, int length){
-        Toast.makeText(this, message, length).show();
     }
 
     /** Sobrescripción del botón de atrás del propio móvil

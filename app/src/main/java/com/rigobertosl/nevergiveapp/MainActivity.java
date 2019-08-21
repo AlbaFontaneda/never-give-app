@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
@@ -116,6 +117,7 @@ public class MainActivity extends AppFiredatabase
                 String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
 
                 System.out.println("Traza: no existe el fichero");
+                Toast.makeText(this, "No existe el fichero", Toast.LENGTH_SHORT);
                 InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
                 OutputStream out = new FileOutputStream(destPath);
 
@@ -231,13 +233,13 @@ public class MainActivity extends AppFiredatabase
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_login) {
-            startNewActivity(LoginActivity.class);
+            startNewActivity(this, LoginActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
-            startNewActivity(TrainingActivity.class);
+            startNewActivity(this, TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {
-            startNewActivity(FoodsActivity.class);
+            startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_localizacion) {
-            startNewActivity(LoginActivity.class);
+            startNewActivity(this, LoginActivity.class);
             /*
             if(autoLogin()){
                 startNewActivity(EventsMain.class);
@@ -246,9 +248,9 @@ public class MainActivity extends AppFiredatabase
             }
             */
         } else if (id == R.id.nav_eventos) {
-            startNewActivity(EventsMain.class);
+            startNewActivity(this, EventsMain.class);
         } else if (id == R.id.nav_logros) {
-            startNewActivity(AchievementsActivity.class);
+            startNewActivity(this, AchievementsActivity.class);
         } else if (id == R.id.nav_reinicio) {
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -285,11 +287,6 @@ public class MainActivity extends AppFiredatabase
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
-    }
-
-    public void startNewActivity(Class<?> newActivity){
-        Intent intent = new Intent(MainActivity.this, newActivity);
-        startActivity(intent);
     }
 
     /**
