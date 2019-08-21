@@ -196,7 +196,6 @@ public class MainActivity extends AppFiredatabase
             }else{
                 startNewActivity(this, LoginActivity.class);
             }
-
         } else if (id == R.id.nav_entrenamiento) {
             startNewActivity(this, TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {

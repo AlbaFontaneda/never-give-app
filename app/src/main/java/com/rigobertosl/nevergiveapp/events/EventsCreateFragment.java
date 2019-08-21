@@ -127,6 +127,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid());
+        mydbRef.addListenerForSingleValueEvent(getCurrentHost);
         sports = getActivity().getResources().getStringArray(R.array.sportsNames);
         sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
@@ -256,6 +258,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     evento.setSport(sportText.getText().toString());
                     evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
                     evento.setDate(eventDate);
+                    evento.setHost(host);
                     addDataToFirebase(eventsKey, evento);
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
 
@@ -309,7 +312,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         return view;
     }
-
 
     /************************************** Calendar Methods **************************************/
     public void openCalendarPicker(){
