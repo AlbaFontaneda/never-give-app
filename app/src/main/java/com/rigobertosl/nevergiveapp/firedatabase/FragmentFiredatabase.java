@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp.firedatabase;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,16 +15,7 @@ import java.util.UUID;
 public class FragmentFiredatabase extends Fragment implements FiredatabaseInterface {
 
     protected DatabaseReference mydbRef;
-    protected Profile host;
-    protected ValueEventListener getCurrentHost = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            host = dataSnapshot.getValue(Profile.class);
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-        }
-    };
+    protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     /************************************* Methods ************************************************/
     @Override

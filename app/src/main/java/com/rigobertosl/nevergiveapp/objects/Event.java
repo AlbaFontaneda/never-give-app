@@ -72,6 +72,7 @@ public class Event {
 
     public void setHost(Profile host) {
         this.host = host;
+        this.members.add(host);
     }
 
     public GooglePlace getPlace() {
@@ -86,8 +87,8 @@ public class Event {
         return members;
     }
 
-    public void setMembers(ArrayList<Profile> members) {
-        this.members = members;
+    public void addMember(Profile newMember) {
+        this.members.add(newMember);
     }
 
     /******************  Otros métodos  ********************/

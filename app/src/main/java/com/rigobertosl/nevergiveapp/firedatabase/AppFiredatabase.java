@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -29,6 +30,7 @@ import java.util.UUID;
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
     protected DatabaseReference mydbRef;
+    protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
     protected ArrayList<Event> allEvents = new ArrayList<>();
 
     /************************************  Realtime Database  *************************************/
@@ -38,18 +40,20 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UUID.randomUUID().toString()).setValue(data);
     }
 
-    public void updateProfileToFirebase(String ID, String data, String newValue){
+    public void updateProfileToFirebase(String UID, String data, String newValue){
         mydbRef = database.getReference(usersKey);
-        mydbRef.child(ID).child(data).setValue(newValue);
+        mydbRef.child(UID).child(data).setValue(newValue);
     }
 
     private void addUserToFirebase(String email, String password){
-        this.addDataToFirebase(usersKey, new Profile(mAuth.getCurrentUser().getUid(),
-                email, password));
+        mydbRef = database.getReference(usersKey);
+        String UID = mAuth.getCurrentUser().getUid();
+        mydbRef.child(UID).setValue(new Profile(UID, email, password));
     }
 
     /**************************************  Authenticator  ***************************************/
     public boolean autoLogin(){
+        //mAuth = FirebaseAuth.getInstance();
         return (mAuth.getCurrentUser() != null);
     }
 

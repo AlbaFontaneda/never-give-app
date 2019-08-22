@@ -39,11 +39,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
+import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -83,6 +87,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     private FusedLocationProviderClient mFusedLocationClient;
     private RecyclerView.LayoutManager layoutManagerHorizontal;
     private RecyclerView.LayoutManager layoutManagerVertical;
+    private Profile host;
 
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
     private ArrayList<MarkerOptions> markerList = new ArrayList<>();
@@ -93,6 +98,15 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     private String[] sports;
     private String[] sportsImages;
 
+    protected ValueEventListener getCurrentHost = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            host = dataSnapshot.getValue(Profile.class);
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    };
     /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
     private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
         @Override
@@ -122,6 +136,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         }
     };
 
+
     @SuppressLint("MissingPermission")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +144,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid());
         mydbRef.addListenerForSingleValueEvent(getCurrentHost);
+
         sports = getActivity().getResources().getStringArray(R.array.sportsNames);
         sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
