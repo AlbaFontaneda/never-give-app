@@ -87,26 +87,14 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     private FusedLocationProviderClient mFusedLocationClient;
     private RecyclerView.LayoutManager layoutManagerHorizontal;
     private RecyclerView.LayoutManager layoutManagerVertical;
-    private Profile host;
 
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
     private ArrayList<MarkerOptions> markerList = new ArrayList<>();
-    private ArrayList<String> distancesList = new ArrayList<>();
-    private Event evento = new Event();
+    private Event newEvent = new Event();
     private Date eventDate = new Date();
 
     private String[] sports;
     private String[] sportsImages;
-
-    protected ValueEventListener getCurrentHost = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            host = dataSnapshot.getValue(Profile.class);
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-        }
-    };
     /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
     private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
         @Override
@@ -114,7 +102,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             locationText.setText(googlePlacesList.get(position).getName());
             locationText.setTextColor(Color.BLACK);
 
-            evento.setPlace(googlePlacesList.get(position));
+            newEvent.setPlace(googlePlacesList.get(position));
 
             LatLng myPlace = googlePlacesList.get(position).getLatLng();
             animateCamera(myPlace, 19, 60);
@@ -142,9 +130,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid());
-        mydbRef.addListenerForSingleValueEvent(getCurrentHost);
-
+        loadCurrentUser();
         sports = getActivity().getResources().getStringArray(R.array.sportsNames);
         sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
@@ -230,11 +216,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     fab.hide();
                 } else {
                     mMap.clear();
-                    if(evento.getPlace() != null){
-                        MarkerOptions markerOptions = new MarkerOptions().position(evento.getPlace().getLatLng())
-                                .title(evento.getPlace().getName());
+                    if(newEvent.getPlace() != null){
+                        MarkerOptions markerOptions = new MarkerOptions().position(newEvent.getPlace().getLatLng())
+                                .title(newEvent.getPlace().getName());
                         mMap.addMarker(markerOptions);
-                        animateCamera(evento.getPlace().getLatLng(), 15, 0);
+                        animateCamera(newEvent.getPlace().getLatLng(), 15, 0);
                     }
 
                     expandableLayoutTop.expand();
@@ -271,11 +257,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 if(!sportText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
-                    evento.setSport(sportText.getText().toString());
-                    evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
-                    evento.setDate(eventDate);
-                    evento.setHost(host);
-                    addDataToFirebase(eventsKey, evento);
+                    newEvent.setSport(sportText.getText().toString());
+                    newEvent.setAssistants(Integer.parseInt(peopleText.getText().toString()));
+                    newEvent.setDate(eventDate);
+                    newEvent.setHost(currentUser);
+                    addDataToFirebase(eventsKey, newEvent);
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
 
                     // Cambiamos a la pantalla principal

@@ -1,21 +1,16 @@
 package com.rigobertosl.nevergiveapp.objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Profile {
 
     /******************  Variables  ********************/
     private String ID, email, password, name;
-    private ArrayList<Event> targetedEvents;
+    private HashMap<String, Event> targetedEvents;
 
     /******************  Constructores  ********************/
     public Profile(){}
-
-    public Profile(String email, String password) {
-        this.email = email;
-        this.password = password;
-        this.name = "Anónimo";
-    }
 
     public Profile(String ID, String email, String password) {
         this.ID = ID;
@@ -24,12 +19,6 @@ public class Profile {
         this.name = "Anónimo";
     }
 
-    public Profile(String ID, String email, String password, String name) {
-        this.ID = ID;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-    }
 
     //ToDo: Borrar cuando ya no se use nada a mano.
     public Profile(String name) {
@@ -69,11 +58,11 @@ public class Profile {
         this.name = name;
     }
 
-    public ArrayList<Event> getTargetedEvents() {
+    public HashMap<String, Event> getTargetedEvents() {
         return targetedEvents;
     }
 
-    public void setTargetedEvents(ArrayList<Event> targetedEvents) {
+    public void setTargetedEvents(HashMap<String, Event> targetedEvents) {
         this.targetedEvents = targetedEvents;
     }
 }

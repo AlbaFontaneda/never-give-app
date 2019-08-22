@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,23 +14,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.events.EventsMain;
-import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
     protected DatabaseReference mydbRef;
     protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    protected ArrayList<Event> allEvents = new ArrayList<>();
 
     /************************************  Realtime Database  *************************************/
     @Override
@@ -53,7 +45,6 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
 
     /**************************************  Authenticator  ***************************************/
     public boolean autoLogin(){
-        //mAuth = FirebaseAuth.getInstance();
         return (mAuth.getCurrentUser() != null);
     }
 

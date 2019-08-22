@@ -1,7 +1,6 @@
 package com.rigobertosl.nevergiveapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
-import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;
 
@@ -31,9 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +41,7 @@ public class MainActivity extends AppFiredatabase
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
-    private HashMap<String, Event> eventList = new HashMap<>();
+    //private HashMap<String, Event> eventList = new HashMap<>();
     final String TAG = "-------EVENTOS-------";
 
     @Override
@@ -91,7 +87,6 @@ public class MainActivity extends AppFiredatabase
         }
 
 */
-        ArrayList<Event> sdfs = allEvents;
         ///////////////////////////////////////// -FIREDATABASE
 
 /*
