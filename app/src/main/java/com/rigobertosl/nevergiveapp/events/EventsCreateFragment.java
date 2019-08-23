@@ -2,11 +2,9 @@ package com.rigobertosl.nevergiveapp.events;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,26 +33,20 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.GooglePlace;
-import com.rigobertosl.nevergiveapp.objects.Profile;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -63,12 +55,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import javax.security.auth.callback.PasswordCallback;
 
 import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 
@@ -254,7 +243,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!sportText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
+                if(!sportText.getText().toString().equals("Selecciona un deporte") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
                     newEvent.setSport(sportText.getText().toString());

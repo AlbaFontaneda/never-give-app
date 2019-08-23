@@ -22,6 +22,7 @@ import java.util.UUID;
 
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
+    /************************************* Variables **********************************************/
     protected DatabaseReference mydbRef;
     protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -170,8 +171,5 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     public void toastMessage(String message, int length){
         Toast.makeText(this, message, length).show();
     }
-
-    /**********************************  Location Permissions  ************************************/
-
 
 }

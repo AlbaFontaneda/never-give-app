@@ -56,7 +56,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
     private static final String TAG = "EventsHomeFragment";
 
-    /**************************  Variables   **************************/
+    /************************************* Variables **********************************************/
     private ExpandableLayout expandablelayoutRecyclerView, expandableLayoutSwitch;
     private RecyclerView recyclerView;
     private ImageView arrowBack;
@@ -73,13 +73,13 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
     private String[] sports;
     private String[] sportsImages;
+    private Event eventClicked = new Event();
 
-    /************************** Listeners **************************/
+    /************************************* Listeners **********************************************/
     /** Listener que carga todos los eventos que existen en la base de datos **/
-    ValueEventListener loadEvents = new ValueEventListener() {
+    private ValueEventListener loadEvents = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-
             eventList.clear();
             for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
                 Event eventRead = eventSnapshot.getValue(Event.class);
@@ -109,7 +109,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     private EventHomeAdapter.ClickListener markerClickListener = new EventHomeAdapter.ClickListener() {
         @Override
         public void onItemClick(final int position, View view) {
-            final Event eventClicked = eventList.get(position);
+            eventClicked = eventList.get(position);
 
             final LatLng eventLatLng = eventClicked.getPlace().getLatLng();
             LatLng latLng = new LatLng(eventLatLng.latitude, eventLatLng.longitude);
@@ -158,8 +158,6 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     @Override
     public void onStart() {
         super.onStart();
-
-        loadCurrentUser();
         mydbRef = database.getReference(eventsKey);
         mydbRef.addValueEventListener(loadEvents);
     }
@@ -167,7 +165,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        loadCurrentUser();
         sports = getActivity().getResources().getStringArray(R.array.sportsNames);
         sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
