@@ -124,6 +124,13 @@ public class LoginActivity extends AppFiredatabase {
                 }
             }
         });
+
+        notAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(LoginActivity.this, MainActivity.class);
+            }
+        });
     }
 
     private void updateView() {

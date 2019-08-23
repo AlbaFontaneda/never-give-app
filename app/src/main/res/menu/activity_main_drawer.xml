@@ -19,6 +19,7 @@
             android:icon="@drawable/ic_calendario"
             android:title="@string/dieta" />
         <item
+            android:visible="false"
             android:id="@+id/nav_localizacion"
             android:icon="@drawable/ic_localizacion"
             android:title="@string/localizacion" />
@@ -30,6 +31,10 @@
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logro_no_completado"
             android:title="@string/logros" />
+        <item
+            android:id="@+id/nav_close_session"
+            android:icon="@drawable/close_session"
+            android:title="Cerrar sesión" />
     </group>
 
     <item android:title="Opciones">
