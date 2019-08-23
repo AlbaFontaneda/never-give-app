@@ -163,7 +163,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
 
                 mMap = googleMap;
                 getDeviceLocation();
-                //mMap.setMyLocationEnabled(true);
+                mMap.setMyLocationEnabled(true);
             }
         });
 
