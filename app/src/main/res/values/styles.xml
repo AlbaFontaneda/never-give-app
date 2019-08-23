@@ -48,7 +48,6 @@
         <item name="android:textColor">@color/titlesColor</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:lines">1</item>
