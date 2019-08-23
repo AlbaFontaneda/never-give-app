@@ -3,6 +3,7 @@
     <color name="colorPrimary">#2c2c2c</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="ActionBarEnd">#2c2c2c</color>
+    <color name="colorPimaryAlpha">#B3000000</color>
     <color name="colorAccent">#df0101</color>
     <color name="colorAccentLigth">#ff5333</color>
     <color name="colorAccentDark">#a40000</color>
@@ -18,6 +19,7 @@
     <color name="cardViewContent">#DCDCDC</color>
     <color name="recyclerViewBG">#E5E7E9</color>
     <color name="white">#D0FFFFFF</color>
+    <color name="white_alpha">#C8FFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="editText">#707B7C</color>

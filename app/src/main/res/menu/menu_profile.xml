@@ -9,6 +9,7 @@
         android:title="Editar perfil"
         app:showAsAction="never" />
     <item
+        android:visible="false"
         android:id="@+id/sign_out"
         android:orderInCategory="100"
         android:title="Cerrar sesión"

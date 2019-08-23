@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.rigobertosl.nevergiveapp.LoginActivity;
+import com.rigobertosl.nevergiveapp.MainActivity;
 import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
@@ -59,7 +62,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            startNewActivity(context, EventsMain.class);
+                            startNewActivity(context, MainActivity.class);
                         } else {
                             if(!(task.getException() instanceof FirebaseAuthUserCollisionException)){
                                 toastMessage("El usuario introducido no existe.", Toast.LENGTH_LONG);
@@ -85,7 +88,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                             //El usuario se registra de manera exitosa
                             addUserToFirebase(email, password);
                             toastMessage("Registro completado.", Toast.LENGTH_SHORT);
-                            startNewActivity(context, EventsMain.class);
+                            startNewActivity(context, MainActivity.class);
                             //updateUI(user);
                         } else {
                             //Si el usuario ya existe

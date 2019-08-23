@@ -26,6 +26,10 @@
             android:id="@+id/nav_logros"
             android:icon="@drawable/ic_logro_no_completado"
             android:title="@string/logros" />
+        <item
+            android:id="@+id/nav_close_session"
+            android:icon="@drawable/close_session"
+            android:title="Cerrar sesión" />
     </group>
 
     <item android:title="Opciones">

@@ -199,6 +199,9 @@ public class MainActivity extends AppFiredatabase
             startNewActivity(this, EventsMain.class);
         } else if (id == R.id.nav_logros) {
             startNewActivity(this, AchievementsActivity.class);
+        } else if (id ==R.id.nav_close_session){
+            signOut();
+            startNewActivity(this, LoginActivity.class);
         } else if (id == R.id.nav_reinicio) {
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
