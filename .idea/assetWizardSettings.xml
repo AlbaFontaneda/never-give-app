@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_arrow_back" />
-                            <entry key="sourceFile" value="C:\Users\Javi" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_placeholder" />
+                            <entry key="sourceFile" value="D:\Usuario\Javi\Downloads\149086-essential-set\149086-essential-set\svg\placeholder.svg" />
                           </map>
                         </option>
                       </PersistentState>

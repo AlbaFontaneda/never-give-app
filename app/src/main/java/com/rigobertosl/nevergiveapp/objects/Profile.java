@@ -7,7 +7,7 @@ public class Profile {
 
     /******************  Variables  ********************/
     private String ID, email, password, name;
-    private HashMap<String, Event> targetedEvents;
+    private HashMap<String, String> targetedEventsIDs;
 
     /******************  Constructores  ********************/
     public Profile(){}
@@ -58,11 +58,11 @@ public class Profile {
         this.name = name;
     }
 
-    public HashMap<String, Event> getTargetedEvents() {
-        return targetedEvents;
+    public HashMap<String, String> getTargetedEventsIDs() {
+        return targetedEventsIDs;
     }
 
-    public void setTargetedEvents(HashMap<String, Event> targetedEvents) {
-        this.targetedEvents = targetedEvents;
+    public void setTargetedEventsIDs(HashMap<String, String> targetedEventsIDs) {
+        this.targetedEventsIDs = targetedEventsIDs;
     }
 }
