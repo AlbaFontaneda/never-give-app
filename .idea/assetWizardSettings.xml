@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_vpn_key_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_key" />
-                            <entry key="sourceFile" value="C:\Users\Javi" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_placeholder" />
+                            <entry key="sourceFile" value="D:\Usuario\Javi\Downloads\149086-essential-set\149086-essential-set\svg\placeholder.svg" />
                           </map>
                         </option>
                       </PersistentState>

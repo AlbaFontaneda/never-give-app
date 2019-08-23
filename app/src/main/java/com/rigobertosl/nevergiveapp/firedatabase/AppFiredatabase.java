@@ -5,31 +5,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.events.EventsMain;
-import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
+    /************************************* Variables **********************************************/
     protected DatabaseReference mydbRef;
-    protected ArrayList<Event> allEvents = new ArrayList<>();
+    protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     /************************************  Realtime Database  *************************************/
     @Override
@@ -38,14 +33,15 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UUID.randomUUID().toString()).setValue(data);
     }
 
-    public void updateProfileToFirebase(String ID, String data, String newValue){
+    public void updateProfileToFirebase(String UID, String data, String newValue){
         mydbRef = database.getReference(usersKey);
-        mydbRef.child(ID).child(data).setValue(newValue);
+        mydbRef.child(UID).child(data).setValue(newValue);
     }
 
     private void addUserToFirebase(String email, String password){
-        this.addDataToFirebase(usersKey, new Profile(mAuth.getCurrentUser().getUid(),
-                email, password));
+        mydbRef = database.getReference(usersKey);
+        String UID = mAuth.getCurrentUser().getUid();
+        mydbRef.child(UID).setValue(new Profile(UID, email, password));
     }
 
     /**************************************  Authenticator  ***************************************/
@@ -175,4 +171,5 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     public void toastMessage(String message, int length){
         Toast.makeText(this, message, length).show();
     }
+
 }

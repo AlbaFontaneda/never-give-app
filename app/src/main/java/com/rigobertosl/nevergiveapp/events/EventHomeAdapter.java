@@ -70,7 +70,7 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
 
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        EventHomeAdapter.clickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     public interface ClickListener {

@@ -1,6 +1,7 @@
 package com.rigobertosl.nevergiveapp.objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Event {
 
@@ -10,20 +11,10 @@ public class Event {
     private int assistants;
     private Profile host;
     private GooglePlace place;
-    private ArrayList<Profile> members = new ArrayList<>();
+    private HashMap<String, Profile> members = new HashMap<>();
 
     /******************  Constructores  ********************/
     public Event(){}
-
-    public Event(String sport, Date date, GooglePlace place, int assistants, Profile host, String notes) {
-        this.sport = sport;
-        this.place = place;
-        this.date = date;
-        this.assistants = assistants;
-        this.host = host;
-        this.notes = notes;
-        members.add(host);
-    }
 
     /******************  Getters and Setters  ********************/
     public String getID() {
@@ -72,6 +63,7 @@ public class Event {
 
     public void setHost(Profile host) {
         this.host = host;
+        this.members.put(host.getID(), host);
     }
 
     public GooglePlace getPlace() {
@@ -82,12 +74,12 @@ public class Event {
         this.place = place;
     }
 
-    public ArrayList<Profile> getMembers() {
+    public HashMap<String, Profile> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<Profile> members) {
-        this.members = members;
+    public void addMember(Profile newMember) {
+        this.members.put(newMember.getID(), newMember);
     }
 
     /******************  Otros métodos  ********************/
