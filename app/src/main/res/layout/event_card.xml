@@ -9,7 +9,7 @@
     android:layout_margin="1dp"
     app:cardUseCompatPadding="true"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">P
+    android:clickable="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,19 +1,20 @@
 package com.rigobertosl.nevergiveapp.events;
 
+import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.rigobertosl.nevergiveapp.LocationPermissions;
 import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.MainActivity;
 import com.rigobertosl.nevergiveapp.ProfileActivity;
@@ -22,10 +23,16 @@ import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 
 public class EventsMain extends AppFiredatabase {
 
+    /**************************************** Constants *******************************************/
     public final static int DEFAULT_ZOOM = 15;
     public final static int DEFAULT_TILT = 0;
     public static String PACKAGE_NAME;
 
+    /************************************** Permissions *******************************************/
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private boolean mPermissionDenied = false;
+
+    /************************************* User Interface *****************************************/
     private FrameLayout contentView;
     public BottomNavigationView navigation;
 
@@ -67,7 +74,7 @@ public class EventsMain extends AppFiredatabase {
                         transaction.commit();
                         return true;
                     case R.id.navigation_notifications:
-                        transaction.replace(R.id.content_view, new EventsSearchFragment());
+                        transaction.replace(R.id.content_view, new EventsSigned());
                         transaction.commit();
                         return true;
                 }
@@ -108,6 +115,43 @@ public class EventsMain extends AppFiredatabase {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (LocationPermissions.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            //enableMyLocation();
+            Toast.makeText(this, "Debe activar el GPS para detectar su ubicación. Puede tardar unos segundos.", Toast.LENGTH_SHORT).show();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            mPermissionDenied = true;
+        }
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (mPermissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            mPermissionDenied = false;
+        }
+    }
+
+    /**
+     * Displays a dialog with error message explaining that the location permission is missing.
+     */
+    private void showMissingPermissionError() {
+        LocationPermissions.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+
 
     /** Sobrescripción del botón de atrás del propio móvil
      * Código extraido de: Ekawas.

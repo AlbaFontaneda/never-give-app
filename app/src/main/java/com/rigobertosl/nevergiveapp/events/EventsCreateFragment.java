@@ -2,11 +2,9 @@ package com.rigobertosl.nevergiveapp.events;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,7 +33,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,7 +47,6 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,12 +55,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import javax.security.auth.callback.PasswordCallback;
 
 import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
 
@@ -86,13 +79,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
     private ArrayList<GooglePlace> googlePlacesList = new ArrayList<>();
     private ArrayList<MarkerOptions> markerList = new ArrayList<>();
-    private ArrayList<String> distancesList = new ArrayList<>();
-    private Event evento = new Event();
+    private Event newEvent = new Event();
     private Date eventDate = new Date();
 
     private String[] sports;
     private String[] sportsImages;
-
     /** Listener cuando clickeas en uno de los eventos dentro del RecyclerView **/
     private GooglePlaceAdapter.ClickListener markerClickListener = new GooglePlaceAdapter.ClickListener() {
         @Override
@@ -100,7 +91,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
             locationText.setText(googlePlacesList.get(position).getName());
             locationText.setTextColor(Color.BLACK);
 
-            evento.setPlace(googlePlacesList.get(position));
+            newEvent.setPlace(googlePlacesList.get(position));
 
             LatLng myPlace = googlePlacesList.get(position).getLatLng();
             animateCamera(myPlace, 19, 60);
@@ -122,11 +113,13 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         }
     };
 
+
     @SuppressLint("MissingPermission")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        loadCurrentUser();
         sports = getActivity().getResources().getStringArray(R.array.sportsNames);
         sportsImages = getActivity().getResources().getStringArray(R.array.sportsImagesNames);
     }
@@ -212,11 +205,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     fab.hide();
                 } else {
                     mMap.clear();
-                    if(evento.getPlace() != null){
-                        MarkerOptions markerOptions = new MarkerOptions().position(evento.getPlace().getLatLng())
-                                .title(evento.getPlace().getName());
+                    if(newEvent.getPlace() != null){
+                        MarkerOptions markerOptions = new MarkerOptions().position(newEvent.getPlace().getLatLng())
+                                .title(newEvent.getPlace().getName());
                         mMap.addMarker(markerOptions);
-                        animateCamera(evento.getPlace().getLatLng(), 15, 0);
+                        animateCamera(newEvent.getPlace().getLatLng(), 15, 0);
                     }
 
                     expandableLayoutTop.expand();
@@ -250,13 +243,14 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!sportText.getText().toString().equals("") && !peopleText.getText().toString().equals("")
+                if(!sportText.getText().toString().equals("Selecciona un deporte") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
-                    evento.setSport(sportText.getText().toString());
-                    evento.setAssistants(Integer.parseInt(peopleText.getText().toString()));
-                    evento.setDate(eventDate);
-                    addDataToFirebase(eventsKey, evento);
+                    newEvent.setSport(sportText.getText().toString());
+                    newEvent.setAssistants(Integer.parseInt(peopleText.getText().toString()));
+                    newEvent.setDate(eventDate);
+                    newEvent.setHost(currentUser);
+                    addDataToFirebase(eventsKey, newEvent);
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
 
                     // Cambiamos a la pantalla principal
@@ -309,7 +303,6 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         return view;
     }
-
 
     /************************************** Calendar Methods **************************************/
     public void openCalendarPicker(){

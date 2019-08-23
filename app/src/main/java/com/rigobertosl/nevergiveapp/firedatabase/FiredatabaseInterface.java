@@ -8,7 +8,8 @@ public interface FiredatabaseInterface {
     String usersKey = "USERS";
     String eventsKey = "EVENTS";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
     void addDataToFirebase(String key, Object data);
 }
