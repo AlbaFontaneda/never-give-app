@@ -194,7 +194,7 @@ public class MainActivity extends AppFiredatabase
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_login) {
+        if (id == R.id.nav_profile) {
             startNewActivity(this, ProfileActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
             startNewActivity(this, TrainingActivity.class);

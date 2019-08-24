@@ -16,6 +16,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
@@ -54,6 +56,12 @@ dependencies {
 
     //SweetAlert
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    //Wave
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
+
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
