@@ -28,8 +28,8 @@ public class SplashActivity  extends AppFiredatabase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
-        logoApp = this.findViewById(R.id.logoApp);
-        nameApp = this.findViewById(R.id.nameApp);
+        logoApp = (ImageView)this.findViewById(R.id.logoApp);
+        nameApp = (ImageView)this.findViewById(R.id.nameApp);
         animatorSet = new AnimatorSet();
 
         Display display = getWindowManager().getDefaultDisplay();

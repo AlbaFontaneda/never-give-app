@@ -27,7 +27,6 @@
                 android:text="@string/titleCard" />
         </android.support.constraint.ConstraintLayout>
 
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/layout_details"
             android:layout_width="match_parent"

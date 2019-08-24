@@ -29,7 +29,7 @@ public class AchievementsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_achievements, container, false);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.list_achivements);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_achivements);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 

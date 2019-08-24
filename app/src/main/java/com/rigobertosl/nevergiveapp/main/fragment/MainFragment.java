@@ -35,8 +35,8 @@ public class MainFragment extends Fragment{
         db.open();
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        RecyclerView recyclerViewTraining = rootView.findViewById(R.id.list_main_training);
-        RecyclerView recyclerViewFoods = rootView.findViewById(R.id.list_main_foods);
+        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_main_training);
+        RecyclerView recyclerViewFoods = (RecyclerView) rootView.findViewById(R.id.list_main_foods);
 
         if(weekDay == 0) {
             filterDay = "LU";

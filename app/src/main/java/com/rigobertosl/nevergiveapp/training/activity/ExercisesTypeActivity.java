@@ -24,7 +24,7 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_type);
         db = new DataBaseContract(ExercisesTypeActivity.this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -37,8 +37,8 @@ public class ExercisesTypeActivity extends AppCompatActivity {
                 dialog.show();
                 TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
                 textoAviso.setText(R.string.avisoVolver);
-                final Button volver = dialogLayout.findViewById(R.id.button_volver);
-                final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
+                final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+                final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
                 volver.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -60,7 +60,7 @@ public class ExercisesTypeActivity extends AppCompatActivity {
             }
         });
 
-        fab = findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,12 +94,12 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         TextView textAbs = findViewById(R.id.exerciseAbdominales);
         textAbs.setText(exerciseTypes[5]);
 
-        LinearLayout espaldaRadioButton = findViewById(R.id.radioButtonEspalda);
-        LinearLayout pechoRadioButton = findViewById(R.id.radioButtonPecho);
-        LinearLayout bicepsRadioButton = findViewById(R.id.radioButtonBiceps);
-        LinearLayout tricepsRadioButton = findViewById(R.id.radioButtonTriceps);
-        LinearLayout piernaRadioButton = findViewById(R.id.radioButtonPierna);
-        LinearLayout abdominalesRadioButton = findViewById(R.id.radioButtonAbdominales);
+        LinearLayout espaldaRadioButton = (LinearLayout) findViewById(R.id.radioButtonEspalda);
+        LinearLayout pechoRadioButton = (LinearLayout) findViewById(R.id.radioButtonPecho);
+        LinearLayout bicepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonBiceps);
+        LinearLayout tricepsRadioButton = (LinearLayout) findViewById(R.id.radioButtonTriceps);
+        LinearLayout piernaRadioButton = (LinearLayout) findViewById(R.id.radioButtonPierna);
+        LinearLayout abdominalesRadioButton = (LinearLayout) findViewById(R.id.radioButtonAbdominales);
 
         espaldaRadioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -166,8 +166,8 @@ public class ExercisesTypeActivity extends AppCompatActivity {
         dialog.show();
         TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
         textoAviso.setText(R.string.avisoVolver);
-        final Button volver = dialogLayout.findViewById(R.id.button_volver);
-        final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
+        final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+        final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
         volver.setOnClickListener(new View.OnClickListener() {
             @Override

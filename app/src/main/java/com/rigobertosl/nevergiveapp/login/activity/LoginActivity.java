@@ -48,19 +48,19 @@ public class LoginActivity extends AppFiredatabase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        editEmail = findViewById(R.id.email);
-        editPassword = findViewById(R.id.password);
-        background = findViewById(R.id.background);
-        registerButton = findViewById(R.id.registerbutton);
-        loginButton = findViewById(R.id.loginbutton);
-        expandableLayout = findViewById(R.id.expandablelayout);
-        singUp = findViewById(R.id.sing_up);
-        singIn = findViewById(R.id.sing_in);
-        notAccountButton = findViewById(R.id.notaccount);
-        textView = findViewById(R.id.text);
+        editEmail = (EditText) findViewById(R.id.email);
+        editPassword = (EditText) findViewById(R.id.password);
+        background = (ConstraintLayout) findViewById(R.id.background);
+        registerButton = (Button) findViewById(R.id.registerbutton);
+        loginButton = (TextView) findViewById(R.id.loginbutton);
+        expandableLayout = (ExpandableLayout) findViewById(R.id.expandablelayout);
+        singUp = (Button) findViewById(R.id.sing_up);
+        singIn = (Button) findViewById(R.id.sing_in);
+        notAccountButton = (Button) findViewById(R.id.notaccount);
+        textView = (TextView) findViewById(R.id.text);
 
         progressDialog = new ProgressDialog(this);
 

@@ -33,7 +33,7 @@ public class AchievementsActivity extends AppCompatActivity {
 
         db = new DataBaseContract(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -61,10 +61,10 @@ public class AchievementsActivity extends AppCompatActivity {
         }
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
 
-        vistaPagina = findViewById(R.id.container);
+        vistaPagina = (ViewPager) findViewById(R.id.container);
         vistaPagina.setAdapter(seleccionPagina);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vistaPagina));
@@ -86,9 +86,9 @@ public class AchievementsActivity extends AppCompatActivity {
             Fragment fragment;
 
             if(position==0){
-                fragment = fragments.get(position);
+                fragment = (AchievementsResumeFragment) fragments.get(position);
             }else{
-                fragment = fragments.get(position);
+                fragment = (AchievementsFragment) fragments.get(position);
             }
 
             Bundle args = new Bundle();

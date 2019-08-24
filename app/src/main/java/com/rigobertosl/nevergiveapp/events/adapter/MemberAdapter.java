@@ -23,7 +23,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            nameOfMember = itemView.findViewById(R.id.name_member);
+            nameOfMember = (TextView)itemView.findViewById(R.id.name_member);
         }
     }
 

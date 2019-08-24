@@ -33,7 +33,7 @@ public class FoodsFragment extends Fragment{
         db.open();
 
         View rootView = inflater.inflate(R.layout.fragment_foods, container, false);
-        RecyclerView recyclerViewTraining = rootView.findViewById(R.id.list_food);
+        RecyclerView recyclerViewTraining = (RecyclerView) rootView.findViewById(R.id.list_food);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewTraining.setLayoutManager(layoutManager);

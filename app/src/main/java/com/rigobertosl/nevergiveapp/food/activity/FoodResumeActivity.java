@@ -77,7 +77,7 @@ public class FoodResumeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_resume);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mContext = getApplicationContext();
@@ -98,7 +98,7 @@ public class FoodResumeActivity extends AppCompatActivity {
             kcalTable = db.getKcalTableByFood(foodId);
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,20 +136,20 @@ public class FoodResumeActivity extends AppCompatActivity {
 
         checks = new boolean[12];
 
-        CheckBox checkPasta = findViewById(R.id.pasta_button);
-        CheckBox checkHuevos = findViewById(R.id.huevos_button);
-        CheckBox checkLeche = findViewById(R.id.leche_button);
-        CheckBox checkCarne = findViewById(R.id.carne_button);
-        CheckBox checkPescado = findViewById(R.id.pescado_button);
-        CheckBox checkVerdura = findViewById(R.id.verdura_button);
-        CheckBox checkBolleria = findViewById(R.id.bolleria_button);
-        CheckBox checkCereales = findViewById(R.id.cereales_button);
-        CheckBox checkLegumbre = findViewById(R.id.legumbre_button);
-        CheckBox checkEmbutido = findViewById(R.id.embutido_button);
-        CheckBox checkQueso = findViewById(R.id.queso_button);
-        CheckBox checkYogurt = findViewById(R.id.yogur_button);
+        CheckBox checkPasta = (CheckBox) findViewById(R.id.pasta_button);
+        CheckBox checkHuevos = (CheckBox) findViewById(R.id.huevos_button);
+        CheckBox checkLeche = (CheckBox) findViewById(R.id.leche_button);
+        CheckBox checkCarne = (CheckBox) findViewById(R.id.carne_button);
+        CheckBox checkPescado = (CheckBox) findViewById(R.id.pescado_button);
+        CheckBox checkVerdura = (CheckBox) findViewById(R.id.verdura_button);
+        CheckBox checkBolleria = (CheckBox) findViewById(R.id.bolleria_button);
+        CheckBox checkCereales = (CheckBox) findViewById(R.id.cereales_button);
+        CheckBox checkLegumbre = (CheckBox) findViewById(R.id.legumbre_button);
+        CheckBox checkEmbutido = (CheckBox) findViewById(R.id.embutido_button);
+        CheckBox checkQueso = (CheckBox) findViewById(R.id.queso_button);
+        CheckBox checkYogurt = (CheckBox) findViewById(R.id.yogur_button);
 
-        kcal = findViewById(R.id.num_kcal);
+        kcal = (TextView) findViewById(R.id.num_kcal);
 
         if(kcalTable != null) {
             if(kcalTable.isPasta()) {
@@ -201,7 +201,7 @@ public class FoodResumeActivity extends AppCompatActivity {
                 checks[11] = true;
             }
 
-            kcal.setText(foodTable.getKcal());
+            kcal.setText(foodTable.getKcal().toString());
             //kcal.setText(foodTable.getKcal());
         }
 
@@ -411,10 +411,10 @@ public class FoodResumeActivity extends AppCompatActivity {
             });
         }
         Log.e("PR:", "CHECKS "+checks);
-        TextView foodType = findViewById(R.id.food_type);
+        TextView foodType = (TextView) findViewById(R.id.food_type);
         foodType.setText(foodTable.getType());
 
-        TextView foodDays = findViewById(R.id.food_days);
+        TextView foodDays = (TextView) findViewById(R.id.food_days);
         foodDays.setText(foodTable.getDays());
 
         kcal.addTextChangedListener(new TextWatcher() {
@@ -435,8 +435,8 @@ public class FoodResumeActivity extends AppCompatActivity {
             }
         });
 
-        imageView = findViewById(R.id.image_view);
-        imageButton = findViewById(R.id.image_button);
+        imageView = (ImageView) findViewById(R.id.image_view);
+        imageButton = (ImageButton) findViewById(R.id.image_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -522,7 +522,7 @@ public class FoodResumeActivity extends AppCompatActivity {
                 }else if(items[i].equals("Galeria")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-                    startActivityForResult(Intent.createChooser(intent, "Seleciona un archivo"), SELECT_FILE);
+                    startActivityForResult(intent.createChooser(intent, "Seleciona un archivo"), SELECT_FILE);
 
 
                 }else if(items[i].equals("Cancelar")){
@@ -606,8 +606,8 @@ public class FoodResumeActivity extends AppCompatActivity {
             dialog.show();
             TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
             textoAviso.setText(R.string.avisoVolver);
-            final Button volver = dialogLayout.findViewById(R.id.button_volver);
-            final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
             volver.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -635,8 +635,8 @@ public class FoodResumeActivity extends AppCompatActivity {
             dialog.show();
             TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
             textoAviso.setText(R.string.avisoVolver);
-            final Button volver = dialogLayout.findViewById(R.id.button_volver);
-            final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
             volver.setOnClickListener(new View.OnClickListener() {
                 @Override

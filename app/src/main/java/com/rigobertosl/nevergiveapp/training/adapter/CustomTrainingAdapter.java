@@ -45,8 +45,8 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
         public MyViewHolder (View view){
             super(view);
-            title = view.findViewById(R.id.item_title);
-            itemOptions = view.findViewById(R.id.item_options);
+            title = (TextView) view.findViewById(R.id.item_title);
+            itemOptions = (ImageButton) view.findViewById(R.id.item_options);
         }
     }
     
@@ -60,7 +60,7 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_training, parent, false);
 
-        recyclerView = itemView.findViewById(R.id.recylcer_exercises);
+        recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
 
         return new MyViewHolder(itemView);
@@ -185,10 +185,10 @@ public class CustomTrainingAdapter extends RecyclerView.Adapter<CustomTrainingAd
 
             ExerciseViewHolder(View view) {
                 super(view);
-                imageView = view.findViewById(R.id.image);
-                title = view.findViewById(R.id.title);
-                series = view.findViewById(R.id.num_series);
-                repeticiones = view.findViewById(R.id.num_repeticiones);
+                imageView = (ImageView)view.findViewById(R.id.image);
+                title = (TextView)view.findViewById(R.id.title);
+                series = (TextView)view.findViewById(R.id.num_series);
+                repeticiones = (TextView)view.findViewById(R.id.num_repeticiones);
             }
         }
 

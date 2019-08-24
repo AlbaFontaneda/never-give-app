@@ -32,7 +32,7 @@ public class TrainingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_training_custom_tab, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.list_item);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

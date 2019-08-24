@@ -46,7 +46,7 @@ public class EventsActivity extends AppFiredatabase {
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +59,9 @@ public class EventsActivity extends AppFiredatabase {
             }
         });
 
-        contentView = findViewById(R.id.content_view);
+        contentView = (FrameLayout) findViewById(R.id.content_view);
 
-        navigation = findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

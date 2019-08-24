@@ -36,10 +36,10 @@ public class TricepsActivity extends AppCompatActivity {
 
         db = new DataBaseContract(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,8 +67,8 @@ public class TricepsActivity extends AppCompatActivity {
         final ImageView imageDos = findViewById(R.id.ejercicioDosImage);
         imageDos.setImageBitmap(setImage(textDos.getText().toString()));
 
-        LinearLayout unoLinear = findViewById(R.id.ejercicioUno);
-        LinearLayout dosCerradoLinear = findViewById(R.id.ejercicioDos);
+        LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
+        LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
 
         unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +99,13 @@ public class TricepsActivity extends AppCompatActivity {
         dialog.setView(dialogLayout);
         dialog.show();
 
-        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
 
-        final EditText seriesEditText = dialogLayout.findViewById(R.id.num_series);
-        final EditText repeticionesEditText = dialogLayout.findViewById(R.id.num_repeticiones);
+        final EditText seriesEditText = (EditText)dialogLayout.findViewById(R.id.num_series);
+        final EditText repeticionesEditText = (EditText)dialogLayout.findViewById(R.id.num_repeticiones);
 
-        final EditText descansoEditText = dialogLayout.findViewById(R.id.tiempo_descanso);
+        final EditText descansoEditText = (EditText)dialogLayout.findViewById(R.id.tiempo_descanso);
 
         db.open();
         final byte[] image = db.getExerciseImage(name);
@@ -160,11 +160,11 @@ public class TricepsActivity extends AppCompatActivity {
         final int[] selectedMinute = {0};
         final int[] selectedSeconds = {0};
 
-        NumberPicker minutosPikcer = dialogLayout.findViewById(R.id.minutos_picker);
-        NumberPicker segundosPikcer = dialogLayout.findViewById(R.id.segundos_picker);
+        NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
+        NumberPicker segundosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.segundos_picker);
 
-        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = (Button) dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button) dialogLayout.findViewById(R.id.button_cancel);
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);

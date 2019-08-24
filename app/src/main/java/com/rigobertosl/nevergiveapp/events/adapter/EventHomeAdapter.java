@@ -29,10 +29,10 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
 
         public MyViewHolder (View view){
             super(view);
-            title = view.findViewById(R.id.title);
-            hour = view.findViewById(R.id.hour);
-            people = view.findViewById(R.id.people);
-            image = view.findViewById(R.id.image);
+            title = (TextView) view.findViewById(R.id.title);
+            hour = (TextView) view.findViewById(R.id.hour);
+            people = (TextView) view.findViewById(R.id.people);
+            image = (ImageView) view.findViewById(R.id.image);
             view.setOnClickListener(this);
         }
 
@@ -71,7 +71,7 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.MyVi
 
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        EventHomeAdapter.clickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     public interface ClickListener {

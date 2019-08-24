@@ -31,12 +31,12 @@ public class GooglePlaceAdapter extends RecyclerView.Adapter<GooglePlaceAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title);
-            ratingNumber = itemView.findViewById(R.id.rating_number);
-            ratingBar = itemView.findViewById(R.id.rating_stars);
-            userRatingTotal = itemView.findViewById(R.id.user_rating_total);
-            distance = itemView.findViewById(R.id.distance);
-            openText = itemView.findViewById(R.id.openText);
+            title = (TextView)itemView.findViewById(R.id.title);
+            ratingNumber = (TextView)itemView.findViewById(R.id.rating_number);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.rating_stars);
+            userRatingTotal = (TextView)itemView.findViewById(R.id.user_rating_total);
+            distance = (TextView)itemView.findViewById(R.id.distance);
+            openText = (TextView)itemView.findViewById(R.id.openText);
             //selected = (Button) itemView.findViewById(R.id.select_location);
             itemView.setOnClickListener(this);
         }

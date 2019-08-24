@@ -2,11 +2,13 @@ package com.rigobertosl.nevergiveapp.events.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -134,31 +137,31 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         /************************************ Binds **********************************************/
         mMapView = view.findViewById(R.id.map);
 
-        expandableLayoutMain = view.findViewById(R.id.expandablelayout_main);
-        expandableLayoutSelectSport = view.findViewById(R.id.expandablelayout_select_sport);
-        expandableLayoutTop = view.findViewById(R.id.expandablelayout_top);
-        expandableLayoutBottom = view.findViewById(R.id.expandablelayout_bottom);
-        expandableLayoutRecyclerView = view.findViewById(R.id.expandablelayout_recyclerview);
+        expandableLayoutMain = (ExpandableLayout)view.findViewById(R.id.expandablelayout_main);
+        expandableLayoutSelectSport = (ExpandableLayout)view.findViewById(R.id.expandablelayout_select_sport);
+        expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
+        expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
+        expandableLayoutRecyclerView = (ExpandableLayout)view.findViewById(R.id.expandablelayout_recyclerview);
 
-        calendarLayout = view.findViewById(R.id.calendar_layout);
-        time_layout = view.findViewById(R.id.time_layout);
-        peopleLayout = view.findViewById(R.id.people_layout);
-        location_Layout = view.findViewById(R.id.location_layout);
-        notes_Layout = view.findViewById(R.id.notes_layout);
-        sportTitleLayout = view.findViewById(R.id.sports_title_layout);
+        calendarLayout = (LinearLayout)view.findViewById(R.id.calendar_layout);
+        time_layout = (LinearLayout)view.findViewById(R.id.time_layout);
+        peopleLayout = (LinearLayout)view.findViewById(R.id.people_layout);
+        location_Layout = (LinearLayout)view.findViewById(R.id.location_layout);
+        notes_Layout = (LinearLayout)view.findViewById(R.id.notes_layout);
+        sportTitleLayout = (LinearLayout)view.findViewById(R.id.sports_title_layout);
 
-        peopleText = view.findViewById(R.id.people_text);
-        notesEditText = view.findViewById(R.id.notes_text);
+        peopleText = (EditText) view.findViewById(R.id.people_text);
+        notesEditText = (EditText)view.findViewById(R.id.notes_text);
 
-        sportText = view.findViewById(R.id.sport_text);
-        dateText = view.findViewById(R.id.date_text);
-        timeText = view.findViewById(R.id.time_text);
-        locationText = view.findViewById(R.id.location_text);
+        sportText = (TextView)view.findViewById(R.id.sport_text);
+        dateText = (TextView)view.findViewById(R.id.date_text);
+        timeText = (TextView)view.findViewById(R.id.time_text);
+        locationText = (TextView)view.findViewById(R.id.location_text);
 
-        recyclerBottom = view.findViewById(R.id.recycler_view);
-        recyclerSports = view.findViewById(R.id.recycler_sports);
+        recyclerBottom = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerSports = (RecyclerView)view.findViewById(R.id.recycler_sports);
 
-        fab = view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         /************************* LayoutManager for recyclerViews ********************************/
         layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -172,6 +175,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         calendarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removePhoneKeypad(v);
                 openCalendarPicker();
             }
         });
@@ -179,6 +183,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         time_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removePhoneKeypad(v);
                 openHourPicker(v, timeText);
             }
         });
@@ -194,6 +199,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         location_Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
                 if (expandableLayoutTop.isExpanded() && expandableLayoutBottom.isExpanded()) {
                     if(markerList.isEmpty()){
                         new FindPlaces().execute();
@@ -233,6 +239,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         sportTitleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
 
                 RecyclerView.Adapter adapterSports = new SportAdapter(sports, sportsImages);
                 recyclerSports.setAdapter(adapterSports);
@@ -246,6 +253,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
                 if(!sportText.getText().toString().equals("Selecciona un deporte") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
@@ -337,11 +345,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         final int[] selectedMinute = {0};
         final int[] selectedHour = {0};
 
-        NumberPicker minutosPikcer = dialogLayout.findViewById(R.id.minutos_picker);
-        NumberPicker horasPicker = dialogLayout.findViewById(R.id.horas_picker);
+        NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
+        NumberPicker horasPicker = (NumberPicker) dialogLayout.findViewById(R.id.horas_picker);
 
-        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);
@@ -550,5 +558,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 expandableLayoutRecyclerView.expand();
             }
         }
+    }
+
+    public void removePhoneKeypad(View view) {
+        InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        IBinder binder = view.getWindowToken();
+        inputManager.hideSoftInputFromWindow(binder, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

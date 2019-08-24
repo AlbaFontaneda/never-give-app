@@ -95,10 +95,10 @@ public class MainActivity extends AppFiredatabase
         db.close();
 
         //Finds ID
-        DrawerLayout drawer = findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
-        NavigationView navigationView = findViewById(R.id.nav_view); //Layout del menu lateral desplegable
-        Toolbar toolbar = findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
-        TabLayout tabLayout = findViewById(R.id.tabs); //Layout donde ponemos los tabs
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Layout para contener en el inicio el appbar y el menu desplegable
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Layout del menu lateral desplegable
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
 
         setSupportActionBar(toolbar);
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppFiredatabase
         seleccionPagina = new SectionsPagerAdapter(getSupportFragmentManager(), fragments);
 
         // Set up the ViewPager with the sections adapter.
-        vistaPagina = findViewById(R.id.container);
+        vistaPagina = (ViewPager) findViewById(R.id.container);
         vistaPagina.setAdapter(seleccionPagina);
 
         vistaPagina.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -130,7 +130,7 @@ public class MainActivity extends AppFiredatabase
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -142,7 +142,7 @@ public class MainActivity extends AppFiredatabase
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_login) {
@@ -171,8 +171,8 @@ public class MainActivity extends AppFiredatabase
             dialog.show();
             TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
             textoAviso.setText(R.string.avisoMain);
-            final Button volver = dialogLayout.findViewById(R.id.button_volver);
-            final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
+            final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
+            final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
 
             quedarse.setOnClickListener(new View.OnClickListener() {
                 @Override
