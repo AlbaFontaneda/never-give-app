@@ -28,6 +28,8 @@ import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class LoginActivity extends AppFiredatabase {
 
     private static final String TAG = "LoginActivity";
@@ -128,7 +130,23 @@ public class LoginActivity extends AppFiredatabase {
         notAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(LoginActivity.this, MainActivity.class);
+
+                SweetAlertDialog alert = createWarningSweetAlert(LoginActivity.this, "¿Estás seguro?", "¡Habrá funciones de la app que no podras usar!",
+                        "Sí, continuar", "Cancelar");
+
+                alert.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        startNewActivity(LoginActivity.this, MainActivity.class);
+                    }
+                }).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                        }
+                    }).show();
+
             }
         });
     }

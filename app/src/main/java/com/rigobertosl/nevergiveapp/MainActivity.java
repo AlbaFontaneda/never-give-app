@@ -14,6 +14,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppFiredatabase
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -140,6 +145,10 @@ public class MainActivity extends AppFiredatabase
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //Layout donde aparece el nombre de cada activity y las acciones
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
 
+        if (!autoLogin()) {
+            navigationView.getMenu().findItem(R.id.nav_close_session).setVisible(false);
+        }
+        
         setSupportActionBar(toolbar);
 
         //Funciones para el menu lateral desplegable
@@ -185,23 +194,56 @@ public class MainActivity extends AppFiredatabase
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_login) {
-            if(autoLogin()){
-                startNewActivity(this, EventsMain.class);
-            }else{
-                startNewActivity(this, LoginActivity.class);
-            }
+        if (id == R.id.nav_profile) {
+            startNewActivity(this, ProfileActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
             startNewActivity(this, TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {
             startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_eventos) {
-            startNewActivity(this, EventsMain.class);
+            if (autoLogin()) {
+                startNewActivity(this, EventsMain.class);
+            } else {
+
+                SweetAlertDialog alert = createWarningSweetAlert(this, "¡Alerta!", "Necesitas estar logueado para acceder a los eventos",
+                        "Ir al login", "Cancelar");
+
+                alert.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        startNewActivity(MainActivity.this, LoginActivity.class);
+                    }
+                }).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                }).show();
+
+            }
         } else if (id == R.id.nav_logros) {
             startNewActivity(this, AchievementsActivity.class);
         } else if (id ==R.id.nav_close_session){
-            signOut();
-            startNewActivity(this, LoginActivity.class);
+
+            SweetAlertDialog alert = createWarningSweetAlert(this, "¿Estás seguro?", "Tendrás que loguearte la proxima vez que entres",
+                    "Cerrar sesión", "Cancelar");
+
+            alert.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.dismissWithAnimation();
+                    signOut();
+                    startNewActivity(MainActivity.this, LoginActivity.class);
+                }
+            }).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.dismissWithAnimation();
+                }
+            }).show();
+
+
         } else if (id == R.id.nav_reinicio) {
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -23,6 +23,8 @@ import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import java.util.UUID;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
     /************************************* Variables **********************************************/
@@ -175,4 +177,13 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         Toast.makeText(this, message, length).show();
     }
 
+    public SweetAlertDialog createWarningSweetAlert(Context ctx, String title, String message, String confirmButtonm, String cancelButton) {
+        SweetAlertDialog alert = new SweetAlertDialog(ctx, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(title)
+                .setContentText(message)
+                .setConfirmText(confirmButtonm)
+                .setCancelText(cancelButton);
+
+        return alert;
+    }
 }

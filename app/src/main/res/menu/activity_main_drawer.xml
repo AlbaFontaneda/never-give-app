@@ -7,9 +7,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_person"
-            android:title="@string/title_activity_login" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/edit_button"
+            android:title="Perfil" />
         <item
             android:id="@+id/nav_entrenamiento"
             android:icon="@drawable/ic_entrenamiento"
@@ -24,7 +24,7 @@
             android:title="Eventos" />
         <item
             android:id="@+id/nav_logros"
-            android:icon="@drawable/ic_logro_no_completado"
+            android:icon="@drawable/trophy_icon"
             android:title="@string/logros" />
         <item
             android:id="@+id/nav_close_session"
