@@ -52,6 +52,8 @@ dependencies {
     //Expand and Collapse layout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
+    //SweetAlert
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
