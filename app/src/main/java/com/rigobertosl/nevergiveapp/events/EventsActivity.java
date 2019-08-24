@@ -21,7 +21,7 @@ import com.rigobertosl.nevergiveapp.ProfileActivity;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 
-public class EventsMain extends AppFiredatabase {
+public class EventsActivity extends AppFiredatabase {
 
     /**************************************** Constants *******************************************/
     public final static int DEFAULT_ZOOM = 15;
@@ -48,7 +48,7 @@ public class EventsMain extends AppFiredatabase {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(EventsMain.this, MainActivity.class);
+                Intent intent = new Intent(EventsActivity.this, MainActivity.class);
                 //Para matar la actividad anterior
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //Para leer la nueva actividad (volver al main)
@@ -74,7 +74,7 @@ public class EventsMain extends AppFiredatabase {
                         transaction.commit();
                         return true;
                     case R.id.navigation_notifications:
-                        transaction.replace(R.id.content_view, new EventsSigned());
+                        transaction.replace(R.id.content_view, new EventsSignedFragment());
                         transaction.commit();
                         return true;
                 }
@@ -180,7 +180,7 @@ public class EventsMain extends AppFiredatabase {
      **/
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(EventsMain.this, MainActivity.class);
+        Intent setIntent = new Intent(EventsActivity.this, MainActivity.class);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(setIntent);

@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
+import static com.rigobertosl.nevergiveapp.events.EventsActivity.DEFAULT_ZOOM;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
@@ -254,7 +254,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
 
                     // Cambiamos a la pantalla principal
-                    ((EventsMain)getActivity()).changeFragment(1);
+                    ((EventsActivity)getActivity()).changeFragment(1);
                 }else{
                     Toast.makeText(getContext(), "Por favor, rellene todos los campos.", Toast.LENGTH_LONG).show();
                 }

@@ -94,6 +94,6 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
                 break;
             }
         }
-        return resources.getIdentifier(sportsImagesSources[index], "drawable", EventsMain.PACKAGE_NAME);
+        return resources.getIdentifier(sportsImagesSources[index], "drawable", EventsActivity.PACKAGE_NAME);
     }
 }

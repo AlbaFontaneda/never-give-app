@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rigobertosl.nevergiveapp.events.EventsMain;
+import com.rigobertosl.nevergiveapp.events.EventsActivity;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;
@@ -187,7 +187,7 @@ public class MainActivity extends AppFiredatabase
         int id = item.getItemId();
         if (id == R.id.nav_login) {
             if(autoLogin()){
-                startNewActivity(this, EventsMain.class);
+                startNewActivity(this, EventsActivity.class);
             }else{
                 startNewActivity(this, LoginActivity.class);
             }
@@ -196,7 +196,7 @@ public class MainActivity extends AppFiredatabase
         } else if (id == R.id.nav_calendario) {
             startNewActivity(this, FoodsActivity.class);
         } else if (id == R.id.nav_eventos) {
-            startNewActivity(this, EventsMain.class);
+            startNewActivity(this, EventsActivity.class);
         } else if (id == R.id.nav_logros) {
             startNewActivity(this, AchievementsActivity.class);
         } else if (id ==R.id.nav_close_session){

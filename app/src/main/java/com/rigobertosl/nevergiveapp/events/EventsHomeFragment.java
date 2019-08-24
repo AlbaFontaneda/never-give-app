@@ -1,12 +1,9 @@
 package com.rigobertosl.nevergiveapp.events;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -16,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,7 +46,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.rigobertosl.nevergiveapp.events.EventsMain.DEFAULT_ZOOM;
+import static com.rigobertosl.nevergiveapp.events.EventsActivity.DEFAULT_ZOOM;
 
 public class EventsHomeFragment extends FragmentFiredatabase implements LocationListener {
 
@@ -227,7 +223,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
-            LocationPermissions.requestPermission((AppFiredatabase) getActivity(), EventsMain.LOCATION_PERMISSION_REQUEST_CODE,
+            LocationPermissions.requestPermission((AppFiredatabase) getActivity(), EventsActivity.LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             final Task location = mFusedLocationClient.getLastLocation();

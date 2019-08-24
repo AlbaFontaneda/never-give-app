@@ -61,7 +61,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
             expandableLayout.setOnExpansionUpdateListener(this);
 
             memerList.setLayoutManager(new LinearLayoutManager(context));
-            memerList.setAdapter(memberAdapter);
+
 
             detailsLayout.setOnClickListener(this);
         }
@@ -77,6 +77,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
         @Override
         public void onClick(View view) {
             MyViewHolder holder = (MyViewHolder) recyclerView.findViewHolderForAdapterPosition(selectedItem);
+            memberAdapter = new MemberAdapter(eventList.get(getAdapterPosition()).getMembers());
+            memerList.setAdapter(memberAdapter);
             if (holder != null) {
                 holder.detailsLayout.setSelected(false);
                 holder.expandableLayout.collapse();
@@ -124,9 +126,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
         holder.locationText.setText(currentEvent.getPlace().getName());
         holder.hostText.setText(currentEvent.getHost().getName());
         holder.notesText.setText(currentEvent.getNotes());
-
-        memberAdapter = new MemberAdapter(currentEvent.getMembers());
-
 
         holder.bind();
     }

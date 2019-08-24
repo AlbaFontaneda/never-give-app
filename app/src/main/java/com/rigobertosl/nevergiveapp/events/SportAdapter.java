@@ -1,6 +1,5 @@
 package com.rigobertosl.nevergiveapp.events;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +52,7 @@ public class SportAdapter extends RecyclerView.Adapter<SportAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text.setText(sports[position]);
-        int imageInt  = resources.getIdentifier(sportsImagesSources[position], "drawable", EventsMain.PACKAGE_NAME);
+        int imageInt  = resources.getIdentifier(sportsImagesSources[position], "drawable", EventsActivity.PACKAGE_NAME);
         holder.image.setImageResource(imageInt);
     }
 

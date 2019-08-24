@@ -15,10 +15,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.MainActivity;
-import com.rigobertosl.nevergiveapp.events.EventsMain;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import java.util.UUID;

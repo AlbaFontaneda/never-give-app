@@ -21,7 +21,7 @@ import com.rigobertosl.nevergiveapp.objects.Profile;
 import java.util.ArrayList;
 
 
-public class EventsSigned extends FragmentFiredatabase {
+public class EventsSignedFragment extends FragmentFiredatabase {
 
     /************************************* Variables **********************************************/
     private ArrayList<Event> eventSignedList = new ArrayList<>();
@@ -43,7 +43,6 @@ public class EventsSigned extends FragmentFiredatabase {
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {}
     };
-
 
     /************************************* Methods ************************************************/
     @Override
