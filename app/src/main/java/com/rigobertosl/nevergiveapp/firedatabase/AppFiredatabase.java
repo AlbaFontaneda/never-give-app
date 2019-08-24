@@ -15,13 +15,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.rigobertosl.nevergiveapp.LoginActivity;
-import com.rigobertosl.nevergiveapp.MainActivity;
-import com.rigobertosl.nevergiveapp.events.EventsMain;
+import com.rigobertosl.nevergiveapp.main.activity.MainActivity;
 import com.rigobertosl.nevergiveapp.objects.Profile;
-
-import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -32,25 +27,19 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     /************************************  Realtime Database  *************************************/
-    @Override
-    public void addDataToFirebase(String key, Object data) {
-        mydbRef = database.getReference(key);
-        mydbRef.child(UUID.randomUUID().toString()).setValue(data);
-    }
-
     public void updateProfileToFirebase(String UID, String data, String newValue){
         mydbRef = database.getReference(usersKey);
         mydbRef.child(UID).child(data).setValue(newValue);
     }
 
-    private void addUserToFirebase(String email, String password){
+    private void addUserToFirebase(String email, String password) {
         mydbRef = database.getReference(usersKey);
-        String UID = mAuth.getCurrentUser().getUid();
+        String UID = getUid();
         mydbRef.child(UID).setValue(new Profile(UID, email, password));
     }
 
     /**************************************  Authenticator  ***************************************/
-    public boolean autoLogin(){
+    public boolean autoLogin() {
         return (mAuth.getCurrentUser() != null);
     }
 
@@ -120,7 +109,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "name", newName);
+                        updateProfileToFirebase(getUid(), "name", newName);
                         toastMessage("Nombre actualizado", Toast.LENGTH_SHORT);
                     }else{
                         toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
@@ -136,7 +125,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "email", newEmail);
+                        updateProfileToFirebase(getUid(), "email", newEmail);
                         toastMessage("Email actualizado", Toast.LENGTH_SHORT);
                     }else{
                         toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
@@ -152,7 +141,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        updateProfileToFirebase(mAuth.getCurrentUser().getUid(), "password", newPassword);
+                        updateProfileToFirebase(getUid(), "password", newPassword);
                         toastMessage("Password actualizado", Toast.LENGTH_SHORT);
                     }else{
                         toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
@@ -177,6 +166,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         Toast.makeText(this, message, length).show();
     }
 
+
     public SweetAlertDialog createWarningSweetAlert(Context ctx, String title, String message, String confirmButtonm, String cancelButton) {
         SweetAlertDialog alert = new SweetAlertDialog(ctx, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(title)
@@ -185,5 +175,11 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 .setCancelText(cancelButton);
 
         return alert;
+
+    }
+    @Override
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     }
 }

@@ -32,8 +32,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".splash.activity.SplashActivity"
+            android:parentActivityName=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,95 +43,91 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".main.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".TrainingActivity"
+            android:name=".training.activity.TrainingActivity"
             android:label="@string/title_activity_training"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ExercisesTypeActivity"
+            android:name=".training.activity.ExercisesTypeActivity"
             android:label="@string/title_activity_exercisies_type"
-            android:parentActivityName=".TrainingActivity"
+            android:parentActivityName=".training.activity.TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ChestActivity"
+            android:name=".training.activity.ChestActivity"
             android:label="@string/title_activity_chest"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EspaldaActivity"
+            android:name=".training.activity.EspaldaActivity"
             android:label="@string/title_activity_espalda"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BicepsActivity"
+            android:name=".training.activity.BicepsActivity"
             android:label="@string/title_activity_biceps"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TricepsActivity"
+            android:name=".training.activity.TricepsActivity"
             android:label="@string/title_activity_triceps"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PiernaActivity"
+            android:name=".training.activity.PiernaActivity"
             android:label="@string/title_activity_pierna"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AbsActivity"
+            android:name=".training.activity.AbsActivity"
             android:label="@string/title_activity_abs"
-            android:parentActivityName=".ExercisesTypeActivity"
+            android:parentActivityName=".training.activity.ExercisesTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TableResumeActivity"
+            android:name=".training.activity.TableResumeActivity"
             android:label="@string/title_table_resume_activity"
-            android:parentActivityName=".TrainingActivity"
+            android:parentActivityName=".training.activity.TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EditTableActivity"
+            android:name=".training.activity.EditTableActivity"
             android:label="@string/title_activity_edit_table"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DefaultResume"
+            android:name=".main.DefaultResume"
             android:label="@string/title_activity_default_resume"
-            android:parentActivityName=".TrainingActivity"
+            android:parentActivityName=".training.activity.TrainingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FoodsActivity"
+            android:name=".food.activity.FoodsActivity"
             android:label="@string/title_activity_foods"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FoodResumeActivity"
+            android:name=".food.activity.FoodResumeActivity"
             android:label="@string/title_activity_food_resume"
-            android:parentActivityName=".FoodsActivity"
+            android:parentActivityName=".food.activity.FoodsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AchievementsActivity"
+            android:name=".achievement.activity.AchievementsActivity"
             android:label="@string/title_activity_achievements"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Location"
-            android:label="@string/title_activity_events"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".events.EventsMain"
+            android:name=".events.activity.EventsActivity"
             android:label="@string/title_activity_events_main"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".login.activity.ProfileActivity"
             android:label="Perfil"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data

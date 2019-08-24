@@ -10,6 +10,5 @@ public interface FiredatabaseInterface {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     //FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-
-    void addDataToFirebase(String key, Object data);
+    String getUid();
 }

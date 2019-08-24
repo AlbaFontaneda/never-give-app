@@ -2,12 +2,13 @@ package com.rigobertosl.nevergiveapp.objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Profile {
 
     /******************  Variables  ********************/
     private String ID, email, password, name;
-    private HashMap<String, Event> targetedEvents;
+    private HashMap<String, String> targetedEvents = new HashMap<>();
 
     /******************  Constructores  ********************/
     public Profile(){}
@@ -17,12 +18,6 @@ public class Profile {
         this.email = email;
         this.password = password;
         this.name = "Anónimo";
-    }
-
-
-    //ToDo: Borrar cuando ya no se use nada a mano.
-    public Profile(String name) {
-        this.name = name;
     }
 
     /******************  Getters and Setters  ********************/
@@ -58,11 +53,21 @@ public class Profile {
         this.name = name;
     }
 
-    public HashMap<String, Event> getTargetedEvents() {
+    public HashMap<String, String> getTargetedEvents() {
         return targetedEvents;
     }
 
-    public void setTargetedEvents(HashMap<String, Event> targetedEvents) {
-        this.targetedEvents = targetedEvents;
+    public void addTargetedEvents(String eventID) {
+        this.targetedEvents.put(eventID, eventID);
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("ID", ID);
+        result.put("email", email);
+        result.put("password", password);
+        result.put("name", name);
+        result.put("targetedEvents", targetedEvents);
+        return result;
     }
 }
