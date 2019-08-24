@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.adapter;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
 import java.util.ArrayList;

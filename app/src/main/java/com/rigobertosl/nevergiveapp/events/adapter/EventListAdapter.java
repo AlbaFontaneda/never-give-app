@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,13 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.rigobertosl.nevergiveapp.CustomAchievementAdapter;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.objects.Event;
 

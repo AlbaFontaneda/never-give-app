@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rigobertosl.nevergiveapp.events.EventsActivity;
+import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Exercise;
 import com.rigobertosl.nevergiveapp.objects.TrainingTable;

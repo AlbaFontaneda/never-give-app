@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -37,6 +37,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
+import com.rigobertosl.nevergiveapp.events.adapter.GooglePlaceAdapter;
+import com.rigobertosl.nevergiveapp.events.adapter.SportAdapter;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Date;
 import com.rigobertosl.nevergiveapp.objects.Event;
@@ -59,7 +62,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.rigobertosl.nevergiveapp.events.EventsActivity.DEFAULT_ZOOM;
+import static com.rigobertosl.nevergiveapp.events.activity.EventsActivity.DEFAULT_ZOOM;
 
 public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
 
@@ -250,7 +253,8 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                     newEvent.setAssistants(Integer.parseInt(peopleText.getText().toString()));
                     newEvent.setDate(eventDate);
                     newEvent.setHost(currentUser);
-                    addDataToFirebase(eventsKey, newEvent);
+                    newEvent.setNotes(notesEditText.getText().toString());
+                    addEventToFirebase(newEvent);
                     Toast.makeText(getContext(), "Evento creado", Toast.LENGTH_LONG);
 
                     // Cambiamos a la pantalla principal

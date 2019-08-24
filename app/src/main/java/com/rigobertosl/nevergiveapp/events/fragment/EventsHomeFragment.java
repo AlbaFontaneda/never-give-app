@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -36,6 +36,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.LocationPermissions;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
+import com.rigobertosl.nevergiveapp.events.adapter.CustomInfoMarkerAdapter;
+import com.rigobertosl.nevergiveapp.events.adapter.EventHomeAdapter;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
@@ -46,7 +49,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.rigobertosl.nevergiveapp.events.EventsActivity.DEFAULT_ZOOM;
+import static com.rigobertosl.nevergiveapp.events.activity.EventsActivity.DEFAULT_ZOOM;
 
 public class EventsHomeFragment extends FragmentFiredatabase implements LocationListener {
 
@@ -136,10 +139,10 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                             if(isChecked){
-                                addCurrentUserToEvent(eventClicked);
+                                addUserToEvent(eventClicked);
                                 textLayoutSwitch.setText("¡Ya formas parte de este evento!");
                             }else{
-                                removeCurrentUserFromEvent(eventClicked);
+                                removeUserFromEvent(eventClicked);
                                 textLayoutSwitch.setText("¿Te gustaría formar parte de este evento?");
                             }
                         }
@@ -248,7 +251,7 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
     public boolean checkCurrentUserInEvent(Event event){
         boolean result = false;
         for(Map.Entry<String, Profile> currentProfile : event.getMembers().entrySet()){
-            if(currentProfile.getValue().getID().equals(mAuth.getCurrentUser().getUid())){
+            if(currentProfile.getValue().getID().equals(getUid())){
                 result = true;
                 break;
             }

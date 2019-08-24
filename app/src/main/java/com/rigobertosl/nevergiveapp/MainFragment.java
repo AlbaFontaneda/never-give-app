@@ -84,6 +84,7 @@ public class MainFragment extends Fragment{
             RecyclerView.LayoutManager layoutManagerFood = new LinearLayoutManager(getActivity());
             recyclerViewFoods.setLayoutManager(layoutManagerFood);
 
+            // ToDo: revisar estas líneas
             RecyclerView.Adapter adapterTrain = new CustomTrainingAdapter(getContext(), trainingTable, filterDay);
             RecyclerView.Adapter adapterFood = new CustomFoodAdapter(getContext(), foodTable, filterDay, isType);
             recyclerViewTraining.setAdapter(adapterTrain);

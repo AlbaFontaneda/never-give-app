@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import com.rigobertosl.nevergiveapp.LoginActivity;
 import com.rigobertosl.nevergiveapp.MainActivity;
 import com.rigobertosl.nevergiveapp.ProfileActivity;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.fragment.EventsCreateFragment;
+import com.rigobertosl.nevergiveapp.events.fragment.EventsHomeFragment;
+import com.rigobertosl.nevergiveapp.events.fragment.EventsSignedFragment;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
 
 public class EventsActivity extends AppFiredatabase {

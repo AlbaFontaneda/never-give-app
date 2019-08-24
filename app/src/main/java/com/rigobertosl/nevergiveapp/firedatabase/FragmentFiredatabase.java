@@ -7,23 +7,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.objects.Event;
 import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class FragmentFiredatabase extends Fragment implements FiredatabaseInterface {
 
     /************************************* Variables **********************************************/
     protected DatabaseReference mydbRef;
-    protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
     protected Profile currentUser;
-    protected ArrayList<Event> allEvents = new ArrayList<>();
+    protected HashMap<String, Event> allEvents = new HashMap<>();
 
     /************************************* Listeners **********************************************/
-
     /**
      * Rellena la variable @currentUser con un perfil del usuario logueado.
      */
@@ -31,22 +32,6 @@ public class FragmentFiredatabase extends Fragment implements FiredatabaseInterf
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             currentUser = dataSnapshot.getValue(Profile.class);
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {}
-    };
-
-    /**
-     * Borra dentro de un evento, el usuario logueado.
-     */
-    private ValueEventListener removeCurrentUser = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()) {
-                if(memberSnapshot.getValue(Profile.class).getID().equals(mAuth.getCurrentUser().getUid())){
-                    memberSnapshot.getRef().removeValue();
-                }
-            }
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -61,14 +46,11 @@ public class FragmentFiredatabase extends Fragment implements FiredatabaseInterf
             for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                 Event eventLoaded = eventSnapshot.getValue(Event.class);
                 eventLoaded.setID(eventSnapshot.getKey());
-                allEvents.add(eventLoaded);
+                allEvents.put(eventLoaded.getID(), eventLoaded);
             }
         }
-
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
+        public void onCancelled(@NonNull DatabaseError databaseError) {}
     };
 
     /************************************* Methods ************************************************/
@@ -76,7 +58,7 @@ public class FragmentFiredatabase extends Fragment implements FiredatabaseInterf
      * Actualiza el usuario logueado para poder trabajar con él como un objeto Profile
      */
     protected void loadCurrentUser() {
-        mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid());
+        mydbRef = database.getReference(usersKey).child(getUid());
         mydbRef.addListenerForSingleValueEvent(loadCurrentUser);
     }
 
@@ -90,60 +72,74 @@ public class FragmentFiredatabase extends Fragment implements FiredatabaseInterf
     }
 
     /**
-     * Introduce un nuevo dato u objeto (conjunto de datos) a la base de datos de Firebase con un
-     * identificador único.
-     * @param key dónde se quiere meter el nuevo dato (Perfil o Evento)
-     * @param data objeto que se quiere introducir a la base de datos
+     * Introduce un nuevo evento dentro de la base de datos y a su vez actualiza la lista de
+     * eventos del usuario logueado, donde introduce el elemento también.
+     * @param event evento a introducir en Firebase.
      */
-    @Override
-    public void addDataToFirebase(String key, Object data) {
-        mydbRef = database.getReference(key);
-        mydbRef.child(UUID.randomUUID().toString()).setValue(data);
+    protected void addEventToFirebase(Event event){
+        String keyEvent = database.getReference(eventsKey).push().getKey();
+        if(currentUser != null){
+
+            currentUser.addTargetedEvents(keyEvent);
+            event.addMember(currentUser);
+        }
+        event.setID(keyEvent);
+        Map<String, Object> eventValue = event.toMap();
+        Map<String, Object> userValue = currentUser.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/"+eventsKey+"/" + keyEvent, eventValue);
+        childUpdates.put("/"+usersKey+"/" + getUid(), userValue);
+
+        database.getReference().updateChildren(childUpdates);
     }
 
     /**
-     * Se añade un nuevo usuario a la lista de miembros del evento.
+     * Se apunta un nuevo usuario a la lista de miembros del evento.
+     *  - Se introduce el ID del evento dentro de la lista de eventos del usuario logueado
      *  - Se introduce el usuario logueado dentro de la lista de miembros del evento
-     *  - Se introduce el evento dentro de la lista de eventos del usuario logueado
-     * @param event
+     * @param event evento donde se quiere apuntar el usuario
      */
-    protected void addCurrentUserToEvent(Event event) {
-        // Se introduce un nuevo usuario (el usuario logueado) dentro de la lista de Perfiles
-        // @members, dentro del evento @event
-        database.getReference(eventsKey).child(event.getID()).child("members")
-                .push().setValue(currentUser);
+    protected void addUserToEvent(Event event){
+        if(currentUser != null) {
+            currentUser.addTargetedEvents(event.getID());
+            event.addMember(currentUser);
 
-        // Se introduce un nuevo evento (@event) dentro de la lista @targetedEvents,
-        // dentro del usuario logueado
-        database.getReference(usersKey).child(mAuth.getCurrentUser().getUid()).child("targetedEvents")
-                .push().setValue(event);
+            Map<String, Object> eventValue = event.toMap();
+            Map<String, Object> userValue = currentUser.toMap();
+
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/"+eventsKey+"/" + event.getID(), eventValue);
+            childUpdates.put("/"+usersKey+"/" + getUid(), userValue);
+
+            database.getReference().updateChildren(childUpdates);
+        }
     }
 
     /**
      * Se desapunta el usuario actual de un evento.
-     *  - Se borra el usuario del evento dentro de Firebase
      *  - Se borra el evento del usuario dentro de Firebase
+     *  - Se borra el usuario del evento dentro de Firebase
      * @param event evento que se desea borrar
      */
-    protected void removeCurrentUserFromEvent(final Event event) {
-        // Query que devuelve todos los usuarios dentro de un evento
-        mydbRef = database.getReference(eventsKey).child(event.getID()).child("members");
-        mydbRef.addListenerForSingleValueEvent(removeCurrentUser);
+    protected void removeUserFromEvent(Event event){
+        if(currentUser != null) {
+            currentUser.getTargetedEvents().remove(event.getID());
+            event.getMembers().remove(currentUser.getID());
 
-        // Query que devuelve todos los eventos dentro del usuario logueado
-        mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid()).child("targetedEvents");
-        /** Borra dentro del usuario logueado, un evento. **/
-        mydbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    if(eventSnapshot.getValue(Event.class).getID().equals(event.getID())) {
-                        eventSnapshot.getRef().removeValue();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
+            Map<String, Object> eventValue = event.toMap();
+            Map<String, Object> userValue = currentUser.toMap();
+
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/"+eventsKey+"/" + event.getID(), eventValue);
+            childUpdates.put("/"+usersKey+"/" + getUid(), userValue);
+
+            database.getReference().updateChildren(childUpdates);
+        }
+    }
+
+    @Override
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 }

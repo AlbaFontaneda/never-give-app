@@ -1,4 +1,4 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.adapter;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
 import java.util.ArrayList;

@@ -80,6 +80,7 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
         } else {
             holder.kcal.setText(foodTables.get(position).getKcal());
         }
+        // ToDo: revisar porqué la imagen es null cuando se crea una comida.
         byte[] b = foodTables.get(position).getImage();
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         final Drawable d = new BitmapDrawable(mContext.getResources(), bmp);

@@ -1,9 +1,7 @@
-package com.rigobertosl.nevergiveapp.events;
+package com.rigobertosl.nevergiveapp.events.fragment;
 
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +12,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.rigobertosl.nevergiveapp.R;
+import com.rigobertosl.nevergiveapp.events.adapter.EventListAdapter;
 import com.rigobertosl.nevergiveapp.firedatabase.FragmentFiredatabase;
 import com.rigobertosl.nevergiveapp.objects.Event;
-import com.rigobertosl.nevergiveapp.objects.Profile;
 
 import java.util.ArrayList;
 
@@ -26,23 +24,6 @@ public class EventsSignedFragment extends FragmentFiredatabase {
     /************************************* Variables **********************************************/
     private ArrayList<Event> eventSignedList = new ArrayList<>();
     private RecyclerView recyclerView;
-
-    /************************************* Listeners **********************************************/
-    private ValueEventListener loadEventsIDsFromUser = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            eventSignedList.clear();
-            for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
-                Event eventRead = eventSnapshot.getValue(Event.class);
-                eventRead.setID(eventSnapshot.getKey());
-                eventSignedList.add(eventRead);
-            }
-
-            recyclerView.setAdapter(new EventListAdapter(recyclerView, eventSignedList));
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {}
-    };
 
     /************************************* Methods ************************************************/
     @Override
@@ -62,15 +43,41 @@ public class EventsSignedFragment extends FragmentFiredatabase {
 
         getEventsFromUser();
 
-        //recyclerView.setAdapter(new EventListAdapter(recyclerView, eventSignedList));
-
         return fragmentView;
+    }
+
+    protected void loadAllEvents() {
+        mydbRef = database.getReference(eventsKey);
+        mydbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                    Event eventLoaded = eventSnapshot.getValue(Event.class);
+                    eventLoaded.setID(eventSnapshot.getKey());
+                    allEvents.put(eventLoaded.getID(), eventLoaded);
+                }
+                getEventsFromUser();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
     }
 
     private void getEventsFromUser(){
         //if(currentUser != null && allEvents != null){}
-        mydbRef = database.getReference(usersKey).child(mAuth.getCurrentUser().getUid()).child("targetedEvents");
-        mydbRef.addValueEventListener(loadEventsIDsFromUser);
+        mydbRef = database.getReference(usersKey).child(getUid()).child("targetedEvents");
+        mydbRef.addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventSignedList.clear();
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
+                    String eventID = eventSnapshot.getValue(String.class);
+                    eventSignedList.add(allEvents.get(eventID));
+                }
+                recyclerView.setAdapter(new EventListAdapter(recyclerView, eventSignedList));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
     }
-
 }
