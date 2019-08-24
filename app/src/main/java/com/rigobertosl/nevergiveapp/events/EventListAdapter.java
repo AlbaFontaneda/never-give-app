@@ -3,6 +3,7 @@ package com.rigobertosl.nevergiveapp.events;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.rigobertosl.nevergiveapp.CustomAchievementAdapter;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.objects.Event;
 
@@ -30,6 +32,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
     private RecyclerView recyclerView;
     private int selectedItem = UNSELECTED;
     private ArrayList<Event> eventList;
+    private RecyclerView.Adapter memberAdapter;
 
 
     /************************************ Class MyViewHolder **************************************/
@@ -38,7 +41,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
         private TextView titleText, dateText, timeText, locationText, hostText, notesText;
         private Switch switchSigned;
         private ExpandableLayout expandableLayout;
-        private ListView memerList;
+        private RecyclerView memerList;
         private ConstraintLayout detailsLayout;
 
         public MyViewHolder(View itemView) {
@@ -49,13 +52,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
             locationText = (TextView) itemView.findViewById(R.id.location_text);
             hostText = (TextView) itemView.findViewById(R.id.host_text);
             notesText = (TextView) itemView.findViewById(R.id.notes_text);
-            memerList = (ListView) itemView.findViewById(R.id.members_list);
+            memerList = (RecyclerView) itemView.findViewById(R.id.members_list);
             switchSigned = (Switch) itemView.findViewById(R.id.signed);
             expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
             detailsLayout = (ConstraintLayout) itemView.findViewById(R.id.layout_details);
 
             expandableLayout.setInterpolator(new OvershootInterpolator());
             expandableLayout.setOnExpansionUpdateListener(this);
+
+            memerList.setLayoutManager(new LinearLayoutManager(context));
+            memerList.setAdapter(memberAdapter);
 
             detailsLayout.setOnClickListener(this);
         }
@@ -119,8 +125,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
         holder.hostText.setText(currentEvent.getHost().getName());
         holder.notesText.setText(currentEvent.getNotes());
 
+        memberAdapter = new MemberAdapter(currentEvent.getMembers());
+
+
         holder.bind();
-        //holder.memerList.setAdapter(new ArrayAdapter<String>(context, eventList.get(position).getAssistants()));
     }
 
     @Override
