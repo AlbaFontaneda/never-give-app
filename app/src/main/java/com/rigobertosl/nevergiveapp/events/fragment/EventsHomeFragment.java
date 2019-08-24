@@ -34,7 +34,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.rigobertosl.nevergiveapp.LocationPermissions;
+import com.rigobertosl.nevergiveapp.permissions.LocationPermissions;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.events.activity.EventsActivity;
 import com.rigobertosl.nevergiveapp.events.adapter.CustomInfoMarkerAdapter;

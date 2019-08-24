@@ -14,10 +14,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.rigobertosl.nevergiveapp.LocationPermissions;
-import com.rigobertosl.nevergiveapp.LoginActivity;
-import com.rigobertosl.nevergiveapp.MainActivity;
-import com.rigobertosl.nevergiveapp.ProfileActivity;
+import com.rigobertosl.nevergiveapp.permissions.LocationPermissions;
+import com.rigobertosl.nevergiveapp.login.activity.LoginActivity;
+import com.rigobertosl.nevergiveapp.main.activity.MainActivity;
+import com.rigobertosl.nevergiveapp.login.activity.ProfileActivity;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.events.fragment.EventsCreateFragment;
 import com.rigobertosl.nevergiveapp.events.fragment.EventsHomeFragment;

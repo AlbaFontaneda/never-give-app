@@ -15,10 +15,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
-import com.rigobertosl.nevergiveapp.MainActivity;
+import com.rigobertosl.nevergiveapp.main.activity.MainActivity;
 import com.rigobertosl.nevergiveapp.objects.Profile;
-
-import java.util.UUID;
 
 public class AppFiredatabase extends AppCompatActivity implements FiredatabaseInterface {
 
