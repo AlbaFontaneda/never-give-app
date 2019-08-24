@@ -195,11 +195,7 @@ public class MainActivity extends AppFiredatabase
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_login) {
-            if(autoLogin()){
-                startNewActivity(this, EventsMain.class);
-            }else{
-                startNewActivity(this, LoginActivity.class);
-            }
+            startNewActivity(this, ProfileActivity.class);
         } else if (id == R.id.nav_entrenamiento) {
             startNewActivity(this, TrainingActivity.class);
         } else if (id == R.id.nav_calendario) {
