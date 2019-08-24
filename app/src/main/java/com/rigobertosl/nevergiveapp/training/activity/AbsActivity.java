@@ -35,10 +35,10 @@ public class AbsActivity extends AppCompatActivity {
 
         db = new DataBaseContract(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,15 +108,15 @@ public class AbsActivity extends AppCompatActivity {
         final ImageView imageNueve = findViewById(R.id.ejercicioNueveImage);
         imageNueve.setImageBitmap(setImage(textNueve.getText().toString()));
 
-        LinearLayout unoLinear = (LinearLayout) findViewById(R.id.ejercicioUno);
-        LinearLayout dosCerradoLinear = (LinearLayout) findViewById(R.id.ejercicioDos);
-        LinearLayout tresLinear = (LinearLayout) findViewById(R.id.ejercicioTres);
-        LinearLayout cuatroLinear = (LinearLayout) findViewById(R.id.ejercicioCuatro);
-        LinearLayout cincoLinear = (LinearLayout) findViewById(R.id.ejercicioCinco);
-        LinearLayout seisLinear = (LinearLayout) findViewById(R.id.ejercicioSeis);
-        LinearLayout sieteLinear = (LinearLayout) findViewById(R.id.ejercicioSiete);
-        LinearLayout ochoLinear = (LinearLayout) findViewById(R.id.ejercicioOcho);
-        LinearLayout nueveLinear = (LinearLayout) findViewById(R.id.ejercicioNueve);
+        LinearLayout unoLinear = findViewById(R.id.ejercicioUno);
+        LinearLayout dosCerradoLinear = findViewById(R.id.ejercicioDos);
+        LinearLayout tresLinear = findViewById(R.id.ejercicioTres);
+        LinearLayout cuatroLinear = findViewById(R.id.ejercicioCuatro);
+        LinearLayout cincoLinear = findViewById(R.id.ejercicioCinco);
+        LinearLayout seisLinear = findViewById(R.id.ejercicioSeis);
+        LinearLayout sieteLinear = findViewById(R.id.ejercicioSiete);
+        LinearLayout ochoLinear = findViewById(R.id.ejercicioOcho);
+        LinearLayout nueveLinear = findViewById(R.id.ejercicioNueve);
 
         unoLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,12 +194,12 @@ public class AbsActivity extends AppCompatActivity {
         dialog.setView(dialogLayout);
         dialog.show();
 
-        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
 
-        final EditText seriesEditText = (EditText)dialogLayout.findViewById(R.id.num_series);
-        final EditText repeticionesEditText = (EditText)dialogLayout.findViewById(R.id.num_repeticiones);
-        final EditText descansoEditText = (EditText)dialogLayout.findViewById(R.id.tiempo_descanso);
+        final EditText seriesEditText = dialogLayout.findViewById(R.id.num_series);
+        final EditText repeticionesEditText = dialogLayout.findViewById(R.id.num_repeticiones);
+        final EditText descansoEditText = dialogLayout.findViewById(R.id.tiempo_descanso);
 
         db.open();
         final byte[] image = db.getExerciseImage(name);
@@ -255,11 +255,11 @@ public class AbsActivity extends AppCompatActivity {
         final int[] selectedMinute = {0};
         final int[] selectedSeconds = {0};
 
-        NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
-        NumberPicker segundosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.segundos_picker);
+        NumberPicker minutosPikcer = dialogLayout.findViewById(R.id.minutos_picker);
+        NumberPicker segundosPikcer = dialogLayout.findViewById(R.id.segundos_picker);
 
-        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);

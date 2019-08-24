@@ -62,16 +62,16 @@ public class ExerciseResumeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_table_resume, container, false);
 
-        ImageView exerciseImage = (ImageView) rootView.findViewById(R.id.imageExercise);
-        TextView exerciseTitle = (TextView)rootView.findViewById(R.id.titleExercise);
-        TextView exerciseSeries = (TextView)rootView.findViewById(R.id.series);
-        TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
-        TextView description = (TextView)rootView.findViewById(R.id.description);
-        countDown = (TextView)rootView.findViewById(R.id.temporizador);
-        ImageButton play = (ImageButton)rootView.findViewById(R.id.play);
-        ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
-        ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
-        progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
+        ImageView exerciseImage = rootView.findViewById(R.id.imageExercise);
+        TextView exerciseTitle = rootView.findViewById(R.id.titleExercise);
+        TextView exerciseSeries = rootView.findViewById(R.id.series);
+        TextView exerciseRep = rootView.findViewById(R.id.repeticiones);
+        TextView description = rootView.findViewById(R.id.description);
+        countDown = rootView.findViewById(R.id.temporizador);
+        ImageButton play = rootView.findViewById(R.id.play);
+        ImageButton stop = rootView.findViewById(R.id.stop);
+        ImageButton pause = rootView.findViewById(R.id.pause);
+        progressBar = rootView.findViewById(R.id.progressBar);
 
         progressBar.setProgress(100);
         setStartTime(ejercicio.getDescanso());
@@ -99,18 +99,18 @@ public class ExerciseResumeFragment extends Fragment {
             }
         });
 
-        TextView exerciseDescanso = (TextView)rootView.findViewById(R.id.descanso);
+        TextView exerciseDescanso = rootView.findViewById(R.id.descanso);
 
-        exerciseTitle.setText((String) ejercicio.getNombre());
-        exerciseSeries.setText((String) ejercicio.getSeries());
-        exerciseRep.setText((String) ejercicio.getRepeticiones());
+        exerciseTitle.setText(ejercicio.getNombre());
+        exerciseSeries.setText(ejercicio.getSeries());
+        exerciseRep.setText(ejercicio.getRepeticiones());
         description.setText(ejercicio.getDescription());
 
         byte[] b = ejercicio.getImage();
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         exerciseImage.setImageBitmap(bmp);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerCheckBoxView);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerCheckBoxView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new TableResumeActivity.CheckboxAdapter(ejercicio);

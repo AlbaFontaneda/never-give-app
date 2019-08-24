@@ -178,10 +178,10 @@ public class EventsHomeFragment extends FragmentFiredatabase implements Location
         mMapView = fragmentView.findViewById(R.id.map);
         expandablelayoutRecyclerView = fragmentView.findViewById(R.id.expandablelayout_recyclerview);
         expandableLayoutSwitch = fragmentView.findViewById(R.id.expandable_layout_switch);
-        recyclerView = (RecyclerView) fragmentView.findViewById(R.id.eventsRecyclerView);
-        arrowBack = (ImageView)fragmentView.findViewById(R.id.arrow_back);
-        textLayoutSwitch = (TextView) fragmentView.findViewById(R.id.text_layout_switch);
-        switchButton = (Switch) fragmentView.findViewById(R.id.switch_button);
+        recyclerView = fragmentView.findViewById(R.id.eventsRecyclerView);
+        arrowBack = fragmentView.findViewById(R.id.arrow_back);
+        textLayoutSwitch = fragmentView.findViewById(R.id.text_layout_switch);
+        switchButton = fragmentView.findViewById(R.id.switch_button);
 
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately

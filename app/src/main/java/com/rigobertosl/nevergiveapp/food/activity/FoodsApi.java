@@ -76,9 +76,9 @@ public class FoodsApi extends AsyncTask<View, Void, ArrayList<FoodKcal>> {
 
                     for (int j = 0; j < nutrients.length(); j++) {
                         JSONObject c = nutrients.getJSONObject(j);
-                        if(c.getString("nutrient_id").toString().equals("208")){
-                            String kcal = c.getString("value").toString();
-                            String unidades = c.getString("unit").toString();
+                        if(c.getString("nutrient_id").equals("208")){
+                            String kcal = c.getString("value");
+                            String unidades = c.getString("unit");
                             FoodKcal poi = new FoodKcal(unidades,kcal);
                             temp.add(poi);
                         }

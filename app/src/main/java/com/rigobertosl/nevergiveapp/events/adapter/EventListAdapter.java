@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.rigobertosl.nevergiveapp.R;
@@ -35,23 +34,21 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
 
         private TextView titleText, dateText, timeText, locationText, hostText, notesText;
-        private Switch switchSigned;
         private ExpandableLayout expandableLayout;
         private RecyclerView memerList;
         private ConstraintLayout detailsLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            titleText = (TextView) itemView.findViewById(R.id.item_title);
-            dateText = (TextView) itemView.findViewById(R.id.date_text);
-            timeText = (TextView) itemView.findViewById(R.id.time_text);
-            locationText = (TextView) itemView.findViewById(R.id.location_text);
-            hostText = (TextView) itemView.findViewById(R.id.host_text);
-            notesText = (TextView) itemView.findViewById(R.id.notes_text);
-            memerList = (RecyclerView) itemView.findViewById(R.id.members_list);
-            switchSigned = (Switch) itemView.findViewById(R.id.signed);
-            expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
-            detailsLayout = (ConstraintLayout) itemView.findViewById(R.id.layout_details);
+            titleText = itemView.findViewById(R.id.item_title);
+            dateText = itemView.findViewById(R.id.date_text);
+            timeText = itemView.findViewById(R.id.time_text);
+            locationText = itemView.findViewById(R.id.location_text);
+            hostText = itemView.findViewById(R.id.host_text);
+            notesText = itemView.findViewById(R.id.notes_text);
+            memerList = itemView.findViewById(R.id.members_list);
+            expandableLayout = itemView.findViewById(R.id.expandable_layout);
+            detailsLayout = itemView.findViewById(R.id.layout_details);
 
             expandableLayout.setInterpolator(new OvershootInterpolator());
             expandableLayout.setOnExpansionUpdateListener(this);

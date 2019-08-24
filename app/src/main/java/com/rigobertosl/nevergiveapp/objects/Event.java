@@ -85,19 +85,11 @@ public class Event {
 
     /******************  Otros métodos  ********************/
     public boolean isFull(){
-        if(members.size() == assistants){
-            return true;
-        }else{
-            return false;
-        }
+        return members.size() == assistants;
     }
 
     public boolean isEqualTo(Event event){
-        if(this.ID.equals(event.getID())){
-            return true;
-        }else{
-            return false;
-        }
+        return this.ID.equals(event.getID());
     }
 
     public Map<String, Object> toMap(){

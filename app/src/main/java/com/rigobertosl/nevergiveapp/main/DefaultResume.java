@@ -48,10 +48,10 @@ public class DefaultResume extends AppCompatActivity {
         trainingTable = db.getDefaultTableByID(tableID);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        numPaginas = (int)db.getAllDefaultExercisesFromTable(trainingTable).size();
+        numPaginas = db.getAllDefaultExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         for (int i = 0; i<numPaginas; i++){
             Fragment f = new ExerciseResumeFragment();
@@ -59,7 +59,7 @@ public class DefaultResume extends AppCompatActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 
     }

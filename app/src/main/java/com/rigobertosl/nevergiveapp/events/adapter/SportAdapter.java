@@ -26,8 +26,8 @@ public class SportAdapter extends RecyclerView.Adapter<SportAdapter.MyViewHolder
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView)itemView.findViewById(R.id.image);
-            text = (TextView)itemView.findViewById(R.id.title);
+            image = itemView.findViewById(R.id.image);
+            text = itemView.findViewById(R.id.title);
             itemView.setOnClickListener(this);
         }
 

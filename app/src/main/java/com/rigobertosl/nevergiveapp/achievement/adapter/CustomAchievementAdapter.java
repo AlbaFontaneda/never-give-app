@@ -24,10 +24,10 @@ public class CustomAchievementAdapter extends RecyclerView.Adapter<CustomAchieve
 
         public MyViewHolder (View view){
             super(view);
-            title = (TextView) view.findViewById(R.id.item_title);
-            description = (TextView) view.findViewById(R.id.item_content);
-            points = (TextView) view.findViewById(R.id.item_points);
-            itemType = (ImageButton) view.findViewById(R.id.item_type);
+            title = view.findViewById(R.id.item_title);
+            description = view.findViewById(R.id.item_content);
+            points = view.findViewById(R.id.item_points);
+            itemType = view.findViewById(R.id.item_type);
         }
     }
 

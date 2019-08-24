@@ -48,11 +48,11 @@ public class CustomFoodAdapter extends RecyclerView.Adapter<CustomFoodAdapter.My
 
         public MyViewHolder (View view){
             super(view);
-            title = (TextView) view.findViewById(R.id.item_title);
-            days = (TextView) view.findViewById(R.id.item_days);
-            kcal = (TextView) view.findViewById(R.id.num_kcal);
-            image = (ImageView) view.findViewById(R.id.item_image);
-            itemOptions = (ImageButton) view.findViewById(R.id.item_options);
+            title = view.findViewById(R.id.item_title);
+            days = view.findViewById(R.id.item_days);
+            kcal = view.findViewById(R.id.num_kcal);
+            image = view.findViewById(R.id.item_image);
+            itemOptions = view.findViewById(R.id.item_options);
         }
     }
 

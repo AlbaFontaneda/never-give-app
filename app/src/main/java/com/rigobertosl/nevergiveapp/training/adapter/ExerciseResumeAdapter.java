@@ -75,9 +75,9 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
         MyViewHolder(View view) {
             super(view);
 
-            title = (TextView)view.findViewById(R.id.nombre_ejercicio);
+            title = view.findViewById(R.id.nombre_ejercicio);
 
-            nSeries = (EditText)view.findViewById(R.id.num_series);
+            nSeries = view.findViewById(R.id.num_series);
             nSeries.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -97,7 +97,7 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
                 }
             });
 
-            nRepeticiones = (EditText)view.findViewById(R.id.num_repeticiones);
+            nRepeticiones = view.findViewById(R.id.num_repeticiones);
             nRepeticiones.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -117,7 +117,7 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
                 }
             });
 
-            nDescanso = (EditText)view.findViewById(R.id.num_descanso);
+            nDescanso = view.findViewById(R.id.num_descanso);
             nDescanso.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -156,11 +156,11 @@ public class ExerciseResumeAdapter extends RecyclerView.Adapter<ExerciseResumeAd
             final int[] selectedMinute = {0};
             final int[] selectedSeconds = {0};
 
-            NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
-            NumberPicker segundosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.segundos_picker);
+            NumberPicker minutosPikcer = dialogLayout.findViewById(R.id.minutos_picker);
+            NumberPicker segundosPikcer = dialogLayout.findViewById(R.id.segundos_picker);
 
-            final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
-            final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+            final Button continuar = dialogLayout.findViewById(R.id.button_continue);
+            final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
 
             minutosPikcer.setValue(0);
             minutosPikcer.setMinValue(0);

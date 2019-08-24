@@ -48,13 +48,13 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
         myMarker.setIcon(getMarkerIcon("#196F3D"));
 
-        mySport = (TextView) view.findViewById(R.id.info_title);
-        myDate = (TextView) view.findViewById(R.id.info_date);
-        myTime = (TextView) view.findViewById(R.id.info_hour);
-        myPeople = (TextView) view.findViewById(R.id.info_people);
-        myLocation = (TextView) view.findViewById(R.id.info_location);
-        myAddress = (TextView) view.findViewById(R.id.info_address);
-        image = (ImageView) view.findViewById(R.id.info_image);
+        mySport = view.findViewById(R.id.info_title);
+        myDate = view.findViewById(R.id.info_date);
+        myTime = view.findViewById(R.id.info_hour);
+        myPeople = view.findViewById(R.id.info_people);
+        myLocation = view.findViewById(R.id.info_location);
+        myAddress = view.findViewById(R.id.info_address);
+        image = view.findViewById(R.id.info_image);
 
         mySport.setText(myEvent.getSport());
         myDate.setText(myEvent.getDate().getDayMonthYear());

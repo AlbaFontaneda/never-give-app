@@ -134,31 +134,31 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         /************************************ Binds **********************************************/
         mMapView = view.findViewById(R.id.map);
 
-        expandableLayoutMain = (ExpandableLayout)view.findViewById(R.id.expandablelayout_main);
-        expandableLayoutSelectSport = (ExpandableLayout)view.findViewById(R.id.expandablelayout_select_sport);
-        expandableLayoutTop = (ExpandableLayout)view.findViewById(R.id.expandablelayout_top);
-        expandableLayoutBottom = (ExpandableLayout)view.findViewById(R.id.expandablelayout_bottom);
-        expandableLayoutRecyclerView = (ExpandableLayout)view.findViewById(R.id.expandablelayout_recyclerview);
+        expandableLayoutMain = view.findViewById(R.id.expandablelayout_main);
+        expandableLayoutSelectSport = view.findViewById(R.id.expandablelayout_select_sport);
+        expandableLayoutTop = view.findViewById(R.id.expandablelayout_top);
+        expandableLayoutBottom = view.findViewById(R.id.expandablelayout_bottom);
+        expandableLayoutRecyclerView = view.findViewById(R.id.expandablelayout_recyclerview);
 
-        calendarLayout = (LinearLayout)view.findViewById(R.id.calendar_layout);
-        time_layout = (LinearLayout)view.findViewById(R.id.time_layout);
-        peopleLayout = (LinearLayout)view.findViewById(R.id.people_layout);
-        location_Layout = (LinearLayout)view.findViewById(R.id.location_layout);
-        notes_Layout = (LinearLayout)view.findViewById(R.id.notes_layout);
-        sportTitleLayout = (LinearLayout)view.findViewById(R.id.sports_title_layout);
+        calendarLayout = view.findViewById(R.id.calendar_layout);
+        time_layout = view.findViewById(R.id.time_layout);
+        peopleLayout = view.findViewById(R.id.people_layout);
+        location_Layout = view.findViewById(R.id.location_layout);
+        notes_Layout = view.findViewById(R.id.notes_layout);
+        sportTitleLayout = view.findViewById(R.id.sports_title_layout);
 
-        peopleText = (EditText) view.findViewById(R.id.people_text);
-        notesEditText = (EditText)view.findViewById(R.id.notes_text);
+        peopleText = view.findViewById(R.id.people_text);
+        notesEditText = view.findViewById(R.id.notes_text);
 
-        sportText = (TextView)view.findViewById(R.id.sport_text);
-        dateText = (TextView)view.findViewById(R.id.date_text);
-        timeText = (TextView)view.findViewById(R.id.time_text);
-        locationText = (TextView)view.findViewById(R.id.location_text);
+        sportText = view.findViewById(R.id.sport_text);
+        dateText = view.findViewById(R.id.date_text);
+        timeText = view.findViewById(R.id.time_text);
+        locationText = view.findViewById(R.id.location_text);
 
-        recyclerBottom = (RecyclerView)view.findViewById(R.id.recycler_view);
-        recyclerSports = (RecyclerView)view.findViewById(R.id.recycler_sports);
+        recyclerBottom = view.findViewById(R.id.recycler_view);
+        recyclerSports = view.findViewById(R.id.recycler_sports);
 
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
 
         /************************* LayoutManager for recyclerViews ********************************/
         layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -337,11 +337,11 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         final int[] selectedMinute = {0};
         final int[] selectedHour = {0};
 
-        NumberPicker minutosPikcer = (NumberPicker) dialogLayout.findViewById(R.id.minutos_picker);
-        NumberPicker horasPicker = (NumberPicker) dialogLayout.findViewById(R.id.horas_picker);
+        NumberPicker minutosPikcer = dialogLayout.findViewById(R.id.minutos_picker);
+        NumberPicker horasPicker = dialogLayout.findViewById(R.id.horas_picker);
 
-        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
+        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
 
         minutosPikcer.setValue(0);
         minutosPikcer.setMinValue(0);

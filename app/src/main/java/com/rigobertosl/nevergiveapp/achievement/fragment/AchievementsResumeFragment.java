@@ -24,15 +24,15 @@ public class AchievementsResumeFragment extends Fragment {
                              Bundle savedInstanceState) {
         db = new DataBaseContract(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_achievements_points, container, false);
-        TextView achievementsPoints = (TextView)rootView.findViewById(R.id.achievements_points);
-        TextView numExercises = (TextView)rootView.findViewById(R.id.num_exercises);
+        TextView achievementsPoints = rootView.findViewById(R.id.achievements_points);
+        TextView numExercises = rootView.findViewById(R.id.num_exercises);
 
         db.open();
         numExercises.setText(String.valueOf(db.getAllExercisesOfDataBase()));
         achievementsPoints.setText(String.valueOf(db.getTotalPoints()));
         db.close();
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.list_achivements);
+        RecyclerView recyclerView = rootView.findViewById(R.id.list_achivements);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 

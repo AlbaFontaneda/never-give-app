@@ -38,7 +38,7 @@ public class EditTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_table);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,8 @@ public class EditTableActivity extends AppCompatActivity {
 
 
         // Leemos todos los elementos de la actividad
-        final EditText tableName = (EditText) findViewById(R.id.table_name);
-        final EditText tableDays = (EditText) findViewById(R.id.table_days);
+        final EditText tableName = findViewById(R.id.table_name);
+        final EditText tableDays = findViewById(R.id.table_days);
         tableName.setText(table.getName());
         tableDays.setText(table.getDays());
         tableDays.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class EditTableActivity extends AppCompatActivity {
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recylcer_exercises);
+        RecyclerView recyclerView = findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
         ArrayList<Exercise> exerciseList = db.getAllExercisesFromTable(table);
         final ExerciseResumeAdapter exerciseResumeAdapter = new ExerciseResumeAdapter(exerciseList);
@@ -79,7 +79,7 @@ public class EditTableActivity extends AppCompatActivity {
         recyclerView.setAdapter(exerciseResumeAdapter);
 
         // Botón flotante para acabar la edición
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public class EditTableActivity extends AppCompatActivity {
                     Toast.makeText(EditTableActivity.this,
                             "Necesita rellenar todos los campos.", Toast.LENGTH_LONG).show();
                 } else {
-                    db.editTable(table, tableName.getText().toString(), tableDays.getText().toString(), (ArrayList<Exercise>) exerciseResumeAdapter.getExercisesEdited());
+                    db.editTable(table, tableName.getText().toString(), tableDays.getText().toString(), exerciseResumeAdapter.getExercisesEdited());
                     Intent intent = new Intent(mContext, TableResumeActivity.class);
                     intent.putExtra("tablaID", tableID);
                     intent.putExtra("fromTraining", getIntent().getSerializableExtra("fromTraining"));
@@ -107,15 +107,15 @@ public class EditTableActivity extends AppCompatActivity {
         dialog.setView(dialogLayout);
         dialog.show();
 
-        final ToggleButton lunes = (ToggleButton)dialogLayout.findViewById(R.id.button_lunes);
-        final ToggleButton martes = (ToggleButton)dialogLayout.findViewById(R.id.button_martes);
-        final ToggleButton miercoles = (ToggleButton)dialogLayout.findViewById(R.id.button_miercoles);
-        final ToggleButton jueves = (ToggleButton)dialogLayout.findViewById(R.id.button_jueves);
-        final ToggleButton viernes = (ToggleButton)dialogLayout.findViewById(R.id.button_viernes);
-        final ToggleButton sabado = (ToggleButton)dialogLayout.findViewById(R.id.button_sabado);
-        final ToggleButton domingo = (ToggleButton)dialogLayout.findViewById(R.id.button_domingo);
+        final ToggleButton lunes = dialogLayout.findViewById(R.id.button_lunes);
+        final ToggleButton martes = dialogLayout.findViewById(R.id.button_martes);
+        final ToggleButton miercoles = dialogLayout.findViewById(R.id.button_miercoles);
+        final ToggleButton jueves = dialogLayout.findViewById(R.id.button_jueves);
+        final ToggleButton viernes = dialogLayout.findViewById(R.id.button_viernes);
+        final ToggleButton sabado = dialogLayout.findViewById(R.id.button_sabado);
+        final ToggleButton domingo = dialogLayout.findViewById(R.id.button_domingo);
 
-        final CheckBox checkAll = (CheckBox) dialogLayout.findViewById(R.id.check_all);
+        final CheckBox checkAll = dialogLayout.findViewById(R.id.check_all);
 
         final ArrayList<String> myDays = new ArrayList<>();
 
@@ -131,77 +131,49 @@ public class EditTableActivity extends AppCompatActivity {
 
         lunes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    lunesChecked[0] = true;
-                } else {
-                    lunesChecked[0] = false;
-                }
+                lunesChecked[0] = isChecked;
                 checks[0] = lunesChecked[0];
             }
         });
 
         martes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    martesChecked[0] = true;
-                } else {
-                    martesChecked[0] = false;
-                }
+                martesChecked[0] = isChecked;
                 checks[1] = martesChecked[0];
             }
         });
 
         miercoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    miercolesChecked[0] = true;
-                } else {
-                    miercolesChecked[0] = false;
-                }
+                miercolesChecked[0] = isChecked;
                 checks[2] = miercolesChecked[0];
             }
         });
 
         jueves.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    juevesChecked[0] = true;
-                } else {
-                    juevesChecked[0] = false;
-                }
+                juevesChecked[0] = isChecked;
                 checks[3] = juevesChecked[0];
             }
         });
 
         viernes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    viernesChecked[0] = true;
-                } else {
-                    viernesChecked[0] = false;
-                }
+                viernesChecked[0] = isChecked;
                 checks[4] = viernesChecked[0];
             }
         });
 
         sabado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    sabadoChecked[0] = true;
-                } else {
-                    sabadoChecked[0] = false;
-                }
+                sabadoChecked[0] = isChecked;
                 checks[5] = sabadoChecked[0];
             }
         });
 
         domingo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    domingoChecked[0] = true;
-                } else {
-                    domingoChecked[0] = false;
-                }
+                domingoChecked[0] = isChecked;
                 checks[6] = domingoChecked[0];
             }
         });
@@ -228,7 +200,7 @@ public class EditTableActivity extends AppCompatActivity {
             }
         });
 
-        final Button continuar = (Button)dialogLayout.findViewById(R.id.button_continue);
+        final Button continuar = dialogLayout.findViewById(R.id.button_continue);
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,7 +236,7 @@ public class EditTableActivity extends AppCompatActivity {
             }
         });
 
-        final Button cancelar = (Button)dialogLayout.findViewById(R.id.button_cancel);
+        final Button cancelar = dialogLayout.findViewById(R.id.button_cancel);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -301,8 +273,8 @@ public class EditTableActivity extends AppCompatActivity {
         dialog.show();
         TextView textoAviso = dialogLayout.findViewById(R.id.textoAviso);
         textoAviso.setText(R.string.avisoVolver);
-        final Button volver = (Button)dialogLayout.findViewById(R.id.button_volver);
-        final Button quedarse = (Button)dialogLayout.findViewById(R.id.button_quedarse);
+        final Button volver = dialogLayout.findViewById(R.id.button_volver);
+        final Button quedarse = dialogLayout.findViewById(R.id.button_quedarse);
 
         volver.setOnClickListener(new View.OnClickListener() {
             @Override

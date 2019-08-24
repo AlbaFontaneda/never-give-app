@@ -49,7 +49,7 @@ public class TableResumeActivity extends AppCompatActivity {
         trainingTable = db.getTrainingTableByID(tableID);
         db.close();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class TableResumeActivity extends AppCompatActivity {
             }
         });
 
-        numPaginas = (int)db.getAllExercisesFromTable(trainingTable).size();
+        numPaginas = db.getAllExercisesFromTable(trainingTable).size();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         for (int i = 0; i<numPaginas; i++){
             Fragment f = new ExerciseResumeFragment();
@@ -67,10 +67,10 @@ public class TableResumeActivity extends AppCompatActivity {
         }
 
         mExercisePageAdapter = new ExercisePageAdapter(getSupportFragmentManager(), fragments);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mExercisePageAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -38,7 +38,7 @@ public class EventsSignedFragment extends FragmentFiredatabase {
 
         final View fragmentView = inflater.inflate(R.layout.fragment_events_signed, container, false);
 
-        recyclerView = (RecyclerView)fragmentView.findViewById(R.id.recycler_view);
+        recyclerView = fragmentView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         getEventsFromUser();
