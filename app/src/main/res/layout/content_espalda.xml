@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/cardViewContent"
-    tools:context="com.rigobertosl.nevergiveapp.EspaldaActivity"
+    tools:context="com.rigobertosl.nevergiveapp.training.activity.EspaldaActivity"
     tools:showIn="@layout/activity_espalda">
 
     <android.support.v4.widget.NestedScrollView

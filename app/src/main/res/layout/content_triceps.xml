@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/cardViewContent"
-    tools:context="com.rigobertosl.nevergiveapp.TricepsActivity"
+    tools:context="com.rigobertosl.nevergiveapp.training.activity.TricepsActivity"
     tools:showIn="@layout/activity_triceps">
 
     <android.support.v4.widget.NestedScrollView

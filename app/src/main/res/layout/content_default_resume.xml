@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.rigobertosl.nevergiveapp.TableResumeActivity"
+    tools:context="com.rigobertosl.nevergiveapp.training.activity.TableResumeActivity"
     tools:showIn="@layout/activity_table_resume">
 
     <LinearLayout
@@ -58,7 +58,7 @@
                     android:id="@+id/recyclerCheckBoxView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:context=".TableResumeActivity" />
+                    tools:context=".training.activity.TableResumeActivity" />
 
             </LinearLayout>
 

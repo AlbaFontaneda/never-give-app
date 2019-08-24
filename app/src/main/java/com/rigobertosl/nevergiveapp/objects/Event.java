@@ -2,6 +2,7 @@ package com.rigobertosl.nevergiveapp.objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Event {
 
@@ -89,6 +90,27 @@ public class Event {
         }else{
             return false;
         }
+    }
+
+    public boolean isEqualTo(Event event){
+        if(this.ID.equals(event.getID())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("ID", this.ID);
+        result.put("sport", this.sport);
+        result.put("notes", this.notes);
+        result.put("date", this.date);
+        result.put("assistants", this.assistants);
+        result.put("host", this.host);
+        result.put("place", this.place);
+        result.put("members", this.members);
+        return result;
     }
 
     public String creacionDeEvento(){
