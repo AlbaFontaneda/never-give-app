@@ -111,11 +111,10 @@
 
     //Imagen (comidas)
 
-    <style name="cardViewImage">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
+    <style name="ImageRCV">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
         <item name="android:scaleType">fitXY</item>
-        <item name="android:layout_margin">10dp</item>
     </style>
 
     //Texto fijo (comidas)
@@ -123,18 +122,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginLeft">7dp</item>
     </style>
 
     //Contenido (comidas)
     <style name="TextContentRCV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginLeft">7dp</item>
     </style>
 
     <!--CARDVIEW LIST -->
@@ -566,6 +565,13 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="DividerList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/soft_divider</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 
 </resources>

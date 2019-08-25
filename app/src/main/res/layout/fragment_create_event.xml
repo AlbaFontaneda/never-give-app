@@ -88,13 +88,10 @@
 
                     <View
                         android:id="@+id/divider1"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        style="@style/DividerList"
                         app:layout_constraintTop_toBottomOf="@id/sports_title_layout"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/soft_divider" />
+                        app:layout_constraintRight_toRightOf="parent"/>
 
                     <LinearLayout
                         android:id="@+id/calendar_layout"
@@ -152,13 +149,10 @@
 
                     <View
                         android:id="@+id/divider2"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        style="@style/DividerList"
                         app:layout_constraintTop_toBottomOf="@id/calendar_layout"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/soft_divider" />
+                        app:layout_constraintRight_toRightOf="parent" />
 
                     <LinearLayout
                         android:id="@+id/people_layout"
@@ -193,13 +187,10 @@
 
                     <View
                         android:id="@+id/divider3"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        style="@style/DividerList"
                         app:layout_constraintTop_toBottomOf="@id/people_layout"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/soft_divider" />
+                        app:layout_constraintRight_toRightOf="parent"/>
                 </android.support.constraint.ConstraintLayout>
 
 
@@ -237,13 +228,10 @@
 
             <View
                 android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                style="@style/DividerList"
                 app:layout_constraintTop_toBottomOf="@id/location_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginBottom="5dp"
-                android:background="@color/soft_divider" />
+                app:layout_constraintRight_toRightOf="parent" />
 
             <net.cachapa.expandablelayout.ExpandableLayout
                 android:id="@+id/expandablelayout_bottom"
