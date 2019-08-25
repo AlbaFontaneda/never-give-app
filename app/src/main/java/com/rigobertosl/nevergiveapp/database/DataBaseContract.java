@@ -165,6 +165,16 @@ public class DataBaseContract {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
+        /**
+         * Esto es necesario para hacerlo compatible con Android Pie.
+         * @param db database
+         */
+        @Override
+        public void onOpen(SQLiteDatabase db) {
+            super.onOpen(db);
+            db.disableWriteAheadLogging();
+        }
+
         public void onCreate(SQLiteDatabase db) {
             //aquí creamos la tabla de ejercicios utilizando lo anterior
             db.execSQL(DataBaseEntryNameTrain.SQL_CREATE_ENTRIES_NAME_TRAIN);
