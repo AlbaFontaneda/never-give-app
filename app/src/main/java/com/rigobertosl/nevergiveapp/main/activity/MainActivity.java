@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rigobertosl.nevergiveapp.database.DataBaseContract;
+import com.rigobertosl.nevergiveapp.food.activity.FoodResumeActivity;
+import com.rigobertosl.nevergiveapp.food.activity.FoodsApi;
 import com.rigobertosl.nevergiveapp.login.activity.LoginActivity;
 import com.rigobertosl.nevergiveapp.login.activity.ProfileActivity;
 import com.rigobertosl.nevergiveapp.main.fragment.MainFragment;
@@ -54,6 +56,10 @@ public class MainActivity extends AppFiredatabase
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
+            new FoodsApi().execute();
+        }
 
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);

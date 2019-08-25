@@ -30,7 +30,6 @@ public class EventsSignedFragment extends FragmentFiredatabase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadCurrentUser();
-        loadAllEvents();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class EventsSignedFragment extends FragmentFiredatabase {
         recyclerView = (RecyclerView)fragmentView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        getEventsFromUser();
+        loadAllEvents();
 
         return fragmentView;
     }

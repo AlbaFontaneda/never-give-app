@@ -48,7 +48,7 @@
     //CardViews
     <string name="titleCard">Título</string>
     <string name="infoDays">Días de la semana:</string>
-    <string name="infoKcal">Todal de Kcal:</string>
+    <string name="infoKcal">Total de Kcal:</string>
 
     //Entrenamientos
     <string name="series">Series:</string>

@@ -29,7 +29,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                style="@style/cardViewTitle"
+                style="@style/TitleRCV"
                 android:textColor="#000"
                 android:text="Puntos de logro: "
                 android:layout_weight="1"/>
@@ -51,7 +51,7 @@
             android:gravity="center"
             android:background="@drawable/layouts_resume_table">
             <TextView
-                style="@style/cardViewTitle"
+                style="@style/TitleRCV"
                 android:textColor="#000"
                 android:text="@string/total_exercises" />
             <TextView
@@ -73,7 +73,7 @@
 
             <TextView
                 android:id="@+id/title_history"
-                style="@style/cardViewTitle"
+                style="@style/TitleRCV"
                 android:layout_gravity="center"
                 android:textColor="#000"
                 android:layout_margin="5dp"

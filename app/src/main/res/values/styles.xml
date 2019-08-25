@@ -18,8 +18,7 @@
 
     <!--CARD VIEWS -->
     //General
-
-    <style name="cardView">
+    <style name="RectangleCardView"> (RCV)
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">1dp</item>
@@ -29,8 +28,20 @@
         <item name="cardUseCompatPadding">true</item>
     </style>
 
-    //Relative layout
+    //Layout donde está el título
+    <style name="TitleLayoutRCV">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/"
+    </style>
 
+
+    //Relative layout -- BORRAR
     <style name="cardViewRelativeLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -38,48 +49,58 @@
     </style>
 
     //Titulo
-
-    <style name="cardViewTitle">
+    <style name="TitleRCV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_margin">6dp</item>
+        <item name="android:layout_marginLeft">13dp</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/titlesColor</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:lines">1</item>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/titleCard"
     </style>
 
     //Botón de opciones
-
-    <style name="cardViewOptions">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/selector_init_options_menu</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
+    <style name="OptionsButtonRCV">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@null</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:src">@drawable/ic_options</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
     </style>
 
-    //Recyclerview (tablas de entrenamiento)
+    //Layout del contenido
+    <style name="ContentRCV">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:background">@color/cardViewContent</item>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout"
+    </style>
 
+
+
+    //Recyclerview (tablas de entrenamiento)
     <style name="cardViewRecycler">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/cardViewContent</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_below">@id/item_title</item>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
     </style>
 
     //LinearLayout (comidas)
-
     <style name="cardViewLinear">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">140dp</item>
@@ -92,39 +113,28 @@
 
     <style name="cardViewImage">
         <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">100dp</item>
         <item name="android:scaleType">fitXY</item>
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    //Informacion (comidas)
-
-    <style name="cardViewInfo">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-    </style>
-
-    //Dias (comidas)
-
-    <style name="cardViewSubtitle">
+    //Texto fijo (comidas)
+    <style name="SubtitleRCV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">5dp</item>
     </style>
 
-    //Dias (comidas)
-
-    <style name="cardViewContent">
+    //Contenido (comidas)
+    <style name="TextContentRCV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginLeft">5dp</item>
     </style>
 
     <!--CARDVIEW LIST -->
@@ -480,25 +490,6 @@
 
 
     <!-- ESTILOS VENTANA DE LOGROS -->
-    <style name="AchievementsContent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:background">@color/colorCotent</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="AchievementsRow">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <!--<item name="android:background">@drawaachievements_border_bottom_row</item>-->
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:paddingRight">5dp</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_horizontal</item>
-    </style>
-
     <style name="ElementRows">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

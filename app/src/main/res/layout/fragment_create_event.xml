@@ -188,7 +188,6 @@
                             android:background="@android:color/transparent"
                             android:hint="Número de asistentes"
                             android:textSize="16sp"
-                            android:textColor="@color/editText"
                             android:inputType="number"/>
                     </LinearLayout>
 
@@ -282,8 +281,7 @@
                         android:paddingBottom="5dp"
                         android:background="@android:color/transparent"
                         android:hint="Añadir nota"
-                        android:textSize="16sp"
-                        android:textColor="@color/editText"/>
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 

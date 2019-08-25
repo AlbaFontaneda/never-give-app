@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/not_account_button"
                 android:text="Continue without account"
-                android:textColor="@color/editText"
+                android:textColor="@color/soft_grey"
                 android:textStyle="bold" />
         </LinearLayout>
 
