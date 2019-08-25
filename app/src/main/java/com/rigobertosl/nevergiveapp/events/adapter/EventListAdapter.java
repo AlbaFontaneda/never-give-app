@@ -35,7 +35,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
 
         private TextView titleText, dateText, timeText, locationText, hostText, notesText;
-        private Switch switchSigned;
         private ExpandableLayout expandableLayout;
         private RecyclerView memerList;
         private ConstraintLayout detailsLayout;
@@ -49,7 +48,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
             hostText = (TextView) itemView.findViewById(R.id.host_text);
             notesText = (TextView) itemView.findViewById(R.id.notes_text);
             memerList = (RecyclerView) itemView.findViewById(R.id.members_list);
-            switchSigned = (Switch) itemView.findViewById(R.id.signed);
             expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
             detailsLayout = (ConstraintLayout) itemView.findViewById(R.id.layout_details);
 

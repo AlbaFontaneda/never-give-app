@@ -251,9 +251,9 @@
         <item>DO</item>
     </string-array>
     <string name="title_activity_events_main">Eventos</string>
-    <string name="title_home">Inicio</string>
-    <string name="title_dashboard">Crear evento</string>
-    <string name="title_notifications">Búsqueda avanzada</string>
+    <string name="title_explore">Explorar</string>
+    <string name="title_create_events">Crear evento</string>
+    <string name="title_my_events">Mis eventos</string>
 
     //SPORTS IMAGES
     <string-array name="sportsImagesNames">

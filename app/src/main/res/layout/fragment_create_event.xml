@@ -68,7 +68,7 @@
                             android:id="@+id/golf_icon"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
-                            android:src="@drawable/ic_golf"
+                            android:src="@drawable/ic_entrenamiento"
                             android:tint="@color/icon_grey" />
 
                         <TextView
