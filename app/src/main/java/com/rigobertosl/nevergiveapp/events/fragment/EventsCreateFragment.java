@@ -67,7 +67,7 @@ import java.util.Locale;
 
 import static com.rigobertosl.nevergiveapp.events.activity.EventsActivity.DEFAULT_ZOOM;
 
-public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
+public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener, IOnBackPressed {
 
     private ExpandableLayout expandableLayoutMain, expandableLayoutSelectSport, expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout, sportTitleLayout;
@@ -566,5 +566,21 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
 
         IBinder binder = view.getWindowToken();
         inputManager.hideSoftInputFromWindow(binder, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean onBackPressed(){
+        if(expandableLayoutSelectSport.isExpanded()){
+            expandableLayoutSelectSport.collapse();
+            expandableLayoutMain.expand();
+            return true;
+        }else if(!expandableLayoutTop.isExpanded() && !expandableLayoutBottom.isExpanded()) {
+            expandableLayoutRecyclerView.collapse();
+            expandableLayoutTop.expand();
+            expandableLayoutBottom.expand();
+            return true;
+        }else{
+            return false;
+        }
     }
 }
