@@ -9,7 +9,11 @@ import android.view.View;
 
 import com.rigobertosl.nevergiveapp.R;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 public class ProfileActivity extends AppCompatActivity {
+
+    private ExpandableLayout expandableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +22,17 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        expandableLayout = (ExpandableLayout) findViewById(R.id.expandablelayout);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (expandableLayout.isExpanded()) {
+                    expandableLayout.collapse();
+                } else {
+                    expandableLayout.expand();
+                }
             }
         });
     }
