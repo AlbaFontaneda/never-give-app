@@ -56,11 +56,11 @@ public class MainActivity extends AppFiredatabase
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
+
         if(FoodResumeActivity.listKcal == null || FoodResumeActivity.listKcal.size() == 0) {
             new FoodsApi().execute();
         }
-*/
+
         setContentView(R.layout.activity_main);
         db = new DataBaseContract(this);
         db.open();

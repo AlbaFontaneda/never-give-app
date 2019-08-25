@@ -79,6 +79,18 @@
         app:layout_constraintRight_toRightOf="parent"
     </style>
 
+    //Icono de logro
+    <style name="AchievementLogoRCV">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:src">@drawable/ic_logro_no_completado</item>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+    </style>
+
     //Layout del contenido
     <style name="ContentRCV">
         <item name="android:layout_width">match_parent</item>

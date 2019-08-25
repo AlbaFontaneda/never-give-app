@@ -55,7 +55,7 @@ public class CustomTrainingDefaultTablesAdapter extends RecyclerView.Adapter<Cus
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_training_default, parent, false);
+                .inflate(R.layout.layout_training, parent, false);
 
         recyclerView = (RecyclerView)itemView.findViewById(R.id.recylcer_exercises);
         recyclerView.setHasFixedSize(true);
