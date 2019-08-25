@@ -8,24 +8,15 @@
     <color name="colorAccentLigth">#ff5333</color>
     <color name="colorAccentDark">#a40000</color>
 
-
-    <color name="colorRow">#a9a8a8</color>
-    <color name="colorCotent">#FF1E7881</color>
-    <color name="colorHeader">#1c8f31</color>
-    <color name="buttonPressed">#c951ab</color>
-    <color name="buttonPressedStroke">#99207b</color>
-    <color name="achievementsRow">#c178bc</color>
     <color name="titlesColor">#ffffff</color>
     <color name="cardViewContent">#DCDCDC</color>
-    <color name="recyclerViewBG">#E5E7E9</color>
-    <color name="white">#D0FFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="white_alpha">#C8FFFFFF</color>
 
     <color name="black">#000000</color>
-    <color name="editText">#707B7C</color>
+    <color name="soft_grey">#707B7C</color> //Sólo una llamada en la pantalla de login
     <color name="soft_divider">#CACFD2</color>
     <color name="icon_grey">#616A6B</color>
-    <color name="dark_grey">#3D3D3D</color>
 
     <color name="colorClose">#B71C1C</color>
     <color name="colorOpen">#1D8348</color>
