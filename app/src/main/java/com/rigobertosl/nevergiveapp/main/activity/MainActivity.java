@@ -51,8 +51,6 @@ public class MainActivity extends AppFiredatabase
     private static final String DATABASE_NAME = "dbNeverGiveApp.db";
     private static final String PRELOADED_DATABASE_NAME = "preloaded.db";
 
-    final String TAG = "-------EVENTOS-------";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +72,8 @@ public class MainActivity extends AppFiredatabase
             try {
                 String destPath = "/data/data/" + getPackageName() + "/databases/" + DATABASE_NAME;
 
-                System.out.println("Traza: no existe el fichero");
-                Toast.makeText(this, "No existe el fichero", Toast.LENGTH_SHORT);
+                //System.out.println("Traza: no existe el fichero");
+                //Toast.makeText(this, "No existe el fichero", Toast.LENGTH_SHORT);
                 InputStream in = getAssets().open(PRELOADED_DATABASE_NAME);
                 OutputStream out = new FileOutputStream(destPath);
 

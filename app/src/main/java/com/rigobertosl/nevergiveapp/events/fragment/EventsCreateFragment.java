@@ -2,11 +2,13 @@ package com.rigobertosl.nevergiveapp.events.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -64,7 +67,7 @@ import java.util.Locale;
 
 import static com.rigobertosl.nevergiveapp.events.activity.EventsActivity.DEFAULT_ZOOM;
 
-public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener {
+public class EventsCreateFragment extends FragmentFiredatabase implements LocationListener, DatePickerDialog.OnDateSetListener, IOnBackPressed {
 
     private ExpandableLayout expandableLayoutMain, expandableLayoutSelectSport, expandableLayoutTop, expandableLayoutBottom, expandableLayoutRecyclerView;
     private LinearLayout calendarLayout, time_layout, peopleLayout, location_Layout, notes_Layout, sportTitleLayout;
@@ -172,6 +175,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         calendarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removePhoneKeypad(v);
                 openCalendarPicker();
             }
         });
@@ -179,6 +183,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         time_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removePhoneKeypad(v);
                 openHourPicker(v, timeText);
             }
         });
@@ -194,6 +199,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         location_Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
                 if (expandableLayoutTop.isExpanded() && expandableLayoutBottom.isExpanded()) {
                     if(markerList.isEmpty()){
                         new FindPlaces().execute();
@@ -233,6 +239,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         sportTitleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
 
                 RecyclerView.Adapter adapterSports = new SportAdapter(sports, sportsImages);
                 recyclerSports.setAdapter(adapterSports);
@@ -246,6 +253,7 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removePhoneKeypad(view);
                 if(!sportText.getText().toString().equals("Selecciona un deporte") && !peopleText.getText().toString().equals("")
                         && !dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
 
@@ -549,6 +557,30 @@ public class EventsCreateFragment extends FragmentFiredatabase implements Locati
                 ((GooglePlaceAdapter) adapterPlace).setOnItemClickListener(markerClickListener);
                 expandableLayoutRecyclerView.expand();
             }
+        }
+    }
+
+    public void removePhoneKeypad(View view) {
+        InputMethodManager inputManager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        IBinder binder = view.getWindowToken();
+        inputManager.hideSoftInputFromWindow(binder, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean onBackPressed(){
+        if(expandableLayoutSelectSport.isExpanded()){
+            expandableLayoutSelectSport.collapse();
+            expandableLayoutMain.expand();
+            return true;
+        }else if(!expandableLayoutTop.isExpanded() && !expandableLayoutBottom.isExpanded()) {
+            expandableLayoutRecyclerView.collapse();
+            expandableLayoutTop.expand();
+            expandableLayoutBottom.expand();
+            return true;
+        }else{
+            return false;
         }
     }
 }
