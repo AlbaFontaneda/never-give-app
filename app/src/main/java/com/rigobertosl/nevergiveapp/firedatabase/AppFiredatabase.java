@@ -182,4 +182,14 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
+
+    public String getUsername() {
+        return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
+    }
+
+    public String getEmail() {
+        return FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    }
+
 }

@@ -199,12 +199,11 @@
 
                 <ImageView
                     android:id="@+id/ic_email"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_margin="7dp"
-                    android:src="@drawable/ic_email"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/email" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/gmail_icon"
+                    tools:layout_editor_absoluteX="7dp"
+                    tools:layout_editor_absoluteY="74dp" />
 
                 <EditText
                     android:id="@+id/email"
@@ -220,10 +219,10 @@
 
                 <ImageView
                     android:id="@+id/ic_password"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_margin="7dp"
-                    android:src="@drawable/ic_key"
+                    android:src="@drawable/lock_icon"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email" />
 
