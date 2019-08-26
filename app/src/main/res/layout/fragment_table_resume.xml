@@ -101,14 +101,17 @@
                     <ImageButton
                         android:id="@+id/play"
                         android:src="@drawable/ic_play"
+                        android:tint="@color/white"
                         style="@style/resumeDescansoButtons"/>
                     <ImageButton
                         android:id="@+id/pause"
                         android:src="@drawable/ic_pause"
+                        android:tint="@color/white"
                         style="@style/resumeDescansoButtons"/>
                     <ImageButton
                         android:id="@+id/stop"
                         android:src="@drawable/ic_stop"
+                        android:tint="@color/white"
                         style="@style/resumeDescansoButtons"/>
                 </LinearLayout>
             </LinearLayout>
