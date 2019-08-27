@@ -187,7 +187,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Caterpie_el_mejor@gmail.com"
+                android:text="Contraseña"
                 android:textStyle="bold"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
@@ -279,10 +279,56 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/edit_pass"
+                android:id="@+id/edit_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/edit_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/gmail_icon"
+                    android:layout_marginEnd="15dp"/>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/new_email_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nuevo email:"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/new_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="email"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@id/new_email_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edit_email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="15dp"
@@ -305,7 +351,7 @@
                         android:id="@+id/new_pass_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Contraseña:"
+                        android:text="Nueva contraseña:"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
@@ -314,7 +360,7 @@
                         android:id="@+id/new_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Caterpie_el_mejor@gmail.com"
+                        android:hint="Contraseña"
                         android:textStyle="bold"
                         android:inputType="textPassword"
                         android:textColor="@color/black"
