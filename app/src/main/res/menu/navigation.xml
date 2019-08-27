@@ -4,16 +4,19 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_map_marked_solid"
+        android:iconTintMode="@drawable/navigation_selector"
         android:title="@string/title_explore" />
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_placeholder"
+        android:iconTintMode="@drawable/navigation_selector"
         android:title="@string/title_create_events" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_events"
+        android:iconTintMode="@drawable/navigation_selector"
         android:title="@string/title_my_events" />
 
 </menu>
