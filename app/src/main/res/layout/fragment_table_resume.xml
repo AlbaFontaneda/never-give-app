@@ -92,28 +92,37 @@
                 </RelativeLayout>
 
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:orientation="horizontal">
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/play"
-                        android:src="@drawable/ic_play"
-                        android:tint="@color/white"
+                        android:src="@drawable/ic_play_circle"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/pause"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         style="@style/resumeDescansoButtons"/>
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/pause"
-                        android:src="@drawable/ic_pause"
-                        android:tint="@color/white"
+                        android:src="@drawable/ic_pause_circle"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/play"
+                        app:layout_constraintRight_toLeftOf="@+id/stop"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         style="@style/resumeDescansoButtons"/>
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/stop"
-                        android:src="@drawable/ic_stop"
-                        android:tint="@color/white"
+                        android:src="@drawable/ic_stop_circle"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/pause"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         style="@style/resumeDescansoButtons"/>
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
             </LinearLayout>
         </LinearLayout>
 

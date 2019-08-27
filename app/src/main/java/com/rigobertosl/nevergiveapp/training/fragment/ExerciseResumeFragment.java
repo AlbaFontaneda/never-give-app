@@ -68,9 +68,9 @@ public class ExerciseResumeFragment extends Fragment {
         TextView exerciseRep = (TextView)rootView.findViewById(R.id.repeticiones);
         TextView description = (TextView)rootView.findViewById(R.id.description);
         countDown = (TextView)rootView.findViewById(R.id.temporizador);
-        ImageButton play = (ImageButton)rootView.findViewById(R.id.play);
-        ImageButton stop = (ImageButton)rootView.findViewById(R.id.stop);
-        ImageButton pause = (ImageButton)rootView.findViewById(R.id.pause);
+        ImageView play = (ImageView)rootView.findViewById(R.id.play);
+        ImageView stop = (ImageView)rootView.findViewById(R.id.stop);
+        ImageView pause = (ImageView)rootView.findViewById(R.id.pause);
         progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
         progressBar.setProgress(100);

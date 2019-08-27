@@ -283,11 +283,12 @@
     //Descanso Buttons
 
     <style name="resumeDescansoButtons">
-        <item name="android:layout_width">25dp</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@color/bpblack</item>
         <item name="android:layout_margin">3dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?selectableItemBackground</item>
     </style>
 
     //Resume description

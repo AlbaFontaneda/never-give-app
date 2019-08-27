@@ -61,7 +61,7 @@ public class EventsActivity extends AppFiredatabase {
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -81,8 +81,7 @@ public class EventsActivity extends AppFiredatabase {
                 }
                 return false;
             }
-        };
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        });
         navigation.setSelectedItemId(R.id.navigation_home);
     }
 
