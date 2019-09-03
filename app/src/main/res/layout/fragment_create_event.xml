@@ -62,14 +62,14 @@
                         android:padding="10dp"
                         android:background="@null"
                         android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:foreground="?selectableItemBackground"
                         android:clickable="true">
                         <ImageView
                             android:id="@+id/golf_icon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_entrenamiento"
-                            android:tint="@color/icon_grey" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_dumbbell_color"/>
 
                         <TextView
                             android:id="@+id/sport_text"
@@ -101,14 +101,14 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:padding="10dp"
                         android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:foreground="?selectableItemBackground"
                         android:clickable="true">
                         <ImageView
                             android:id="@+id/calendar_icon"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_calendario"
-                            android:tint="@color/icon_grey" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_calendar_color"/>
                         <TextView
                             android:id="@+id/date_text"
                             android:layout_width="wrap_content"
@@ -128,14 +128,14 @@
                         app:layout_constraintRight_toRightOf="parent"
                         android:padding="10dp"
                         android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:foreground="?selectableItemBackground"
                         android:clickable="true">
                         <ImageView
                             android:id="@+id/time_icon"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_time"
-                            android:tint="@color/icon_grey" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_watch_color"/>
                         <TextView
                             android:id="@+id/time_text"
                             android:layout_width="wrap_content"
@@ -167,10 +167,9 @@
                         android:clickable="true">>
                         <ImageView
                             android:id="@+id/people_icon"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_people"
-                            android:tint="@color/icon_grey" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_people_color"/>
                         <EditText
                             android:id="@+id/people_text"
                             android:layout_width="wrap_content"
@@ -210,10 +209,9 @@
                 android:clickable="true">
                 <ImageView
                     android:id="@+id/location_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_localizacion"
-                    android:tint="@color/icon_grey" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_location_color"/>
                 <TextView
                     android:id="@+id/location_text"
                     android:layout_width="match_parent"
@@ -255,10 +253,9 @@
                     android:clickable="true">
                     <ImageView
                         android:id="@+id/notes_icon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/ic_notes"
-                        android:tint="@color/icon_grey" />
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_notes_color"/>
                     <EditText
                         android:id="@+id/notes_text"
                         android:layout_width="wrap_content"
