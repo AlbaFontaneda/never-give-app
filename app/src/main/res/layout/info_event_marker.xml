@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="6dp"
-            android:src="@drawable/ic_calendario" />
+            android:src="@drawable/ic_calendar_date" />
         <TextView
             android:id="@+id/info_date"
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ic_calendar"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="6dp"
-            android:src="@drawable/ic_time"/>
+            android:src="@drawable/ic_clock"/>
         <TextView
             android:id="@+id/info_hour"
             android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/info_image"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="6dp"
-        android:src="@drawable/ic_localizacion"/>
+        android:src="@drawable/ic_location_pin"/>
     <TextView
         android:id="@+id/info_location"
         android:layout_width="wrap_content"
