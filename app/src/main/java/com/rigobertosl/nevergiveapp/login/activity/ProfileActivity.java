@@ -21,7 +21,7 @@ public class ProfileActivity extends AppFiredatabase {
 
     private ExpandableLayout expandableLayout;
     private TextView username, password, email, waitText;
-    private EditText newUserName, newPassword;
+    private EditText newUserName, newPassword, newEmail;
     private Button cancel, save;
     private ProgressBar spinner;
 
@@ -38,8 +38,10 @@ public class ProfileActivity extends AppFiredatabase {
         email.setText(getEmail());
 
         newUserName = (EditText) findViewById(R.id.new_user);
-        newUserName.setHint(getUsername());
+        newUserName.setText(getUsername());
         newPassword = (EditText) findViewById(R.id.new_pass);
+        newEmail = (EditText) findViewById(R.id.new_email);
+        newEmail.setText(getEmail());
 
         cancel = (Button) findViewById(R.id.cancel_button);
         save = (Button) findViewById(R.id.save_button);
@@ -72,9 +74,13 @@ public class ProfileActivity extends AppFiredatabase {
             }
         });
 
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                updateAllProfile(newUserName.getText().toString(), newEmail.getText().toString(), newPassword.getText().toString());
+
                 waitText.setVisibility(View.VISIBLE);
                 spinner.setVisibility(View.VISIBLE);
                 save.setEnabled(false);
@@ -96,8 +102,10 @@ public class ProfileActivity extends AppFiredatabase {
                         save.setEnabled(true);
                         cancel.setEnabled(true);
                     }
-                }, 2000);
+                }, 5000);
             }
+
+
         });
     }
 }
