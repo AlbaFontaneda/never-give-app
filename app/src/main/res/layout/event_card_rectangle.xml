@@ -46,7 +46,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/ic_calendar_date"
+                    android:src="@drawable/ic_calendar_date_filled_stroke_grey"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +70,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/ic_clock"
+                    android:src="@drawable/ic_clock_filled_stroke_grey"
                     app:layout_constraintLeft_toRightOf="@id/date_text"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +91,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/ic_location_pin"
+                    android:src="@drawable/ic_location_pin_filled_stroke_grey"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/calendar_icon" />
 
@@ -133,7 +133,7 @@
                         app:layout_constraintTop_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_margin="5dp"
-                        android:src="@drawable/ic_user"/>
+                        android:src="@drawable/ic_user_filled_stroke_grey"/>
                     <TextView
                         android:id="@+id/host_text"
                         android:layout_width="wrap_content"
@@ -164,7 +164,8 @@
                         app:layout_constraintTop_toBottomOf="@id/members_list"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_margin="5dp"
-                        android:src="@drawable/ic_notes"/>
+                        android:src="@drawable/ic_notes"
+                        android:tint="@color/icon_grey"/>
                     <TextView
                         android:id="@+id/notes_text"
                         android:layout_width="wrap_content"
