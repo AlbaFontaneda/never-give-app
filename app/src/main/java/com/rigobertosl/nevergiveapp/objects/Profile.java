@@ -13,11 +13,11 @@ public class Profile {
     /******************  Constructores  ********************/
     public Profile(){}
 
-    public Profile(String ID, String email, String password) {
+    public Profile(String ID, String email, String password, String username) {
         this.ID = ID;
         this.email = email;
         this.password = password;
-        this.name = "Anónimo";
+        this.name = username;
     }
 
     /******************  Getters and Setters  ********************/

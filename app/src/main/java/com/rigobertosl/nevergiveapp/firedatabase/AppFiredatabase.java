@@ -3,8 +3,10 @@ package com.rigobertosl.nevergiveapp.firedatabase;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,10 +34,10 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UID).child(data).setValue(newValue);
     }
 
-    private void addUserToFirebase(String email, String password) {
+    private void addUserToFirebase(String email, String password, String username) {
         mydbRef = database.getReference(usersKey);
         String UID = getUid();
-        mydbRef.child(UID).setValue(new Profile(UID, email, password));
+        mydbRef.child(UID).setValue(new Profile(UID, email, password, username));
     }
 
     /**************************************  Authenticator  ***************************************/
@@ -77,9 +79,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //El usuario se registra de manera exitosa
-                            addUserToFirebase(email, password);
                             toastMessage("Registro completado.", Toast.LENGTH_SHORT);
                             startNewActivity(context, MainActivity.class);
+                            updateUserOnRegister(email, password);
                             //updateUI(user);
                         } else {
                             //Si el usuario ya existe
@@ -98,8 +100,31 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mAuth.signOut();
     }
 
-    public void updateNameProfile(final String newName){
+    private void updateUserOnRegister(final String email, final String password) {
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String username = user.getEmail().substring(0, user.getEmail().indexOf("@"));
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("FIREBASE", "User profile updated.");
+                            addUserToFirebase(email, password, username);
+                        } else {
+                            addUserToFirebase(email, password, "Anonimo");
+                        }
+                    }
+                });
+
+    }
+
+    public void updateNameProfile(final String newName){
         FirebaseUser user = mAuth.getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(newName)
@@ -110,7 +135,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         updateProfileToFirebase(getUid(), "name", newName);
-                        toastMessage("Nombre actualizado", Toast.LENGTH_SHORT);
+                        toastMessage("Username actualizado", Toast.LENGTH_SHORT);
                     }else{
                         toastMessage("Algo ha salido mal, inténtelo de nuevo.", Toast.LENGTH_SHORT);
                     }
@@ -151,9 +176,13 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     }
 
     public void updateAllProfile(String newName, String newEmail, String newPassword){
-        updateNameProfile(newName);
-        updateEmailProfile(newEmail);
-        updatePasswordProfile(newPassword);
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (!newName.equals(user.getDisplayName()) || !newName.equals("")) {
+            updateNameProfile(newName);
+        }
+        if (!newEmail.equals(user.getEmail()) || !newEmail.equals("")) {
+            updateEmailProfile(newEmail);
+        }
     }
 
     /******************************************  Tools  *******************************************/
@@ -175,8 +204,16 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                 .setCancelText(cancelButton);
 
         return alert;
-
     }
+
+    public SweetAlertDialog createErrorAlert(Context ctx, String title, String message) {
+        SweetAlertDialog alert = new SweetAlertDialog(ctx, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText(title)
+                .setContentText(message);
+
+        return alert;
+    }
+
     @Override
     public String getUid() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
