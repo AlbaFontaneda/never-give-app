@@ -21,7 +21,7 @@ public class ProfileActivity extends AppFiredatabase {
 
     private ExpandableLayout expandableLayout;
     private TextView username, password, email, waitText;
-    private EditText newUserName, newPassword, newEmail;
+    private EditText newUserName, newPassword;//, newEmail;
     private Button cancel, save;
     private ProgressBar spinner;
 
@@ -40,8 +40,8 @@ public class ProfileActivity extends AppFiredatabase {
         newUserName = (EditText) findViewById(R.id.new_user);
         newUserName.setText(getUsername());
         newPassword = (EditText) findViewById(R.id.new_pass);
-        newEmail = (EditText) findViewById(R.id.new_email);
-        newEmail.setText(getEmail());
+        //newEmail = (EditText) findViewById(R.id.new_email);
+        //newEmail.setText(getEmail());
 
         cancel = (Button) findViewById(R.id.cancel_button);
         save = (Button) findViewById(R.id.save_button);
@@ -79,7 +79,8 @@ public class ProfileActivity extends AppFiredatabase {
             @Override
             public void onClick(View v) {
 
-                updateAllProfile(newUserName.getText().toString(), newEmail.getText().toString(), newPassword.getText().toString());
+                //updateAllProfile(newUserName.getText().toString(), newEmail.getText().toString(), newPassword.getText().toString());
+                updateAllProfile(newUserName.getText().toString(), mAuth.getCurrentUser().getEmail(), newPassword.getText().toString());
 
                 waitText.setVisibility(View.VISIBLE);
                 spinner.setVisibility(View.VISIBLE);
