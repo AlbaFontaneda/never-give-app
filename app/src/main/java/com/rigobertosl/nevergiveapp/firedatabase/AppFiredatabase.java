@@ -126,11 +126,15 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
 
     public void updateNameProfile(final String newName){
         FirebaseUser user = mAuth.getCurrentUser();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(newName)
-                .build();
 
-        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if (newName.isEmpty()) {
+            createErrorAlert(this, "Alerta", "Este campo no puede estar vacio");
+        } else {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(newName)
+                    .build();
+
+            user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -141,6 +145,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                     }
                 }
             });
+        }
+
+
     }
 
     public void updateEmailProfile(final String newEmail){
@@ -162,7 +169,10 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     public void updatePasswordProfile(final String newPassword){
         FirebaseUser user = mAuth.getCurrentUser();
 
-        user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if (newPassword.isEmpty()) {
+            createErrorAlert(this, "Alerta", "Este campo no puede estar vacio");
+        } else {
+            user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -173,6 +183,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                     }
                 }
             });
+        }
+
+
     }
 
     public void updateAllProfile(String newName, String newEmail, String newPassword){

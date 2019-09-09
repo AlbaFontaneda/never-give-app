@@ -60,6 +60,8 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    implementation 'com.polyak:icon-switch:1.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
