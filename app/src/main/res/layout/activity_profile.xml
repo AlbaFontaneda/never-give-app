@@ -216,10 +216,10 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="35dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="40dp">
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="30dp">
 
             <TextView
                 android:id="@+id/text"
@@ -231,22 +231,22 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"/>
 
             <com.polyak.iconswitch.IconSwitch
                 android:id="@+id/icon_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/text"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 app:isw_default_selection="left"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:isw_icon_left="@drawable/ic_user"
+                app:isw_icon_left="@drawable/ic_person"
                 app:isw_icon_right="@drawable/ic_key"
-                app:isw_background_color="@color/black"
-                app:isw_thumb_color_left="@color/bpRed"
+                app:isw_background_color="@color/icon_grey"
+                app:isw_thumb_color_left="@color/colorAccent"
                 app:isw_thumb_color_right="@color/bpRed"
                 app:isw_inactive_tint_icon_left="#fff"
                 app:isw_inactive_tint_icon_right="#fff"
@@ -268,13 +268,13 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_face_color"
-                    android:layout_marginEnd="15dp"/>
+                    android:src="@drawable/ic_face_color" />
 
                 <android.support.constraint.ConstraintLayout
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="50dp">
+                    android:layout_height="wrap_content">
 
                     <!--
                     <EditText
@@ -312,9 +312,8 @@
                 android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_user"
+                app:layout_constraintTop_toTopOf="@id/edit_user"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -322,13 +321,13 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_locked_color"
-                    android:layout_marginRight="15dp"/>
+                    android:src="@drawable/ic_locked_color"/>
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingRight="50dp">
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp">
                     <!--
                     <EditText
                         android:id="@+id/new_pass"
@@ -371,7 +370,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="15dp"
-                android:gravity="center_horizontal"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <Button
@@ -400,6 +401,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="Este proceso puede tardar unos segundos. Espere por favor."
                 android:textStyle="bold"
                 android:gravity="center"
