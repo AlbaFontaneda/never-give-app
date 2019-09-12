@@ -46,7 +46,7 @@
         android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/profile_caterpie"
+        android:src="@drawable/profile_zoiberg"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="@id/waveHeader"
         app:layout_constraintEnd_toEndOf="parent"

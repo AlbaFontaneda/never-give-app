@@ -42,7 +42,7 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UID).child(data).setValue(newValue);
     }
 
-    private void addUserToFirebase(String email, String password, String username, Uri profileImage) {
+    private void addUserToFirebase(String email, String password, String username, String profileImage) {
         mydbRef = database.getReference(usersKey);
         String UID = getUid();
         mydbRef.child(UID).setValue(new Profile(UID, email, password, username, profileImage));
@@ -109,7 +109,8 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     }
 
     private String getRandomImg() {
-        String[] profiles = {"profile_caterpie.png", "profile_pikachu.png", "profile_psyduck.png"};
+        String[] profiles = {"profile_amy.png", "profile_bender.png", "profile_fry.png", "profile_hermes.png", "profile_leela.png", "profile_mom.png",
+                "profile_mordisquitos.png", "profile_profesor.png", "profile_zapp.png", "profile_zoiberg.png"};
         int rnd = new Random().nextInt(profiles.length);
 
         return profiles[rnd];
@@ -145,9 +146,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.d("FIREBASE", "User profile updated.");
-                                            addUserToFirebase(email, password, username, imageUrl[0]);
+                                            addUserToFirebase(email, password, username, imageUrl[0].toString());
                                         } else {
-                                            addUserToFirebase(email, password, "Anonimo",  imageUrl[0]);
+                                            addUserToFirebase(email, password, "Anonimo",  imageUrl[0].toString());
                                         }
                                     }
                                 });

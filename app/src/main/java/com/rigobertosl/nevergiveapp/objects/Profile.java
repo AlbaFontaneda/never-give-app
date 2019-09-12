@@ -9,14 +9,13 @@ import java.util.Map;
 public class Profile {
 
     /******************  Variables  ********************/
-    private String ID, email, password, name;
-    private Uri profileImage;
+    private String ID, email, password, name, profileImage;
     private HashMap<String, String> targetedEvents = new HashMap<>();
 
     /******************  Constructores  ********************/
     public Profile(){}
 
-    public Profile(String ID, String email, String password, String username, Uri profileImage) {
+    public Profile(String ID, String email, String password, String username, String profileImage) {
         this.ID = ID;
         this.email = email;
         this.password = password;
@@ -57,11 +56,11 @@ public class Profile {
         this.name = name;
     }
 
-    public Uri getProfileImage() {
+    public String getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(Uri profileImage) {
+    public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
 
