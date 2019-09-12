@@ -96,27 +96,6 @@ public class EventsActivity extends AppFiredatabase {
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item){
-
-        switch (item.getItemId()){
-            case R.id.edit:
-                startNewActivity(this, ProfileActivity.class);
-                break;
-            case R.id.sign_out:
-                signOut();
-                startNewActivity(this, LoginActivity.class);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {

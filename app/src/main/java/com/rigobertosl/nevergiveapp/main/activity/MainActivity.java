@@ -108,6 +108,7 @@ public class MainActivity extends AppFiredatabase
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs); //Layout donde ponemos los tabs
 
         if (!autoLogin()) {
+            navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_close_session).setVisible(false);
         }
         

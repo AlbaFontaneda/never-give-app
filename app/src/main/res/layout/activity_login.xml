@@ -189,13 +189,14 @@
 
                 <EditText
                     android:id="@+id/email"
-                    android:layout_width="270dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    app:layout_constraintLeft_toRightOf="@+id/ic_email"
-                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/ic_email"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text" />
 
 
@@ -210,15 +211,16 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="270dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Password"
+                    android:layout_marginStart="10dp"
                     android:imeActionLabel="Sign in"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    app:layout_constraintLeft_toRightOf="@+id/ic_password"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ic_password"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email" />
 
                 <Button
