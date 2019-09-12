@@ -49,6 +49,9 @@ dependencies {
     //Firebase Autentication
     implementation 'com.google.firebase:firebase-auth:17.0.0'
 
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
+
     //Expand and Collapse layout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
@@ -60,7 +63,11 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    //SwitchIcon
     implementation 'com.polyak:icon-switch:1.0.0'
+
+    //Piscasso (url img loader)
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 }
 

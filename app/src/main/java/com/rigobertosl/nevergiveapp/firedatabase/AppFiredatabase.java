@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,8 +18,12 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.rigobertosl.nevergiveapp.main.activity.MainActivity;
 import com.rigobertosl.nevergiveapp.objects.Profile;
+
+import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -27,6 +32,9 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
     /************************************* Variables **********************************************/
     protected DatabaseReference mydbRef;
     protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    protected FirebaseStorage storage = FirebaseStorage.getInstance();
+    protected StorageReference storageRef = storage.getReference();
+
 
     /************************************  Realtime Database  *************************************/
     public void updateProfileToFirebase(String UID, String data, String newValue){
@@ -34,10 +42,10 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mydbRef.child(UID).child(data).setValue(newValue);
     }
 
-    private void addUserToFirebase(String email, String password, String username) {
+    private void addUserToFirebase(String email, String password, String username, String profileImage) {
         mydbRef = database.getReference(usersKey);
         String UID = getUid();
-        mydbRef.child(UID).setValue(new Profile(UID, email, password, username));
+        mydbRef.child(UID).setValue(new Profile(UID, email, password, username, profileImage));
     }
 
     /**************************************  Authenticator  ***************************************/
@@ -100,28 +108,52 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
         mAuth.signOut();
     }
 
+    private String getRandomImg() {
+        String[] profiles = {"profile_amy.png", "profile_bender.png", "profile_fry.png", "profile_hermes.png", "profile_leela.png", "profile_mom.png",
+                "profile_mordisquitos.png", "profile_profesor.png", "profile_zapp.png", "profile_zoiberg.png"};
+        int rnd = new Random().nextInt(profiles.length);
+
+        return profiles[rnd];
+    }
+
     private void updateUserOnRegister(final String email, final String password) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String username = user.getEmail().substring(0, user.getEmail().indexOf("@"));
+        final Uri[] imageUrl = {null};
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(username)
-                .build();
-
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        storageRef.child("profilephotos/"+getRandomImg()).getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("FIREBASE", "User profile updated.");
-                            addUserToFirebase(email, password, username);
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        UserProfileChangeRequest profileUpdates;
+                        if(task.isSuccessful()) {
+                            imageUrl[0] = task.getResult();
+                            profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(username)
+                                    .setPhotoUri(imageUrl[0])
+                                    .build();
                         } else {
-                            addUserToFirebase(email, password, "Anonimo");
+                            profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(username)
+                                    .setPhotoUri(imageUrl[0])
+                                    .build();
                         }
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("FIREBASE", "User profile updated.");
+                                            addUserToFirebase(email, password, username, imageUrl[0].toString());
+                                        } else {
+                                            addUserToFirebase(email, password, "Anonimo",  imageUrl[0].toString());
+                                        }
+                                    }
+                                });
                     }
                 });
-
     }
 
     public void updateNameProfile(final String newName){
@@ -240,6 +272,11 @@ public class AppFiredatabase extends AppCompatActivity implements FiredatabaseIn
 
     public String getEmail() {
         return FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    }
+
+    public Uri getProfilePhoto() {
+        return FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
     }
 
 }

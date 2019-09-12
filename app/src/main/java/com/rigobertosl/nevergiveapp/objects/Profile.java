@@ -1,5 +1,7 @@
 package com.rigobertosl.nevergiveapp.objects;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,17 +9,18 @@ import java.util.Map;
 public class Profile {
 
     /******************  Variables  ********************/
-    private String ID, email, password, name;
+    private String ID, email, password, name, profileImage;
     private HashMap<String, String> targetedEvents = new HashMap<>();
 
     /******************  Constructores  ********************/
     public Profile(){}
 
-    public Profile(String ID, String email, String password, String username) {
+    public Profile(String ID, String email, String password, String username, String profileImage) {
         this.ID = ID;
         this.email = email;
         this.password = password;
         this.name = username;
+        this.profileImage = profileImage;
     }
 
     /******************  Getters and Setters  ********************/
@@ -51,6 +54,14 @@ public class Profile {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public HashMap<String, String> getTargetedEvents() {

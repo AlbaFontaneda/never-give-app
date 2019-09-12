@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.polyak.iconswitch.IconSwitch;
 import com.rigobertosl.nevergiveapp.R;
 import com.rigobertosl.nevergiveapp.firedatabase.AppFiredatabase;
+import com.squareup.picasso.Picasso;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -29,6 +30,7 @@ public class ProfileActivity extends AppFiredatabase {
     private ProgressBar spinner;
     private IconSwitch iconSwitch;
     private LinearLayout blurUser, blurPass;
+    private ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class ProfileActivity extends AppFiredatabase {
         setSupportActionBar(toolbar);
 
         username = (TextView) findViewById(R.id.user);
-        username.setText(getUsername());
         email = (TextView) findViewById(R.id.email);
         email.setText(getEmail());
 
@@ -47,6 +48,11 @@ public class ProfileActivity extends AppFiredatabase {
         newPassword = (EditText) findViewById(R.id.new_pass);
         //newEmail = (EditText) findViewById(R.id.new_email);
         //newEmail.setText(getEmail());
+
+        profileImage = (ImageView) findViewById(R.id.profile_image);
+        Picasso.with(this).load(getProfilePhoto())
+                .error(R.drawable.profile_caterpie)
+                .into(profileImage);
 
         blurUser = (LinearLayout) findViewById(R.id.edit_user);
         blurPass = (LinearLayout) findViewById(R.id.edit_pass);
@@ -108,41 +114,48 @@ public class ProfileActivity extends AppFiredatabase {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //updateAllProfile(newUserName.getText().toString(), newEmail.getText().toString(), newPassword.getText().toString());
-                //updateAllProfile(newUserName.getText().toString(), mAuth.getCurrentUser().getEmail(), newPassword.getText().toString());
-
-                if (iconSwitch.getChecked().equals(IconSwitch.Checked.LEFT)) {
-                    updateNameProfile(newUserName.getText().toString());
-                    newUserName.setEnabled(false);
-                } else if (iconSwitch.getChecked().equals(IconSwitch.Checked.RIGHT)) {
-                    updatePasswordProfile(newPassword.getText().toString());
-                    newPassword.setEnabled(false);
-                }
-
-                waitText.setVisibility(View.VISIBLE);
-                spinner.setVisibility(View.VISIBLE);
-                save.setEnabled(false);
-                cancel.setEnabled(false);
-
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Do something after 2s = 2000ms
-                        expandableLayout.collapse();
-                        fab.setVisibility(View.VISIBLE);
-                        waitText.setVisibility(View.INVISIBLE);
-                        spinner.setVisibility(View.INVISIBLE);
-                        newUserName.setEnabled(true);
-                        newPassword.setEnabled(true);
-                        save.setEnabled(true);
-                        cancel.setEnabled(true);
+                if (newUserName.getText().toString().isEmpty() && iconSwitch.getChecked().equals(IconSwitch.Checked.LEFT)) {
+                    createErrorAlert(ProfileActivity.this, "¡Alerta!", "Tienes que rellenar alguno de los campos para poder guardar los cambios...").show();
+                } else if (newPassword.getText().toString().isEmpty() && iconSwitch.getChecked().equals(IconSwitch.Checked.RIGHT)) {
+                    createErrorAlert(ProfileActivity.this, "¡Alerta!", "Tienes que rellenar alguno de los campos para poder guardar los cambios...").show();
+                } else {
+                    if (iconSwitch.getChecked().equals(IconSwitch.Checked.LEFT)) {
+                        updateNameProfile(newUserName.getText().toString());
+                        newUserName.setEnabled(false);
+                    } else if (iconSwitch.getChecked().equals(IconSwitch.Checked.RIGHT)) {
+                        updatePasswordProfile(newPassword.getText().toString());
+                        newPassword.setEnabled(false);
                     }
-                }, 5000);
+
+                    waitText.setVisibility(View.VISIBLE);
+                    spinner.setVisibility(View.VISIBLE);
+                    save.setEnabled(false);
+                    cancel.setEnabled(false);
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 2s = 2000ms
+                            expandableLayout.collapse();
+                            fab.setVisibility(View.VISIBLE);
+                            waitText.setVisibility(View.INVISIBLE);
+                            spinner.setVisibility(View.INVISIBLE);
+                            newUserName.setEnabled(true);
+                            newPassword.setEnabled(true);
+                            save.setEnabled(true);
+                            cancel.setEnabled(true);
+                            username.setText(getUsername());
+                        }
+                    }, 5000);
+                }
             }
-
-
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        username.setText(getUsername());
     }
 }
